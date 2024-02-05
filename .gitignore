@@ -4,11 +4,17 @@
 
 # Maven
 target/
+log/
 
 # IntelliJ IDEA
-.idea/
+*.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
 
 # Eclipse
-.classpath
-.project
-.settings/
+*.classpath
+*.project
+*.settings/
