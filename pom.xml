@@ -17,6 +17,7 @@
         <module>xmart-insert-client</module>
         <module>xmart-city-client-commons</module>
         <module>xmart-select-client</module>
+        <module>front-end</module>
     </modules>
 
     <dependencies>
