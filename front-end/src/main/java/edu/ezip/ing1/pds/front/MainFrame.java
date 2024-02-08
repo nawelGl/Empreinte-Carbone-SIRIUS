@@ -2,12 +2,16 @@ package edu.ezip.ing1.pds.front;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements ActionListener {
 
     private int longueur;
     private int largeur;
     private String titre;
+    private JButton button;
 
     public static MainFrame instance = null;
 
@@ -52,13 +56,41 @@ public class MainFrame extends JFrame{
         setSize(longueur, largeur);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        button = new JButton();
+        button.addActionListener(this);
+        button.setText("Select data on database");
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        getContentPane().add(panel);
+        panel.add(button, BorderLayout.SOUTH);
+
         setVisible(true);
     }
 
+    //TODO : eventuellement changer la taille du bouton car prend toute la longueur de la frame.
 
-    //Main :
     public static void main(String[] args) {
-        MainFrame.getInstance().initialize();
+        MainFrame frame =  MainFrame.getInstance();
+        frame.initialize();
+
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == button){
+            try {
+                //Test avec un echo :
+                ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "java -version");
+                pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+                Process process = pb.start();
+                int exitCode = process.waitFor();
+                System.out.println("Code de sortie de la commande : " + exitCode);
+            } catch (Exception ex) {
+                //TODO : ajouter un logger pour les messages d'erreur ?
+                throw new RuntimeException(ex);
+            }
+        }
+    }
 }
