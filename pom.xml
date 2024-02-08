@@ -17,7 +17,6 @@
         <module>xmart-insert-client</module>
         <module>xmart-city-client-commons</module>
         <module>xmart-select-client</module>
-        <module>front-end</module>
     </modules>
 
     <dependencies>
@@ -49,14 +48,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.1.1</version>
-                    <configuration>
-                        <mainClass>edu.ezip.ing1.pds.backend.MainBackendServer</mainClass>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
