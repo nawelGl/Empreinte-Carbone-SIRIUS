@@ -13,16 +13,20 @@ public class MainFrame extends JFrame{
 
     //Contructeur par défaut :
     private MainFrame(){
-        longueur = 500;
-        largeur = 700;
+        longueur = 800;
+        largeur = 600;
         titre = "Index";
+
+        initialize();
     }
 
     //Constructeur paramétré avec titre uniquement :
     private MainFrame(String titre){
         this.titre = titre;
-        longueur = 500;
-        largeur = 700;
+        longueur = 800;
+        largeur = 600;
+
+        initialize();
     }
 
     //Constructeur paramétré avec toutes les valeurs :
@@ -30,31 +34,31 @@ public class MainFrame extends JFrame{
         this.titre = titre;
         this.longueur = longueur;
         this.largeur = largeur;
+
+        initialize();
     }
 
     //Méthode getInstance pour ne pouvoir faire qu'une instance au plus.
-    public Frame getInstance(){
+    public static MainFrame getInstance(){
         if(instance == null){
-            instance = new MainFrame();
+            instance = new MainFrame("Home");
         }
         return instance;
     }
 
     //Méthode pour initialiser la JFrame :
     public void initialize(){
-        MainFrame frame = new MainFrame();
-        frame.setTitle(titre);
-        frame.setSize(longueur, largeur);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        setTitle(titre);
+        setSize(longueur, largeur);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
 
     //Main :
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame("Home");
-        System.out.println("ok...");
+        MainFrame.getInstance().initialize();
     }
 
 }
