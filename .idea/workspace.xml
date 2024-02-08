@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8b693995-bb5b-43ba-8941-ed51d503b5c3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ezip_ing1_localhost-2020_01_16_18_57_18-dump.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logging-utils/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logging-utils/src/main/java/edu/ezip/commons/LoggingUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/src/main/java/edu/ezip/commons/connectionpool/config/DatabaseConnectionBasicConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/src/main/java/edu/ezip/commons/connectionpool/config/ExperimentConnectionImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/src/main/java/edu/ezip/commons/connectionpool/config/impl/ConnectionPoolImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/src/main/resources/db-config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/db-config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/edu/ezip/commons/connectionpool/config/DatabaseConnectionBasicConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/edu/ezip/commons/connectionpool/config/ExperimentConnectionImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/edu/ezip/commons/connectionpool/config/impl/ConnectionPoolImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/rdbms-connection-pool-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/rdbms-connection-pool-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/test-connection-pool.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-city-by-ezip.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/deploy-server.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/insert-request.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/insert-student-request.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/main-backend-server.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/select-1-request.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/select-request.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/backend/CoreBackendServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/backend/MainBackendServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/backend/RequestHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/backend/config/CoreBackendServerConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/RequestOrderAnnotation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/resources/core-backend-server.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/resources/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/core-backend-server.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/backend/CoreBackendServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/backend/MainBackendServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/backend/RequestHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/backend/config/CoreBackendServerConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/business/server/RequestOrderAnnotation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/business/server/XMartCityService$Queries.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/edu/ezip/ing1/pds/business/server/XMartCityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/classes/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/xmart-city-backend-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/xmart-city-backend-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/xmart-city-backend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Students.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-client-commons/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-client-commons/src/main/java/edu/ezip/ing1/pds/client/commons/ClientRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-client-commons/src/main/java/edu/ezip/ing1/pds/client/commons/ConfigLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-client-commons/src/main/java/edu/ezip/ing1/pds/client/commons/NetworkConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-client-commons/src/main/resources/network.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-commons/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-commons/src/main/java/edu/ezip/ing1/pds/commons/Request.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-commons/src/main/java/edu/ezip/ing1/pds/commons/Response.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/MainInsertClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/src/main/resources/students-to-be-inserted.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/edu/ezip/ing1/pds/client/MainInsertClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/students-to-be-inserted.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/xmart-insert-client-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/xmart-insert-client-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/MainSelectClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/SelectAllStudentsClientRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/SelectAllStudentsClientRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/xmart-select-client.sh" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2c4kUgj6Jn8w8vpRcTuLfYuajqA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "nawel-branch",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8b693995-bb5b-43ba-8941-ed51d503b5c3" name="Changes" comment="" />
+      <created>1707378256454</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1707378256454</updated>
+    </task>
+    <servers />
+  </component>
+</project>
