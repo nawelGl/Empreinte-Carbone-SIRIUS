@@ -13,6 +13,10 @@
         <module name="xmart-select-client" />
         <module name="xmart-city-backend" />
         <module name="xmart-insert-client" />
+<<<<<<< HEAD
+=======
+        <module name="front-end" />
+>>>>>>> nawres-branch
         <module name="rdbms-connection-pool" />
       </profile>
     </annotationProcessing>

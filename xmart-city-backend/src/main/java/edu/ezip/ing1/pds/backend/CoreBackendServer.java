@@ -44,6 +44,12 @@ public class CoreBackendServer implements Runnable
     // Should rather use an Interface variable
     private ConnectionPoolImpl connectionPool = ConnectionPoolImpl.getInstance(dbEditorIsPGSQLHere);
 
+    public static Connection getConnection() {
+        return getConnection();
+    }
+
+
+
     // This class method should be factorized.
     private final CoreBackendServerConfiguration withConfiguration () {
         final Yaml yaml = new Yaml(new Constructor(CoreBackendServerConfiguration.class));
@@ -117,7 +123,7 @@ public class CoreBackendServer implements Runnable
         requestHandlers.remove(requestHandler);
 
     }
-    // requestHandler: gérer la requêtes du client, obtinet une connextion de la pool et gère la communication avec le client
+    // requestHandler: gérer la requêtes du client, obtin et une connexion de la pool et gère la communication avec le client
     public synchronized void stop() {
         logger.trace("Stop() called within Core Backend Server ... ");
         topToStop = true;
