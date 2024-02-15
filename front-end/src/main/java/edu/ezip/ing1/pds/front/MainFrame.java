@@ -120,30 +120,61 @@ public class MainFrame extends JFrame implements ActionListener {
 //        }
 //    }
 
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if(e.getSource() == button){
+//            //appeler dispatch ?
+//            CoreBackendServer server = null;
+//            try {
+//                server = new CoreBackendServer();
+//            } catch (Exception ex) {
+//                System.out.println(ex.getMessage());
+//            }
+//            server.run();
+////            final Request request = new Request();
+////            final Connection connection;
+////            final RequestHandler rh = server.requestHandlers;
+////            connection = rh.getConnection();
+////            request.setRequestOrder("SELECT_ALL_STUDENTS");
+////            XMartCityService xmartCityService = XMartCityService.getInstance();
+////            try {
+////                final Response response = xmartCityService.dispatch(request, connection);
+////            } catch (Exception ex) {
+////                System.out.println(ex.getMessage())
+////            }
+//        }
+//    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button){
-            //appeler dispatch ?
-            CoreBackendServer server = null;
             try {
-                server = new CoreBackendServer();
+                // Créer une instance de XMartCityService
+                XMartCityService xmartCityService = XMartCityService.getInstance();
+
+                // Créer une requête pour sélectionner tous les étudiants
+                Request request = new Request();
+                request.setRequestOrder("SELECT_ALL_STUDENTS");
+
+                // Obtenir une connexion à la base de données
+                Connection connection = CoreBackendServer.getConnection();
+
+                // Envoyer la requête à la base de données via XMartCityService
+                Response response = xmartCityService.dispatch(request, connection);
+
+                // Récupérer le corps de la réponse (les données des étudiants)
+                String responseBody = response.getResponseBody();
+
+                // Afficher les données dans une boîte de dialogue ou une zone de texte
+                JOptionPane.showMessageDialog(this, responseBody, "Résultat de la requête", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                // Gérer les exceptions
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Erreur lors de l'exécution de la requête", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-            server.run();
-//            final Request request = new Request();
-//            final Connection connection;
-//            final RequestHandler rh = server.requestHandlers;
-//            connection = rh.getConnection();
-//            request.setRequestOrder("SELECT_ALL_STUDENTS");
-//            XMartCityService xmartCityService = XMartCityService.getInstance();
-//            try {
-//                final Response response = xmartCityService.dispatch(request, connection);
-//            } catch (Exception ex) {
-//                System.out.println(ex.getMessage())
-//            }
         }
     }
+
 
 
 }
