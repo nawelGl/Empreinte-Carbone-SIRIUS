@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front;
 
+import ch.qos.logback.classic.net.JMSQueueAppender;
 import edu.ezip.ing1.pds.backend.CoreBackendServer;
 import edu.ezip.ing1.pds.backend.RequestHandler;
 import edu.ezip.ing1.pds.commons.Request;
@@ -26,6 +27,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private JButton button;
 
     public static MainFrame instance = null;
+    private JTextArea textArea;
 
     //Contructeur par défaut :
     private MainFrame(){
@@ -78,6 +80,11 @@ public class MainFrame extends JFrame implements ActionListener {
         getContentPane().add(panel);
         panel.add(button, BorderLayout.SOUTH);
 
+        textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+
         setVisible(true);
     }
 
@@ -88,120 +95,6 @@ public class MainFrame extends JFrame implements ActionListener {
 
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if(e.getSource() == button){
-//            try {
-//                //Test avec un echo :
-//                ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", "java -version");
-//                pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-//                pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-//                Process process = pb.start();
-//                int exitCode = process.waitFor();
-//                System.out.println("Code de sortie de la commande : " + exitCode);
-//            } catch (Exception ex) {
-//                //TODO : ajouter un logger pour les messages d'erreur ?
-//                throw new RuntimeException(ex);
-//            }
-//        }
-//    }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if(e.getSource() == button){
-//            Runtime runtime = Runtime.getRuntime();
-//            try {
-//                runtime.exec("cd ..");
-//                runtime.exec("cd xmart-city-backend/target");
-//                runtime.exec("java -jar xmart-city-backend-1.0-SNAPSHOT-jar-with-dependencies.jar");
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//                System.out.println("Fail");
-//            }
-//            System.out.println("yoooo");
-//        }
-//    }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if(e.getSource() == button){
-//            //appeler dispatch ?
-//            CoreBackendServer server = null;
-//            try {
-//                server = new CoreBackendServer();
-//            } catch (Exception ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//            server.run();
-////            final Request request = new Request();
-////            final Connection connection;
-////            final RequestHandler rh = server.requestHandlers;
-////            connection = rh.getConnection();
-////            request.setRequestOrder("SELECT_ALL_STUDENTS");
-////            XMartCityService xmartCityService = XMartCityService.getInstance();
-////            try {
-////                final Response response = xmartCityService.dispatch(request, connection);
-////            } catch (Exception ex) {
-////                System.out.println(ex.getMessage())
-////            }
-//        }
-//    }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if(e.getSource() == button) {
-////            CoreBackendServer server = null;
-////            try {
-////                server = new CoreBackendServer();
-////            } catch (Exception ex) {
-////                System.out.println(ex.getMessage());
-////            }
-//            try {
-//                System.out.println("dans le try");
-//                // Définir la commande
-//                //String command = "cd .. && cd xmart-select-client/target && java -jar xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
-//                String command = "mvn exec:java@selectClient";
-//
-//                System.out.println("apres command");
-//                // Lancer la commande
-//                Process process = Runtime.getRuntime().exec(command);
-//                System.out.println("apres process");
-//                // Lire la sortie de la commande
-//                InputStream inputStream = process.getInputStream();
-//                System.out.println("apres inputstream");
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-////                String line;
-////                line = reader.readLine();
-////                System.out.println(line);
-////                while ((line = reader.readLine()) != null) {
-////                    System.out.println(line);
-////                }
-//
-//                String line = reader.readLine();
-//                System.out.println(line);
-//                if (line != null) {
-//                    System.out.println(line);
-//                    while ((line = reader.readLine()) != null) {
-//                        System.out.println(line);
-//                    }
-//                } else {
-//                    System.out.println("La sortie du processus est vide.");
-//                }
-//
-//                // Lire la sortie d'erreur de la commande (si nécessaire)
-//                InputStream errorStream = process.getErrorStream();
-//                BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
-//
-//                // Afficher la sortie d'erreur
-//                while ((line = errorReader.readLine()) != null) {
-//                    System.err.println(line);
-//                }
-//
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -217,10 +110,16 @@ public class MainFrame extends JFrame implements ActionListener {
                 InputStream inputStream = process.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 String line;
-                while ((line = reader.readLine()) != null) {
-                    // Traitez la sortie de votre fichier JAR ici, par exemple, affichez-la dans votre frame
-                    System.out.println(line);
+                int compteur=0;
+                while ((line = reader.readLine()) != null ) {
+
+                        compteur++; // On veut afficher a partir de la 9ieme lignes
+                        if (compteur >= 10) {
+                            // Ajouter chaque ligne à partir de la 9ème ligne au JTextArea
+                            textArea.append(line + "\n");
+                        }
                 }
+
 
                 // Lire la sortie d'erreur de la commande (si nécessaire)
                 InputStream errorStream = process.getErrorStream();

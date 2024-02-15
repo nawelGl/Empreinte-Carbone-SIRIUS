@@ -71,7 +71,7 @@ public class MainSelectClient {
 //                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
                 resp += student.getFirstname() + " ";
                 resp += student.getName() + " ";
-                resp += student.getGroup() + " ";
+                resp += student.getGroup() + "\n ";
             }
             System.out.println(resp);
         }
