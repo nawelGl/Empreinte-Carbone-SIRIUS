@@ -159,7 +159,8 @@ public class MainFrame extends JFrame implements ActionListener {
             try {
                 System.out.println("dans le try");
                 // Définir la commande
-                String command = "cd .. && cd xmart-select-client/target && java -jar xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
+                //String command = "cd .. && cd xmart-select-client/target && java -jar xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
+                String command = "mvn exec:java@selectClient";
 
                 System.out.println("apres command");
                 // Lancer la commande
@@ -177,6 +178,7 @@ public class MainFrame extends JFrame implements ActionListener {
 //                }
 
                 String line = reader.readLine();
+                System.out.println(line);
                 if (line != null) {
                     System.out.println(line);
                     while ((line = reader.readLine()) != null) {
