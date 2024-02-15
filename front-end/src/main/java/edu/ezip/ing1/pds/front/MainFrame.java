@@ -10,7 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -52,6 +55,7 @@ public class MainFrame extends JFrame implements ActionListener {
     }
 
     //Méthode getInstance pour ne pouvoir faire qu'une instance au plus.
+    //Si deja une insatnce la recupere sinon en crée une
     public static MainFrame getInstance(){
         if(instance == null){
             instance = new MainFrame("Home");
@@ -73,8 +77,6 @@ public class MainFrame extends JFrame implements ActionListener {
         panel.setLayout(new BorderLayout());
         getContentPane().add(panel);
         panel.add(button, BorderLayout.SOUTH);
-
-        System.out.println("Ok frame lancée !");
 
         setVisible(true);
     }
@@ -147,34 +149,59 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == button){
+        if(e.getSource() == button) {
+//            CoreBackendServer server = null;
+//            try {
+//                server = new CoreBackendServer();
+//            } catch (Exception ex) {
+//                System.out.println(ex.getMessage());
+//            }
             try {
-                // Créer une instance de XMartCityService
-                XMartCityService xmartCityService = XMartCityService.getInstance();
+                System.out.println("dans le try");
+                // Définir la commande
+                //String command = "cd .. && cd xmart-select-client/target && java -jar xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
+                String command = "mvn exec:java@selectClient";
 
-                // Créer une requête pour sélectionner tous les étudiants
-                Request request = new Request();
-                request.setRequestOrder("SELECT_ALL_STUDENTS");
+                System.out.println("apres command");
+                // Lancer la commande
+                Process process = Runtime.getRuntime().exec(command);
+                System.out.println("apres process");
+                // Lire la sortie de la commande
+                InputStream inputStream = process.getInputStream();
+                System.out.println("apres inputstream");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//                String line;
+//                line = reader.readLine();
+//                System.out.println(line);
+//                while ((line = reader.readLine()) != null) {
+//                    System.out.println(line);
+//                }
 
-                // Obtenir une connexion à la base de données
-                Connection connection = CoreBackendServer.getConnection();
+                String line = reader.readLine();
+                System.out.println(line);
+                if (line != null) {
+                    System.out.println(line);
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } else {
+                    System.out.println("La sortie du processus est vide.");
+                }
 
-                // Envoyer la requête à la base de données via XMartCityService
-                Response response = xmartCityService.dispatch(request, connection);
+                // Lire la sortie d'erreur de la commande (si nécessaire)
+                InputStream errorStream = process.getErrorStream();
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
 
-                // Récupérer le corps de la réponse (les données des étudiants)
-                String responseBody = response.getResponseBody();
+                // Afficher la sortie d'erreur
+                while ((line = errorReader.readLine()) != null) {
+                    System.err.println(line);
+                }
 
-                // Afficher les données dans une boîte de dialogue ou une zone de texte
-                JOptionPane.showMessageDialog(this, responseBody, "Résultat de la requête", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception ex) {
-                // Gérer les exceptions
+            } catch (IOException ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Erreur lors de l'exécution de la requête", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-
 
 
 }

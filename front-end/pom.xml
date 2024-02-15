@@ -29,11 +29,26 @@
                             <goal>java</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>selectClient</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar</argument>
+                            </arguments>
+                            <workingDirectory>/Users/nawel/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target</workingDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <mainClass>edu.ezip.ing1.pds.front.MainFrame</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
