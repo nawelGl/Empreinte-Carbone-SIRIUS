@@ -25,6 +25,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private int largeur;
     private String titre;
     private JButton button;
+    private JLabel label;
 
     public static MainFrame instance = null;
     private JTextArea textArea;
@@ -72,12 +73,18 @@ public class MainFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        label=new JLabel("Liste de tous les élèves");
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+
+
+
         button = new JButton();
         button.addActionListener(this);
         button.setText("Select data on database");
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         getContentPane().add(panel);
+        panel.add(label, BorderLayout.NORTH);
         panel.add(button, BorderLayout.SOUTH);
 
         textArea = new JTextArea();
