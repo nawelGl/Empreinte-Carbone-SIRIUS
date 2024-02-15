@@ -147,45 +147,79 @@ public class MainFrame extends JFrame implements ActionListener {
 //        }
 //    }
 
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if(e.getSource() == button) {
+////            CoreBackendServer server = null;
+////            try {
+////                server = new CoreBackendServer();
+////            } catch (Exception ex) {
+////                System.out.println(ex.getMessage());
+////            }
+//            try {
+//                System.out.println("dans le try");
+//                // Définir la commande
+//                //String command = "cd .. && cd xmart-select-client/target && java -jar xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
+//                String command = "mvn exec:java@selectClient";
+//
+//                System.out.println("apres command");
+//                // Lancer la commande
+//                Process process = Runtime.getRuntime().exec(command);
+//                System.out.println("apres process");
+//                // Lire la sortie de la commande
+//                InputStream inputStream = process.getInputStream();
+//                System.out.println("apres inputstream");
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+////                String line;
+////                line = reader.readLine();
+////                System.out.println(line);
+////                while ((line = reader.readLine()) != null) {
+////                    System.out.println(line);
+////                }
+//
+//                String line = reader.readLine();
+//                System.out.println(line);
+//                if (line != null) {
+//                    System.out.println(line);
+//                    while ((line = reader.readLine()) != null) {
+//                        System.out.println(line);
+//                    }
+//                } else {
+//                    System.out.println("La sortie du processus est vide.");
+//                }
+//
+//                // Lire la sortie d'erreur de la commande (si nécessaire)
+//                InputStream errorStream = process.getErrorStream();
+//                BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
+//
+//                // Afficher la sortie d'erreur
+//                while ((line = errorReader.readLine()) != null) {
+//                    System.err.println(line);
+//                }
+//
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button) {
-//            CoreBackendServer server = null;
-//            try {
-//                server = new CoreBackendServer();
-//            } catch (Exception ex) {
-//                System.out.println(ex.getMessage());
-//            }
             try {
-                System.out.println("dans le try");
-                // Définir la commande
-                //String command = "cd .. && cd xmart-select-client/target && java -jar xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
-                String command = "mvn exec:java@selectClient";
+                // Définir la commande pour exécuter le fichier JAR
+                String command = "java -jar /Users/nawreshajabouda/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
 
-                System.out.println("apres command");
                 // Lancer la commande
                 Process process = Runtime.getRuntime().exec(command);
-                System.out.println("apres process");
+
                 // Lire la sortie de la commande
                 InputStream inputStream = process.getInputStream();
-                System.out.println("apres inputstream");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//                String line;
-//                line = reader.readLine();
-//                System.out.println(line);
-//                while ((line = reader.readLine()) != null) {
-//                    System.out.println(line);
-//                }
-
-                String line = reader.readLine();
-                System.out.println(line);
-                if (line != null) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Traitez la sortie de votre fichier JAR ici, par exemple, affichez-la dans votre frame
                     System.out.println(line);
-                    while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
-                    }
-                } else {
-                    System.out.println("La sortie du processus est vide.");
                 }
 
                 // Lire la sortie d'erreur de la commande (si nécessaire)
@@ -202,6 +236,7 @@ public class MainFrame extends JFrame implements ActionListener {
             }
         }
     }
+
 
 
 }
