@@ -21,6 +21,7 @@ import java.sql.SQLException;
 
 public class MainFrame extends JFrame implements ActionListener {
 
+    //Frame demandée
     private int longueur;
     private int largeur;
     private String titre;
