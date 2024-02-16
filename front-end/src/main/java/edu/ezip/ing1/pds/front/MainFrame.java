@@ -76,9 +76,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
         label=new JLabel("Liste de tous les élèves");
         label.setFont(new Font("Arial", Font.BOLD, 20));
-
-
-
+        
         button = new JButton();
         button.addActionListener(this);
         button.setText("Select data on database");

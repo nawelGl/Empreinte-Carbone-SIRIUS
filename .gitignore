@@ -1,37 +1,4 @@
-<<<<<<< HEAD
-# Default ignored files
-/shelf/
-/workspace.xml
-
-# Maven
-target/
-log/
-
-# IntelliJ IDEA
-*.idea/
-*.iml
-*.iws
-
-# Mac
-*.DS_Store
-
-# Eclipse
-*.classpath
-*.project
-*.settings/
-
-# Compiled class file
-*.class
-=======
 
 *.class
 *.jar
 *.lst
->>>>>>> nawres-branch
-*.xml
-*.class
-*.jar
-*.jar
-*.class
-*.lst
-*.xml
