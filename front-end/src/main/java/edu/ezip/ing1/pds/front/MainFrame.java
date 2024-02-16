@@ -44,8 +44,8 @@ public class MainFrame extends JFrame implements ActionListener {
     //Constructeur paramétré avec titre uniquement :
     private MainFrame(String titre){
         this.titre = titre;
-        longueur = 800;
-        largeur = 600;
+        longueur = 900;
+        largeur = 800;
 
         initialize();
     }
@@ -90,9 +90,10 @@ public class MainFrame extends JFrame implements ActionListener {
         panel.add(button, BorderLayout.SOUTH);
 
         textArea = new JTextArea();
-        textArea.setBounds(325, 90, 300, 300);
+        textArea.setBounds(100, 100, 600, 500);
         JScrollPane scrollPane = new JScrollPane(textArea);
         JPanel panelMid = new JPanel();
+        panelMid.add(scrollPane);
         panelMid.setLayout(null);
         panelMid.setBackground(Color.white);
         panelMid.add(textArea);
