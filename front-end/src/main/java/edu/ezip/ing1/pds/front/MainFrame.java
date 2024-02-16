@@ -117,7 +117,7 @@ public class MainFrame extends JFrame implements ActionListener {
         if(e.getSource() == button) {
             try {
                 // Définir la commande pour exécuter le fichier JAR
-                String command = "java -jar /Users/nawel/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
+                String command = "java -jar /Users/nawreshajabouda/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
 
                 // Lancer la commande
                 Process process = Runtime.getRuntime().exec(command);
