@@ -38,7 +38,7 @@ public class Produit {
         return buildPreparedStatement(preparedStatement, idProduit, idEmplacement, paysDepart, paysArrive, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit);
     }
 
-    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, char score, String genre, double empreinte, int idMagasin, int idMarque, int nomProduit) {
+    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, char score, String genre, double empreinte, int idMagasin, int idMarque, String nomProduit) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.paysDepart = paysDepart;
@@ -49,9 +49,9 @@ public class Produit {
         this.score = score;
         this.genre = genre;
         this.empreinte = empreinte;
-        this.idMagasin = idMarque;
+        this.idMagasin = idMagasin;
         this.idMarque = idMarque;
-        this.idProduit = idProduit;
+        this.nomProduit = nomProduit;
     }
 
     // Getters and setters for each field
@@ -99,6 +99,10 @@ public class Produit {
         return idMagasin;
     }
 
+ //   public int getIdMarque() {
+//        return idMarque;
+//    }
+
     public String getNomProduit() {
         return nomProduit;
     }
@@ -135,7 +139,6 @@ public class Produit {
                 ", genre='" + genre + '\'' +
                 ", empreinte=" + empreinte +
                 ", id_magasin =" + idMagasin +
-                ", id_marque =" + idMarque +
                 ", nom_produit =" + nomProduit +
                 '}';
     }

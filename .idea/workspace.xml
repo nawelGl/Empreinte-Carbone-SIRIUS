@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/SelectAllProductsClientRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/select-1-request.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/select-product-request.json" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/select-product-request.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/select-request.json" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/select-1-product-request.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Produit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Students.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-client-commons/src/main/java/edu/ezip/ing1/pds/client/commons/ClientRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-client-commons/src/main/java/edu/ezip/ing1/pds/client/commons/ClientRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/MainInsertClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/MainInsertClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/edu/ezip/ing1/pds/client/MainInsertClient.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/MainSelectClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/MainSelectClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/SelectAllStudentsClientRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/SelectAllStudentsClientRequest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +50,8 @@
     "git-widget-placeholder": "nawel-branch",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/nawel/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-city-backend"
+    "last_opened_file_path": "/Users/nawel/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-city-backend",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
   }
 }]]></component>
   <component name="RecentsManager">

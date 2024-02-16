@@ -6,8 +6,6 @@ import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
 import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.Produits;
-import edu.ezip.ing1.pds.business.dto.Student;
-import edu.ezip.ing1.pds.business.dto.Students;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -32,7 +30,7 @@ public class MainSelectClient {
     private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_ALL_STUDENTS";
+    private static final String requestOrder = "SELECT_ALL_PRODUCTS";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
     public static void main(String[] args) throws IOException, InterruptedException, SQLException {
