@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Default ignored files
 /shelf/
 /workspace.xml
@@ -23,10 +24,13 @@ log/
 # Compiled class file
 *.class
 =======
+=======
+>>>>>>> f4c869f5d9149cce205c266ed6d8b1b94f4b44b9
 
 *.class
 *.jar
 *.lst
+<<<<<<< HEAD
 >>>>>>> nawres-branch
 *.xml
 *.class
@@ -34,3 +38,5 @@ log/
 *.jar
 *.class
 *.lst
+=======
+>>>>>>> f4c869f5d9149cce205c266ed6d8b1b94f4b44b9
