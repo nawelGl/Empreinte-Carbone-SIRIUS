@@ -22,7 +22,7 @@ public class Produit {
     private double empreinte;
     private int idMagasin;
     private int idMarque;
-    private int nomProduit;
+    private String nomProduit;
 
     public Produit() {
     }
@@ -55,6 +55,53 @@ public class Produit {
     }
 
     // Getters and setters for each field
+    public int getIdProduit() {
+        return idProduit;
+    }
+
+    public int getIdEmplacement() {
+        return idEmplacement;
+    }
+
+    public String getPaysDepart() {
+        return paysDepart;
+    }
+
+    public String getPaysArrive() {
+        return paysArrive;
+    }
+
+    public String getCouleur() {
+        return couleur;
+    }
+
+    public String getTaille() {
+        return taille;
+    }
+
+    public int getReference() {
+        return reference;
+    }
+
+    public char getScore() {
+        return score;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public double getEmpreinte() {
+        return empreinte;
+    }
+
+    public int getIdMagasin() {
+        return idMagasin;
+    }
+
+    public String getNomProduit() {
+        return nomProduit;
+    }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
