@@ -27,7 +27,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class CoreBackendServer implements Runnable
 {
-    private final static String LoggingLabel = "C o re - B a c k e n d - S e r v e r";
+    private final static String LoggingLabel = "C o r e - B a c k e n d - S e r v e r";
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String coreBackendServerConfigDefaultFileName = "core-backend-server.yaml";
     private static final String threadName = "core-backend-server";

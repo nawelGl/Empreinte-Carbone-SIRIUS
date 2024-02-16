@@ -8,6 +8,7 @@ import edu.ezip.ing1.pds.commons.Response;
 import edu.ezip.ing1.pds.business.server.XMartCityService;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,8 +44,8 @@ public class MainFrame extends JFrame implements ActionListener {
     //Constructeur paramétré avec titre uniquement :
     private MainFrame(String titre){
         this.titre = titre;
-        longueur = 800;
-        largeur = 600;
+        longueur = 900;
+        largeur = 800;
 
         initialize();
     }
@@ -74,21 +75,30 @@ public class MainFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        label=new JLabel("Liste de tous les élèves");
+        label=new JLabel("Liste des élèves :");
         label.setFont(new Font("Arial", Font.BOLD, 20));
+        label.setBorder(new EmptyBorder(15, 20, 0, 0));
         
         button = new JButton();
         button.addActionListener(this);
-        button.setText("Select data on database");
+        button.setText("Afficher les élèves");
         JPanel panel = new JPanel();
+        panel.setBackground(Color.white);
         panel.setLayout(new BorderLayout());
         getContentPane().add(panel);
         panel.add(label, BorderLayout.NORTH);
         panel.add(button, BorderLayout.SOUTH);
 
         textArea = new JTextArea();
+        textArea.setBounds(100, 100, 600, 500);
         JScrollPane scrollPane = new JScrollPane(textArea);
-        panel.add(scrollPane, BorderLayout.CENTER);
+        JPanel panelMid = new JPanel();
+        panelMid.add(scrollPane);
+        panelMid.setLayout(null);
+        panelMid.setBackground(Color.white);
+        panelMid.add(textArea);
+        panelMid.add(scrollPane);
+        panel.add(panelMid, BorderLayout.CENTER);
 
 
         setVisible(true);
@@ -107,7 +117,7 @@ public class MainFrame extends JFrame implements ActionListener {
         if(e.getSource() == button) {
             try {
                 // Définir la commande pour exécuter le fichier JAR
-                String command = "java -jar /Users/nawreshajabouda/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
+                String command = "java -jar /Users/nawel/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
 
                 // Lancer la commande
                 Process process = Runtime.getRuntime().exec(command);
