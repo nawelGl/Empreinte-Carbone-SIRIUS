@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Student;
 import edu.ezip.ing1.pds.business.dto.Students;
+import edu.ezip.ing1.pds.business.dto.Produit;
+import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import org.slf4j.Logger;
@@ -25,7 +27,9 @@ public class XMartCityService {
 
     private enum Queries {
         SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
-        INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)");
+        INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
+
+        SELECT_ALL_PRODUITS("SELECT p.nom_produit , p.empreinte,p.score, p.taille, p.couleur, p.reference FROM \"ezip-ing1\".produit p");
         private final String query;
 
         private Queries(final String query) {
@@ -109,12 +113,39 @@ public class XMartCityService {
                     }
                     break;
 
+                case "SELECT_ALL_PRODUCTS": // request SELECT
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_PRODUITS.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Produits produits = new Produits();
+
+                        while (resultSet.next()) {
+                            Produit produit = new Produit();
+                            produit.build(resultSet);
+                            produits.add(produit);
+                        }
+
+                        // mapper students en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(produits);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_PRODUITS query");
+                        logger.error("Error executing SELECT_ALL_PRODUITS query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
                 default:
                     // Handle unknown action
                     response = new Response(request.getRequestId(), "Unknown action");
                     break;
             }
         }
+
 
         return response;
     }

@@ -90,7 +90,7 @@ public class MainFrame extends JFrame implements ActionListener {
         panel.add(button, BorderLayout.SOUTH);
 
         textArea = new JTextArea();
-        textArea.setBounds(100, 100, 600, 500);
+        textArea.setBounds(250, 70, 360, 600);
         JScrollPane scrollPane = new JScrollPane(textArea);
         JPanel panelMid = new JPanel();
         panelMid.add(scrollPane);
@@ -130,7 +130,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 while ((line = reader.readLine()) != null ) {
 
                         compteur++; // On veut afficher a partir de la 9ieme lignes
-                        if (compteur >= 10) {
+                        if (compteur >= 11) {
                             // Ajouter chaque ligne à partir de la 9ème ligne au JTextArea
                             textArea.append(line + "\n");
                         }
