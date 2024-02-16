@@ -57,23 +57,23 @@ public class MainSelectClient {
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final Students students = (Students) joinedClientRequest.getResult();
-//            final AsciiTable asciiTable = new AsciiTable();
-//            for (final Student student : students.getStudents()) {
-//                asciiTable.addRule();
-//                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
-//            }
-//            asciiTable.addRule();
-//            logger.debug("\n{}\n", asciiTable.render());
-
-            String resp = "";
+            final AsciiTable asciiTable = new AsciiTable();
             for (final Student student : students.getStudents()) {
-//                asciiTable.addRule();
-//                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
-                resp += student.getFirstname() + " ";
-                resp += student.getName() + " ";
-                resp += student.getGroup() + "\n ";
+                asciiTable.addRule();
+                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
             }
-            System.out.println(resp);
+            asciiTable.addRule();
+            logger.debug("\n{}\n", asciiTable.render());
+
+//            String resp = "";
+//            for (final Student student : students.getStudents()) {
+////                asciiTable.addRule();
+////                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
+//                resp += student.getFirstname() + " ";
+//                resp += student.getName() + " ";
+//                resp += student.getGroup() + "\n ";
+//            }
+//            System.out.println(resp);
         }
     }
 }
