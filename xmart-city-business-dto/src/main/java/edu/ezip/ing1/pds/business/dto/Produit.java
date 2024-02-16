@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 @JsonRootName(value = "produit")
 public class Produit {
-    private int idProduit;
+    private int idProduit = 0;
     private int idEmplacement;
     private String paysDepart;
     private String paysArrive;
@@ -25,13 +25,22 @@ public class Produit {
     private String nomProduit;
 
     public Produit() {
+        this.couleur = "vert";
+        this. taille = "S";
+        this.paysArrive= "maroc";
     }
 
+    public Produit(String paysArrive, String couleur, String taille) {
+        this.paysArrive = paysArrive;
+        this.couleur = couleur;
+        this.taille = taille;
+    }
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "id_produit", "id_emplacement", "pays_depart", "pays_arrive", "couleur", "taille", "reference", "score", "genre", "empreinte", "id_magasin", "id_marque", "nom_produit");
+        setFieldsFromResultSet(resultSet, "id_emplacement", "pays_depart", "pays_arrive", "couleur", "taille", "reference", "score", "genre", "empreinte", "id_magasin", "id_marque", "nom_produit");
         return this;
     }
+
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
@@ -102,6 +111,11 @@ public class Produit {
  //   public int getIdMarque() {
 //        return idMarque;
 //    }
+
+
+    public void setIdProduit(int idProduit) {
+        this.idProduit = idProduit;
+    }
 
     public String getNomProduit() {
         return nomProduit;

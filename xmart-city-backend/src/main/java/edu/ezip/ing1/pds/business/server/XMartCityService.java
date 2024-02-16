@@ -2,12 +2,13 @@ package edu.ezip.ing1.pds.business.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ezip.ing1.pds.business.dto.Produit;
+
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import  edu.ezip.ing1.pds.business.dto.Produit;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -118,11 +119,26 @@ public class XMartCityService {
 
                         Produits produits = new Produits();
                         System.out.println("==================================");
-//                        while (resultSet.next()) {
-//                            Produit produit = new Produit();
-//                            produit.build(resultSet);
-//                            produits.add(produit);
-//                        }
+                        while (resultSet.next()) {
+                            Produit produit = new Produit();
+                            //produit.build(resultSet);
+                            produit.setIdProduit(resultSet.getInt("id_produit"));
+//                            resultSet.getInt("id_emplacement");
+//                            resultSet.getString("pays_depart");
+//                            resultSet.getString("pays_arrive");
+//                            resultSet.getString("couleur");
+//                            resultSet.getString("taille");
+//                            resultSet.getInt("reference");
+//                            resultSet.getCharacterStream("score");
+//                            resultSet.getString("genre");
+//                            resultSet.getDouble("empreinte");
+//                            resultSet.getInt("id_magasin");
+//                            resultSet.getString("id_marque");
+//                            resultSet.getString("nom_produit");
+
+
+                            produits.add(produit);
+                        }
                         System.out.println(produits);
 
                         System.out.println("==================================");
