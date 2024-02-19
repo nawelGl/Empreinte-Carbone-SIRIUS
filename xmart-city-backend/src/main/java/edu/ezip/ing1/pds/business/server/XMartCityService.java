@@ -13,6 +13,7 @@ import  edu.ezip.ing1.pds.business.dto.Produit;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -28,7 +29,9 @@ public class XMartCityService {
        // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
 
-        SELECT_ALL_PRODUCTS("SELECT p.id_produit, p.id_emplacement, p.pays_depart, p.pays_arrive, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.id_magasin, p.nom_produit   FROM \"ezip-ing1\".produit p");
+//        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
+           // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
+        SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit");
         private final String query;
 
         private Queries(final String query) {
@@ -118,48 +121,42 @@ public class XMartCityService {
                         ResultSet resultSet = selectStatement.executeQuery();
 
                         Produits produits = new Produits();
-                        System.out.println("==================================");
+
                         while (resultSet.next()) {
                             Produit produit = new Produit();
-                            //produit.build(resultSet);
-                            produit.setIdProduit(resultSet.getInt("id_produit"));
-//                            resultSet.getInt("id_emplacement");
-//                            resultSet.getString("pays_depart");
-//                            resultSet.getString("pays_arrive");
-//                            resultSet.getString("couleur");
-//                            resultSet.getString("taille");
-//                            resultSet.getInt("reference");
-//                            resultSet.getCharacterStream("score");
-//                            resultSet.getString("genre");
-//                            resultSet.getDouble("empreinte");
-//                            resultSet.getInt("id_magasin");
-//                            resultSet.getString("id_marque");
-//                            resultSet.getString("nom_produit");
-
-
+                            produit.setIdProduit(resultSet.getInt("idProduit"));
+                            produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
+                            produit.setPaysDepart(resultSet.getString("paysDepart"));
+                            produit.setPaysArrivee(resultSet.getString("paysArrivee"));
+                            produit.setCouleur(resultSet.getString("couleur"));
+                            produit.setTaille(resultSet.getString("taille"));
+                            produit.setReference(resultSet.getInt("reference"));
+                            produit.setScore(resultSet.getString("score"));
+                            produit.setgenre(resultSet.getString("genre"));
+                            produit.setEmpreinte(resultSet.getFloat("empreinte"));
+                            produit.setIdMagasin(resultSet.getInt("idMagasin"));
+                            produit.setIdMarque(resultSet.getInt("idMarque"));
+                            produit.setNomProduit(resultSet.getString("nomProduit"));
+                            produit.build(resultSet);
                             produits.add(produit);
                         }
-                        System.out.println(produits);
 
-                        System.out.println("==================================");
-
-
-                        // mapper students en Json
+                        // mapper produits en Json
                         ObjectMapper objectMapper = new ObjectMapper();
                         String responseBody = objectMapper.writeValueAsString(produits);
 
                         response = new Response(request.getRequestId(), responseBody);
-//                    } catch (SQLException | JsonProcessingException e) {
-//                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_PRODUITS query");
-//                        logger.error("Error executing SELECT_ALL_PRODUITS query: {}", e.getMessage());
-//                    } catch (NoSuchFieldException e) {
-//                        throw new RuntimeException(e);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_PRODUITS query");
+                        logger.error("Error executing SELECT_ALL_PRODUITS query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
                       }
-                        catch(Exception e){
-                            System.out.println("==================================");
-                            System.out.println(e.getMessage());
-                            System.out.println("==================================");
-                        }
+//                        catch(Exception e){
+//                            System.out.println("==================================");
+//                            System.out.println(e.getMessage());
+//                            System.out.println("==================================");
+//                        }
                     break;
 
                 default:

@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/rdbms-connection-pool-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/maven-archiver/pom.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Produit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +55,13 @@
       <recent name="edu.ezip.ing1.pds.business.dto" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ezip.ing1.pds.front.MainFrame" />
       <module name="front-end" />
@@ -68,6 +77,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Application" />
         <item itemvalue="Application.MainFrame" />
       </list>
     </recent_temporary>
