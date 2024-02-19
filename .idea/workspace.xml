@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/rdbms-connection-pool-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/maven-archiver/pom.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-business-dto/src/main/java/edu/ezip/ing1/pds/business/dto/Produit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/src/main/java/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/edu/ezip/ing1/pds/client/InsertStudentsClientRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-select-client/target/classes/edu/ezip/ing1/pds/client/MainSelectClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/MainSelectClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/MainSelectClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -132,14 +132,19 @@ public class XMartCityService {
                             produit.setTaille(resultSet.getString("taille"));
                             produit.setReference(resultSet.getInt("reference"));
                             produit.setScore(resultSet.getString("score"));
-                            produit.setgenre(resultSet.getString("genre"));
+                            produit.setGenre(resultSet.getString("genre"));
                             produit.setEmpreinte(resultSet.getFloat("empreinte"));
                             produit.setIdMagasin(resultSet.getInt("idMagasin"));
                             produit.setIdMarque(resultSet.getInt("idMarque"));
                             produit.setNomProduit(resultSet.getString("nomProduit"));
                             produit.build(resultSet);
+                            System.out.println("produit to string :");
+                            System.out.println(produit.toString());
                             produits.add(produit);
                         }
+
+                        System.out.println("produits to string :");
+                        System.out.println(produits.toString());
 
                         // mapper produits en Json
                         ObjectMapper objectMapper = new ObjectMapper();

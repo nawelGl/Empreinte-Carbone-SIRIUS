@@ -87,7 +87,7 @@ public class MainSelectClient {
             final AsciiTable asciiTable = new AsciiTable();
             for (final Produit produit : produits.getProduits()) {
                 asciiTable.addRule();
-                asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrive(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getNomProduit());
+                asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());

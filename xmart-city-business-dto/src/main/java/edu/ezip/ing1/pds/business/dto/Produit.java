@@ -77,7 +77,7 @@ public class Produit {
 
     public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
 
-    public String getPaysArrive() {
+    public String getPaysArrivee() {
         return paysArrivee;
     }
 
@@ -111,7 +111,7 @@ public class Produit {
         return genre;
     }
 
-    public void setgenre(String genre){this.genre = genre;}
+    public void setGenre(String genre){this.genre = genre;}
 
     public float getEmpreinte() {
         return empreinte;
