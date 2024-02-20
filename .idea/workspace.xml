@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="Nettoyage du pom du FrontEnd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-select-client/target/maven-archiver/pom.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT.jar" beforeDir="false" />
     </list>
+=======
+    <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
