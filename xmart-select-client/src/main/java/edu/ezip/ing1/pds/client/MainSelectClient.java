@@ -25,7 +25,7 @@ import java.util.UUID;
 
 public class MainSelectClient {
 
-    private final static String LoggingLabel = "I n s e r t e r - C l i e n t";
+    private final static String LoggingLabel = "S e l e c t - P r o d u c t";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
     private final static String networkConfigFile = "network.yaml";
@@ -87,7 +87,7 @@ public class MainSelectClient {
             final AsciiTable asciiTable = new AsciiTable();
             for (final Produit produit : produits.getProduits()) {
                 asciiTable.addRule();
-                asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrive(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getNomProduit());
+                asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());

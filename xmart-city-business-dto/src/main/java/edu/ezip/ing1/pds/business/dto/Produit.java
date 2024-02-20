@@ -4,22 +4,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @JsonRootName(value = "produit")
 public class Produit {
-    private int idProduit;
+    private int idProduit = 0;
     private int idEmplacement;
     private String paysDepart;
-    private String paysArrive;
+    private String paysArrivee;
     private String couleur;
     private String taille;
     private int reference;
-    private char score;
+    private String score;
     private String genre;
-    private double empreinte;
+    private float empreinte;
     private int idMagasin;
     private int idMarque;
     private String nomProduit;
@@ -29,20 +30,21 @@ public class Produit {
 
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "id_produit", "id_emplacement", "pays_depart", "pays_arrive", "couleur", "taille", "reference", "score", "genre", "empreinte", "id_magasin", "id_marque", "nom_produit");
+        setFieldsFromResultSet(resultSet, "idProduit", "idEmplacement", "paysDepart", "paysArrivee", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit");
         return this;
     }
 
+
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idProduit, idEmplacement, paysDepart, paysArrive, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit);
+        return buildPreparedStatement(preparedStatement, idProduit, idEmplacement, paysDepart, paysArrivee, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit);
     }
 
-    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, char score, String genre, double empreinte, int idMagasin, int idMarque, String nomProduit) {
+    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.paysDepart = paysDepart;
-        this.paysArrive = paysArrive;
+        this.paysArrivee = paysArrive;
         this.couleur = couleur;
         this.taille = taille;
         this.reference = reference;
@@ -59,53 +61,94 @@ public class Produit {
         return idProduit;
     }
 
+    @JsonProperty("produit_idProduit")
+    public void setIdProduit(int idProduit) {
+        this.idProduit = idProduit;
+    }
+
     public int getIdEmplacement() {
         return idEmplacement;
     }
+
+    @JsonProperty("produit_idEmplacement")
+    public void setIdEmplacement(int idEmplacement){this.idEmplacement = idEmplacement;}
 
     public String getPaysDepart() {
         return paysDepart;
     }
 
-    public String getPaysArrive() {
-        return paysArrive;
+    @JsonProperty("produit_paysDepart")
+    public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
+
+    public String getPaysArrivee() {
+        return paysArrivee;
     }
+
+    @JsonProperty("produit_paysArrivee")
+    public void setPaysArrivee(String paysArrivee){this.paysArrivee = paysArrivee;}
 
     public String getCouleur() {
         return couleur;
     }
 
+    @JsonProperty("produit_couleur")
+    public void setCouleur(String couleur){this.couleur = couleur;}
+
     public String getTaille() {
         return taille;
     }
+
+    @JsonProperty("produit_taille")
+    public void setTaille(String taille){this.taille = taille;}
 
     public int getReference() {
         return reference;
     }
 
-    public char getScore() {
+    @JsonProperty("produit_reference")
+    public void setReference(int reference){this.reference = reference;}
+
+    public String getScore() {
         return score;
     }
+
+    @JsonProperty("produit_score")
+    public void setScore(String score) {this.score = score;}
 
     public String getGenre() {
         return genre;
     }
 
-    public double getEmpreinte() {
+    @JsonProperty("produit_genre")
+    public void setGenre(String genre){this.genre = genre;}
+
+    public float getEmpreinte() {
         return empreinte;
     }
+
+    @JsonProperty("produit_empreinte")
+    public void setEmpreinte(float empreinte){this.empreinte = empreinte;}
 
     public int getIdMagasin() {
         return idMagasin;
     }
 
- //   public int getIdMarque() {
-//        return idMarque;
-//    }
+    @JsonProperty("produit_idMagasin")
+    public void setIdMagasin(int idMagasin){this.idMagasin = idMagasin;}
+
+    public int getIdMarque(){return idMarque;}
+
+    @JsonProperty("produit_idMarque")
+    public void setIdMarque(int idMarque){this.idMarque = idMarque;}
 
     public String getNomProduit() {
         return nomProduit;
     }
+
+    @JsonProperty("produit_nomProduit")
+    public void setNomProduit(String nomProduit){this.nomProduit = nomProduit;}
+
+
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
@@ -131,7 +174,7 @@ public class Produit {
                 "idProduit=" + idProduit +
                 ", idEmplacement=" + idEmplacement +
                 ", paysDepart='" + paysDepart + '\'' +
-                ", paysArrive='" + paysArrive + '\'' +
+                ", paysArrive='" + paysArrivee + '\'' +
                 ", couleur='" + couleur + '\'' +
                 ", taille='" + taille + '\'' +
                 ", reference=" + reference +
@@ -142,4 +185,5 @@ public class Produit {
                 ", nom_produit =" + nomProduit +
                 '}';
     }
+
 }
