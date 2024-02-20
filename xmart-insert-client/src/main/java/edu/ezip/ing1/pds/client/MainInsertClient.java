@@ -57,7 +57,7 @@ public class MainInsertClient {
             final Produit produit = (Produit)clientRequest.getInfo();
             logger.debug("Thread {} complete : {} {} {} --> {}",
                                     clientRequest.getThreadName(),
-                                    produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(),
+                                    produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(),
                                     clientRequest.getResult());
         }
     }
