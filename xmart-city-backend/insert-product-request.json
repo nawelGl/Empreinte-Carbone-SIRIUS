@@ -3,7 +3,7 @@
     "request_id" : "807fe4fc-71b9-4d25-b39f-09628e03a4bc",
     "request_order" : "INSERT_PRODUCT",
     "request_body"  : {
-      "produit_idProduit" : 6,
+
       "produit_idEmplacement" : 4,
       "produit_paysDepart" : "France",
       "produit_paysArrivee" : "Belgique",
