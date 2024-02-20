@@ -21,10 +21,10 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: students; Type: TABLE; Schema: ezip-ing1; Owner: pgil
+-- Name: students; Type: TABLE; Schema: ezip-ing; Owner: pgil
 --
 
-CREATE TABLE "ezip-ing1".students (
+CREATE TABLE "ezip-ing".students (
     name character varying(64) NOT NULL,
     firstname character varying(64) NOT NULL,
     id integer NOT NULL,
@@ -32,13 +32,13 @@ CREATE TABLE "ezip-ing1".students (
 );
 
 
-ALTER TABLE "ezip-ing1".students OWNER TO pgil;
+ALTER TABLE "ezip-ing".students OWNER TO pgil;
 
 --
--- Name: students_id_seq; Type: SEQUENCE; Schema: ezip-ing1; Owner: pgil
+-- Name: students_id_seq; Type: SEQUENCE; Schema: ezip-ing; Owner: pgil
 --
 
-CREATE SEQUENCE "ezip-ing1".students_id_seq
+CREATE SEQUENCE "ezip-ing".students_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -46,51 +46,51 @@ CREATE SEQUENCE "ezip-ing1".students_id_seq
     CACHE 1;
 
 
-ALTER TABLE "ezip-ing1".students_id_seq OWNER TO pgil;
+ALTER TABLE "ezip-ing".students_id_seq OWNER TO pgil;
 
 --
--- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: ezip-ing1; Owner: pgil
+-- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: ezip-ing; Owner: pgil
 --
 
-ALTER SEQUENCE "ezip-ing1".students_id_seq OWNED BY "ezip-ing1".students.id;
-
-
---
--- Name: students id; Type: DEFAULT; Schema: ezip-ing1; Owner: pgil
---
-
-ALTER TABLE ONLY "ezip-ing1".students ALTER COLUMN id SET DEFAULT nextval('"ezip-ing1".students_id_seq'::regclass);
+ALTER SEQUENCE "ezip-ing".students_id_seq OWNED BY "ezip-ing".students.id;
 
 
 --
--- Data for Name: students; Type: TABLE DATA; Schema: ezip-ing1; Owner: pgil
+-- Name: students id; Type: DEFAULT; Schema: ezip-ing; Owner: pgil
 --
 
-COPY "ezip-ing1".students (name, firstname, id, "group") FROM stdin;
+ALTER TABLE ONLY "ezip-ing".students ALTER COLUMN id SET DEFAULT nextval('"ezip-ing".students_id_seq'::regclass);
+
+
+--
+-- Data for Name: students; Type: TABLE DATA; Schema: ezip-ing; Owner: pgil
+--
+
+COPY "ezip-ing".students (name, firstname, id, "group") FROM stdin;
 MYNAME	Myfirstname	401	FISA-B
 \.
 
 
 --
--- Name: students_id_seq; Type: SEQUENCE SET; Schema: ezip-ing1; Owner: pgil
+-- Name: students_id_seq; Type: SEQUENCE SET; Schema: ezip-ing; Owner: pgil
 --
 
-SELECT pg_catalog.setval('"ezip-ing1".students_id_seq', 443, true);
+SELECT pg_catalog.setval('"ezip-ing".students_id_seq', 443, true);
 
 
 --
--- Name: students students_pk; Type: CONSTRAINT; Schema: ezip-ing1; Owner: pgil
+-- Name: students students_pk; Type: CONSTRAINT; Schema: ezip-ing; Owner: pgil
 --
 
-ALTER TABLE ONLY "ezip-ing1".students
+ALTER TABLE ONLY "ezip-ing".students
     ADD CONSTRAINT students_pk PRIMARY KEY (id);
 
 
 --
--- Name: students_id_uindex; Type: INDEX; Schema: ezip-ing1; Owner: pgil
+-- Name: students_id_uindex; Type: INDEX; Schema: ezip-ing; Owner: pgil
 --
 
-CREATE UNIQUE INDEX students_id_uindex ON "ezip-ing1".students USING btree (id);
+CREATE UNIQUE INDEX students_id_uindex ON "ezip-ing".students USING btree (id);
 
 
 --

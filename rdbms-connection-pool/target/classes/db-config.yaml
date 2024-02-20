@@ -1,4 +1,4 @@
-databaseName: "ezip-ing1"
+databaseName: "ezip-ing"
 host: "172.31.249.34"
 port: 5432
 username : "postgres"

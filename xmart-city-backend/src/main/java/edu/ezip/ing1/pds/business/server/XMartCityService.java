@@ -27,13 +27,13 @@ public class XMartCityService {
 
     private enum Queries {
        // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
-        INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
+        INSERT_STUDENT("INSERT into \"ezip-ing\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
 
-        INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        INSERT_PRODUCT("INSERT into \"ezip-ing\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrive\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
 
 //        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
            // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
-        SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit");
+        SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing\".produit");
         private final String query;
 
         private Queries(final String query) {
@@ -129,7 +129,7 @@ public class XMartCityService {
                             produit.setIdProduit(resultSet.getInt("idProduit"));
                             produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
                             produit.setPaysDepart(resultSet.getString("paysDepart"));
-                            produit.setPaysArrivee(resultSet.getString("paysArrivee"));
+                            produit.setPaysArrivee(resultSet.getString("paysArrive"));
                             produit.setCouleur(resultSet.getString("couleur"));
                             produit.setTaille(resultSet.getString("taille"));
                             produit.setReference(resultSet.getInt("reference"));
@@ -140,13 +140,8 @@ public class XMartCityService {
                             produit.setIdMarque(resultSet.getInt("idMarque"));
                             produit.setNomProduit(resultSet.getString("nomProduit"));
                             produit.build(resultSet);
-                            System.out.println("produit to string :");
-                            System.out.println(produit.toString());
                             produits.add(produit);
                         }
-
-                        System.out.println("produits to string :");
-                        System.out.println(produits.toString());
 
                         // mapper produits en Json
                         ObjectMapper objectMapper = new ObjectMapper();
