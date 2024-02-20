@@ -29,6 +29,8 @@ public class XMartCityService {
        // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
 
+        INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idProduit\", \"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+
 //        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
            // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit");
@@ -157,11 +159,40 @@ public class XMartCityService {
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                       }
-//                        catch(Exception e){
-//                            System.out.println("==================================");
-//                            System.out.println(e.getMessage());
-//                            System.out.println("==================================");
-//                        }
+                    break;
+
+                case "INSERT_PRODUCT":
+                    try {
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        Produit produit = objectMapper.readValue(requestBody, Produit.class);
+
+                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
+                        insertStatement.setInt(1, produit.getIdProduit());
+                        insertStatement.setInt(2, produit.getIdEmplacement());
+                        insertStatement.setString(3, produit.getPaysDepart());
+                        insertStatement.setString(3, produit.getPaysArrivee());
+                        insertStatement.setString(3, produit.getCouleur());
+                        insertStatement.setString(3, produit.getTaille());
+                        insertStatement.setInt(3, produit.getReference());
+                        insertStatement.setString(3, produit.getScore());
+                        insertStatement.setString(3, produit.getGenre());
+                        insertStatement.setFloat(3, produit.getEmpreinte());
+                        insertStatement.setInt(3, produit.getIdMagasin());
+                        insertStatement.setInt(3, produit.getIdMarque());
+                        insertStatement.setString(3, produit.getNomProduit());
+
+                        int rowsAffected = insertStatement.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            response = new Response(request.getRequestId(),String.format("{\"idProduit\": %d}", rowsAffected));
+                        } else {
+                            response = new Response(request.getRequestId(), "Failed to insert product");
+                        }
+                    } catch (SQLException | IOException e) {
+                        response = new Response(request.getRequestId(), "Error executing INSERT_PRODUCT query");
+                        logger.error("Error executing INSERT_PRODUCT query: {}", e.getMessage());
+                    }
                     break;
 
                 default:

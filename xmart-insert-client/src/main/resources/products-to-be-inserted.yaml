@@ -1,0 +1,14 @@
+produits :
+  - idProduit : 6
+    idEmplacement: 3
+    paysDepart: "France"
+    paysArrivee : "Belgique"
+    couleur : "Bleu"
+    taille : "S"
+    reference : 27492
+    score : A
+    genre : "Femme"
+    empreinte : 14.23
+    idMagasin : 4
+    idMarque : 2
+    nomProduit : "Pull"
