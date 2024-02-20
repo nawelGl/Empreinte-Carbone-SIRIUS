@@ -1,6 +1,5 @@
 produits :
-  - idProduit : 7
-    idEmplacement: 3
+  - idEmplacement: 3
     paysDepart: "France"
     paysArrivee : "Belgique"
     couleur : "Bleu"
