@@ -78,7 +78,7 @@ public class MainFrame extends JFrame implements ActionListener {
         label=new JLabel("Liste des élèves :");
         label.setFont(new Font("Arial", Font.BOLD, 20));
         label.setBorder(new EmptyBorder(15, 20, 0, 0));
-
+        
         button = new JButton();
         button.addActionListener(this);
         button.setText("Afficher les élèves");
@@ -129,12 +129,13 @@ public class MainFrame extends JFrame implements ActionListener {
                 int compteur=0;
                 while ((line = reader.readLine()) != null ) {
 
-                    compteur++; // On veut afficher a partir de la 9ieme lignes
-                    if (compteur >= 11) {
-                        // Ajouter chaque ligne à partir de la 9ème ligne au JTextArea
-                        textArea.append(line + "\n");
-                    }
+                        compteur++; // On veut afficher a partir de la 9ieme lignes
+                        if (compteur >= 11) {
+                            // Ajouter chaque ligne à partir de la 9ème ligne au JTextArea
+                            textArea.append(line + "\n");
+                        }
                 }
+
 
                 // Lire la sortie d'erreur de la commande (si nécessaire)
                 InputStream errorStream = process.getErrorStream();

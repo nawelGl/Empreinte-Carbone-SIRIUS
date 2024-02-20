@@ -1,7 +1,7 @@
 produits :
   - idEmplacement: 3
     paysDepart: "Portugal"
-    paysArrive : "Italie"
+    paysArrivee : "Italie"
     couleur : "Jaune"
     taille : "M"
     reference : 28837

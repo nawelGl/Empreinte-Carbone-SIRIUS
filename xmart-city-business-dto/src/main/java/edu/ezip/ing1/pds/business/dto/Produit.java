@@ -30,7 +30,7 @@ public class Produit {
 
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idemplacement", "paysdepart", "paysarrive", "couleur", "taille", "reference", "score", "genre", "empreinte", "idmagasin", "idmarque", "nomproduit");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "paysDepart", "paysArrivee", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit");
         return this;
     }
 
@@ -84,7 +84,7 @@ public class Produit {
         return paysArrivee;
     }
 
-    @JsonProperty("produit_paysArrive")
+    @JsonProperty("produit_paysArrivee")
     public void setPaysArrivee(String paysArrivee){this.paysArrivee = paysArrivee;}
 
     public String getCouleur() {
