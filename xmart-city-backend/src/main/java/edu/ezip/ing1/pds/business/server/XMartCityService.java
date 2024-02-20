@@ -182,6 +182,8 @@ public class XMartCityService {
                         insertStatement.setInt(3, produit.getIdMarque());
                         insertStatement.setString(3, produit.getNomProduit());
 
+                        produit.build(insertStatement);
+
                         int rowsAffected = insertStatement.executeUpdate();
 
                         if (rowsAffected > 0) {
@@ -192,6 +194,8 @@ public class XMartCityService {
                     } catch (SQLException | IOException e) {
                         response = new Response(request.getRequestId(), "Error executing INSERT_PRODUCT query");
                         logger.error("Error executing INSERT_PRODUCT query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
                     }
                     break;
 
