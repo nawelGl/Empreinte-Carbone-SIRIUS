@@ -5,22 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="Nettoyage du pom du FrontEnd">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AcceuilFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-city-backend/insert-product-request.json" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/insert-product-request.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-city-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/classes/students-to-be-inserted.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/target/classes/students-to-be-inserted.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/xmart-insert-client-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/target/xmart-insert-client-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-insert-client/target/xmart-insert-client-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-insert-client/target/xmart-insert-client-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -58,6 +56,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.AcceuilFrame.executor": "Debug",
     "Application.MainFrame.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -67,7 +66,20 @@
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.AcceuilFrame">
+    <configuration name="AcceuilFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ezip.ing1.pds.front.AcceuilFrame" />
+      <module name="front-end" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ezip.ing1.pds.front.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ezip.ing1.pds.front.MainFrame" />
       <module name="front-end" />
@@ -83,6 +95,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AcceuilFrame" />
         <item itemvalue="Application.MainFrame" />
         <item itemvalue="Application.MainFrame" />
       </list>
