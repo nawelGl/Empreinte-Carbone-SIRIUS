@@ -1,4 +1,42 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Maven
+target/
+log/
+
+# IntelliJ IDEA
+*.idea/
+*.iml
+*.iws
+
+# Mac
+*.DS_Store
+
+# Eclipse
+*.classpath
+*.project
+*.settings/
+
+# Compiled class file
+*.class
+=======
+=======
+>>>>>>> f4c869f5d9149cce205c266ed6d8b1b94f4b44b9
 
 *.class
 *.jar
 *.lst
+<<<<<<< HEAD
+>>>>>>> nawres-branch
+*.xml
+*.class
+*.jar
+*.jar
+*.class
+*.lst
+=======
+>>>>>>> f4c869f5d9149cce205c266ed6d8b1b94f4b44b9
