@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d392fc43-d4c5-4888-aaba-40b6d26ae9f0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/MainFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RoundJTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RoundJTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RoundedPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RoundedPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,10 +21,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2cgLi0orc9B4XKHzeUv85jpkt0a" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,12 +32,33 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Application.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "nawel-branch",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ezip.ing1.pds.front.Application" />
+      <module name="front-end" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ezip.ing1.pds.front.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

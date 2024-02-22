@@ -3,6 +3,7 @@ package edu.ezip.ing1.pds.front;
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 
 class RoundedPanel extends JPanel {
     private int arcWidth = 20;
