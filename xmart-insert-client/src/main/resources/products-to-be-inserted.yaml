@@ -1,14 +1,13 @@
 produits :
-  - idProduit : 7
-    idEmplacement: 3
-    paysDepart: "France"
-    paysArrivee : "Belgique"
-    couleur : "Bleu"
-    taille : "S"
-    reference : 27402
+  - idEmplacement: 3
+    paysDepart: "Portugal"
+    paysArrivee : "Italie"
+    couleur : "Jaune"
+    taille : "M"
+    reference : 28837
     score : A
-    genre : "Femme"
-    empreinte : 14.23
-    idMagasin : 4
-    idMarque : 2
-    nomProduit : "Robe"
+    genre : "Enfant"
+    empreinte : 16.23
+    idMagasin : 2
+    idMarque : 1
+    nomProduit : "Pantalon cargo"
