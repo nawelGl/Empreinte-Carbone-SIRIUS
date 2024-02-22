@@ -4,6 +4,9 @@ package edu.ezip.ing1.pds.front;
 
 
 
+
+
+
 import javax.swing.plaf.ButtonUI;
 
 import java.awt.*;
@@ -47,7 +50,7 @@ public class AcceuilFrame extends JFrame implements ActionListener{
 
         // initialisation ====================
 
-        panelCentre=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelCentre=new JPanel(null);
         panelNord=new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelSud=new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelFrame= new Container();
@@ -61,6 +64,8 @@ public class AcceuilFrame extends JFrame implements ActionListener{
 
         // taille et police des boutons ============
 
+        boutonUC1.setBounds(300, 200, 400, 200);
+
 
         boutonUC3.setPreferredSize(new Dimension(300, 50)); // Définir une taille plus grande
 
@@ -69,7 +74,7 @@ public class AcceuilFrame extends JFrame implements ActionListener{
         boutonUC3.setFocusPainted(false); // Désactiver le contour de focus
 
         // Définir la couleur de fond manuellement sur le boutonUC3
-       boutonUC3.setBackground(couleurSecondaire);
+        boutonUC3.setBackground(couleurSecondaire);
 
 
 
