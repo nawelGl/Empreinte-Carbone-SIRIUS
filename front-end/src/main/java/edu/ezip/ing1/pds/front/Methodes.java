@@ -12,7 +12,7 @@ class Methodes{
         headerPanel.setLayout(null);
         JLabel titreLabel = new JLabel(titre);
         titreLabel.setBounds(x, 13, 500, 50);
-        ImageIcon logo = new ImageIcon("logo.png");
+        ImageIcon logo = new ImageIcon("/resources/logo.png");
         JLabel logoLabel = new JLabel(logo);
         logoLabel.setBounds(10,8,70,70);
         headerPanel.add(logoLabel);
@@ -21,9 +21,11 @@ class Methodes{
         titreLabel.setBorder(new EmptyBorder(25, 20, 0, 0));
         headerPanel.setBackground(Color.decode(Template.COULEUR_HEADER));
         headerPanel.setPreferredSize(new Dimension(Template.LONGUEUR,Template.HAUTEUR_HEADER));
-        //headerPanel.add(logo);
+
         headerPanel.add(titreLabel);
         frame.getContentPane().add(BorderLayout.NORTH,headerPanel);
         //-----------------------------------------------
     }
+
+
 }
