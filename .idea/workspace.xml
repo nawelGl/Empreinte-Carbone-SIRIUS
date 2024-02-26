@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="Nettoyage du pom du FrontEnd">
-      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AcceuilApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Frame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/main/resources/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/ReferenceUC1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/ReferenceUC3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RoundBtn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024,_15_50_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_02_2024__15_50__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Methodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Methodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/db-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/db-config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmart-city-backend/src/main/java/edu/ezip/ing1/pds/business/server/XMartCityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AccueilUC2.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AccueilUC2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/MenuEmpreinteCarbone.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RechercheReference.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,18 +62,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AcceuilFrame.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.MainFrame.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;nawres-branch&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AcceuilFrame.executor": "Debug",
+    "Application.MainFrame.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "nawres-branch",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.AcceuilFrame">
     <configuration name="AcceuilFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ezip.ing1.pds.front.AcceuilFrame" />

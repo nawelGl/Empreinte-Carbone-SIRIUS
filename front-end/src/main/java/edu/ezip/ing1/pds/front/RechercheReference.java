@@ -3,21 +3,27 @@ package edu.ezip.ing1.pds.front;
 import javax.swing.*;
 import java.awt.*;
 
-class MenuEmpreinteCarbone{
+class RechercheReference{
     //Boutons :
     JButton boutonConfirmer;
+    String titre;
+
+    String titreLabelSecondaire ;
+
+    String titreHeader;
+
     //Constructeur :
-    public MenuEmpreinteCarbone(){
+    public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire){
         //Paramétrages de base :
         JFrame menuEmpreinteCarbone = new JFrame();
-        menuEmpreinteCarbone.setTitle("Home UC2 - Empreinte Carbone");
+        menuEmpreinteCarbone.setTitle(titreFrame);
         menuEmpreinteCarbone.setSize(Template.LONGUEUR, Template.LARGEUR);
         menuEmpreinteCarbone.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuEmpreinteCarbone.setLocationRelativeTo(null);
         menuEmpreinteCarbone.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(menuEmpreinteCarbone, "Trouvez votre article :", 365);
+        Methodes.header(menuEmpreinteCarbone, titreHeader, 365);
 
         //----------panel principal--------------
         JPanel mainPanel = new JPanel();
@@ -34,7 +40,6 @@ class MenuEmpreinteCarbone{
         secondPanel.setBounds(100, 100, 800, 350);
 
         //Ajout du JLabel :
-        String titreLabelSecondaire = "Entrez la référence de votre produit pour savoir où il se trouve :";
         JLabel titrePanelSecondaire = new JLabel(titreLabelSecondaire);
         titrePanelSecondaire.setForeground(Color.WHITE);
         titrePanelSecondaire.setFont(new Font("Avenir", Font.BOLD, 22));
