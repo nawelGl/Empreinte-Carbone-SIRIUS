@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="Nettoyage du pom du FrontEnd">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AcceuilApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AccueilUC2.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/AccueilUC2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Methodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Methodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RechercheReference.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RechercheReference.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/ReferenceUC1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/ReferenceUC3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/EcranAcceuil.java" afterDir="false" />
-    </list>
+    <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="Nettoyage du pom du FrontEnd" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -58,5 +58,7 @@ class RechercheReference{
         mainPanel.add(secondPanel);
 
         menuEmpreinteCarbone.setVisible(true);
+
+        
     }
 }
