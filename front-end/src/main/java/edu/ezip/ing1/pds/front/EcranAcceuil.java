@@ -84,6 +84,7 @@ public class EcranAcceuil implements ActionListener {
 
         //Ajout des ecouteurs
         boutonUC1.addActionListener(this);
+        boutonUC3.addActionListener(this);
 
 
         // Ajout des boutons aux panels
@@ -112,8 +113,12 @@ public class EcranAcceuil implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        RechercheReference rechercheReference = new RechercheReference(titre,titreHeader,titreLabelSecondaire,x);
-
+        if(e.getSource()==boutonUC1) {
+            RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
+        }
+        if(e.getSource()==boutonUC3) {
+            AccueilUC2 accueilUC2=new AccueilUC2();
+        }
     }
 }
 
