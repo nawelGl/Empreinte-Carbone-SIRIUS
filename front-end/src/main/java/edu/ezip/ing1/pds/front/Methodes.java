@@ -21,7 +21,7 @@ class Methodes{
         titreLabel.setBorder(new EmptyBorder(25, 20, 0, 0));
         headerPanel.setBackground(Color.decode(Template.COULEUR_HEADER));
         headerPanel.setPreferredSize(new Dimension(Template.LONGUEUR,Template.HAUTEUR_HEADER));
-        //headerPanel.add(logo);
+
         headerPanel.add(titreLabel);
         frame.getContentPane().add(BorderLayout.NORTH,headerPanel);
         //-----------------------------------------------

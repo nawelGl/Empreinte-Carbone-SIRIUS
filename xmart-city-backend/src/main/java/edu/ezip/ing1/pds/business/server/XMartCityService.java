@@ -29,15 +29,14 @@ public class XMartCityService {
        // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
 
-<<<<<<< HEAD
-        INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit ( \"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
-=======
+
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
->>>>>>> main
+
 
 //        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
            // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
-        SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit");
+    SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
+        SELECT_PRODUCT_BY_REFERENCE("SELECT nomProduit FROM \"ezip-ing1\".produit WHERE reference=?");
         private final String query;
 
         private Queries(final String query) {
@@ -66,60 +65,7 @@ public class XMartCityService {
             String action = request.getRequestOrder();
 
             switch (action) {
-//                case "SELECT_ALL_STUDENTS": // request SELECT
-//                    try {
-//                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_STUDENTS.query);
-//                        ResultSet resultSet = selectStatement.executeQuery();
-//
-//                        Students students = new Students();
-//
-//                        while (resultSet.next()) {
-//                            Student student = new Student();
-////                            student.setName(resultSet.getString("name"));
-////                            student.setFirstname(resultSet.getString("firstname"));
-////                            student.setGroup(resultSet.getString("group"));
-//                            student.build(resultSet);
-//                            students.add(student);
-//                        }
-//
-//                        // mapper students en Json
-//                        ObjectMapper objectMapper = new ObjectMapper();
-//                        String responseBody = objectMapper.writeValueAsString(students);
-//
-//                        response = new Response(request.getRequestId(), responseBody);
-//                    } catch (SQLException | JsonProcessingException e) {
-//                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_STUDENTS query");
-//                        logger.error("Error executing SELECT_ALL_STUDENTS query: {}", e.getMessage());
-//                    } catch (NoSuchFieldException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    break;
 
-//                case "INSERT_STUDENT":
-//                    try {
-//                        String requestBody = request.getRequestBody();
-//                        ObjectMapper objectMapper = new ObjectMapper();
-//                        Student student = objectMapper.readValue(requestBody, Student.class);
-//
-//                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_STUDENT.query);
-//                        insertStatement.setString(1, student.getName());
-//                        insertStatement.setString(2, student.getFirstname());
-//                        insertStatement.setString(3, student.getGroup());
-//
-//
-//
-//                        int rowsAffected = insertStatement.executeUpdate();
-//
-//                        if (rowsAffected > 0) {
-//                            response = new Response(request.getRequestId(),String.format("{\"student_id\": %d}", rowsAffected));
-//                        } else {
-//                            response = new Response(request.getRequestId(), "Failed to insert student");
-//                        }
-//                    } catch (SQLException | IOException e) {
-//                        response = new Response(request.getRequestId(), "Error executing INSERT_STUDENT query");
-//                        logger.error("Error executing INSERT_STUDENT query: {}", e.getMessage());
-//                    }
-//                    break;
 
                 case "SELECT_ALL_PRODUCTS": // request SELECT
                     try {
@@ -172,10 +118,8 @@ public class XMartCityService {
                         Produit produit = objectMapper.readValue(requestBody, Produit.class);
 
                         PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
-<<<<<<< HEAD
-//                        insertStatement.setInt(1, produit.getIdProduit());
-=======
->>>>>>> main
+                       insertStatement.setInt(1, produit.getIdProduit());
+
                         insertStatement.setInt(2, produit.getIdEmplacement());
                         insertStatement.setString(3, produit.getPaysDepart());
                         insertStatement.setString(3, produit.getPaysArrivee());
@@ -205,6 +149,52 @@ public class XMartCityService {
                         throw new RuntimeException(e);
                     }
                     break;
+
+
+                case "SELECT_PRODUCT_BY_REFERENCE":
+                    try{
+                    PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_PRODUCT_BY_REFERENCE.query);
+                    ResultSet resultSet = selectStatement.executeQuery();
+
+                    Produits produits = new Produits();
+
+                    while (resultSet.next()) {
+                        Produit produit = new Produit();
+//                        produit.setIdProduit(resultSet.getInt("idProduit"));
+//                        produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
+//                        produit.setPaysDepart(resultSet.getString("paysDepart"));
+//                        produit.setPaysArrivee(resultSet.getString("paysArrivee"));
+//                        produit.setCouleur(resultSet.getString("couleur"));
+//                        produit.setTaille(resultSet.getString("taille"));
+//                        produit.setReference(resultSet.getInt("reference"));
+//                        produit.setScore(resultSet.getString("score"));
+//                        produit.setGenre(resultSet.getString("genre"));
+//                        produit.setEmpreinte(resultSet.getFloat("empreinte"));
+//                        produit.setIdMagasin(resultSet.getInt("idMagasin"));
+//                        produit.setIdMarque(resultSet.getInt("idMarque"));
+                        produit.setNomProduit(resultSet.getString("nomProduit"));
+                        produit.build(resultSet);
+                        System.out.println("produit to string :");
+                        System.out.println(produit.toString());
+                        produits.add(produit);
+                    }
+
+                    System.out.println("produits to string :");
+                    System.out.println(produits.toString());
+
+                    // mapper produits en Json
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String responseBody = objectMapper.writeValueAsString(produits);
+
+                    response = new Response(request.getRequestId(), responseBody);
+            } catch (SQLException | JsonProcessingException e) {
+                response = new Response(request.getRequestId(), "Error executing SELECT_PRODUCT_BY_REFERENCE query");
+                logger.error("Error executing SELECT_PRODUCT_BY_REFERENCE query: {}", e.getMessage());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            break;
+
 
                 default:
                     // Handle unknown action
