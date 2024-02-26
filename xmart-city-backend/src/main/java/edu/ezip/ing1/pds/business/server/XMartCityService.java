@@ -29,7 +29,11 @@ public class XMartCityService {
        // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
 
+<<<<<<< HEAD
+        INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit ( \"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+=======
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+>>>>>>> main
 
 //        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
            // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
@@ -168,6 +172,10 @@ public class XMartCityService {
                         Produit produit = objectMapper.readValue(requestBody, Produit.class);
 
                         PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
+<<<<<<< HEAD
+//                        insertStatement.setInt(1, produit.getIdProduit());
+=======
+>>>>>>> main
                         insertStatement.setInt(2, produit.getIdEmplacement());
                         insertStatement.setString(3, produit.getPaysDepart());
                         insertStatement.setString(3, produit.getPaysArrivee());
