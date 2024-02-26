@@ -11,9 +11,10 @@ class RechercheReference{
     String titreLabelSecondaire ;
 
     String titreHeader;
+    int x;
 
     //Constructeur :
-    public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire){
+    public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
         //Paramétrages de base :
         JFrame menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -23,7 +24,7 @@ class RechercheReference{
         menuEmpreinteCarbone.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(menuEmpreinteCarbone, titreHeader, 365);
+        Methodes.header(menuEmpreinteCarbone, titreHeader, x);
 
         //----------panel principal--------------
         JPanel mainPanel = new JPanel();

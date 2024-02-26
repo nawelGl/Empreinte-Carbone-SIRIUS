@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Test  implements ActionListener {
+public class EcranAcceuil implements ActionListener {
 //    protected JFrame acceuilApp;
 
 
@@ -23,14 +23,15 @@ public class Test  implements ActionListener {
 
 
     String titre= "Home UC1 - Empreinte Carbone";
-    String titreLabelSecondaire ="Entrez la référence de votre produit pour savoir quel esT son empreinte carbon :";
-    String titreHeader="Empreinte Carbon du produit :";
+    String titreLabelSecondaire ="Entrez la référence de votre produit pour connaitre son empreinte carbone:";
+    String titreHeader="Empreinte Carbone du produit :";
+    int x=320;
 
     String titreBoutonUC1= "Faites-vous un achat responsable ? ";
     String titreBoutonUC2="Stat UC2";
     String titreBoutonUC3="Trouvez votre article dans le magasin >>";
 
-    public Test() {
+    public EcranAcceuil() {
         //Paramétrages de base :
         JFrame acceuilApp = new JFrame();
         acceuilApp.setTitle("test acceuil");
@@ -40,7 +41,7 @@ public class Test  implements ActionListener {
         acceuilApp.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(acceuilApp, "Empreinte carbon", 365);
+        Methodes.header(acceuilApp, "Empreinte carbone", 365);
 
         // initialisation des panels
         panelCentre = new JPanel(null); // Utiliser un layout null pour pouvoir utiliser setBounds
@@ -59,7 +60,7 @@ public class Test  implements ActionListener {
 
         // BoutonUC1 avec setBounds pour le positionner et le redimensionner
         boutonUC1.setBounds(250, 180, 500, 200); // x, y, largeur, hauteur
-        boutonUC1.setFont(new Font("Arial", Font.BOLD, 24)); // Taille de police en gras
+        boutonUC1.setFont(new Font("Avenir", Font.BOLD, 24)); // Taille de police en gras
 //        boutonUC1.setBorder(new RoundBtn(texteBoutonUC1,30));
         boutonUC1.setBackground(Color.WHITE);
         boutonUC1.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
@@ -111,7 +112,7 @@ public class Test  implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       ReferenceUC1 referenceUC1=new ReferenceUC1(titre,titreHeader,titreLabelSecondaire);
+        RechercheReference rechercheReference = new RechercheReference(titre,titreHeader,titreLabelSecondaire,x);
 
     }
 }

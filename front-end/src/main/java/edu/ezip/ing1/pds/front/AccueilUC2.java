@@ -13,10 +13,12 @@ public class AccueilUC2 implements ActionListener {
     JButton boutonTrouverArticle;
     JButton boutonEmpreinteCarbone;
 
+
 // Info pour la frame suivante
     String titre= "Home UC2 - Empreinte Carbone";;
     String titreLabelSecondaire ="Entrez la référence de votre produit pour savoir où il se trouve :";
     String titreHeader="Trouvez votre article :";
+    int x=365;
 
     //Constructeur :
     public AccueilUC2(){
@@ -58,7 +60,7 @@ public class AccueilUC2 implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == boutonTrouverArticle){
             accueilUC2.dispose();
-           ReferenceUC3 referenceUC3=new ReferenceUC3(titre,titreHeader,titreLabelSecondaire);
+            RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire,x);
         }
     }
 }
