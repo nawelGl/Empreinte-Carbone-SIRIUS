@@ -2,8 +2,10 @@ package edu.ezip.ing1.pds.front;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-class RechercheReference{
+class RechercheReference implements ActionListener {
     //Boutons :
     JButton boutonConfirmer;
     String titre;
@@ -11,7 +13,13 @@ class RechercheReference{
     String titreLabelSecondaire ;
 
     String titreHeader;
+    protected JTextField searchBar;
+    int reference;
     int x;
+
+    public JTextField getSearchBar() {
+        return searchBar;
+    }
 
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
@@ -48,10 +56,11 @@ class RechercheReference{
         secondPanel.add(titrePanelSecondaire);
 
         //Ajout de la search bar :
-        JTextField searchBar = new RoundJTextField(100);
+        searchBar = new RoundJTextField(100);
         searchBar.setBounds(80, 150, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.setBounds(360,230, 80, 30);
+        boutonConfirmer.addActionListener(this);
         secondPanel.add(searchBar);
         secondPanel.add(boutonConfirmer);
 
@@ -60,5 +69,28 @@ class RechercheReference{
         menuEmpreinteCarbone.setVisible(true);
 
         
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String entree= searchBar.getText();
+
+        if (entree != null && !entree.isEmpty()) {
+            try {
+                reference = Integer.parseInt(entree);
+                System.out.println(reference);
+
+
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Veuillez entrer un entier valide dans la searchBar.");
+            }
+        }
+
+    }
+
+    public Integer getReference(){
+        
+        return reference;
+
     }
 }

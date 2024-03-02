@@ -115,6 +115,8 @@ public class EcranAcceuil implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==boutonUC1) {
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
+//            Integer reference = rechercheReference.getReference();
+//            System.out.println(reference);
         }
         if(e.getSource()==boutonUC3) {
             AccueilUC2 accueilUC2=new AccueilUC2();

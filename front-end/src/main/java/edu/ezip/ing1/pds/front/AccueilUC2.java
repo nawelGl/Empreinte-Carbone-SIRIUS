@@ -61,6 +61,7 @@ public class AccueilUC2 implements ActionListener {
         if(e.getSource() == boutonTrouverArticle){
             accueilUC2.dispose();
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire,x);
+
         }
     }
 }
