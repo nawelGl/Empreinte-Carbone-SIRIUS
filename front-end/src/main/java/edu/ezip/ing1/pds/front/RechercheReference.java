@@ -14,7 +14,7 @@ class RechercheReference implements ActionListener {
 
     String titreHeader;
     protected JTextField searchBar;
-    int reference;
+    String reference;
     int x;
 
     public JTextField getSearchBar() {
@@ -77,18 +77,18 @@ class RechercheReference implements ActionListener {
 
         if (entree != null && !entree.isEmpty()) {
             try {
-                reference = Integer.parseInt(entree);
+                reference = entree;
                 System.out.println(reference);
 
 
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Veuillez entrer un entier valide dans la searchBar.");
+                JOptionPane.showMessageDialog(null, "Veuillez entrer la reference du produit .");
             }
         }
 
     }
 
-    public Integer getReference(){
+    public String getReference(){
         
         return reference;
 
