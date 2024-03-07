@@ -47,37 +47,13 @@ public class MainSelectClient {
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-//        final SelectAllStudentsClientRequest clientRequest = new SelectAllStudentsClientRequest(
-//                                                                    networkConfig,
-//                                                                    birthdate++, request, null, requestBytes);
+
                 final SelectAllProductsClientRequest clientRequest = new SelectAllProductsClientRequest(
                                                                     networkConfig,
                                                                     birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-//        while (!clientRequests.isEmpty()) {
-//            final ClientRequest joinedClientRequest = clientRequests.pop();
-//            joinedClientRequest.join();
-//            logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-//            final Students students = (Students) joinedClientRequest.getResult();
-//            final AsciiTable asciiTable = new AsciiTable();
-//            for (final Student student : students.getStudents()) {
-//                asciiTable.addRule();
-//                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
-//            }
-//            asciiTable.addRule();
-//            logger.debug("\n{}\n", asciiTable.render());
-//
-////            String resp = "";
-////            for (final Student student : students.getStudents()) {
-//////                asciiTable.addRule();
-//////                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
-////                resp += student.getFirstname() + " ";
-////                resp += student.getName() + " ";
-////                resp += student.getGroup() + "\n ";
-////            }
-////            System.out.println(resp);
-//        }
+
 
         while (!clientRequests.isEmpty()) {
             final ClientRequest joinedClientRequest = clientRequests.pop();
@@ -92,15 +68,7 @@ public class MainSelectClient {
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());
 
-//            String resp = "";
-//            for (final Student student : students.getStudents()) {
-////                asciiTable.addRule();
-////                asciiTable.addRow(student.getFirstname(), student.getName(), student.getGroup());
-//                resp += student.getFirstname() + " ";
-//                resp += student.getName() + " ";
-//                resp += student.getGroup() + "\n ";
-//            }
-//            System.out.println(resp);
+
         }
     }
 }
