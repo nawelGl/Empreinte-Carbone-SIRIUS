@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d47d7f7c-c32f-4c6f-a44c-8d57595a3337" name="Changes" comment="Nettoyage du pom du FrontEnd">
-      <change afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/EcranAcceuil.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/EcranAcceuil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RechercheReference.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/main/java/edu/ezip/ing1/pds/front/RechercheReference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logging-utils/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/db-config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/edu/ezip/commons/connectionpool/config/DatabaseConnectionBasicConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/edu/ezip/commons/connectionpool/config/ExperimentConnectionImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/classes/edu/ezip/commons/connectionpool/config/impl/ConnectionPoolImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/rdbms-connection-pool-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rdbms-connection-pool/target/rdbms-connection-pool-1.0-SNAPSHOT.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +51,9 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/xmart-select-client/src/main/java/edu/ezip/ing1/pds/client/SelectAllProductsClientRequest.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -66,6 +76,9 @@
     &quot;git-widget-placeholder&quot;: &quot;nawres-branch&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
 }</component>

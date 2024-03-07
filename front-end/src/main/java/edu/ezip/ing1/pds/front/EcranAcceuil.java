@@ -52,7 +52,7 @@ public class EcranAcceuil implements ActionListener {
         // Texte avec la première ligne en gras et la deuxième ligne normale
         String texteBoutonUC1 = "<html><div style='text-align: center;'><b>" + titreBoutonUC1 + "</b><br><br>\nCliquez ici</div></html>";
 
-//        boutonUC1 = new JButton(texteBoutonUC1);
+//        boutonUC1 = new JButton(texteBoutonUC1)
         boutonUC2 = new JButton(titreBoutonUC2);
         boutonUC3 = new JButton(titreBoutonUC3);
         boutonArriere = new RoundBtn("",30);
