@@ -23,6 +23,7 @@ public class MainInsertClient {
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "insert-product";
     private static final String requestOrder = "INSERT_PRODUCT";
+    //On crée [check docu : https://docs.oracle.com/javase/8/docs/api/java/util/Deque.html]
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
     public static void main(String[] args) throws IOException, InterruptedException, SQLException {
