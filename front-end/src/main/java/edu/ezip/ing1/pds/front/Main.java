@@ -6,7 +6,8 @@ public class Main {
     //AccueilUC2 accueilUC2=new AccueilUC2();
 
 
-       EcranAcceuil ecranAcceuil=new EcranAcceuil();
+        MainFrameU2 mainFrameU2 = new MainFrameU2();
+        mainFrameU2.createMainFrame();
 
     }
 }
