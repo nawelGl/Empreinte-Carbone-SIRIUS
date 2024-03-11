@@ -13,8 +13,9 @@ import java.sql.SQLException;
 public class Vente {
     private int idMagasin;
     private int idProduit;
-    private Date date;
+    private long dateEnMs;
     private int quantite;
+    private Date date;
 
 
     public Vente() {
@@ -32,10 +33,11 @@ public class Vente {
         return buildPreparedStatement(preparedStatement, idMagasin, idProduit, date, quantite);
     }
 
-    public Vente(int idMagasin, int idProduit, Date date, int quantite) {
+    public Vente(int idMagasin, int idProduit, long date, int quantite) {
         this.idMagasin = idMagasin;
         this.idProduit = idProduit;
-        this.date = date;
+        this.dateEnMs = date;
+        this.date = new Date(dateEnMs);
         this.quantite = quantite;
     }
 
@@ -58,15 +60,15 @@ public class Vente {
         idProduit = id;
     }
 
+
     @JsonProperty("vente_date")
-    public Date getDate(){
-        return date;
+    public long getDateEnMs() {
+        return dateEnMs;
     }
 
-    public void setDate(Date d){
-        date = d;
+    public void setDateEnMs(long dateEnMs) {
+        this.dateEnMs = dateEnMs;
     }
-
     @JsonProperty("vente_quantite")
     public int getQuantite(){
         return quantite;
@@ -75,6 +77,8 @@ public class Vente {
     public void setQuantite(int qtt){
         quantite = qtt;
     }
+
+
 
 
 
