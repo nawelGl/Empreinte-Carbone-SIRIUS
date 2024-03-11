@@ -1,9 +1,14 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
-class RechercheReference{
+class RechercheReference implements ActionListener {
     //Boutons :
     JButton boutonConfirmer;
     String titre;
@@ -51,6 +56,7 @@ class RechercheReference{
         JTextField searchBar = new RoundJTextField(100);
         searchBar.setBounds(80, 150, 650, 40);
         boutonConfirmer = new JButton("Valider");
+        boutonConfirmer.addActionListener(this);
         boutonConfirmer.setBounds(360,230, 80, 30);
         secondPanel.add(searchBar);
         secondPanel.add(boutonConfirmer);
@@ -60,5 +66,16 @@ class RechercheReference{
         menuEmpreinteCarbone.setVisible(true);
 
         
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource() == boutonConfirmer){
+            try {
+                SelectAllProductsClientRequest.launchSelectAllProducts();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 }
