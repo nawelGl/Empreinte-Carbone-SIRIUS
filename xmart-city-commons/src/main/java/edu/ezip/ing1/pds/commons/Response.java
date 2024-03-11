@@ -1,6 +1,5 @@
 package edu.ezip.ing1.pds.commons;
 
-import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class Response {
