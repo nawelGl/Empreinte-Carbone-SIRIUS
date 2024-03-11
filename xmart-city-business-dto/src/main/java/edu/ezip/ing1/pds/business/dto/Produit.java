@@ -1,15 +1,10 @@
 package edu.ezip.ing1.pds.business.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@JsonRootName(value = "produit")
 public class Produit {
     private int idProduit;
     private int idEmplacement;
@@ -61,7 +56,6 @@ public class Produit {
         return idProduit;
     }
 
-    @JsonProperty("produit_idProduit")
     public void setIdProduit(int idProduit) {
         this.idProduit = idProduit;
     }
@@ -70,82 +64,70 @@ public class Produit {
         return idEmplacement;
     }
 
-    @JsonProperty("produit_idEmplacement")
     public void setIdEmplacement(int idEmplacement){this.idEmplacement = idEmplacement;}
 
     public String getPaysDepart() {
         return paysDepart;
     }
 
-    @JsonProperty("produit_paysDepart")
     public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
 
     public String getPaysArrivee() {
         return paysArrivee;
     }
 
-    @JsonProperty("produit_paysArrivee")
     public void setPaysArrivee(String paysArrivee){this.paysArrivee = paysArrivee;}
 
     public String getCouleur() {
         return couleur;
     }
 
-    @JsonProperty("produit_couleur")
     public void setCouleur(String couleur){this.couleur = couleur;}
 
     public String getTaille() {
         return taille;
     }
 
-    @JsonProperty("produit_taille")
     public void setTaille(String taille){this.taille = taille;}
 
     public int getReference() {
         return reference;
     }
 
-    @JsonProperty("produit_reference")
     public void setReference(int reference){this.reference = reference;}
 
     public String getScore() {
         return score;
     }
 
-    @JsonProperty("produit_score")
     public void setScore(String score) {this.score = score;}
 
     public String getGenre() {
         return genre;
     }
 
-    @JsonProperty("produit_genre")
     public void setGenre(String genre){this.genre = genre;}
 
     public float getEmpreinte() {
         return empreinte;
     }
 
-    @JsonProperty("produit_empreinte")
     public void setEmpreinte(float empreinte){this.empreinte = empreinte;}
 
     public int getIdMagasin() {
         return idMagasin;
     }
 
-    @JsonProperty("produit_idMagasin")
     public void setIdMagasin(int idMagasin){this.idMagasin = idMagasin;}
 
     public int getIdMarque(){return idMarque;}
 
-    @JsonProperty("produit_idMarque")
     public void setIdMarque(int idMarque){this.idMarque = idMarque;}
 
     public String getNomProduit() {
         return nomProduit;
     }
 
-    @JsonProperty("produit_nomProduit")
     public void setNomProduit(String nomProduit){this.nomProduit = nomProduit;}
 
 
