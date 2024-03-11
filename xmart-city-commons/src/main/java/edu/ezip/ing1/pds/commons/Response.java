@@ -8,7 +8,7 @@ public class Response {
     public String responseBody;
 
     public Response() {
-
+c
     }
     public Response(String requestId, String responseBody) {
         this.requestId = requestId;

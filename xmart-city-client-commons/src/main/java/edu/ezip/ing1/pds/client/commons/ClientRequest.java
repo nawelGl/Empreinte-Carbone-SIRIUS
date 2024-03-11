@@ -18,9 +18,6 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
-
-//Les classes InsertClientRequest et SelectClientRequest étendent cette classe.
-
 public abstract class ClientRequest<N,S> implements Runnable {
     private final Socket socket = new Socket();
     private final Thread self;
