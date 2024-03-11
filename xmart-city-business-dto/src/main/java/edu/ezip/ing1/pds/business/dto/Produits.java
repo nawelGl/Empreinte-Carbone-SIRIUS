@@ -1,17 +1,10 @@
 package edu.ezip.ing1.pds.business.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@JsonRootName(value = "produits")
 public class Produits {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonProperty("produits")
     private Set<Produit> produits = new LinkedHashSet<>();
 
     public Set<Produit> getProduits() {
