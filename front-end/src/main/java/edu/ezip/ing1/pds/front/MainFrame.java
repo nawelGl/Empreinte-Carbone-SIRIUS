@@ -4,6 +4,7 @@ import ch.qos.logback.classic.net.JMSQueueAppender;
 import edu.ezip.ing1.pds.backend.CoreBackendServer;
 import edu.ezip.ing1.pds.backend.RequestHandler;
 import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
+import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import edu.ezip.ing1.pds.business.server.XMartCityService;
@@ -116,7 +117,8 @@ public class MainFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button) {
             try {
-                textArea.append(SelectAllProductsClientRequest.launchSelectAllProducts());
+                //textArea.append(SelectAllProductsClientRequest.launchSelectAllProducts());
+                textArea.append(SelectProductByReference.launchSelectProductByReference());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
