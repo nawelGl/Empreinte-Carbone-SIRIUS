@@ -47,7 +47,7 @@ public class SelectAllProductsClientRequest extends ClientRequest<Object, Produi
 
     //==================================
     //Fonction pour lancer la requête (à la place du main) :
-    public static void launchSelectAllProducts() throws IOException, InterruptedException{
+    public static String launchSelectAllProducts() throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -78,7 +78,9 @@ public class SelectAllProductsClientRequest extends ClientRequest<Object, Produi
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());
+            return  asciiTable.render();
         }
+        return null;
     }
 
 

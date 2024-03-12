@@ -3,6 +3,7 @@ package edu.ezip.ing1.pds.front;
 import ch.qos.logback.classic.net.JMSQueueAppender;
 import edu.ezip.ing1.pds.backend.CoreBackendServer;
 import edu.ezip.ing1.pds.backend.RequestHandler;
+import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import edu.ezip.ing1.pds.business.server.XMartCityService;
@@ -19,6 +20,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import static java.lang.String.valueOf;
 
 public class MainFrame extends JFrame implements ActionListener {
 
@@ -90,7 +93,7 @@ public class MainFrame extends JFrame implements ActionListener {
         panel.add(button, BorderLayout.SOUTH);
 
         textArea = new JTextArea();
-        textArea.setBounds(250, 70, 360, 600);
+        textArea.setBounds(140, 70, 600, 600);
         JScrollPane scrollPane = new JScrollPane(textArea);
         JPanel panelMid = new JPanel();
         panelMid.add(scrollPane);
@@ -99,8 +102,6 @@ public class MainFrame extends JFrame implements ActionListener {
         panelMid.add(textArea);
         panelMid.add(scrollPane);
         panel.add(panelMid, BorderLayout.CENTER);
-
-
         setVisible(true);
     }
 
@@ -111,42 +112,12 @@ public class MainFrame extends JFrame implements ActionListener {
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button) {
             try {
-                // Définir la commande pour exécuter le fichier JAR
-                String command = "java -jar /Users/nawreshajabouda/Documents/GitHub/Empreinte-Carbone-SIRIUS/xmart-select-client/target/xmart-select-client-1.0-SNAPSHOT-jar-with-dependencies.jar";
-
-                // Lancer la commande
-                Process process = Runtime.getRuntime().exec(command);
-
-                // Lire la sortie de la commande
-                InputStream inputStream = process.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                int compteur=0;
-                while ((line = reader.readLine()) != null ) {
-
-                        compteur++; // On veut afficher a partir de la 9ieme lignes
-                        if (compteur >= 11) {
-                            // Ajouter chaque ligne à partir de la 9ème ligne au JTextArea
-                            textArea.append(line + "\n");
-                        }
-                }
-
-
-                // Lire la sortie d'erreur de la commande (si nécessaire)
-                InputStream errorStream = process.getErrorStream();
-                BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
-
-                // Afficher la sortie d'erreur
-                while ((line = errorReader.readLine()) != null) {
-                    System.err.println(line);
-                }
-
-            } catch (IOException ex) {
+                textArea.append(valueOf(SelectAllProductsClientRequest.launchSelectAllProducts()));
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
