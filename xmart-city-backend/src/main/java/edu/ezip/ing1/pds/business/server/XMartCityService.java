@@ -26,17 +26,11 @@ public class XMartCityService {
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     private enum Queries {
-       // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
-
-
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
-
-
-//        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
-           // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
-    SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
-        SELECT_PRODUCT_BY_REFERENCE("SELECT nomProduit FROM \"ezip-ing1\".produit WHERE reference=?");
+        //SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
+        SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
+        SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?");
         private final String query;
 
         private Queries(final String query) {
@@ -118,8 +112,7 @@ public class XMartCityService {
                         Produit produit = objectMapper.readValue(requestBody, Produit.class);
 
                         PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
-                       insertStatement.setInt(1, produit.getIdProduit());
-
+                        insertStatement.setInt(1, produit.getIdProduit());
                         insertStatement.setInt(2, produit.getIdEmplacement());
                         insertStatement.setString(3, produit.getPaysDepart());
                         insertStatement.setString(3, produit.getPaysArrivee());
@@ -154,6 +147,7 @@ public class XMartCityService {
                 case "SELECT_PRODUCT_BY_REFERENCE":
                     try{
                     PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_PRODUCT_BY_REFERENCE.query);
+                    selectStatement.setInt(1, 34567);
                     ResultSet resultSet = selectStatement.executeQuery();
 
                     Produits produits = new Produits();
