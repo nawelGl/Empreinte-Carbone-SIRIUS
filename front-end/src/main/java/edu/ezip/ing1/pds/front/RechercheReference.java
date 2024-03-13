@@ -1,6 +1,9 @@
 package edu.ezip.ing1.pds.front;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
+import edu.ezip.ing1.pds.commons.Request;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +14,7 @@ import java.io.IOException;
 class RechercheReference implements ActionListener {
     //Boutons :
     JButton boutonConfirmer;
+    JTextField searchBar;
     String titre;
 
     String titreLabelSecondaire ;
@@ -53,7 +57,7 @@ class RechercheReference implements ActionListener {
         secondPanel.add(titrePanelSecondaire);
 
         //Ajout de la search bar :
-        JTextField searchBar = new RoundJTextField(100);
+        searchBar = new RoundJTextField(100);
         searchBar.setBounds(80, 150, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.addActionListener(this);
@@ -72,7 +76,12 @@ class RechercheReference implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
             try {
-                SelectAllProductsClientRequest.launchSelectAllProducts();
+                Request request = new Request();
+                Produit produit = new Produit();
+                produit.setReference(Integer.parseInt(searchBar.getText()));
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonProduct = mapper.writeValueAsString(produit);
+                request.setRequestContent(jsonProduct);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
