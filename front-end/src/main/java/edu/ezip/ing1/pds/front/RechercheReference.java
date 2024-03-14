@@ -3,6 +3,7 @@ package edu.ezip.ing1.pds.front;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
+import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.commons.Request;
 
 import javax.swing.*;
@@ -14,7 +15,9 @@ import java.io.IOException;
 class RechercheReference implements ActionListener {
     //Boutons :
     JButton boutonConfirmer;
+    JFrame menuEmpreinteCarbone;
     JTextField searchBar;
+    static String data;
     String titre;
 
     String titreLabelSecondaire ;
@@ -25,7 +28,7 @@ class RechercheReference implements ActionListener {
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
         //Paramétrages de base :
-        JFrame menuEmpreinteCarbone = new JFrame();
+        menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
         menuEmpreinteCarbone.setSize(Template.LONGUEUR, Template.LARGEUR);
         menuEmpreinteCarbone.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,20 +71,23 @@ class RechercheReference implements ActionListener {
         mainPanel.add(secondPanel);
 
         menuEmpreinteCarbone.setVisible(true);
-
-        
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
             try {
+                System.out.println("===========================");
+                System.out.println(searchBar.getText());
+                System.out.println("ref en int : " + Integer.parseInt(searchBar.getText()));
+                System.out.println("===========================");
                 Request request = new Request();
-                Produit produit = new Produit();
-                produit.setReference(Integer.parseInt(searchBar.getText()));
-                ObjectMapper mapper = new ObjectMapper();
-                String jsonProduct = mapper.writeValueAsString(produit);
-                request.setRequestContent(jsonProduct);
+                request.setRequestContent(searchBar.getText());
+
+
+                menuEmpreinteCarbone.dispose();
+                TestAffichageProduit testAffichageProduit = new TestAffichageProduit();
+                data = SelectProductByReference.launchSelectProductByReference(request);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

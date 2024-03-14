@@ -83,6 +83,4 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
         return null;
     }
 
-
-
 }
