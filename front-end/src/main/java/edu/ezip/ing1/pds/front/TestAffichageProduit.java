@@ -10,7 +10,7 @@ public class TestAffichageProduit {
 
     public TestAffichageProduit(){
         System.out.println("=========================================");
-        System.out.println("data de recherche reference dans testAffichageProduit: " + RechercheReference.data);
+        System.out.println("data de recherche reference dans testAffichageProduit: " + RechercheReference.product.toString());
         System.out.println("=========================================");
 
         testAffichageProduit = new JFrame();
@@ -27,7 +27,7 @@ public class TestAffichageProduit {
         textArea = new JTextArea();
         textArea.setBounds(140, 70, 670, 600);
         textArea.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
-        textArea.append(RechercheReference.data);
+        textArea.append(RechercheReference.product.toString());
         mainPanel.add(textArea);
 
         testAffichageProduit.getContentPane().add(mainPanel);

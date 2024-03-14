@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.commons.Request;
 import javax.swing.*;
@@ -12,7 +13,7 @@ class RechercheReference implements ActionListener {
     JButton boutonConfirmer;
     JFrame menuEmpreinteCarbone;
     JTextField searchBar;
-    static String data;
+    static Produit product;
     String titre;
 
     String titreLabelSecondaire ;
@@ -74,11 +75,11 @@ class RechercheReference implements ActionListener {
             try {
                 Request request = new Request();
                 request.setRequestContent(searchBar.getText());
-                data = SelectProductByReference.launchSelectProductByReference(request);
+                product = SelectProductByReference.launchSelectProductByReference(request);
                 menuEmpreinteCarbone.dispose();
                 TestAffichageProduit testAffichageProduit = new TestAffichageProduit();
                 System.out.println("=========================================");
-                System.out.println("data de recherche reference : " + data);
+                System.out.println("data de recherche reference : " + product.toString());
                 System.out.println("=========================================");
             } catch (Exception ex) {
                 throw new RuntimeException(ex);

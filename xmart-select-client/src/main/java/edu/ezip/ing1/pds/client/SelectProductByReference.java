@@ -47,7 +47,7 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
 
     //==================================
     //Fonction pour lancer la requête (à la place du main) :
-    public static String launchSelectProductByReference(Request request) throws IOException, InterruptedException{
+    public static Produit launchSelectProductByReference(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -82,7 +82,8 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());
-            return asciiTable.render();
+            //return asciiTable.render();
+            return dernierProduit;
         }
 
         return null;
