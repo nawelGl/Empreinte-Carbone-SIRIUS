@@ -118,7 +118,7 @@ public class MainFrame extends JFrame implements ActionListener {
         if(e.getSource() == button) {
             try {
                 //textArea.append(SelectAllProductsClientRequest.launchSelectAllProducts());
-                textArea.append(SelectProductByReference.launchSelectProductByReference());
+                //textArea.append(SelectProductByReference.launchSelectProductByReference());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

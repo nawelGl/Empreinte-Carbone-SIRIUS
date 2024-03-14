@@ -1,16 +1,19 @@
 package edu.ezip.ing1.pds.front;
 
-import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
-
+import edu.ezip.ing1.pds.business.dto.Produit;
+import edu.ezip.ing1.pds.client.SelectProductByReference;
+import edu.ezip.ing1.pds.commons.Request;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 class RechercheReference implements ActionListener {
     //Boutons :
     JButton boutonConfirmer;
+    JFrame menuEmpreinteCarbone;
+    JTextField searchBar;
+    static Produit product;
     String titre;
 
     String titreLabelSecondaire ;
@@ -21,7 +24,7 @@ class RechercheReference implements ActionListener {
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
         //Paramétrages de base :
-        JFrame menuEmpreinteCarbone = new JFrame();
+        menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
         menuEmpreinteCarbone.setSize(Template.LONGUEUR, Template.LARGEUR);
         menuEmpreinteCarbone.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +56,7 @@ class RechercheReference implements ActionListener {
         secondPanel.add(titrePanelSecondaire);
 
         //Ajout de la search bar :
-        JTextField searchBar = new RoundJTextField(100);
+        searchBar = new RoundJTextField(100);
         searchBar.setBounds(80, 150, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.addActionListener(this);
@@ -64,15 +67,20 @@ class RechercheReference implements ActionListener {
         mainPanel.add(secondPanel);
 
         menuEmpreinteCarbone.setVisible(true);
-
-        
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
             try {
-                SelectAllProductsClientRequest.launchSelectAllProducts();
+                Request request = new Request();
+                request.setRequestContent(searchBar.getText());
+                product = SelectProductByReference.launchSelectProductByReference(request);
+                menuEmpreinteCarbone.dispose();
+                TestAffichageProduit testAffichageProduit = new TestAffichageProduit();
+                System.out.println("=========================================");
+                System.out.println("data de recherche reference : " + product.toString());
+                System.out.println("=========================================");
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

@@ -57,9 +57,7 @@ public abstract class ClientRequest<N,S> implements Runnable {
     public void run() {
         try {
             socket.connect(new InetSocketAddress(networkConfig.getIpaddress(), networkConfig.getTcpport()));
-            //Pour les insert (?)
             instream = socket.getInputStream();
-            //Pour les select (?)
             outstream = socket.getOutputStream();
 
             LoggingUtils.logDataMultiLine(logger, Level.DEBUG, bytes);

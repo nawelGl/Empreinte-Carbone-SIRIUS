@@ -47,14 +47,13 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
 
     //==================================
     //Fonction pour lancer la requête (à la place du main) :
-    public static String launchSelectProductByReference() throws IOException, InterruptedException{
+    public static Produit launchSelectProductByReference(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
-        final Request request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
@@ -65,24 +64,29 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-
         while (!clientRequests.isEmpty()) {
             final ClientRequest joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final Produits produits = (Produits) joinedClientRequest.getResult();
             final AsciiTable asciiTable = new AsciiTable();
+            Produit dernierProduit = null;
             for (final Produit produit : produits.getProduits()) {
                 asciiTable.addRule();
                 asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
+                dernierProduit = produit;
+                System.out.println("===============================================");
+                System.out.println("produit dans selectProductByReference : " + produit.toString());
+                System.out.println("dernier produit dans selectProductByReference : " + dernierProduit.toString());
+                System.out.println("===============================================");
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());
-            return  asciiTable.render();
+            //return asciiTable.render();
+            return dernierProduit;
         }
+
         return null;
     }
-
-
 
 }
