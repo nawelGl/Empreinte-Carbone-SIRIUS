@@ -1,2 +1,2 @@
-ipaddress : 127.0.0.1 #adress ou le bakcend elle lance dqns le machine local
+ipaddress : 172.31.249.142  #127.0.0.1 #adress ou le bakcend elle lance dans le machine local
 tcpport : 45065
