@@ -1,16 +1,11 @@
 package edu.ezip.ing1.pds.front;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ezip.ing1.pds.business.dto.Produit;
-import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
 import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.commons.Request;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 class RechercheReference implements ActionListener {
     //Boutons :
@@ -77,17 +72,14 @@ class RechercheReference implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
             try {
-                System.out.println("===========================");
-                System.out.println(searchBar.getText());
-                System.out.println("ref en int : " + Integer.parseInt(searchBar.getText()));
-                System.out.println("===========================");
                 Request request = new Request();
                 request.setRequestContent(searchBar.getText());
-
-
+                data = SelectProductByReference.launchSelectProductByReference(request);
                 menuEmpreinteCarbone.dispose();
                 TestAffichageProduit testAffichageProduit = new TestAffichageProduit();
-                data = SelectProductByReference.launchSelectProductByReference(request);
+                System.out.println("=========================================");
+                System.out.println("data de recherche reference : " + data);
+                System.out.println("=========================================");
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

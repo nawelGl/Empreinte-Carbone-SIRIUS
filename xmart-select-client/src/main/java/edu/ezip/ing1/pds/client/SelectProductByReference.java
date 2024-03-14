@@ -10,7 +10,6 @@ import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
 import edu.ezip.ing1.pds.commons.Request;
-import edu.ezip.ing1.pds.commons.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
@@ -65,21 +64,27 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-
         while (!clientRequests.isEmpty()) {
             final ClientRequest joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final Produits produits = (Produits) joinedClientRequest.getResult();
             final AsciiTable asciiTable = new AsciiTable();
+            Produit dernierProduit = null;
             for (final Produit produit : produits.getProduits()) {
                 asciiTable.addRule();
                 asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
+                dernierProduit = produit;
+                System.out.println("===============================================");
+                System.out.println("produit dans selectProductByReference : " + produit.toString());
+                System.out.println("dernier produit dans selectProductByReference : " + dernierProduit.toString());
+                System.out.println("===============================================");
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());
-            return  asciiTable.render();
+            return asciiTable.render();
         }
+
         return null;
     }
 
