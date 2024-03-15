@@ -78,9 +78,6 @@ class RechercheReference implements ActionListener {
                 product = SelectProductByReference.launchSelectProductByReference(request);
                 menuEmpreinteCarbone.dispose();
                 TestAffichageProduit testAffichageProduit = new TestAffichageProduit();
-                System.out.println("=========================================");
-                System.out.println("data de recherche reference : " + product.toString());
-                System.out.println("=========================================");
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
