@@ -1,6 +1,8 @@
 package edu.ezip.ing1.pds.front;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,8 @@ public class ProductMapping implements ActionListener{
     private String productName = RechercheReference.product.getNomProduit();
     private String productColor = RechercheReference.product.getCouleur();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
+    private int textSize = 20;
+    private int borderTop = 20;
 
     public ProductMapping(){
         productMappingFrame  = new JFrame();
@@ -48,16 +52,22 @@ public class ProductMapping implements ActionListener{
         //------------aisle label-----------
         JLabel aisleLabel = new JLabel();
         aisleLabel.setText("Allée n° ");
+        aisleLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
+        aisleLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         aislePanel.add(aisleLabel);
 
         //------------shelf label-----------
         JLabel shelfLabel = new JLabel();
         shelfLabel.setText("Rayon n° ");
+        shelfLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
+        shelfLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         shelfPanel.add(shelfLabel);
 
         //------------floor label-----------
         JLabel floorLabel = new JLabel();
         floorLabel.setText("Étage n° ");
+        floorLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
+        floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
 
         mainPanel.add(aislePanel);
