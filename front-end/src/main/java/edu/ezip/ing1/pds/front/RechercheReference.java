@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class RechercheReference implements ActionListener {
-    //Boutons :
     JButton boutonConfirmer;
     JFrame menuEmpreinteCarbone;
     JTextField searchBar;
@@ -76,8 +75,14 @@ class RechercheReference implements ActionListener {
                 Request request = new Request();
                 request.setRequestContent(searchBar.getText());
                 product = SelectProductByReference.launchSelectProductByReference(request);
-                menuEmpreinteCarbone.dispose();
-                TestAffichageProduit testAffichageProduit = new TestAffichageProduit();
+                if(product != null){
+                    menuEmpreinteCarbone.dispose();
+                    ProductMapping productMapping = new ProductMapping();
+                } else{
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+                    searchBar.setText("");
+                } 
+                
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
