@@ -6,6 +6,7 @@ import java.awt.*;
 
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
 class Methodes{
+    //Header for frames
     public static void header(JFrame frame, String titre, int x){
         //----------panel header : Logo + label titre--------------
         JPanel headerPanel = new JPanel();
@@ -26,6 +27,4 @@ class Methodes{
         frame.getContentPane().add(BorderLayout.NORTH,headerPanel);
         //-----------------------------------------------
     }
-
-
 }
