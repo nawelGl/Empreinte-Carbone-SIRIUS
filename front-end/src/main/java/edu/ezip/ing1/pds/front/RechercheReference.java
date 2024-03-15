@@ -14,6 +14,7 @@ class RechercheReference implements ActionListener {
     JTextField searchBar;
     static Produit product;
     String titre;
+    Boolean referenceIsNotAnInt = false; 
 
     String titreLabelSecondaire ;
 
@@ -72,17 +73,31 @@ class RechercheReference implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
             try {
-                Request request = new Request();
-                request.setRequestContent(searchBar.getText());
-                product = SelectProductByReference.launchSelectProductByReference(request);
-                if(product != null){
-                    menuEmpreinteCarbone.dispose();
-                    ProductMapping productMapping = new ProductMapping();
+                String refEnString = searchBar.getText();
+                try{
+                    Integer refEnInt = Integer.parseInt(refEnString);
+                } catch (Exception ex){
+                    System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
+                    referenceIsNotAnInt = true;
+                }
+            
+
+                if(referenceIsNotAnInt){
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                    searchBar.setText("");
+                    referenceIsNotAnInt = false;
+                } else {
+                    Request request = new Request();
+                    request.setRequestContent(refEnString);
+                    product = SelectProductByReference.launchSelectProductByReference(request);
+                    if(product != null){
+                        menuEmpreinteCarbone.dispose();
+                        ProductMapping productMapping = new ProductMapping();
                 } else{
                     JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");
                 } 
-                
+                }
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
