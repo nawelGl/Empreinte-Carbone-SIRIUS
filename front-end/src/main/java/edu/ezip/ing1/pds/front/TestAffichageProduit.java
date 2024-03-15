@@ -9,10 +9,6 @@ public class TestAffichageProduit {
     JTextArea textArea;
 
     public TestAffichageProduit(){
-        System.out.println("=========================================");
-        System.out.println("data de recherche reference dans testAffichageProduit: " + RechercheReference.product.toString());
-        System.out.println("=========================================");
-
         testAffichageProduit = new JFrame();
         testAffichageProduit.setTitle("Test affichage produit by reference");
         testAffichageProduit.setSize(Template.LONGUEUR, Template.LARGEUR);

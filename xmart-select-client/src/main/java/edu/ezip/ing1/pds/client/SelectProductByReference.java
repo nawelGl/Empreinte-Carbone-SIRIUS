@@ -45,8 +45,6 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
     }
 
 
-    //==================================
-    //Fonction pour lancer la requête (à la place du main) :
     public static Produit launchSelectProductByReference(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
@@ -64,26 +62,26 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-        while (!clientRequests.isEmpty()) {
-            final ClientRequest joinedClientRequest = clientRequests.pop();
-            joinedClientRequest.join();
-            logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-            final Produits produits = (Produits) joinedClientRequest.getResult();
-            final AsciiTable asciiTable = new AsciiTable();
-            Produit dernierProduit = null;
-            for (final Produit produit : produits.getProduits()) {
+        try {
+            while (!clientRequests.isEmpty()) {
+                final ClientRequest joinedClientRequest = clientRequests.pop();
+                joinedClientRequest.join();
+                logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
+                final Produits produits = (Produits) joinedClientRequest.getResult();
+                final AsciiTable asciiTable = new AsciiTable();
+                Produit dernierProduit = null;
+                for (final Produit produit : produits.getProduits()) {
+                    asciiTable.addRule();
+                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
+                    dernierProduit = produit;
+                }
                 asciiTable.addRule();
-                asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
-                dernierProduit = produit;
-                System.out.println("===============================================");
-                System.out.println("produit dans selectProductByReference : " + produit.toString());
-                System.out.println("dernier produit dans selectProductByReference : " + dernierProduit.toString());
-                System.out.println("===============================================");
+                logger.debug("\n{}\n", asciiTable.render());
+                return dernierProduit;
             }
-            asciiTable.addRule();
-            logger.debug("\n{}\n", asciiTable.render());
-            //return asciiTable.render();
-            return dernierProduit;
+        } catch(Exception e){
+            System.out.println("Erreur : référence inexistante");
+            return null;
         }
 
         return null;
