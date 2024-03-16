@@ -23,7 +23,6 @@ public class SelectEmplacementById extends ClientRequest<Object, Emplacement>{
      //Attributs pour lancer la requête.
      private final static String LoggingLabel = "S e l e c t - E m p l a c e m e n t - B y - I D";
      private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
-     private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
      private final static String networkConfigFile = "network.yaml";
      private static final String threadName = "inserter-client";
      private static final String requestOrder = "SELECT_EMPLACEMENT_BY_ID";

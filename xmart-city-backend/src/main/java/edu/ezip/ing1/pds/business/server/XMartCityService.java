@@ -28,7 +28,7 @@ public class XMartCityService {
         //SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit FROM \"ezip-ing1\".produit p");
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
-        SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idEmplacement = ?");
+        SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idemplacement = ?");
      
         private final String query;
 
@@ -209,7 +209,6 @@ public class XMartCityService {
                         emplacement.setRayon(resultSet.getString("rayon"));
                         emplacement.setEtage(resultSet.getString("etage"));
                         emplacement.build(resultSet);
-                        //produits.add(produit);
                     }
 
                     String responseBody = objectMapper.writeValueAsString(emplacement);
