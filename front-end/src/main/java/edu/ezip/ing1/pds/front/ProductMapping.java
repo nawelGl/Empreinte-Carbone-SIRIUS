@@ -52,19 +52,25 @@ public class ProductMapping implements ActionListener{
         mainPanel.setLayout(null);
         productMappingFrame.getContentPane().add(mainPanel);
 
+        //------------title label-------------
+        JLabel titleLabel = new JLabel();
+        titleLabel.setText("Voici l'emplacement de votre produit :");
+        titleLabel.setFont(new Font("Avenir", Font.BOLD, textSize+3));
+        titleLabel.setBounds(300, 100, 400, 50);
+
         //------------aisle panel-----------
         RoundedPanel aislePanel = new RoundedPanel(60, 60);
-        aislePanel.setBounds(200, 150, 600, 70);
+        aislePanel.setBounds(200, 180, 600, 70);
         aislePanel.setBackground(Color.WHITE);
 
         //------------shelf panel----------
         RoundedPanel shelfPanel = new RoundedPanel(60, 60);
-        shelfPanel.setBounds(200, 250, 600, 70);
+        shelfPanel.setBounds(200, 280, 600, 70);
         shelfPanel.setBackground(Color.WHITE);
 
         //------------floor panel----------
         RoundedPanel floorPanel = new RoundedPanel(60, 60);
-        floorPanel.setBounds(200, 350, 600, 70);
+        floorPanel.setBounds(200, 380, 600, 70);
         floorPanel.setBackground(Color.WHITE);
 
         //------------aisle label-----------
@@ -88,6 +94,7 @@ public class ProductMapping implements ActionListener{
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
 
+        mainPanel.add(titleLabel);
         mainPanel.add(aislePanel);
         mainPanel.add(shelfPanel);
         mainPanel.add(floorPanel);
