@@ -80,7 +80,6 @@ class RechercheReference implements ActionListener {
                     System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
                     referenceIsNotAnInt = true;
                 }
-            
 
                 if(referenceIsNotAnInt){
                     JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);

@@ -4,9 +4,11 @@ import ch.qos.logback.classic.net.JMSQueueAppender;
 import edu.ezip.ing1.pds.backend.CoreBackendServer;
 import edu.ezip.ing1.pds.backend.RequestHandler;
 import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
+import edu.ezip.ing1.pds.client.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
+import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.business.server.XMartCityService;
 
 import javax.swing.*;
@@ -113,6 +115,10 @@ public class MainFrame extends JFrame implements ActionListener {
             try {
                 //textArea.append(SelectAllProductsClientRequest.launchSelectAllProducts());
                 //textArea.append(SelectProductByReference.launchSelectProductByReference());
+                Request request = new Request();
+                request.setRequestContent("3");
+                Emplacement emplacement = new Emplacement();
+                emplacement = SelectEmplacementById.launchSelectEmplacementById(request);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
