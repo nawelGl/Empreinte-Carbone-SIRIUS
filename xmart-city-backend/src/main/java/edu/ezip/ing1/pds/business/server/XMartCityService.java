@@ -3,6 +3,8 @@ package edu.ezip.ing1.pds.business.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.fasterxml.jackson.databind.ser.std.SqlDateSerializer;
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.business.dto.Ventes;
@@ -21,6 +23,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 
 public class XMartCityService {
 
@@ -125,115 +131,41 @@ public class XMartCityService {
                             Vente vente = new Vente();
                             vente.setIdMagasin(resultSet.getInt("idMagasin"));
                             vente.setIdProduit(resultSet.getInt("idProduit"));
-
-                            // Récupérez la date comme java.sql.Date et convertissez-la
                             java.sql.Date sqlDate = resultSet.getDate("date");
                             if (sqlDate != null) {
-                                vente.setDateEnMs(sqlDate.getTime());
+                                long timeInMillis = sqlDate.getTime();
+                                vente.setDateEnMs(timeInMillis);
+                                vente.setDate(new Date(timeInMillis));
                             }
-
                             vente.setQuantite(resultSet.getInt("quantite"));
                             System.out.println("vente to string :");
                             System.out.println(vente.toString());
+                            vente.build(resultSet);
                             ventes.add(vente);
                         }
+                        System.out.println("###########################################");
+                        System.out.println("Ventes to String:");
 
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(ventes);
-
-                        response = new Response(request.getRequestId(), responseBody);
-                    } catch (SQLException | JsonProcessingException e) {
+                        try {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            SimpleModule module = new SimpleModule();
+                            module.addSerializer(Date.class, new SqlDateSerializer());
+                            module.addDeserializer(Date.class, new DateDeserializers.SqlDateDeserializer());
+                            objectMapper.registerModule(module);
+                            String responseBody = objectMapper.writeValueAsString(ventes);
+                            response = new Response(request.getRequestId(), responseBody);
+                        } catch (JsonProcessingException e) {
+                            // Gérer l'erreur de sérialisation
+                            logger.error("Erreur lors de la sérialisation de l'objet Ventes en JSON : {}", e.getMessage());
+                            response = new Response(request.getRequestId(), "Erreur lors de la sérialisation de l'objet Ventes en JSON");
+                        }
+                    } catch (SQLException e) {
                         response = new Response(request.getRequestId(), "Erreur lors de l'exécution de la requête SELECT_ALL_VENTES");
                         logger.error("Erreur lors de l'exécution de la requête SELECT_ALL_VENTES: {}", e.getMessage());
-                    }
-                    break;
-
-
-
-                case "INSERT_PRODUCT":
-                    try {
-                        String requestBody = request.getRequestBody();
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        Produit produit = objectMapper.readValue(requestBody, Produit.class);
-
-                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
-                        insertStatement.setInt(1, produit.getIdProduit());
-
-                        insertStatement.setInt(2, produit.getIdEmplacement());
-                        insertStatement.setString(3, produit.getPaysDepart());
-                        insertStatement.setString(3, produit.getPaysArrivee());
-                        insertStatement.setString(3, produit.getCouleur());
-                        insertStatement.setString(3, produit.getTaille());
-                        insertStatement.setInt(3, produit.getReference());
-                        insertStatement.setString(3, produit.getScore());
-                        insertStatement.setString(3, produit.getGenre());
-                        insertStatement.setFloat(3, produit.getEmpreinte());
-                        insertStatement.setInt(3, produit.getIdMagasin());
-                        insertStatement.setInt(3, produit.getIdMarque());
-                        insertStatement.setString(3, produit.getNomProduit());
-
-                        produit.build(insertStatement);
-
-                        int rowsAffected = insertStatement.executeUpdate();
-
-                        if (rowsAffected > 0) {
-                            response = new Response(request.getRequestId(),String.format("{\"idProduit\": %d}", rowsAffected));
-                        } else {
-                            response = new Response(request.getRequestId(), "Failed to insert product");
-                        }
-                    } catch (SQLException | IOException e) {
-                        response = new Response(request.getRequestId(), "Error executing INSERT_PRODUCT query");
-                        logger.error("Error executing INSERT_PRODUCT query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
                     break;
-
-
-                case "SELECT_PRODUCT_BY_REFERENCE":
-                    try{
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_PRODUCT_BY_REFERENCE.query);
-                        ResultSet resultSet = selectStatement.executeQuery();
-
-                        Produits produits = new Produits();
-
-                        while (resultSet.next()) {
-                            Produit produit = new Produit();
-//                        produit.setIdProduit(resultSet.getInt("idProduit"));
-//                        produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
-//                        produit.setPaysDepart(resultSet.getString("paysDepart"));
-//                        produit.setPaysArrivee(resultSet.getString("paysArrivee"));
-//                        produit.setCouleur(resultSet.getString("couleur"));
-//                        produit.setTaille(resultSet.getString("taille"));
-//                        produit.setReference(resultSet.getInt("reference"));
-//                        produit.setScore(resultSet.getString("score"));
-//                        produit.setGenre(resultSet.getString("genre"));
-//                        produit.setEmpreinte(resultSet.getFloat("empreinte"));
-//                        produit.setIdMagasin(resultSet.getInt("idMagasin"));
-//                        produit.setIdMarque(resultSet.getInt("idMarque"));
-                            produit.setNomProduit(resultSet.getString("nomProduit"));
-                            produit.build(resultSet);
-                            System.out.println("produit to string :");
-                            System.out.println(produit.toString());
-                            produits.add(produit);
-                        }
-
-                        System.out.println("produits to string :");
-                        System.out.println(produits.toString());
-
-                        // mapper produits en Json
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(produits);
-
-                        response = new Response(request.getRequestId(), responseBody);
-                    } catch (SQLException | JsonProcessingException e) {
-                        response = new Response(request.getRequestId(), "Error executing SELECT_PRODUCT_BY_REFERENCE query");
-                        logger.error("Error executing SELECT_PRODUCT_BY_REFERENCE query: {}", e.getMessage());
-                    } catch (NoSuchFieldException e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-
 
                 default:
                     // Handle unknown action

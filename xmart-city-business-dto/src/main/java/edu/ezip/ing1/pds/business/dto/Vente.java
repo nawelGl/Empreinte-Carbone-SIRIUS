@@ -9,8 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@JsonRootName(value = "vente")
+
 public class Vente {
+    //TODO Ajouter IdVente
     private int idMagasin;
     private int idProduit;
     private long dateEnMs;
@@ -33,16 +34,15 @@ public class Vente {
         return buildPreparedStatement(preparedStatement, idMagasin, idProduit, date, quantite);
     }
 
-    public Vente(int idMagasin, int idProduit, long date, int quantite) {
+    public Vente(int idMagasin, int idProduit, Date date, int quantite) {
         this.idMagasin = idMagasin;
         this.idProduit = idProduit;
-        this.dateEnMs = date;
-        this.date = new Date(dateEnMs);
+        this.date = date;
         this.quantite = quantite;
     }
 
     // Getters and setters for each field
-    @JsonProperty("vente_idMagasin")
+
     public int getIdMagasin(){
         return idMagasin;
     }
@@ -51,7 +51,7 @@ public class Vente {
         idMagasin = id;
     }
 
-    @JsonProperty("vente_idProduit")
+
     public int getIdProduit(){
         return idProduit;
     }
@@ -61,7 +61,7 @@ public class Vente {
     }
 
 
-    @JsonProperty("vente_date")
+
     public long getDateEnMs() {
         return dateEnMs;
     }
@@ -69,7 +69,8 @@ public class Vente {
     public void setDateEnMs(long dateEnMs) {
         this.dateEnMs = dateEnMs;
     }
-    @JsonProperty("vente_quantite")
+
+    public void setDate(Date date){this.date=date;}
     public int getQuantite(){
         return quantite;
     }
