@@ -27,4 +27,17 @@ class Methodes {
         frame.getContentPane().add(BorderLayout.NORTH, headerPanel);
         // -----------------------------------------------
     }
+
+    //Centrer les titres dans les panels :
+    public static void centerLabel(JLabel label, int hauteurPanel){
+        int labelWidth = label.getPreferredSize().width;
+        int labelHeight = label.getPreferredSize().height;
+        int panelWidth = Template.LONGUEUR;
+        int panelHeight = hauteurPanel;
+        int x = (panelWidth - labelWidth) / 2;
+        int y = (panelHeight - labelHeight) / 2;
+
+        // Définir les coordonnées et la taille du label
+        label.setBounds(x, y, labelWidth, labelHeight);
+    }
 }

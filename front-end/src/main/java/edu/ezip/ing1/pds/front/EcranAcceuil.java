@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class EcranAcceuil implements ActionListener {
-//    protected JFrame acceuilApp;
-
-
+    JFrame acceuilApp;
     JPanel panelSud;
     JPanel panelCentre;
     Container panelFrame;
@@ -33,15 +31,15 @@ public class EcranAcceuil implements ActionListener {
 
     public EcranAcceuil() {
         //Paramétrages de base :
-        JFrame acceuilApp = new JFrame();
-        acceuilApp.setTitle("test acceuil");
+        acceuilApp = new JFrame();
+        acceuilApp.setTitle("EpiGreen-Shop - Acceuil");
         acceuilApp.setSize(Template.LONGUEUR, Template.LARGEUR);
         acceuilApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         acceuilApp.setLocationRelativeTo(null);
         acceuilApp.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(acceuilApp, "Empreinte carbone", 365);
+        Methodes.header(acceuilApp, "Empreinte carbone", 590);
 
         // initialisation des panels
         panelCentre = new JPanel(null); // Utiliser un layout null pour pouvoir utiliser setBounds
@@ -59,7 +57,7 @@ public class EcranAcceuil implements ActionListener {
         boutonUC1=new RoundBtn(texteBoutonUC1,30);
 
         // BoutonUC1 avec setBounds pour le positionner et le redimensionner
-        boutonUC1.setBounds(250, 180, 500, 200); // x, y, largeur, hauteur
+        boutonUC1.setBounds(430, 280, 600, 200); // x, y, largeur, hauteur
         boutonUC1.setFont(new Font("Avenir", Font.BOLD, 24)); // Taille de police en gras
 //        boutonUC1.setBorder(new RoundBtn(texteBoutonUC1,30));
         boutonUC1.setBackground(Color.WHITE);
@@ -70,7 +68,7 @@ public class EcranAcceuil implements ActionListener {
 //        boutonUC1.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
 
         //boutonarriere plan
-        boutonArriere.setBounds(230, 165, 500, 200); // x, y, largeur, hauteur
+        boutonArriere.setBounds(410, 265, 600, 200); // x, y, largeur, hauteur
 
 
         boutonArriere.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
@@ -114,6 +112,7 @@ public class EcranAcceuil implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==boutonUC1) {
+            acceuilApp.dispose();
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
         }
         if(e.getSource()==boutonUC3) {
