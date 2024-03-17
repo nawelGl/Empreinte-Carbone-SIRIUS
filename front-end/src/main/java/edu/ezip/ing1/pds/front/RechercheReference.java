@@ -21,6 +21,9 @@ class RechercheReference implements ActionListener {
     String titreHeader;
     int x;
 
+    //Bouton pour acceder aux categories :
+    JButton boutonCategories = new JButton();
+
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
         //Paramétrages de base :
@@ -46,13 +49,13 @@ class RechercheReference implements ActionListener {
         secondPanel.setLayout(null);
         secondPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
-        secondPanel.setBounds(100, 100, 800, 350);
+        secondPanel.setBounds(300, 200, 800, 350);
 
         //Ajout du JLabel :
         JLabel titrePanelSecondaire = new JLabel(titreLabelSecondaire);
         titrePanelSecondaire.setForeground(Color.WHITE);
         titrePanelSecondaire.setFont(new Font("Avenir", Font.BOLD, 22));
-        titrePanelSecondaire.setBounds(55, 25, 760, 80);
+        titrePanelSecondaire.setBounds(40, 25, 760, 80);
         secondPanel.add(titrePanelSecondaire);
 
         //Ajout de la search bar :
@@ -65,6 +68,12 @@ class RechercheReference implements ActionListener {
         secondPanel.add(boutonConfirmer);
 
         mainPanel.add(secondPanel);
+
+        //Ajout du bouton pour les categories :
+        boutonCategories.setText("Vous n'avez pas encore la référence de votre produit ?");
+        boutonCategories.setBounds(460, 740, 470, 40);
+        boutonCategories.addActionListener((this));
+        mainPanel.add(boutonCategories);
 
         menuEmpreinteCarbone.setVisible(true);
     }
@@ -100,6 +109,10 @@ class RechercheReference implements ActionListener {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+        } else if (e.getSource() == boutonCategories) {
+            //TODO : Ajouter dans le code une frame catégries et dispose celle ci
+            menuEmpreinteCarbone.dispose();
+            MainCategorie mainCategorie = new MainCategorie();
         }
     }
 }

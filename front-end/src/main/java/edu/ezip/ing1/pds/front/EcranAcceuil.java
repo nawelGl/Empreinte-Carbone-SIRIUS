@@ -23,7 +23,7 @@ public class EcranAcceuil implements ActionListener {
     String titre= "Home UC1 - Empreinte Carbone";
     String titreLabelSecondaire ="Entrez la référence de votre produit pour connaitre son empreinte carbone:";
     String titreHeader="Empreinte Carbone du produit :";
-    int x=320;
+    int x=520;
 
     String titreBoutonUC1= "Faites-vous un achat responsable ? ";
     String titreBoutonUC2="Stat UC2";
@@ -39,7 +39,7 @@ public class EcranAcceuil implements ActionListener {
         acceuilApp.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(acceuilApp, "Empreinte carbone", 590);
+        Methodes.header(acceuilApp, "Empreinte carbone", 575);
 
         // initialisation des panels
         panelCentre = new JPanel(null); // Utiliser un layout null pour pouvoir utiliser setBounds
@@ -57,7 +57,7 @@ public class EcranAcceuil implements ActionListener {
         boutonUC1=new RoundBtn(texteBoutonUC1,30);
 
         // BoutonUC1 avec setBounds pour le positionner et le redimensionner
-        boutonUC1.setBounds(430, 280, 600, 200); // x, y, largeur, hauteur
+        boutonUC1.setBounds(420, 280, 600, 200); // x, y, largeur, hauteur
         boutonUC1.setFont(new Font("Avenir", Font.BOLD, 24)); // Taille de police en gras
 //        boutonUC1.setBorder(new RoundBtn(texteBoutonUC1,30));
         boutonUC1.setBackground(Color.WHITE);
@@ -68,7 +68,7 @@ public class EcranAcceuil implements ActionListener {
 //        boutonUC1.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
 
         //boutonarriere plan
-        boutonArriere.setBounds(410, 265, 600, 200); // x, y, largeur, hauteur
+        boutonArriere.setBounds(400, 265, 600, 200); // x, y, largeur, hauteur
 
 
         boutonArriere.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
