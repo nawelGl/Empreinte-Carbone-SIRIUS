@@ -24,6 +24,9 @@ public class CategoriesTemplate{
         categorieFrame.setLocationRelativeTo(null);
         categorieFrame.setResizable(false);
 
+        //Adding a header :
+        Methodes.header(categorieFrame, "Choisissez une catégorie", 540);
+
         //Adding the main panel :
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
