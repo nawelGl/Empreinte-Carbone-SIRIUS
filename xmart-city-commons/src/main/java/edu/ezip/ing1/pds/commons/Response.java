@@ -1,9 +1,7 @@
 package edu.ezip.ing1.pds.commons;
 
-import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 
-@JsonRootName(value = "response")
 public class Response {
     public String requestId;
 
@@ -17,18 +15,14 @@ public class Response {
         this.responseBody = responseBody;
     }
 
-    @JsonProperty("request_id")
     public String getRequestId() {
         return requestId;
     }
 
-    @JsonProperty("request_id")
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 
-    @JsonProperty("response_body")
-    @JsonRawValue
     public String getResponseBody() {
         return responseBody;
     }
@@ -37,7 +31,6 @@ public class Response {
         this.responseBody = responseBody;
     }
 
-    @JsonSetter("response_body")
     public void setBody(JsonNode responseBody) {
         this.responseBody = responseBody.toString();
     }

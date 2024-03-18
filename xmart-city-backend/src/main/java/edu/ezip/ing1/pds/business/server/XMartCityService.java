@@ -8,17 +8,14 @@ import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import  edu.ezip.ing1.pds.business.dto.Produit;
 
+import edu.ezip.ing1.pds.business.dto.Emplacement;
+import  edu.ezip.ing1.pds.business.dto.Produit;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.Integer;
+
 
 public class XMartCityService {
 
@@ -26,17 +23,13 @@ public class XMartCityService {
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     private enum Queries {
-       // SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ezip-ing1\".students t"),
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
-
-
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
-
-
-//        SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
-           // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
+        //SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit FROM \"ezip-ing1\".produit p");
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
-        SELECT_PRODUCT_BY_REFERENCE("SELECT nomProduit FROM \"ezip-ing1\".produit WHERE reference=?");
+        SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
+        SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idemplacement = ?");
+     
         private final String query;
 
         private Queries(final String query) {
@@ -65,7 +58,6 @@ public class XMartCityService {
             String action = request.getRequestOrder();
 
             switch (action) {
-
 
                 case "SELECT_ALL_PRODUCTS": // request SELECT
                     try {
@@ -118,8 +110,7 @@ public class XMartCityService {
                         Produit produit = objectMapper.readValue(requestBody, Produit.class);
 
                         PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
-                       insertStatement.setInt(1, produit.getIdProduit());
-
+                        insertStatement.setInt(1, produit.getIdProduit());
                         insertStatement.setInt(2, produit.getIdEmplacement());
                         insertStatement.setString(3, produit.getPaysDepart());
                         insertStatement.setString(3, produit.getPaysArrivee());
@@ -154,36 +145,36 @@ public class XMartCityService {
                 case "SELECT_PRODUCT_BY_REFERENCE":
                     try{
                     PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_PRODUCT_BY_REFERENCE.query);
+                        String ref = request.getRequestBody().replaceAll("\"", "");
+
+                    selectStatement.setInt(1, Integer.valueOf(ref));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
                     ResultSet resultSet = selectStatement.executeQuery();
 
                     Produits produits = new Produits();
 
                     while (resultSet.next()) {
                         Produit produit = new Produit();
-//                        produit.setIdProduit(resultSet.getInt("idProduit"));
-//                        produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
-//                        produit.setPaysDepart(resultSet.getString("paysDepart"));
-//                        produit.setPaysArrivee(resultSet.getString("paysArrivee"));
-//                        produit.setCouleur(resultSet.getString("couleur"));
-//                        produit.setTaille(resultSet.getString("taille"));
-//                        produit.setReference(resultSet.getInt("reference"));
-//                        produit.setScore(resultSet.getString("score"));
-//                        produit.setGenre(resultSet.getString("genre"));
-//                        produit.setEmpreinte(resultSet.getFloat("empreinte"));
-//                        produit.setIdMagasin(resultSet.getInt("idMagasin"));
-//                        produit.setIdMarque(resultSet.getInt("idMarque"));
+                        produit.setIdProduit(resultSet.getInt("idProduit"));
+                        produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
+                        produit.setPaysDepart(resultSet.getString("paysDepart"));
+                        produit.setPaysArrivee(resultSet.getString("paysArrivee"));
+                        produit.setCouleur(resultSet.getString("couleur"));
+                        produit.setTaille(resultSet.getString("taille"));
+                        produit.setReference(resultSet.getInt("reference"));
+                        produit.setScore(resultSet.getString("score"));
+                        produit.setGenre(resultSet.getString("genre"));
+                        produit.setEmpreinte(resultSet.getFloat("empreinte"));
+                        produit.setIdMagasin(resultSet.getInt("idMagasin"));
+                        produit.setIdMarque(resultSet.getInt("idMarque"));
                         produit.setNomProduit(resultSet.getString("nomProduit"));
                         produit.build(resultSet);
-                        System.out.println("produit to string :");
-                        System.out.println(produit.toString());
                         produits.add(produit);
                     }
 
-                    System.out.println("produits to string :");
-                    System.out.println(produits.toString());
-
-                    // mapper produits en Json
-                    ObjectMapper objectMapper = new ObjectMapper();
                     String responseBody = objectMapper.writeValueAsString(produits);
 
                     response = new Response(request.getRequestId(), responseBody);
@@ -192,8 +183,46 @@ public class XMartCityService {
                 logger.error("Error executing SELECT_PRODUCT_BY_REFERENCE query: {}", e.getMessage());
             } catch (NoSuchFieldException e) {
                 throw new RuntimeException(e);
-            }
-            break;
+            } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                
+                    case "SELECT_EMPLACEMENT_BY_ID":
+                    try{
+                    PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                    selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                    ResultSet resultSet = selectStatement.executeQuery();
+
+                    Emplacement emplacement = new Emplacement();
+
+                    while (resultSet.next()) {
+                        emplacement.setIdEmplacement(resultSet.getInt("idEmplacement"));
+                        emplacement.setAllee(resultSet.getString("allee"));
+                        emplacement.setRayon(resultSet.getString("rayon"));
+                        emplacement.setEtage(resultSet.getString("etage"));
+                        emplacement.build(resultSet);
+                    }
+
+                    String responseBody = objectMapper.writeValueAsString(emplacement);
+
+                    response = new Response(request.getRequestId(), responseBody);
+            } catch (SQLException | JsonProcessingException e) {
+                response = new Response(request.getRequestId(), "Error executing SELECT_EMPLACEMENT_BY_ID query");
+                logger.error("Error executing SELECT_EMPLACEMENT_BY_ID query: {}", e.getMessage());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
 
 
                 default:
@@ -203,20 +232,10 @@ public class XMartCityService {
             }
         }
 
-
         return response;
     }
 
 
-
-
-//    public final Response dispatch(final Request request, final Connection connection)
-//            throws InvocationTargetException, IllegalAccessException {
-//        Response response = null;
-//
-//
-//        return response;
-//    }
 
 
 }
