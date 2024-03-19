@@ -68,19 +68,7 @@ public class XMartCityService {
 
                         while (resultSet.next()) {
                             Produit produit = new Produit();
-                            produit.setIdProduit(resultSet.getInt("idProduit"));
-                            produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
-                            produit.setPaysDepart(resultSet.getString("paysDepart"));
-                            produit.setPaysArrivee(resultSet.getString("paysArrivee"));
-                            produit.setCouleur(resultSet.getString("couleur"));
-                            produit.setTaille(resultSet.getString("taille"));
-                            produit.setReference(resultSet.getInt("reference"));
-                            produit.setScore(resultSet.getString("score"));
-                            produit.setGenre(resultSet.getString("genre"));
-                            produit.setEmpreinte(resultSet.getFloat("empreinte"));
-                            produit.setIdMagasin(resultSet.getInt("idMagasin"));
-                            produit.setIdMarque(resultSet.getInt("idMarque"));
-                            produit.setNomProduit(resultSet.getString("nomProduit"));
+//
                             produit.build(resultSet);
                             System.out.println("produit to string :");
                             System.out.println(produit.toString());
@@ -190,10 +178,7 @@ public class XMartCityService {
                     Emplacement emplacement = new Emplacement();
 
                     while (resultSet.next()) {
-//                        emplacement.setIdEmplacement(resultSet.getInt("idEmplacement"));
-//                        emplacement.setAllee(resultSet.getString("allee"));
-//                        emplacement.setRayon(resultSet.getString("rayon"));
-//                        emplacement.setEtage(resultSet.getString("etage"));
+//
                         emplacement.build(resultSet);
                     }
 
