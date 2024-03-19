@@ -34,7 +34,8 @@ public class MainSelectClient {
     private static final String threadName = "inserter-client";
     //avant c'était final :
 //    private static final String requestOrder = "SELECT_ALL_PRODUCTS";
-    private static final String requestOrder = "SELECT_ALL_VENTES";
+//    private static final String requestOrder = "SELECT_ALL_VENTES";
+    private static final String requestOrder = "SELECT_VENTE_WITH_DATE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
     //Méthode pour entrer une requestOrder :
@@ -86,7 +87,7 @@ public class MainSelectClient {
             final AsciiTable asciiTable = new AsciiTable();
             for (final Vente vente : ventes.getVentes()) {
                 asciiTable.addRule();
-                asciiTable.addRow(vente.getIdMagasin(), vente.getIdProduit(), vente.getDateEnMs(), vente.getQuantite());
+                asciiTable.addRow(vente.getQuantite());
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());

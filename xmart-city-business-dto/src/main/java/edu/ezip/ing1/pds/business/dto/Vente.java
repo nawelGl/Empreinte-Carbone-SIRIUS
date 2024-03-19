@@ -12,11 +12,8 @@ import java.sql.SQLException;
 
 public class Vente {
     //TODO Ajouter IdVente
-    private int idMagasin;
-    private int idProduit;
-    private long dateEnMs;
+
     private int quantite;
-    private Date date;
 
 
     public Vente() {
@@ -24,53 +21,22 @@ public class Vente {
 
     public final Vente build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idMagasin", "idProduit", "date", "quantite");
+        setFieldsFromResultSet(resultSet,  "quantite");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idMagasin, idProduit, date, quantite);
+        return buildPreparedStatement(preparedStatement, quantite);
     }
 
-    public Vente(int idMagasin, int idProduit, Date date, int quantite) {
-        this.idMagasin = idMagasin;
-        this.idProduit = idProduit;
-        this.date = date;
+    public Vente(int quantite) {
         this.quantite = quantite;
     }
 
     // Getters and setters for each field
 
-    public int getIdMagasin(){
-        return idMagasin;
-    }
-
-    public void setIdMagasin(int id){
-        idMagasin = id;
-    }
-
-
-    public int getIdProduit(){
-        return idProduit;
-    }
-
-    public void setIdProduit(int id){
-        idProduit = id;
-    }
-
-
-
-    public long getDateEnMs() {
-        return dateEnMs;
-    }
-
-    public void setDateEnMs(long dateEnMs) {
-        this.dateEnMs = dateEnMs;
-    }
-
-    public void setDate(Date date){this.date=date;}
     public int getQuantite(){
         return quantite;
     }
@@ -104,10 +70,7 @@ public class Vente {
     @Override
     public String toString() {
         return "Vente{" +
-                "idMagasin =" + idMagasin +
-                ", idProduit=" + idProduit +
-                ", date=" + date + '\'' +
-                ", quantite='" + quantite + '\'' +
+                "quantite='" + quantite + '\'' +
                 '}';
     }
 

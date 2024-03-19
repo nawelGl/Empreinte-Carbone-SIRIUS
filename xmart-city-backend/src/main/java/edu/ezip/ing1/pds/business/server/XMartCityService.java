@@ -44,7 +44,9 @@ public class XMartCityService {
         //SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
         // SELECT_ALL_PRODUCTS("SELECT p.idProduit, p.idEmplacement, p.paysDepart, p.paysArrivee, p.couleur,  p.taille, p.score, p.reference, p.empreinte, p.idMagasin, p.nomProduit   FROM \"ezip-ing1\".produit p");
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
-        SELECT_ALL_VENTES("SELECT * FROM \"ezip-ing1\".vend"),
+        SELECT_ALL_VENTES("SELECT v. FROM \"ezip-ing1\".vend v"),
+
+        SELECT_VENTE_WITH_DATE("SELECT \"quantite\" FROM \"ezip-ing1\".vend WHERE \"idProduit\"=7 AND \"date\"<'2024-01-01';"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT nomProduit FROM \"ezip-ing1\".produit WHERE reference=?");
         private final String query;
 
@@ -119,31 +121,69 @@ public class XMartCityService {
                     }
                     break;
 
+//
+//                case "SELECT_ALL_VENTES": // requête SELECT
+//                    try {
+//                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_VENTES.query);
+//                        ResultSet resultSet = selectStatement.executeQuery();
+//
+//                        Ventes ventes = new Ventes();
+//
+//                        while (resultSet.next()) {
+//                            Vente vente = new Vente();
+//                            vente.setIdMagasin(resultSet.getInt("idMagasin"));
+//                            vente.setIdProduit(resultSet.getInt("idProduit"));
+//                            java.sql.Date sqlDate = resultSet.getDate("date");
+//                            if (sqlDate != null) {
+//                                long timeInMillis = sqlDate.getTime();
+//                                vente.setDateEnMs(timeInMillis);
+//                                vente.setDate(new Date(timeInMillis));
+//                            }
+//                            vente.setQuantite(resultSet.getInt("quantite"));
+//                            System.out.println("vente to string :");
+//                            System.out.println(vente.toString());
+//                            vente.build(resultSet);
+//                            ventes.add(vente);
+//                        }
+//                        System.out.println("###########################################");
+//                        System.out.println("Ventes to String:");
+//
+//                        try {
+//                            ObjectMapper objectMapper = new ObjectMapper();
+//                            SimpleModule module = new SimpleModule();
+//                            module.addSerializer(Date.class, new SqlDateSerializer());
+//                            module.addDeserializer(Date.class, new DateDeserializers.SqlDateDeserializer());
+//                            objectMapper.registerModule(module);
+//                            String responseBody = objectMapper.writeValueAsString(ventes);
+//                            response = new Response(request.getRequestId(), responseBody);
+//                        } catch (JsonProcessingException e) {
+//                            // Gérer l'erreur de sérialisation
+//                            logger.error("Erreur lors de la sérialisation de l'objet Ventes en JSON : {}", e.getMessage());
+//                            response = new Response(request.getRequestId(), "Erreur lors de la sérialisation de l'objet Ventes en JSON");
+//                        }
+//                    } catch (SQLException e) {
+//                        response = new Response(request.getRequestId(), "Erreur lors de l'exécution de la requête SELECT_ALL_VENTES");
+//                        logger.error("Erreur lors de l'exécution de la requête SELECT_ALL_VENTES: {}", e.getMessage());
+//                    } catch (NoSuchFieldException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    break;
 
-                case "SELECT_ALL_VENTES": // requête SELECT
+                case "SELECT_VENTE_WITH_DATE": // requête SELECT with date
                     try {
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_VENTES.query);
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_VENTE_WITH_DATE.query);
                         ResultSet resultSet = selectStatement.executeQuery();
 
                         Ventes ventes = new Ventes();
 
                         while (resultSet.next()) {
                             Vente vente = new Vente();
-                            vente.setIdMagasin(resultSet.getInt("idMagasin"));
-                            vente.setIdProduit(resultSet.getInt("idProduit"));
-                            java.sql.Date sqlDate = resultSet.getDate("date");
-                            if (sqlDate != null) {
-                                long timeInMillis = sqlDate.getTime();
-                                vente.setDateEnMs(timeInMillis);
-                                vente.setDate(new Date(timeInMillis));
-                            }
-                            vente.setQuantite(resultSet.getInt("quantite"));
+                            //vente.setQuantite(resultSet.getInt("quantite"));
                             System.out.println("vente to string :");
                             System.out.println(vente.toString());
                             vente.build(resultSet);
                             ventes.add(vente);
                         }
-                        System.out.println("###########################################");
                         System.out.println("Ventes to String:");
 
                         try {
@@ -160,7 +200,7 @@ public class XMartCityService {
                             response = new Response(request.getRequestId(), "Erreur lors de la sérialisation de l'objet Ventes en JSON");
                         }
                     } catch (SQLException e) {
-                        response = new Response(request.getRequestId(), "Erreur lors de l'exécution de la requête SELECT_ALL_VENTES");
+                        response = new Response(request.getRequestId(), "Erreur lors de l'exécution de la requête SELECT_VENTE_WITH_DATE");
                         logger.error("Erreur lors de l'exécution de la requête SELECT_ALL_VENTES: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
@@ -171,6 +211,7 @@ public class XMartCityService {
                     // Handle unknown action
                     response = new Response(request.getRequestId(), "Unknown action");
                     break;
+
             }
         }
 

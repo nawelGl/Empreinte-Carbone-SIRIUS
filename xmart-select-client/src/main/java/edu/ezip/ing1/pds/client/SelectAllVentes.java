@@ -73,7 +73,7 @@ public class SelectAllVentes extends ClientRequest<Object, Ventes> {
             Vente dernierVente = null;
             for (final Vente vente : ventes.getVentes()) {
                 asciiTable.addRule();
-                asciiTable.addRow(vente.getIdMagasin(), vente.getIdProduit(),vente.getDateEnMs(),vente.getQuantite());
+                asciiTable.addRow(vente.getQuantite());
                 dernierVente = vente;
                 System.out.println("===============================================");
                 System.out.println("vente dans selectAllVentes : " + vente.toString());
