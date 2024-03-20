@@ -8,6 +8,7 @@ public class StatProduct {
     JFrame statUC3;
     String chartTitle ="Vos statistiques";
     String[] labels = {"Avant", "Après"};
+    String score;
 
     public StatProduct(int salesBefore, int salesAfter ){
 
@@ -29,9 +30,30 @@ public class StatProduct {
 
         JPanel infoPanel = new JPanel();
         JLabel testLabel = new JLabel("Votre produit est");
+
+        JLabel scoreLabel = new JLabel();
+
+        score ="A";
+        switch (score) {
+            case "A":
+                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_A.png")));
+                break;
+            case "B":
+                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_B.png")));
+                break;
+            case "C":
+                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_C.png")));
+                break;
+            case "D":
+                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_D.png")));
+                break;
+            case "E":
+                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_E.png")));
+                break;
+        }
+
         infoPanel.add(testLabel);
-
-
+        infoPanel.add(scoreLabel);
 
         //chartPanel
         JPanel chartPanel = new JPanel(new BorderLayout());
@@ -54,6 +76,8 @@ public class StatProduct {
 
 
     }
+
+
 
 
 }

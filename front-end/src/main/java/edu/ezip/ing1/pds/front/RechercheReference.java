@@ -3,7 +3,7 @@ package edu.ezip.ing1.pds.front;
 import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.commons.Request;
-import edu.ezip.ing1.pds.client.SelectProductByReference;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,8 @@ class RechercheReference implements ActionListener {
 
     static Produit product;
     static Vente vente;
+
+    JPanel menuEmpreinteCarbone;
     JButton boutonConfirmer;
     JTextField searchBar;
     String titre;
@@ -84,22 +86,22 @@ class RechercheReference implements ActionListener {
                     referenceIsNotAnInt = true;
                 }
 
-                if(referenceIsNotAnInt){
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
-                    referenceIsNotAnInt = false;
-                } else {
-                    Request request = new Request();
-                    request.setRequestContent(refEnString);
-                    product = SelectProductByReference.launchSelectProductByReference(request);
-                    if(product != null){
-                        menuEmpreinteCarbone.dispose();
-                        ProductMapping productMapping = new ProductMapping();
-                    } else{
-                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
-                        searchBar.setText("");
-                    }
-                }
+//                if(referenceIsNotAnInt){
+//                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+//                    searchBar.setText("");
+//                    referenceIsNotAnInt = false;
+//                } else {
+//                    Request request = new Request();
+//                    request.setRequestContent(refEnString);
+//                    product = SelectProductByReference.launchSelectProductByReference(request);
+//                    if(product != null){
+//                        menuEmpreinteCarbone.dispose();
+//                        ProductMapping productMapping = new ProductMapping();
+//                    } else{
+//                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+//                        searchBar.setText("");
+//                    }
+//                }
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
