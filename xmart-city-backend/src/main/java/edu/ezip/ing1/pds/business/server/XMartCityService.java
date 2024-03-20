@@ -68,7 +68,6 @@ public class XMartCityService {
 
                         while (resultSet.next()) {
                             Produit produit = new Produit();
-//
                             produit.build(resultSet);
                             System.out.println("produit to string :");
                             System.out.println(produit.toString());
