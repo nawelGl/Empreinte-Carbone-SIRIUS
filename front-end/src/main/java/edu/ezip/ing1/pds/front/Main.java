@@ -5,9 +5,10 @@ public class Main {
 
     //AccueilUC2 accueilUC2=new AccueilUC2();
 
+//
+        AccueillUC3 uc3 = new AccueillUC3();
 
-        MainFrameU2 mainFrameU2 = new MainFrameU2();
-        mainFrameU2.createMainFrame();
+
 
     }
 }

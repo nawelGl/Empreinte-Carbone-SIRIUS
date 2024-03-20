@@ -32,7 +32,7 @@
 
                 </executions>
                 <configuration>
-                    <mainClass>edu.ezip.ing1.pds.front.Main</mainClass>
+                    <mainClass>edu.ezip.ing1.pds.front.StatTest</mainClass>
                 </configuration>
             </plugin>
 
