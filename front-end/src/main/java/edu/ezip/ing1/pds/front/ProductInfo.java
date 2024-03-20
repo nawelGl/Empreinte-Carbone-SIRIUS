@@ -3,6 +3,7 @@ package edu.ezip.ing1.pds.front;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import javax.swing.*;
 
 public class ProductInfo implements ActionListener {
@@ -57,12 +58,12 @@ public class ProductInfo implements ActionListener {
         productPanel.add(empreinteLabel);
 
 
-        JLabel scoreLabel = new JLabel("Carbon score: " + productScore);
+        JLabel scoreLabel = new JLabel("Carbon score: " );
         scoreLabel.setBounds(600,160,200,50);
         productPanel.add(scoreLabel);
 
         JLabel IconScore = labelIconScore(productScore);
-        IconScore.setBounds(5,150,100,100);
+        IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
         JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
@@ -97,25 +98,23 @@ public class ProductInfo implements ActionListener {
 
         switch (scoreLetter) {
             case "A":
-                label.setIcon(new ImageIcon("icon_A.png"));
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_A.png"))));
                 break;
             case "B":
-                label.setIcon(new ImageIcon("icon_B.png"));
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_B.png"))));
                 break;
             case "C":
-                label.setIcon(new ImageIcon("icon_C.png"));
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_C.png"))));
                 break;
             case "D":
-                label.setIcon(new ImageIcon("icon_D.png"));
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_D.png"))));
                 break;
             case "E":
-                label.setIcon(new ImageIcon("icon_E.png"));
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_E.png"))));
                 break;
 
         }
-
-
-      label.setBackground(Color.BLUE);
+        label.setBackground(Color.WHITE);
         label.setOpaque(true);
 
         return label;
