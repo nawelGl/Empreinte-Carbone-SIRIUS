@@ -27,4 +27,7 @@ clsspth+=${clsspth}:.m2/repository/edu/ezip/ing1/pds/xmart-city-backend/1.0-SNAP
 #clsspth+=${clsspth}:${m2}/org/postgresql/postgresql/42.2.9/postgresql-42.2.9.jar
 #clsspth+=${clsspth}:${m2}/edu/ezip/ing1/pds/commons/xmart-city-commons/1.0-SNAPSHOT/xmart-city-commons-1.0-SNAPSHOT.jar
 
-exec java  -cp ${clsspth} edu.ezip.ing1.pds.backend.MainBackendServer
+#exec java  -cp ${clsspth} edu.ezip.ing1.pds.backend.MainBackendServer
+cd
+
+java -jar .m2/repository/edu/ezip/ing1/pds/xmart-city-backend/1.0-SNAPSHOT/xmart-city-backend-1.0-SNAPSHOT-jar-with-dependencies.jar
