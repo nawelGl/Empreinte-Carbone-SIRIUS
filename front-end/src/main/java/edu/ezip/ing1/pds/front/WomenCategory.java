@@ -18,6 +18,7 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
         super();
 
         hauts = new JButton("Hauts");
+        hauts.addActionListener(this);
         setButtonStyle(hauts, width, height); 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -50,8 +51,11 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if(e.getSource() == hauts){
+            categorieFrame.dispose();
+            WomenTop womenTop = new WomenTop();
+
+        }
     }
     
 }

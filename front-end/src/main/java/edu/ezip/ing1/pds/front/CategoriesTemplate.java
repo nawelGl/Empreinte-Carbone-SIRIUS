@@ -24,6 +24,9 @@ public class CategoriesTemplate{
         categorieFrame.setLocationRelativeTo(null);
         categorieFrame.setResizable(false);
 
+        //Adding a header :
+        Methodes.header(categorieFrame, "Choisissez une catégorie", 540);
+
         //Adding the main panel :
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
@@ -40,7 +43,7 @@ public class CategoriesTemplate{
 
     public static void setButtonStyle(JButton button, int width, int height){
         button.setPreferredSize(new Dimension(width, height));
-        button.setFont(new Font("Arial", Font.BOLD, 18));
+        button.setFont(new Font(Template.POLICE, Font.BOLD, 18));
         button.setForeground(Color.decode(Template.COUELUR_SECONDAIRE));
     }
 }

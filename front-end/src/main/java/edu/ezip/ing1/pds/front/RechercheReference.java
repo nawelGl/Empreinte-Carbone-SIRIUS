@@ -100,7 +100,8 @@ class RechercheReference implements ActionListener {
                     product = SelectProductByReference.launchSelectProductByReference(request);
                     if(product != null){
                         menuEmpreinteCarbone.dispose();
-                        ProductMapping productMapping = new ProductMapping();
+                       // ProductMapping productMapping = new ProductMapping();
+                        ProductInfo productInfo=new ProductInfo();
                 } else{
                     JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");
