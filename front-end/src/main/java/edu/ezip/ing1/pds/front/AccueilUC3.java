@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AccueillUC3 extends JFrame implements ActionListener {
+public class AccueilUC3 extends JFrame implements ActionListener {
 
     JFrame accueilUC3;
     private JButton salesBtt;
@@ -22,7 +22,7 @@ public class AccueillUC3 extends JFrame implements ActionListener {
 
 
     //constructeur de UC3
-    public AccueillUC3() {
+    public AccueilUC3() {
 
 
         // settings de bases

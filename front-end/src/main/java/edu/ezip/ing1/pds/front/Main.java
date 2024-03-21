@@ -6,7 +6,7 @@ public class Main {
     //AccueilUC2 accueilUC2=new AccueilUC2();
 
 //
-        AccueillUC3 uc3 = new AccueillUC3();
+        AccueilUC3 uc3 = new AccueilUC3();
 
 
 

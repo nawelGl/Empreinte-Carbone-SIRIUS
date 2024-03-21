@@ -5,6 +5,7 @@ import edu.ezip.ing1.pds.client.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
@@ -13,7 +14,6 @@ import static java.lang.String.valueOf;
 public class StatProduct {
 
     JFrame statUC3;
-    String chartTitle ="";
     String[] labels = {"Avant", "Après"};
 
     private int reference = RechercheReferenceUC3.venteBefore.getReference();
@@ -43,7 +43,8 @@ public class StatProduct {
         Methodes.header(statUC3,"Vos statistiques par produit",525);
 
         //mainPanel(principal)
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
         //infoPanel
@@ -60,6 +61,8 @@ public class StatProduct {
 
         JLabel scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
+
+        // Switch case pour recuperer l'icone correspondqnt
 
         switch (score) {
             case "A":
@@ -84,6 +87,8 @@ public class StatProduct {
         infoPanel.add(BorderLayout.CENTER,textLabel);
         infoPanel.add(BorderLayout.CENTER,scoreLabel);
 
+        infoPanel.setBounds(150,170,500,600);
+
         //chartPanel
         JPanel chartPanel = new JPanel(new BorderLayout());
 
@@ -92,20 +97,21 @@ public class StatProduct {
         JLabel charTitle = new JLabel("Statistiques des ventes");
         chartTitlePanel.add(charTitle);
         chartTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        chartTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
 
         double[] values = {salesBefore, salesAfter};
-        Color[] colors = {Color.RED, Color.GREEN};
-        StatTest barChart = new StatTest(labels, values, colors);
+        Color[] colors = {Color.decode("#6CE5E8"), Color.decode("#41B8D5")};
+        DrawChart barChart = new DrawChart(labels, values, colors);
         chartPanel.add(BorderLayout.NORTH,chartTitlePanel);
         chartPanel.add(BorderLayout.CENTER, barChart);
 
 
 
-        chartPanel.setPreferredSize(new Dimension(400, 300));
+        chartPanel.setBounds(780,170,500,600);
 
-        mainPanel.add(BorderLayout.WEST,infoPanel);
-        mainPanel.add(BorderLayout.CENTER,chartPanel);
+        mainPanel.add(infoPanel);
+        mainPanel.add(chartPanel);
         statUC3.getContentPane().add(mainPanel);
 
         //-----------------------------------------------
@@ -113,8 +119,6 @@ public class StatProduct {
 
 
     }
-
-
 
 
 }

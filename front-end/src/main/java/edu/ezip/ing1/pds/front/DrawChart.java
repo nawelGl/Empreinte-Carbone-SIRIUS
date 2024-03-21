@@ -4,14 +4,14 @@ package edu.ezip.ing1.pds.front;
 import javax.swing.*;
 import java.awt.*;
 
-public class StatTest extends JPanel {
+public class DrawChart extends JPanel {
 
     //private final String title;
     private final String[] labels;
     private final double[] values;
     private final Color[] colors;
 
-    public StatTest(String[] labels, double[] values, Color[] colors) {
+    public DrawChart(String[] labels, double[] values, Color[] colors) {
         this.labels = labels;
         this.values = values;
         this.colors = colors;
@@ -43,11 +43,11 @@ public class StatTest extends JPanel {
             g.setColor(colors[i]);
             g.fillRect(x, y, barWidth, barHeight);
 
-            g.setColor(Color.BLACK);
+            g.setColor(Color.WHITE);
             g.drawRect(x, y, barWidth, barHeight);
 
             // Draw label
-            g.drawString(labels[i], x + (barWidth - g.getFontMetrics().stringWidth(labels[i])) / 2, height - 5);
+            g.drawString(labels[i], x + (barWidth - g.getFontMetrics().stringWidth(labels[i])) / 4, height - 5);
         }
     }
 
