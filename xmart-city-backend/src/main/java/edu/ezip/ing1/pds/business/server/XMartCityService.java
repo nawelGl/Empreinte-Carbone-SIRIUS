@@ -196,8 +196,8 @@ public class XMartCityService {
                         logger.error("Error executing SELECT_VENTE_BY_REF query: {}", e.getMessage());
                     }catch (NoSuchFieldException e){
                         throw  new RuntimeException(e);
-                    }
-                    break;
+                        }
+                        break;
 
 
 //                case "SELECT_EMPLACEMENT_BY_ID":
@@ -240,7 +240,7 @@ public class XMartCityService {
                     // Handle unknown action
                     response = new Response(request.getRequestId(), "Unknown action");
                     break;
-            }
+                }
             }
 
             return response;
