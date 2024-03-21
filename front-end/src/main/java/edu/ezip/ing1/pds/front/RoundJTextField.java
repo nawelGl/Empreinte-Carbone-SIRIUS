@@ -1,9 +1,10 @@
 package edu.ezip.ing1.pds.front;
 
-import javax.swing.JTextField;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+
+import javax.swing.JTextField;
 
 //From StackOverflow : https://stackoverflow.com/questions/8515601/java-swing-rounded-border-for-jtextfield
 class RoundJTextField extends JTextField {

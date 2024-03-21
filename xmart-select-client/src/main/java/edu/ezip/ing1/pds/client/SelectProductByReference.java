@@ -13,25 +13,24 @@ import edu.ezip.ing1.pds.commons.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
-
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
-public class SelectAllProductsClientRequest extends ClientRequest<Object, Produits> {
+public class SelectProductByReference extends ClientRequest<Object, Produits> {
 
     //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - P r o d u c t";
+    private final static String LoggingLabel = "S e l e c t - P r o d u c t - B y - R e f e r e n c e";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_ALL_PRODUCTS";
+    private static final String requestOrder = "SELECT_PRODUCT_BY_REFERENCE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
-    public SelectAllProductsClientRequest(
+    public SelectProductByReference(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
@@ -45,44 +44,46 @@ public class SelectAllProductsClientRequest extends ClientRequest<Object, Produi
     }
 
 
-    //==================================
-    //Fonction pour lancer la requête (à la place du main) :
-    public static String launchSelectAllProducts() throws IOException, InterruptedException{
+    public static Produit launchSelectProductByReference(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
-        final Request request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectAllProductsClientRequest clientRequest = new SelectAllProductsClientRequest(
+        final SelectProductByReference clientRequest = new SelectProductByReference(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-
-        while (!clientRequests.isEmpty()) {
-            final ClientRequest joinedClientRequest = clientRequests.pop();
-            joinedClientRequest.join();
-            logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-            final Produits produits = (Produits) joinedClientRequest.getResult();
-            final AsciiTable asciiTable = new AsciiTable();
-            for (final Produit produit : produits.getProduits()) {
+        try {
+            while (!clientRequests.isEmpty()) {
+                final ClientRequest joinedClientRequest = clientRequests.pop();
+                joinedClientRequest.join();
+                logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
+                final Produits produits = (Produits) joinedClientRequest.getResult();
+                final AsciiTable asciiTable = new AsciiTable();
+                Produit dernierProduit = null;
+                for (final Produit produit : produits.getProduits()) {
+                    asciiTable.addRule();
+                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
+                    dernierProduit = produit;
+                }
                 asciiTable.addRule();
-                asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
+                logger.debug("\n{}\n", asciiTable.render());
+                return dernierProduit;
             }
-            asciiTable.addRule();
-            logger.debug("\n{}\n", asciiTable.render());
-            return  asciiTable.render();
+        } catch(Exception e){
+            System.out.println("Erreur : référence inexistante");
+            return null;
         }
+
         return null;
     }
-
-
 
 }

@@ -9,4 +9,5 @@ interface Template {
     String COULEUR_PRINCIPALE = "#E7EBE4";
     String COUELUR_SECONDAIRE = "#7B8275";
     String COULEUR_HEADER = "#FFFFFF";
+    String POLICE = "Avenir";
 }

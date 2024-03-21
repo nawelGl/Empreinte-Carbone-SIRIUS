@@ -1,10 +1,6 @@
 package edu.ezip.ing1.pds.business.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,7 +66,6 @@ public class Produit {
         return idEmplacement;
     }
 
-
     public void setIdEmplacement(int idEmplacement){this.idEmplacement = idEmplacement;}
 
     public String getPaysDepart() {
@@ -84,14 +79,12 @@ public class Produit {
         return paysArrivee;
     }
 
-
     public void setPaysArrivee(String paysArrivee){this.paysArrivee = paysArrivee;}
 
     public String getCouleur() {
         return couleur;
     }
-
-
+    
     public void setCouleur(String couleur){this.couleur = couleur;}
 
     public String getTaille() {
@@ -104,47 +97,40 @@ public class Produit {
         return reference;
     }
 
-    @JsonProperty("produit_reference")
     public void setReference(int reference){this.reference = reference;}
 
     public String getScore() {
         return score;
     }
 
-    @JsonProperty("produit_score")
     public void setScore(String score) {this.score = score;}
 
     public String getGenre() {
         return genre;
     }
 
-    @JsonProperty("produit_genre")
     public void setGenre(String genre){this.genre = genre;}
 
     public float getEmpreinte() {
         return empreinte;
     }
 
-    @JsonProperty("produit_empreinte")
     public void setEmpreinte(float empreinte){this.empreinte = empreinte;}
 
     public int getIdMagasin() {
         return idMagasin;
     }
 
-    @JsonProperty("produit_idMagasin")
     public void setIdMagasin(int idMagasin){this.idMagasin = idMagasin;}
 
     public int getIdMarque(){return idMarque;}
 
-    @JsonProperty("produit_idMarque")
     public void setIdMarque(int idMarque){this.idMarque = idMarque;}
 
     public String getNomProduit() {
         return nomProduit;
     }
 
-    @JsonProperty("produit_nomProduit")
     public void setNomProduit(String nomProduit){this.nomProduit = nomProduit;}
 
 
