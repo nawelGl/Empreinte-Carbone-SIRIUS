@@ -19,7 +19,21 @@ class Methodes {
         logoLabel.setBounds(10, 8, 70, 70);
         headerPanel.add(logoLabel);
 
-        titreLabel.setFont(new Font("Avenir", Font.BOLD, 24));
+//
+        JPanel nomAppPanel = new JPanel();
+        nomAppPanel.setBounds(100,25,200,35);
+        nomAppPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        headerPanel.add(nomAppPanel);
+
+        JLabel nomAppLabel = new JLabel("EPIGREEN-SHOP");
+        Font font = new Font(Template.POLICE, Font.BOLD, 20);
+        nomAppLabel.setFont(font);
+        nomAppLabel.setForeground(Color.WHITE);
+        nomAppPanel.add(nomAppLabel);
+
+
+
+        titreLabel.setFont(new Font(Template.POLICE, Font.BOLD, 24));
         titreLabel.setBorder(new EmptyBorder(25, 20, 0, 0));
         headerPanel.setBackground(Color.decode(Template.COULEUR_HEADER));
         headerPanel.setPreferredSize(new Dimension(Template.LONGUEUR, Template.HAUTEUR_HEADER));
