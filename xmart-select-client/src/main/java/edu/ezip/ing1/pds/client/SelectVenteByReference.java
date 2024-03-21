@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
-import edu.ezip.ing1.pds.business.dto.Produit;
-import edu.ezip.ing1.pds.business.dto.Produits;
+import edu.ezip.ing1.pds.business.dto.Vente;
+import edu.ezip.ing1.pds.business.dto.Ventes;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -18,33 +18,35 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
-public class SelectProductByReference extends ClientRequest<Object, Produits> {
+public class SelectVenteByReference extends ClientRequest<Object, Ventes> {
 
     //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - P r o d u c t - B y - R e f e r e n c e";
+    private final static String LoggingLabel = "S e l e c t - V e n t e - B y - R e f e r e n c e";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
-    private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
+
     private final static String networkConfigFile = "network.yaml";
-    private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_PRODUCT_BY_REFERENCE";
+
+    private static final String requestOrder = "SELECT_VENTE_WITH_DATE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
-    public SelectProductByReference(
+
+
+    public SelectVenteByReference(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
     }
 
     @Override
-    public Produits readResult(String body) throws IOException {
+    public Ventes readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final Produits produits = mapper.readValue(body, Produits.class);
+        final Ventes produits = mapper.readValue(body, Ventes.class);
         return produits;
     }
 
 
-    public static Produit launchSelectProductByReference(Request request) throws IOException, InterruptedException{
+    public static Vente launchSelectProductByReference(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -56,7 +58,7 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectProductByReference clientRequest = new SelectProductByReference(
+        final SelectVenteByReference clientRequest = new SelectVenteByReference(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -66,13 +68,14 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Produits produits = (Produits) joinedClientRequest.getResult();
+                final Ventes produits = (Ventes) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
-                Produit dernierProduit = null;
-                for (final Produit produit : produits.getProduits()) {
+                Vente dernierProduit = null;
+                for (final Vente vente : produits.getVentes()) {
                     asciiTable.addRule();
-                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getPaysDepart(), produit.getPaysArrivee(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit());
-                    dernierProduit = produit;
+                    asciiTable.addRow(vente.getReference(), vente.getQuantite(), vente.getScore(), vente.getEmpreinte());
+                    int Qtt = vente.getQuantite();
+                    Qtt=Qtt+Qtt;
                 }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());

@@ -12,8 +12,10 @@ import java.sql.SQLException;
 
 public class Vente {
     //TODO Ajouter IdVente
-
+    private int reference;
     private int quantite;
+    private String score;
+    private float empreinte;
 
 
     public Vente() {
@@ -21,29 +23,45 @@ public class Vente {
 
     public final Vente build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet,  "quantite");
+        setFieldsFromResultSet(resultSet,  "reference","quantite","score","empreinte");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, quantite);
+        return buildPreparedStatement(preparedStatement, reference,quantite,score,empreinte);
     }
 
-    public Vente(int quantite) {
+    public void setReference(int reference){
+        this.reference=reference;
+    }
+    public int getReference(){
+        return reference;
+    }
+
+    public void setQuantite(int quantite){
         this.quantite = quantite;
     }
-
-    // Getters and setters for each field
 
     public int getQuantite(){
         return quantite;
     }
 
-    public void setQuantite(int qtt){
-        quantite = qtt;
+    public  void setScore(String score){
+        this.score=score;
     }
+    public String getScore(){
+        return score;
+    }
+    public void setEmpreinte(float empreinte){
+        this.empreinte=empreinte;
+    }
+    public float getEmpreinte(){
+        return empreinte;
+    }
+
+
 
 
 
@@ -70,7 +88,11 @@ public class Vente {
     @Override
     public String toString() {
         return "Vente{" +
-                "quantite='" + quantite + '\'' +
+                "reference='" + reference + '\'' +','+
+                "quantite='" + quantite + '\'' +','+
+                "score='" + score + '\'' +','+
+                "empreinte='" + empreinte + '\''+
+
                 '}';
     }
 

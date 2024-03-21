@@ -7,11 +7,10 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@JsonRootName(value = "ventes")
+
 public class Ventes {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonProperty("ventes")
+
     private Set<Vente> ventes = new LinkedHashSet<>();
 
     public Set<Vente> getVentes() {

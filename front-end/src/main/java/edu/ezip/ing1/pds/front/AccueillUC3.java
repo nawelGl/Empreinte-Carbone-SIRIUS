@@ -25,7 +25,6 @@ public class AccueillUC3 extends JFrame implements ActionListener {
     public AccueillUC3() {
 
 
-
         // settings de bases
         accueilUC3 = new JFrame("Usecase2: Statistique");
         accueilUC3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +69,8 @@ public class AccueillUC3 extends JFrame implements ActionListener {
         mainPanel.add(categoryBtt);
 
         accueilUC3.getContentPane().add(BorderLayout.CENTER,mainPanel);
+
+
         //--------------------------------
         accueilUC3.setVisible(true);
     }

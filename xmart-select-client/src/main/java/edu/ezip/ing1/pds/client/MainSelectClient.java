@@ -57,7 +57,7 @@ public class MainSelectClient {
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectAllProductsClientRequest clientRequest = new SelectAllProductsClientRequest(
+        final SelectVentesByReferenceClientRequest clientRequest = new SelectVentesByReferenceClientRequest(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -87,7 +87,7 @@ public class MainSelectClient {
             final AsciiTable asciiTable = new AsciiTable();
             for (final Vente vente : ventes.getVentes()) {
                 asciiTable.addRule();
-                asciiTable.addRow(vente.getQuantite());
+                asciiTable.addRow(vente.getReference(),vente.getQuantite(),vente.getScore(),vente.getEmpreinte());
             }
             asciiTable.addRule();
             logger.debug("\n{}\n", asciiTable.render());

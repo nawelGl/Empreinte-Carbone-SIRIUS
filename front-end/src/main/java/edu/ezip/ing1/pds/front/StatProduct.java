@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.front;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class StatProduct {
 
@@ -22,37 +23,34 @@ public class StatProduct {
         Methodes.header(statUC3,"Vos statistiques par produit",525);
 
         //mainPanel(principal)
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(null);
+        JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
         //infoPanel
 
         JPanel infoPanel = new JPanel();
-        JLabel testLabel = new JLabel("Votre produit est");
-
+        infoPanel.setBackground(Color.white);
         JLabel scoreLabel = new JLabel();
 
-        score ="A";
+        score ="E";
         switch (score) {
             case "A":
-                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_A.png")));
+                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_A.png"))));
                 break;
             case "B":
-                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_B.png")));
+                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_B.png"))));
                 break;
             case "C":
-                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_C.png")));
+                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_C.png"))));
                 break;
             case "D":
-                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_D.png")));
+                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_D.png"))));
                 break;
             case "E":
-                scoreLabel.setIcon(new ImageIcon(getClass().getResource("/icon_E.png")));
+                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_E.png"))));
                 break;
         }
 
-        infoPanel.add(testLabel);
         infoPanel.add(scoreLabel);
 
         //chartPanel
@@ -61,15 +59,15 @@ public class StatProduct {
         double[] values = {salesBefore, salesAfter};
         Color[] colors = {Color.RED, Color.GREEN};
         StatTest barChart = new StatTest(chartTitle, labels, values, colors);
-        chartPanel.add(BorderLayout.CENTER,barChart);
+        chartPanel.add(BorderLayout.CENTER, barChart);
 
 
 
         chartPanel.setPreferredSize(new Dimension(400, 300));
 
-        statUC3.getContentPane().add(BorderLayout.CENTER, infoPanel);
-        statUC3.getContentPane().add(BorderLayout.CENTER,chartPanel);
-
+        mainPanel.add(BorderLayout.WEST,infoPanel);
+        mainPanel.add(BorderLayout.CENTER,chartPanel);
+        statUC3.getContentPane().add(mainPanel);
 
         //-----------------------------------------------
         statUC3.setVisible(true);

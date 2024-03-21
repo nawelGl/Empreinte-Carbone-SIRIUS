@@ -22,7 +22,7 @@ public class StatTest extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        int width = getWidth()/2;
+        int width = getWidth();
         int height = getHeight();
         int barWidth = width / values.length;
 
@@ -56,24 +56,5 @@ public class StatTest extends JPanel {
             g.drawString(labels[i], x + (barWidth - g.getFontMetrics().stringWidth(labels[i])) / 2, height - 5);
         }
     }
-//
-//    public static void main(String[] args) {
-//        String title = "Bar Chart Example";
-//        String[] labels = {"Avant", "Après"};
-//        double[] values = {100, 200};
-//        Color[] colors = {Color.RED, Color.GREEN};
-//
-//        StatTest barChart = new StatTest(title, labels, values, colors);
-//
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(1000, 700);
-//
-//        JPanel mainPanel = new JPanel(new BorderLayout());
-//        mainPanel.setPreferredSize(new Dimension(500,400));
-//        mainPanel.add(BorderLayout.CENTER,barChart);
-//
-//        frame.getContentPane().add(mainPanel);
-//        frame.setVisible(true);
-//    }
+
 }
