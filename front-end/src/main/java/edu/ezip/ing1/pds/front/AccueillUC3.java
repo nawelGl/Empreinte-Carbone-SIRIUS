@@ -85,8 +85,8 @@ public class AccueillUC3 extends JFrame implements ActionListener {
         }
         if(e.getSource() == productBtt) {
             accueilUC3.dispose();
-            //RechercheReference rechercheReference = new RechercheReference(titre,titreHeader,titreLabelSecondaire,x);
-            StatProduct statProduct = new StatProduct(2,8);
+            RechercheReferenceUC3 rechercheReferenceUC3 = new RechercheReferenceUC3(titre,titreHeader,titreLabelSecondaire,x);
+            //StatProduct statProduct = new StatProduct(2,8);
         }
         if(e.getSource() == categoryBtt) {
             //accueilUC3.dispose();

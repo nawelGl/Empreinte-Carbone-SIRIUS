@@ -18,7 +18,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
-public class SelectVenteByReference extends ClientRequest<Object, Ventes> {
+public class SelectBeforeVenteByReference extends ClientRequest<Object, Ventes> {
 
     //Attributs pour lancer la requête.
     private final static String LoggingLabel = "S e l e c t - V e n t e - B y - R e f e r e n c e";
@@ -26,13 +26,15 @@ public class SelectVenteByReference extends ClientRequest<Object, Ventes> {
 
     private final static String networkConfigFile = "network.yaml";
 
-    private static final String requestOrder = "SELECT_VENTE_WITH_DATE";
+    private static final String requestOrder = "SELECT_BEFORE_VENTE_BY_REFERENCE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
+    protected static int totalQuantite;
 
 
 
-    public SelectVenteByReference(
+
+    public SelectBeforeVenteByReference(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
@@ -46,7 +48,17 @@ public class SelectVenteByReference extends ClientRequest<Object, Ventes> {
     }
 
 
-    public static Vente launchSelectProductByReference(Request request) throws IOException, InterruptedException{
+    public static int getTotalQuantiteVentes(Ventes ventes) {
+        for (Vente vente : ventes.getVentes()) {
+            totalQuantite += vente.getQuantite();
+        }
+        return totalQuantite;
+    }
+    public static int getTotalQuantite(){
+        return totalQuantite;
+    }
+
+    public static Vente launchSelectVenteByReference(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -58,28 +70,31 @@ public class SelectVenteByReference extends ClientRequest<Object, Ventes> {
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectVenteByReference clientRequest = new SelectVenteByReference(
+        final SelectBeforeVenteByReference clientRequest = new SelectBeforeVenteByReference(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
+        totalQuantite=0;
         try {
             while (!clientRequests.isEmpty()) {
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Ventes produits = (Ventes) joinedClientRequest.getResult();
+                final Ventes ventes = (Ventes) joinedClientRequest.getResult();
+                totalQuantite += getTotalQuantiteVentes(ventes);
                 final AsciiTable asciiTable = new AsciiTable();
-                Vente dernierProduit = null;
-                for (final Vente vente : produits.getVentes()) {
+                Vente dernierVente = null;
+                for (final Vente vente : ventes.getVentes()) {
                     asciiTable.addRule();
                     asciiTable.addRow(vente.getReference(), vente.getQuantite(), vente.getScore(), vente.getEmpreinte());
-                    int Qtt = vente.getQuantite();
-                    Qtt=Qtt+Qtt;
+//                    int Qtt = vente.getQuantite();
+//                    Qtt=Qtt+Qtt;
+                    dernierVente =vente;
                 }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return dernierProduit;
+                return dernierVente;
             }
         } catch(Exception e){
             System.out.println("Erreur : référence inexistante");

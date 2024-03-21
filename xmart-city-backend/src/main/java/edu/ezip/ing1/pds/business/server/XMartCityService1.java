@@ -33,7 +33,7 @@
 //        SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
 //        SELECT_ALL_VENTES("SELECT v. FROM \"ezip-ing1\".vend v"),
 //
-//        SELECT_VENTE_WITH_DATE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
+//        SELECT_BEFORE_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
 //                "INNER JOIN \"ezip-ing1\".produit\n" +
 //                "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
 //                "WHERE \"date\"<'2024-01-01';"),
@@ -146,9 +146,9 @@
 ////                    }
 ////                    break;
 //
-//                case "SELECT_VENTE_WITH_DATE": // requête SELECT with date
+//                case "SELECT_BEFORE_VENTE_BY_REFERENCE": // requête SELECT with date
 //                    try {
-//                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_VENTE_WITH_DATE.query);
+//                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BEFORE_VENTE_BY_REFERENCE.query);
 //                        ResultSet resultSet = selectStatement.executeQuery();
 //
 //                        Ventes ventes = new Ventes();

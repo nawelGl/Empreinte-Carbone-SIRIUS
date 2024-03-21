@@ -6,13 +6,12 @@ import java.awt.*;
 
 public class StatTest extends JPanel {
 
-    private final String title;
+    //private final String title;
     private final String[] labels;
     private final double[] values;
     private final Color[] colors;
 
-    public StatTest(String title, String[] labels, double[] values, Color[] colors) {
-        this.title = title;
+    public StatTest(String[] labels, double[] values, Color[] colors) {
         this.labels = labels;
         this.values = values;
         this.colors = colors;
@@ -26,11 +25,6 @@ public class StatTest extends JPanel {
         int height = getHeight();
         int barWidth = width / values.length;
 
-        // Draw title
-        g.setFont(new Font("Arial", Font.BOLD, 15));
-        FontMetrics titleMetrics = g.getFontMetrics();
-        int titleWidth = titleMetrics.stringWidth(title);
-        g.drawString(title, (width - titleWidth) / 2, titleMetrics.getAscent());
 
         // Calculate maximum value
         double maxValue = 0;

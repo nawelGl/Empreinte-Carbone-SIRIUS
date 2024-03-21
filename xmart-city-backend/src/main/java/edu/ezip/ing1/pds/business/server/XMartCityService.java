@@ -32,10 +32,14 @@ public class XMartCityService {
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
 
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idemplacement = ?"),
-        SELECT_VENTE_WITH_DATE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
+        SELECT_BEFORE_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit\n" +
                 "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
-                "WHERE \"reference\"=? AND \"date\"<'2024-01-01';");
+                "WHERE \"reference\"=? AND \"date\"<'2024-01-01';"),
+        SELECT_AFTER_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
+                "INNER JOIN \"ezip-ing1\".produit\n" +
+                "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
+                "WHERE \"reference\"=? AND \"date\">'2024-01-01';");
 
         private final String query;
 
@@ -169,9 +173,9 @@ public class XMartCityService {
                     }
                     break;
 
-                case "SELECT_VENTE_WITH_DATE": // requête SELECT with date
+                case "SELECT_BEFORE_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_VENTE_WITH_DATE.query);
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BEFORE_VENTE_BY_REFERENCE.query);
                         String ref = request.getRequestBody().replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(ref));
@@ -192,12 +196,41 @@ public class XMartCityService {
 
                         response = new Response(request.getRequestId(), responseBody);
                     }catch (SQLException | JsonProcessingException e){
-                        response = new Response(request.getRequestId(), "Error executing SELECT_EMPLACEMENT_BY_ID query");
-                        logger.error("Error executing SELECT_VENTE_BY_REF query: {}", e.getMessage());
+                        response = new Response(request.getRequestId(), "Error executing SELECT_BEFORE_VENTE_BY_REF query");
+                        logger.error("Error executing SELECT_BEFORE_VENTE_BY_REF query: {}", e.getMessage());
                     }catch (NoSuchFieldException e){
                         throw  new RuntimeException(e);
                         }
                         break;
+                case "SELECT_AFTER_VENTE_BY_REFERENCE": // requête SELECT with date
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_AFTER_VENTE_BY_REFERENCE.query);
+                        String ref = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(ref));
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Ventes ventes = new Ventes();
+
+                        while (resultSet.next()) {
+                            Vente vente = new Vente();
+                            vente.build(resultSet);
+                            ventes.add(vente);
+                        }
+                        System.out.println("Ventes to String:");
+
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(ventes);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    }catch (SQLException | JsonProcessingException e){
+                        response = new Response(request.getRequestId(), "Error executing SELECT_AFTER_VENTE_BY_REF query");
+                        logger.error("Error executing SELECT_AFTER_VENTE_BY_REF query: {}", e.getMessage());
+                    }catch (NoSuchFieldException e){
+                        throw  new RuntimeException(e);
+                    }
+                    break;
 
 
                 case "SELECT_EMPLACEMENT_BY_ID":
