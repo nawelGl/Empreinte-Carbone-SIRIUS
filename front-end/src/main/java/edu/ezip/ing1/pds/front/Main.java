@@ -5,7 +5,7 @@ public class Main {
 
 
         EcranAcceuil ecranAcceuil = new EcranAcceuil();
-        
+
 
     }
 }
