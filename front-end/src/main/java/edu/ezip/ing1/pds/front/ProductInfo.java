@@ -78,11 +78,13 @@ public class ProductInfo implements ActionListener {
         suggestionPanel.setLayout(null);
         suggestionPanel.setBounds(180,380,1030,300);
         suggestionPanel.setBackground(Color.WHITE);
-        mainPanel.add(suggestionPanel);
+
 
         JLabel label2 = new JLabel("Suggestions ");
         label1.setBounds(450,5,100,50);
         suggestionPanel.add(label2);
+
+        mainPanel.add(suggestionPanel);
 
 
 
