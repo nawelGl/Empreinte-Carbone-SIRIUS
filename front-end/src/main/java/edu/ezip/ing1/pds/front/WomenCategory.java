@@ -58,8 +58,6 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
         } else  if(e.getSource() == bas){
             categorieFrame.dispose();
             WomenPants womenPants = new WomenPants();
-        } else if(e.getSource() == backButton){
-            super.actionPerformed(e);
         }
     }
     
