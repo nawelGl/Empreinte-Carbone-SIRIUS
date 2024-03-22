@@ -21,7 +21,7 @@ public class Produit {
     private int idMarque;
     private String nomProduit;
 
-    private int idsouscatB;
+    private Integer idsouscatB;
 
     public Produit() {
     }
@@ -38,7 +38,7 @@ public class Produit {
         return buildPreparedStatement(preparedStatement, idEmplacement, paysDepart, paysArrivee, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB);
     }
 
-    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, int idsouscatB) {
+    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.paysDepart = paysDepart;
@@ -136,11 +136,11 @@ public class Produit {
 
     public void setNomProduit(String nomProduit){this.nomProduit = nomProduit;}
 
-    public int getIdsouscatB() {
+    public Integer getIdsouscatB() {
         return idsouscatB;
     }
 
-    public void setIdsouscatB(int idsouscatB) {
+    public void setIdsouscatB(Integer idsouscatB) {
         this.idsouscatB = idsouscatB;
     }
 
