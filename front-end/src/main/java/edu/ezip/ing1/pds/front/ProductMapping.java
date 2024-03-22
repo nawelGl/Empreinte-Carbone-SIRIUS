@@ -98,7 +98,7 @@ public class ProductMapping implements ActionListener{
         //Bouton retour :
         backHomeButton = new JButton("Retour à l'accueil");
         backHomeButton.addActionListener(this);
-        backHomeButton.setBounds(610, 700, 180, 40);
+        backHomeButton.setBounds(610, 600, 180, 40);
         mainPanel.add(backHomeButton);
 
         mainPanel.add(titleLabel);

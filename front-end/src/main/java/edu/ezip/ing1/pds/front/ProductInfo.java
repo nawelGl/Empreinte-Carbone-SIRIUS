@@ -30,7 +30,9 @@ public class ProductInfo implements ActionListener {
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
        // String titreHeader="Produit nom couleur";
-        Methodes.header(productInfoFrame, titreHeader, 400);
+
+        Methodes.header(productInfoFrame, titreHeader, 540);
+
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -63,11 +65,10 @@ public class ProductInfo implements ActionListener {
         productPanel.add(scoreLabel);
 
         JLabel IconScore = labelIconScore(productScore);
-        IconScore.setBounds(750,160,80,80);
+        IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
         JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
-
         UC2button.addActionListener(this);
         UC2button.setBounds(730,270,300,30);
         productPanel.add(UC2button);
@@ -78,18 +79,30 @@ public class ProductInfo implements ActionListener {
 
         JPanel suggestionPanel = new JPanel();
         suggestionPanel.setLayout(null);
-        suggestionPanel.setBounds(180,380,1030,300);
+        suggestionPanel.setBounds(180,400,1030,300);
         suggestionPanel.setBackground(Color.WHITE);
+<<<<<<< HEAD
 
 
         JLabel label2 = new JLabel("Suggestions ");
         label2.setBounds(450,5,100,50);
         suggestionPanel.add(label2);
 
+        //------- articles suggérés
         JButton suggest1Button = new JButton("IMAGE 1");
         suggest1Button.setBounds(100,80,150,150);
         suggestionPanel.add(suggest1Button);
 
+        JButton suggest2Button = new JButton("IMAGE 1");
+        suggest2Button.setBounds(100,80,150,150);
+        suggestionPanel.add(suggest2Button);
+
+        JButton suggest3Button = new JButton("IMAGE 1");
+        suggest3Button.setBounds(100,80,150,150);
+        suggestionPanel.add(suggest3Button);
+
+=======
+>>>>>>> 5ad59ebcbba0276477967c31084b1f80d7d60d54
         mainPanel.add(suggestionPanel);
 
 
