@@ -79,7 +79,7 @@ class RechercheReference implements ActionListener {
 
         //Ajout du bouton pour les categories :
         boutonCategories.setText("Vous n'avez pas encore la référence de votre produit ?");
-        boutonCategories.setBounds(460, 740, 470, 40);
+        boutonCategories.setBounds(460, 600, 470, 40);
         boutonCategories.addActionListener((this));
         mainPanel.add(boutonCategories);
 

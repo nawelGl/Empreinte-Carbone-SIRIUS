@@ -6,7 +6,6 @@ cd ../"xmart-city-backend"
 mvn clean install
 mvn clean package
 #----- Chat gpt pour la verif -------
-
 # Vérifiez si la construction a réussi
 if [ $? -eq 0 ]; then
     echo "Le jar a été généré avec succès."
