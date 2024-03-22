@@ -7,8 +7,8 @@ import java.sql.PreparedStatement;
 
 
 public class SousCategorieA {
-    private int idSouscatA;
-    private String nomSouscatA;
+    private int idSousCategorieA;
+    private String nom;
     private int idCategorie;
 
 
@@ -25,23 +25,23 @@ public class SousCategorieA {
 
     public  final PreparedStatement build(PreparedStatement preparedStatement)
             throws  SQLException, NoSuchFieldException, IllegalAccessException{
-        return buildPreparedStatement(preparedStatement,idSouscatA,nomSouscatA,idCategorie);
+        return buildPreparedStatement(preparedStatement,idSousCategorieA,nom,idCategorie);
     }
 
     public int getIdSouscatA() {
-        return idSouscatA;
+        return idSousCategorieA;
     }
 
     public void setIdSouscatA(int idSouscatA) {
-        this.idSouscatA = idSouscatA;
+        this.idSousCategorieA = idSouscatA;
     }
 
     public String getNomSouscatA() {
-        return nomSouscatA;
+        return nom;
     }
 
     public void setNomSouscatA(String nomSouscatA) {
-        this.nomSouscatA = nomSouscatA;
+        this.nom = nomSouscatA;
     }
 
     public int getIdCategorie() {
@@ -73,8 +73,8 @@ public class SousCategorieA {
     @Override
     public String toString() {
         return "SousCategorieA{" +
-                "idSouscatA='" + idSouscatA + '\'' +','+
-                "nomSouscatA='" + nomSouscatA+ '\'' +','+
+                "idSouscatA='" + idSousCategorieA + '\'' +','+
+                "nomSouscatA='" + nom+ '\'' +','+
                 "idCategorie='" + idCategorie + '\'' +','+
 
 
