@@ -23,6 +23,7 @@ public class DatabaseConnectionBasicConfiguration {
     private final static String LoggingLabel = "C o n n - p o o l";
 
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+    //1 instance max
     public static DatabaseConnectionBasicConfiguration getInstance() {
         if(inst == null) {
             new DatabaseConnectionBasicConfiguration(true);
@@ -30,8 +31,10 @@ public class DatabaseConnectionBasicConfiguration {
         return inst;
     }
 
+    //Constructeur privé (doit passer par getInstance pour créer.
     private  DatabaseConnectionBasicConfiguration(final boolean t) {
         final Yaml yaml = new Yaml(new Constructor(DatabaseConnectionBasicConfiguration.class));
+        //Chargement du fichier de configuration par défaut
         final InputStream nptStrm = this.getClass().getClassLoader().getResourceAsStream(dbConfigDefaultFileName);
         logger.debug("Load config file : {}", dbConfigDefaultFileName);
         inst = yaml.load(nptStrm);

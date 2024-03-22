@@ -13,6 +13,7 @@ public class ProductInfo implements ActionListener {
     private String productScore = RechercheReference.product.getScore();
     private String productColor = RechercheReference.product.getCouleur();
     private Float productEmpreinte= RechercheReference.product.getEmpreinte();
+    JButton UC2button;
 
 
     public ProductInfo(){
@@ -30,7 +31,7 @@ public class ProductInfo implements ActionListener {
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
        // String titreHeader="Produit nom couleur";
-        Methodes.header(productInfoFrame, titreHeader, 250);
+        Methodes.header(productInfoFrame, titreHeader, 540);
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -44,7 +45,7 @@ public class ProductInfo implements ActionListener {
         productPanel.setBounds(180,60,1030,300);
         productPanel.setBackground(Color.WHITE);
 
-        JLabel label1 = new JLabel("Votre produit ");
+        JLabel label1 = new JLabel("Votre produit :");
         label1.setBounds(450,5,100,50);
         productPanel.add(label1);
 
@@ -66,7 +67,8 @@ public class ProductInfo implements ActionListener {
         IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
-        JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
+        UC2button= new JButton("Trouver l'article dans le magasin >> ");
+        UC2button.addActionListener(this);
         UC2button.setBounds(730,270,300,30);
         productPanel.add(UC2button);
         UC2button.setOpaque(false);
@@ -123,8 +125,9 @@ public class ProductInfo implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        productInfoFrame.dispose();
-        ProductMapping productMapping=new ProductMapping();
-
+        if(e.getSource() == UC2button){
+            productInfoFrame.dispose();
+            ProductMapping productMapping=new ProductMapping();
+        }
     }
 }
