@@ -31,7 +31,9 @@ public class ProductInfo implements ActionListener {
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
        // String titreHeader="Produit nom couleur";
+
         Methodes.header(productInfoFrame, titreHeader, 540);
+
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -78,8 +80,14 @@ public class ProductInfo implements ActionListener {
 
         JPanel suggestionPanel = new JPanel();
         suggestionPanel.setLayout(null);
-        suggestionPanel.setBounds(180,400,1030,300);
+        suggestionPanel.setBounds(180,380,1030,300);
         suggestionPanel.setBackground(Color.WHITE);
+
+
+        JLabel label2 = new JLabel("Suggestions ");
+        label1.setBounds(450,5,100,50);
+        suggestionPanel.add(label2);
+
         mainPanel.add(suggestionPanel);
 
 
