@@ -13,7 +13,6 @@ public class ProductInfo implements ActionListener {
     private String productScore = RechercheReference.product.getScore();
     private String productColor = RechercheReference.product.getCouleur();
     private Float productEmpreinte= RechercheReference.product.getEmpreinte();
-    JButton UC2button;
 
 
     public ProductInfo(){
@@ -31,9 +30,7 @@ public class ProductInfo implements ActionListener {
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
        // String titreHeader="Produit nom couleur";
-
-        Methodes.header(productInfoFrame, titreHeader, 540);
-
+        Methodes.header(productInfoFrame, titreHeader, 400);
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -47,7 +44,7 @@ public class ProductInfo implements ActionListener {
         productPanel.setBounds(180,60,1030,300);
         productPanel.setBackground(Color.WHITE);
 
-        JLabel label1 = new JLabel("Votre produit :");
+        JLabel label1 = new JLabel("Votre produit ");
         label1.setBounds(450,5,100,50);
         productPanel.add(label1);
 
@@ -66,11 +63,10 @@ public class ProductInfo implements ActionListener {
         productPanel.add(scoreLabel);
 
         JLabel IconScore = labelIconScore(productScore);
-        IconScore.setBounds(760,160,80,80);
+        IconScore.setBounds(750,160,80,80);
         productPanel.add(IconScore);
 
-        UC2button= new JButton("Trouver l'article dans le magasin >> ");
-        UC2button.addActionListener(this);
+        JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
         UC2button.setBounds(730,270,300,30);
         productPanel.add(UC2button);
         UC2button.setOpaque(false);
@@ -85,8 +81,12 @@ public class ProductInfo implements ActionListener {
 
 
         JLabel label2 = new JLabel("Suggestions ");
-        label1.setBounds(450,5,100,50);
+        label2.setBounds(450,5,100,50);
         suggestionPanel.add(label2);
+
+        JButton suggest1Button = new JButton("IMAGE 1");
+        suggest1Button.setBounds(100,80,150,150);
+        suggestionPanel.add(suggest1Button);
 
         mainPanel.add(suggestionPanel);
 
@@ -133,9 +133,8 @@ public class ProductInfo implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == UC2button){
-            productInfoFrame.dispose();
-            ProductMapping productMapping=new ProductMapping();
-        }
+        productInfoFrame.dispose();
+        ProductMapping productMapping=new ProductMapping();
+
     }
 }
