@@ -119,7 +119,6 @@ class RechercheReference implements ActionListener {
                 throw new RuntimeException(ex);
             }
         } else if (e.getSource() == boutonCategories) {
-            //TODO : Ajouter dans le code une frame catégries et dispose celle ci
             menuEmpreinteCarbone.dispose();
             MainCategorie mainCategorie = new MainCategorie();
         }
