@@ -30,7 +30,7 @@ public class ProductInfo implements ActionListener {
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
        // String titreHeader="Produit nom couleur";
-        Methodes.header(productInfoFrame, titreHeader, 250);
+        Methodes.header(productInfoFrame, titreHeader, 400);
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
