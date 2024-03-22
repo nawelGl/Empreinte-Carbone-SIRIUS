@@ -27,7 +27,7 @@ public class EcranAcceuil implements ActionListener {
 
     String titreBoutonUC1= "Faites-vous un achat responsable ? ";
     String titreBoutonUC2="Stat UC2";
-    String titreBoutonUC3="Trouvez votre article dans le magasin >>";
+    String titreBoutonUC3="Statistiques pour business >>";
 
     public EcranAcceuil() {
         //Paramétrages de base :
@@ -115,10 +115,12 @@ public class EcranAcceuil implements ActionListener {
             acceuilApp.dispose();
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
         }
+        //frame avec les deux boutons
+//        if(e.getSource()==boutonUC3) {
+//            AccueilUC2 accueilUC2=new AccueilUC2();
+//        }
         if(e.getSource()==boutonUC3) {
-            AccueilUC2 accueilUC2=new AccueilUC2();
-        }
-        if(e.getSource()==boutonUC3) {
+            acceuilApp.dispose();
             AccueilUC3 accueilUC3=new AccueilUC3();
         }
     }
