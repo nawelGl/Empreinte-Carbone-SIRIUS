@@ -1,12 +1,7 @@
 
-USER_NAME=$(whoami)
-PROJET_DIR="/Users/$USER_NAME/Documents/GitHub/Empreinte-Carbone-SIRIUS"
 
-# Récupere le chemin vers le module xmart-city-backend
-MODULE_DIR="${PROJET_DIR}/xmart-city-backend"
-
-# On s'y rend
-cd "${MODULE_DIR}" || exit
+#revenir au repertoir du proto
+cd ../"xmart-city-backend"
 
 # Exécute la commande Maven pour construire le jar
 mvn clean install
