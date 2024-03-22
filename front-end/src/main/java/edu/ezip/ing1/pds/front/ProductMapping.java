@@ -18,6 +18,7 @@ public class ProductMapping implements ActionListener{
     JFrame productMappingFrame;
     private String productName = RechercheReference.product.getNomProduit();
     private String productColor = RechercheReference.product.getCouleur();
+    JButton backHomeButton;
 
     private Emplacement emplacement;
     private int idEmplacement = RechercheReference.product.getIdEmplacement();
@@ -44,7 +45,7 @@ public class ProductMapping implements ActionListener{
 
         //----------panel header--------------
         String titreHeader = "Se rendre au produit \"" + productName + " " + productColor + "\"";
-        Methodes.header(productMappingFrame, titreHeader, 250);
+        Methodes.header(productMappingFrame, titreHeader, 470);
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -56,21 +57,21 @@ public class ProductMapping implements ActionListener{
         JLabel titleLabel = new JLabel();
         titleLabel.setText("Voici l'emplacement de votre produit :");
         titleLabel.setFont(new Font("Avenir", Font.BOLD, textSize+3));
-        titleLabel.setBounds(300, 100, 400, 50);
+        titleLabel.setBounds(500, 150, 400, 50);
 
         //------------aisle panel-----------
         RoundedPanel aislePanel = new RoundedPanel(60, 60);
-        aislePanel.setBounds(200, 180, 600, 70);
+        aislePanel.setBounds(400, 280, 600, 70);
         aislePanel.setBackground(Color.WHITE);
 
         //------------shelf panel----------
         RoundedPanel shelfPanel = new RoundedPanel(60, 60);
-        shelfPanel.setBounds(200, 280, 600, 70);
+        shelfPanel.setBounds(400, 380, 600, 70);
         shelfPanel.setBackground(Color.WHITE);
 
         //------------floor panel----------
         RoundedPanel floorPanel = new RoundedPanel(60, 60);
-        floorPanel.setBounds(200, 380, 600, 70);
+        floorPanel.setBounds(400, 480, 600, 70);
         floorPanel.setBackground(Color.WHITE);
 
         //------------aisle label-----------
@@ -94,6 +95,12 @@ public class ProductMapping implements ActionListener{
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
 
+        //Bouton retour :
+        backHomeButton = new JButton("Retour à l'accueil");
+        backHomeButton.addActionListener(this);
+        backHomeButton.setBounds(610, 700, 180, 40);
+        mainPanel.add(backHomeButton);
+
         mainPanel.add(titleLabel);
         mainPanel.add(aislePanel);
         mainPanel.add(shelfPanel);
@@ -104,8 +111,10 @@ public class ProductMapping implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+       if(e.getSource() == backHomeButton){
+            productMappingFrame.dispose();
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+       }
     }
     
 }

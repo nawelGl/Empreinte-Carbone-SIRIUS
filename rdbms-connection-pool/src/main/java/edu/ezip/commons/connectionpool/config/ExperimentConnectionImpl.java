@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class ExperimentConnectionImpl {
     public static void main(String[] args) throws SQLException {
+        //Création d'un pool de connexions pour psql
         ConnectionPoolImpl.getInstance("postgresql");
     }
 }

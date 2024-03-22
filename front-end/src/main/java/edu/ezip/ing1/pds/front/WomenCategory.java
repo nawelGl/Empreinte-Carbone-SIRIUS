@@ -25,6 +25,7 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
         mainPanel.add(hauts, gbc);
 
         bas = new JButton("Bas");
+        bas.addActionListener(this);
         setButtonStyle(bas, width, height); 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -54,7 +55,9 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
         if(e.getSource() == hauts){
             categorieFrame.dispose();
             WomenTop womenTop = new WomenTop();
-
+        } else  if(e.getSource() == bas){
+            categorieFrame.dispose();
+            WomenPants womenPants = new WomenPants();
         }
     }
     

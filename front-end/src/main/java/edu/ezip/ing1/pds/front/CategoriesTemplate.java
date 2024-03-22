@@ -12,7 +12,7 @@ public class CategoriesTemplate{
     JPanel mainPanel;
     GridBagConstraints gbc;
     //Size for buttons :
-    int width = 250;
+    int width = 260;
     int height = 100;
     
 

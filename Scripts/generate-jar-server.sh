@@ -1,10 +1,13 @@
 #!/bin/bash
 
-# Va dasn le repertoire ou se trouve le script et le recupere dasn SCRIPT_DIR
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+# Va dans le repertoire ou se trouve le script et le recupere dasn SCRIPT_DIR
+#SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Définir le chemin vers le répertoire racine du votre projet
-PROJET_DIR="${SCRIPT_DIR}/.."
+#PROJET_DIR="${SCRIPT_DIR}/.."
+
+USER_NAME=$(whoami)
+PROJET_DIR="/Users/$USER_NAME/Documents/GitHub/Empreinte-Carbone-SIRIUS"
 
 # Récupere le chemin vers le module xmart-city-backend
 MODULE_DIR="${PROJET_DIR}/xmart-city-backend"
