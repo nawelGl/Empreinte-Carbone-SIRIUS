@@ -61,6 +61,7 @@ public class SelectAllCategorie extends ClientRequest<Object, Categorie>{
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
+
         try {
             while (!clientRequests.isEmpty()) {
                 final ClientRequest joinedClientRequest = clientRequests.pop();

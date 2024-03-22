@@ -55,6 +55,7 @@ public class XMartCityService {
         return inst;
     }
 
+
     private XMartCityService() {
 
     }
