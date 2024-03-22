@@ -84,10 +84,10 @@ public class StatProduct {
 
         //-------ajout de labels----------
         infoPanel.add(BorderLayout.NORTH,refLabel);
-        infoPanel.add(BorderLayout.CENTER,textLabel);
-        infoPanel.add(BorderLayout.CENTER,scoreLabel);
+        infoPanel.add(BorderLayout.WEST,textLabel);
+        infoPanel.add(BorderLayout.EAST,scoreLabel);
 
-        infoPanel.setBounds(150,170,500,600);
+        infoPanel.setBounds(150,100,500,550);
 
         //chartPanel
         JPanel chartPanel = new JPanel(new BorderLayout());
@@ -108,7 +108,7 @@ public class StatProduct {
 
 
 
-        chartPanel.setBounds(780,170,500,600);
+        chartPanel.setBounds(780,100,500,550);
 
         mainPanel.add(infoPanel);
         mainPanel.add(chartPanel);

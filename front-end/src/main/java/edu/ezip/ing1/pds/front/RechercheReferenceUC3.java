@@ -118,7 +118,7 @@ class RechercheReferenceUC3 implements ActionListener {
 
                     System.out.println(quantiteBefore);
                     System.out.println(quantiteAfter);
-                    //product = SelectProductByReference.launchSelectProductByReference(request);
+
                     if(venteBefore != null && venteAfter != null){
                         menuEmpreinteCarbone.dispose();
                         //ProductMapping productMapping = new ProductMapping();
