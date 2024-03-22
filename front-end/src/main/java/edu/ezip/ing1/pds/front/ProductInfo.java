@@ -69,6 +69,7 @@ public class ProductInfo implements ActionListener {
         productPanel.add(IconScore);
 
         JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
+        UC2button.addActionListener(this);
         UC2button.setBounds(730,270,300,30);
         productPanel.add(UC2button);
         UC2button.setOpaque(false);
