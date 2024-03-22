@@ -79,7 +79,7 @@ public class ProductInfo implements ActionListener {
 
         JPanel suggestionPanel = new JPanel();
         suggestionPanel.setLayout(null);
-        suggestionPanel.setBounds(180,400,1030,300);
+        suggestionPanel.setBounds(180,370,1030,330);
         suggestionPanel.setBackground(Color.WHITE);
 
 
@@ -89,17 +89,30 @@ public class ProductInfo implements ActionListener {
         suggestionPanel.add(label2);
 
         //------- articles suggérés
-        JButton suggest1Button = new JButton("IMAGE 1");
-        suggest1Button.setBounds(100,80,150,150);
+        JButton suggest1Button = new JButton("PRODUIT 1");
+        suggest1Button.setBounds(80,65,200,150);
         suggestionPanel.add(suggest1Button);
 
-        JButton suggest2Button = new JButton("IMAGE 1");
-        suggest2Button.setBounds(100,80,150,150);
+        JLabel priceLabel1 = new JLabel("Prix: xxxx € ");
+        priceLabel1.setBounds(140,210,300,50);
+        suggestionPanel.add(priceLabel1);
+
+        JButton suggest2Button = new JButton("PRODUIT 2");
+        suggest2Button.setBounds(420,65,200,150);
         suggestionPanel.add(suggest2Button);
 
-        JButton suggest3Button = new JButton("IMAGE 1");
-        suggest3Button.setBounds(100,80,150,150);
+        JLabel priceLabel2 = new JLabel("Prix: xxxx € ");
+        priceLabel2.setBounds(460,210,300,50);
+        suggestionPanel.add(priceLabel2);
+
+        JButton suggest3Button = new JButton("PRODUIT 3");
+        suggest3Button.setBounds(750,65,200,150);
         suggestionPanel.add(suggest3Button);
+
+
+        JLabel priceLabel3 = new JLabel("Prix: xxxx € ");
+        priceLabel3.setBounds(810,210,300,50);
+        suggestionPanel.add(priceLabel3);
 
 
         mainPanel.add(suggestionPanel);

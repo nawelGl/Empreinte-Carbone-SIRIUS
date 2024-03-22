@@ -1,4 +1,3 @@
-
 cd ..
 cd front-end
 mvn compile

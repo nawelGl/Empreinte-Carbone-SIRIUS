@@ -1,4 +1,3 @@
-
 #execution du script dans vm
 #eval $(ssh-agent)
 #ssh-add $HOME/.ssh/id_rsa
