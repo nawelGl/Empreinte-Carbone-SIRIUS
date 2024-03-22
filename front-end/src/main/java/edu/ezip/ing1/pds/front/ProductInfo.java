@@ -81,7 +81,7 @@ public class ProductInfo implements ActionListener {
         suggestionPanel.setLayout(null);
         suggestionPanel.setBounds(180,400,1030,300);
         suggestionPanel.setBackground(Color.WHITE);
-<<<<<<< HEAD
+
 
 
         JLabel label2 = new JLabel("Suggestions ");
@@ -101,8 +101,7 @@ public class ProductInfo implements ActionListener {
         suggest3Button.setBounds(100,80,150,150);
         suggestionPanel.add(suggest3Button);
 
-=======
->>>>>>> 5ad59ebcbba0276477967c31084b1f80d7d60d54
+
         mainPanel.add(suggestionPanel);
 
 
