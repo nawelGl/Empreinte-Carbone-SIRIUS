@@ -3,17 +3,12 @@ package edu.ezip.ing1.pds.business.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.ezip.ing1.pds.business.dto.Produits;
+import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.ezip.ing1.pds.business.dto.Vente;
-import edu.ezip.ing1.pds.business.dto.Ventes;
-
-import edu.ezip.ing1.pds.business.dto.Emplacement;
-import  edu.ezip.ing1.pds.business.dto.Produit;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -33,6 +28,7 @@ public class XMartCityService {
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idemplacement = ?"),
         SELECT_SOUS_CATEGORIE_B_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieB\" WHERE \"idSousCategorieB\" = ?"),
         SELECT_SOUS_CATEGORIE_A_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieA\" WHERE \"idSousCategorieA\" = ?"),
+        SELECT_SOUS_CATEGORIE("SELECT * FROM \"ezip-ing1\".Categorie;"),
 
         SELECT_BEFORE_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit\n" +
@@ -274,6 +270,37 @@ public class XMartCityService {
                     } catch (SQLException | JsonProcessingException e) {
                         response = new Response(request.getRequestId(), "Error executing SELECT_EMPLACEMENT_BY_ID query");
                         logger.error("Error executing SELECT_EMPLACEMENT_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_ALL_CATEGORIE":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Categorie categorie = new Categorie();
+
+                        while (resultSet.next()) {
+                            categorie.build(resultSet);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(categorie);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_EMPLACEMENT_BY_ID query");
+                        logger.error("Error executing SELECT_ALL_CATEGORIE query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     } catch (IOException e) {
