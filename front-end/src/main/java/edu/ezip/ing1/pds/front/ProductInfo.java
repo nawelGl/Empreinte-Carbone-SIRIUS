@@ -84,9 +84,18 @@ public class ProductInfo implements ActionListener {
         label2.setBounds(450,5,100,50);
         suggestionPanel.add(label2);
 
+        //------- articles suggérés
         JButton suggest1Button = new JButton("IMAGE 1");
         suggest1Button.setBounds(100,80,150,150);
         suggestionPanel.add(suggest1Button);
+
+        JButton suggest2Button = new JButton("IMAGE 1");
+        suggest2Button.setBounds(100,80,150,150);
+        suggestionPanel.add(suggest2Button);
+
+        JButton suggest3Button = new JButton("IMAGE 1");
+        suggest3Button.setBounds(100,80,150,150);
+        suggestionPanel.add(suggest3Button);
 
         mainPanel.add(suggestionPanel);
 
