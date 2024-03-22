@@ -53,6 +53,8 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
 
         } else if(e.getSource() == categorieEnfant){
 
+        } else if(e.getSource() == backButton){
+            super.actionPerformed(e);
         }
     }
     

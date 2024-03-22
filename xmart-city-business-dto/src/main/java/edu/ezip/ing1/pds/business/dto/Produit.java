@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class Produit {
     private int idProduit;
     private int idEmplacement;
@@ -20,22 +21,24 @@ public class Produit {
     private int idMarque;
     private String nomProduit;
 
+    private int idsouscatB;
+
     public Produit() {
     }
 
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "paysDepart", "paysArrivee", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "paysDepart", "paysArrivee", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idEmplacement, paysDepart, paysArrivee, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit);
+        return buildPreparedStatement(preparedStatement, idEmplacement, paysDepart, paysArrivee, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB);
     }
 
-    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit) {
+    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, int idsouscatB) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.paysDepart = paysDepart;
@@ -49,12 +52,14 @@ public class Produit {
         this.idMagasin = idMagasin;
         this.idMarque = idMarque;
         this.nomProduit = nomProduit;
+        this.idsouscatB = idsouscatB;
     }
 
     // Getters and setters for each field
     public int getIdProduit() {
         return idProduit;
     }
+
 
     public void setIdProduit(int idProduit) {
         this.idProduit = idProduit;
@@ -69,6 +74,7 @@ public class Produit {
     public String getPaysDepart() {
         return paysDepart;
     }
+
 
     public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
 
@@ -130,7 +136,13 @@ public class Produit {
 
     public void setNomProduit(String nomProduit){this.nomProduit = nomProduit;}
 
+    public int getIdsouscatB() {
+        return idsouscatB;
+    }
 
+    public void setIdsouscatB(int idsouscatB) {
+        this.idsouscatB = idsouscatB;
+    }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
@@ -165,6 +177,7 @@ public class Produit {
                 ", empreinte=" + empreinte +
                 ", id_magasin =" + idMagasin +
                 ", nom_produit =" + nomProduit +
+                ", idsouscatb =" + idsouscatB +
                 '}';
     }
 
