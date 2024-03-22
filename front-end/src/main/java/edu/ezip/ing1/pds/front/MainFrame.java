@@ -76,7 +76,7 @@ public class MainFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         label=new JLabel("Liste des élèves :");
-        label.setFont(new Font("Arial", Font.BOLD, 20));
+        label.setFont(new Font(Template.POLICE, Font.BOLD, 20));
         label.setBorder(new EmptyBorder(15, 20, 0, 0));
         
         button = new JButton();

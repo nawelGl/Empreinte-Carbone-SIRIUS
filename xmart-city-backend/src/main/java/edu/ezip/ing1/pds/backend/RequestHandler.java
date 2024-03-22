@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +30,7 @@ public class RequestHandler implements Runnable {
     private static final String threadNamePrfx = "core-request-handler";
     private final InputStream instream;
     private final OutputStream outstream;
-    // private final Connection connection;
+    //private final Connection connection;
     private final static String LoggingLabel = "C o re - B a c k e n d - S e r v e r";
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private int requestCount = 0;
@@ -77,7 +78,7 @@ public class RequestHandler implements Runnable {
             LoggingUtils.logDataMultiLine(logger, Level.DEBUG, outoutData);
             outstream.write(outoutData);
 
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();

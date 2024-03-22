@@ -1,21 +1,26 @@
 package edu.ezip.ing1.pds.front;
 
-import edu.ezip.ing1.pds.business.dto.Produit;
-import edu.ezip.ing1.pds.business.dto.*;
+
+import edu.ezip.ing1.pds.business.dto.Vente;
+import edu.ezip.ing1.pds.client.SelectAfterVenteByReference;
+import edu.ezip.ing1.pds.client.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
 
-import edu.ezip.ing1.pds.client.SelectProductByReference;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class RechercheReference implements ActionListener {
+class RechercheReferenceUC3 implements ActionListener {
 
     //Boutons :
 
-    static Produit product;
-    static Vente vente;
+
+    static Vente venteBefore;
+    static Vente venteAfter;
+
+    static int quantiteBefore;
+    static int quantiteAfter;
 
     JFrame menuEmpreinteCarbone;
     JButton boutonConfirmer;
@@ -33,7 +38,7 @@ class RechercheReference implements ActionListener {
     JButton boutonCategories = new JButton();
 
     //Constructeur :
-    public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
+    public RechercheReferenceUC3(String titreFrame, String titreHeader, String titreLabelSecondaire, int x){
         //Paramétrages de base :
         menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -105,11 +110,21 @@ class RechercheReference implements ActionListener {
                 } else {
                     Request request = new Request();
                     request.setRequestContent(refEnString);
-                    product = SelectProductByReference.launchSelectProductByReference(request);
-                    if(product != null){
+                    venteBefore = SelectBeforeVenteByReference.launchSelectVenteByReference(request);
+                    venteAfter= SelectAfterVenteByReference.launchSelectVenteByReference(request);
+
+                    quantiteBefore = SelectBeforeVenteByReference.getTotalQuantite();
+                    quantiteAfter = SelectAfterVenteByReference.getTotalQuantite();
+
+                    System.out.println(quantiteBefore);
+                    System.out.println(quantiteAfter);
+                    //product = SelectProductByReference.launchSelectProductByReference(request);
+                    if(venteBefore != null && venteAfter != null){
                         menuEmpreinteCarbone.dispose();
-                       // ProductMapping productMapping = new ProductMapping();
-                        ProductInfo productInfo=new ProductInfo();
+                        //ProductMapping productMapping = new ProductMapping();
+                        //ProductInfo productInfo=new ProductInfo();
+
+                        StatProduct statProduct = new StatProduct(quantiteBefore,quantiteAfter);
                 } else{
                     JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");
@@ -118,10 +133,6 @@ class RechercheReference implements ActionListener {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-        } else if (e.getSource() == boutonCategories) {
-            //TODO : Ajouter dans le code une frame catégries et dispose celle ci
-            menuEmpreinteCarbone.dispose();
-            MainCategorie mainCategorie = new MainCategorie();
         }
     }
 

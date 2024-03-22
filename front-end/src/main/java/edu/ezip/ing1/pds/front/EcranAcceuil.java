@@ -118,6 +118,9 @@ public class EcranAcceuil implements ActionListener {
         if(e.getSource()==boutonUC3) {
             AccueilUC2 accueilUC2=new AccueilUC2();
         }
+        if(e.getSource()==boutonUC3) {
+            AccueilUC3 accueilUC3=new AccueilUC3();
+        }
     }
 }
 

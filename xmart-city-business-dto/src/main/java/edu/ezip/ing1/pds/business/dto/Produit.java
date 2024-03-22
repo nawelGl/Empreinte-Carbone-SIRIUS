@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class Produit {
     private int idProduit;
     private int idEmplacement;
@@ -59,6 +60,7 @@ public class Produit {
         return idProduit;
     }
 
+
     public void setIdProduit(int idProduit) {
         this.idProduit = idProduit;
     }
@@ -72,6 +74,7 @@ public class Produit {
     public String getPaysDepart() {
         return paysDepart;
     }
+
 
     public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
 

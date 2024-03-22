@@ -43,7 +43,7 @@ public class CategoriesTemplate{
 
     public static void setButtonStyle(JButton button, int width, int height){
         button.setPreferredSize(new Dimension(width, height));
-        button.setFont(new Font("Arial", Font.BOLD, 18));
+        button.setFont(new Font(Template.POLICE, Font.BOLD, 18));
         button.setForeground(Color.decode(Template.COUELUR_SECONDAIRE));
     }
 }
