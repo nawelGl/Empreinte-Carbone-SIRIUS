@@ -79,19 +79,6 @@ public class XMartCityService {
 
                         while (resultSet.next()) {
                             Produit produit = new Produit();
-                            // produit.setIdProduit(resultSet.getInt("idProduit"));
-                            // produit.setIdEmplacement(resultSet.getInt("idEmplacement"));
-                            // produit.setPaysDepart(resultSet.getString("paysDepart"));
-                            // produit.setPaysArrivee(resultSet.getString("paysArrivee"));
-                            // produit.setCouleur(resultSet.getString("couleur"));
-                            // produit.setTaille(resultSet.getString("taille"));
-                            // produit.setReference(resultSet.getInt("reference"));
-                            // produit.setScore(resultSet.getString("score"));
-                            // produit.setGenre(resultSet.getString("genre"));
-                            // produit.setEmpreinte(resultSet.getFloat("empreinte"));
-                            // produit.setIdMagasin(resultSet.getInt("idMagasin"));
-                            // produit.setIdMarque(resultSet.getInt("idMarque"));
-                            // produit.setNomProduit(resultSet.getString("nomProduit"));
                             produit.build(resultSet);
                             System.out.println("produit to string :");
                             System.out.println(produit.toString());
@@ -273,7 +260,63 @@ public class XMartCityService {
                         logger.error("Error executing SELECT_EMPLACEMENT_BY_ID query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
-                    } catch (IOException e) {
+                    }
+                    break;
+
+                case "SELECT_SOUS_CATEGORIE_B_BY_ID":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_B_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        SousCategorieB sousCategorieB = new SousCategorieB();
+
+                        while (resultSet.next()) {
+                            sousCategorieB.build(resultSet);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(sousCategorieB);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_SOUS_CATEGORIE_B_BY_ID query");
+                        logger.error("Error executing SELECT_SOUS_CATEGORIE_B_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_SOUS_CATEGORIE_A_BY_ID":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_A_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        SousCategorieA sousCategorieA = new SousCategorieA();
+
+                        while (resultSet.next()) {
+                            sousCategorieA.build(resultSet);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(sousCategorieA);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_SOUS_CATEGORIE_A_BY_ID query");
+                        logger.error("Error executing SELECT_SOUS_CATEGORIE_A_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
                     break;

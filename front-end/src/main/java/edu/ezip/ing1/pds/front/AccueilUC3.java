@@ -12,6 +12,7 @@ public class AccueilUC3 extends JFrame implements ActionListener {
     private JButton productBtt;
     private JButton categoryBtt;
     private JButton bilanBtt;
+    private JButton backButton;
 
 
     String titre = "Home UC3 - Epigreen";
@@ -62,8 +63,11 @@ public class AccueilUC3 extends JFrame implements ActionListener {
         salesBtt.setBounds(170,170,300,330);
         productBtt.setBounds(520,170,300,330);
         categoryBtt.setBounds(870,170,300,330);
+        backButton = new JButton("Retour à l'accueil");
+        backButton.addActionListener(this);
+        backButton.setBounds(650, 800, 150, 30);
 
-
+        mainPanel.add(backButton);
         mainPanel.add(salesBtt);
         mainPanel.add(productBtt);
         mainPanel.add(categoryBtt);
@@ -90,7 +94,10 @@ public class AccueilUC3 extends JFrame implements ActionListener {
         }
         if(e.getSource() == categoryBtt) {
             //accueilUC3.dispose();
-
+        }
+        if(e.getSource() == backButton){
+            accueilUC3.dispose();
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
         }
     }
 }
