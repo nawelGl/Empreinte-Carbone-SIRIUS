@@ -63,7 +63,7 @@ public class ProductInfo implements ActionListener {
         productPanel.add(scoreLabel);
 
         JLabel IconScore = labelIconScore(productScore);
-        IconScore.setBounds(760,160,80,80);
+        IconScore.setBounds(750,160,80,80);
         productPanel.add(IconScore);
 
         JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
@@ -81,8 +81,12 @@ public class ProductInfo implements ActionListener {
 
 
         JLabel label2 = new JLabel("Suggestions ");
-        label1.setBounds(450,5,100,50);
+        label2.setBounds(450,5,100,50);
         suggestionPanel.add(label2);
+
+        JButton suggest1Button = new JButton("IMAGE 1");
+        suggest1Button.setBounds(100,80,150,150);
+        suggestionPanel.add(suggest1Button);
 
         mainPanel.add(suggestionPanel);
 
