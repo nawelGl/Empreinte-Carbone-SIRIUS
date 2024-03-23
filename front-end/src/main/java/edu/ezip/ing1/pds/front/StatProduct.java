@@ -51,9 +51,14 @@ public class StatProduct {
         JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(Color.white);
 
-        JLabel refLabel = new JLabel();
-        refLabel.setText("Information de votre produit "+vente.getReference());
-        refLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
+        RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
+        JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
+        infoTitle.setFont(new Font("Avenir", Font.BOLD,textSize));
+        infoTitlePanel.add(infoTitle);
+
+//        JLabel refLabel = new JLabel();
+//        refLabel.setText("Information de votre produit "+vente.getReference());
+//        refLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
         //refLabel.setBorder(new EmptyBorder());
 
         JLabel textLabel = new JLabel("le score de votre produit est ");
@@ -83,7 +88,7 @@ public class StatProduct {
         }
 
         //-------ajout de labels----------
-        infoPanel.add(BorderLayout.NORTH,refLabel);
+        infoPanel.add(BorderLayout.NORTH,infoTitlePanel);
         infoPanel.add(BorderLayout.WEST,textLabel);
         infoPanel.add(BorderLayout.EAST,scoreLabel);
 
