@@ -57,7 +57,7 @@ public class EcranAcceuil implements ActionListener {
         boutonUC1=new RoundBtn(texteBoutonUC1,30);
 
         // BoutonUC1 avec setBounds pour le positionner et le redimensionner
-        boutonUC1.setBounds(420, 280, 600, 200); // x, y, largeur, hauteur
+        boutonUC1.setBounds(420, 250, 600, 200); // x, y, largeur, hauteur
         boutonUC1.setFont(new Font("Avenir", Font.BOLD, 24)); // Taille de police en gras
 //        boutonUC1.setBorder(new RoundBtn(texteBoutonUC1,30));
         boutonUC1.setBackground(Color.WHITE);
@@ -68,7 +68,7 @@ public class EcranAcceuil implements ActionListener {
 //        boutonUC1.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
 
         //boutonarriere plan
-        boutonArriere.setBounds(400, 265, 600, 200); // x, y, largeur, hauteur
+        boutonArriere.setBounds(400, 235, 600, 200); // x, y, largeur, hauteur
 
 
         boutonArriere.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));

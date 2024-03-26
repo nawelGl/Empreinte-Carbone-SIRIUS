@@ -98,13 +98,25 @@ public class ProductMapping implements ActionListener{
         //Bouton retour :
         backHomeButton = new JButton("Retour à l'accueil");
         backHomeButton.addActionListener(this);
-        backHomeButton.setBounds(610, 600, 180, 40);
+        backHomeButton.setBounds(610, 650, 180, 40);
         mainPanel.add(backHomeButton);
 
-        mainPanel.add(titleLabel);
-        mainPanel.add(aislePanel);
-        mainPanel.add(shelfPanel);
-        mainPanel.add(floorPanel);
+        //==============================================
+        //Tester les dimensions de la map avec un panel (en prenant en compte le header)
+        JPanel panelTestMap = new JPanel();
+        panelTestMap.setLayout(null);
+        panelTestMap.setBounds(70, 50,960,590);
+        panelTestMap.setBackground(Color.WHITE);
+
+        mainPanel.add(panelTestMap);
+
+
+        //==============================================
+
+        //mainPanel.add(titleLabel);
+        //mainPanel.add(aislePanel);
+        //mainPanel.add(shelfPanel);
+        //mainPanel.add(floorPanel);
         productMappingFrame.setVisible(true);
     }
 
