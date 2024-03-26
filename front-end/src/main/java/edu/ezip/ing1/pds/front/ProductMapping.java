@@ -105,11 +105,15 @@ public class ProductMapping implements ActionListener{
         //Tester les dimensions de la map avec un panel (en prenant en compte le header)
         JPanel panelTestMap = new JPanel();
         panelTestMap.setLayout(null);
-        panelTestMap.setBounds(70, 50,960,590);
+        panelTestMap.setBounds(60, 50,770,580);
         panelTestMap.setBackground(Color.WHITE);
-
         mainPanel.add(panelTestMap);
 
+        JPanel panelTestPlan = new JPanel();
+        panelTestPlan.setLayout(null);
+        panelTestPlan.setBounds(840, 50,500,580);
+        panelTestPlan.setBackground(Color.PINK);
+        mainPanel.add(panelTestPlan);
 
         //==============================================
 
