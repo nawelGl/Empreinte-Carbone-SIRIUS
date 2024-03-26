@@ -12,6 +12,7 @@ import static java.lang.String.valueOf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class ProductMapping implements ActionListener{
 
@@ -56,22 +57,23 @@ public class ProductMapping implements ActionListener{
         //------------title label-------------
         JLabel titleLabel = new JLabel();
         titleLabel.setText("Voici l'emplacement de votre produit :");
+        titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Avenir", Font.BOLD, textSize+3));
-        titleLabel.setBounds(500, 150, 400, 50);
+        titleLabel.setBounds(50, 70, 400, 50);
 
         //------------aisle panel-----------
         RoundedPanel aislePanel = new RoundedPanel(60, 60);
-        aislePanel.setBounds(400, 280, 600, 70);
+        aislePanel.setBounds(100, 170, 300, 70);
         aislePanel.setBackground(Color.WHITE);
 
         //------------shelf panel----------
         RoundedPanel shelfPanel = new RoundedPanel(60, 60);
-        shelfPanel.setBounds(400, 380, 600, 70);
+        shelfPanel.setBounds(100, 310, 300, 70);
         shelfPanel.setBackground(Color.WHITE);
 
         //------------floor panel----------
         RoundedPanel floorPanel = new RoundedPanel(60, 60);
-        floorPanel.setBounds(400, 480, 600, 70);
+        floorPanel.setBounds(100, 200, 300, 70);
         floorPanel.setBackground(Color.WHITE);
 
         //------------aisle label-----------
@@ -90,7 +92,7 @@ public class ProductMapping implements ActionListener{
 
         //------------floor label-----------
         JLabel floorLabel = new JLabel();
-        floorLabel.setText("Étage n° " + emplacement.getEtage());
+        floorLabel.setText("Étage : " + emplacement.getEtage());
         floorLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
@@ -98,13 +100,36 @@ public class ProductMapping implements ActionListener{
         //Bouton retour :
         backHomeButton = new JButton("Retour à l'accueil");
         backHomeButton.addActionListener(this);
-        backHomeButton.setBounds(610, 600, 180, 40);
+        backHomeButton.setBounds(610, 650, 180, 40);
         mainPanel.add(backHomeButton);
 
-        mainPanel.add(titleLabel);
-        mainPanel.add(aislePanel);
-        mainPanel.add(shelfPanel);
-        mainPanel.add(floorPanel);
+        //==============================================
+        //Tester les dimensions de la map avec un panel (en prenant en compte le header)
+        JPanel panelTestMap = new JPanel();
+        panelTestMap.setLayout(null);
+        panelTestMap.setBounds(60, 50,770,580);
+        panelTestMap.setBackground(Color.WHITE);
+
+        ImageIcon map = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
+
+        JLabel mapLabel = new JLabel(map);
+        mapLabel.setBounds(60, 50, 770, 580);
+        mainPanel.add(mapLabel);
+
+       // mainPanel.add(panelTestMap);
+
+        JPanel panelTestPlan = new JPanel();
+        panelTestPlan.setLayout(null);
+        panelTestPlan.setBounds(840, 50,500,580);
+        panelTestPlan.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        mainPanel.add(panelTestPlan);
+
+        //==============================================
+
+        panelTestPlan.add(titleLabel);
+        //panelTestPlan.add(aislePanel);
+        panelTestPlan.add(shelfPanel);
+        panelTestPlan.add(floorPanel);
         productMappingFrame.setVisible(true);
     }
 

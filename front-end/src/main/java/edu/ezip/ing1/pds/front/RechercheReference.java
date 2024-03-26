@@ -57,7 +57,7 @@ class RechercheReference implements ActionListener {
         secondPanel.setLayout(null);
         secondPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
-        secondPanel.setBounds(300, 200, 800, 350);
+        secondPanel.setBounds(300, 200, 800, 250);
 
         //Ajout du JLabel :
         JLabel titrePanelSecondaire = new JLabel(titreLabelSecondaire);
@@ -68,10 +68,10 @@ class RechercheReference implements ActionListener {
 
         //Ajout de la search bar :
         searchBar = new RoundJTextField(100);
-        searchBar.setBounds(80, 150, 650, 40);
+        searchBar.setBounds(80, 120, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.addActionListener(this);
-        boutonConfirmer.setBounds(360,230, 80, 30);
+        boutonConfirmer.setBounds(360,200, 80, 30);
         secondPanel.add(searchBar);
         secondPanel.add(boutonConfirmer);
 
@@ -119,7 +119,6 @@ class RechercheReference implements ActionListener {
                 throw new RuntimeException(ex);
             }
         } else if (e.getSource() == boutonCategories) {
-            //TODO : Ajouter dans le code une frame catégries et dispose celle ci
             menuEmpreinteCarbone.dispose();
             MainCategorie mainCategorie = new MainCategorie();
         }

@@ -1,3 +1,4 @@
-cd ../front-end
+cd ..
+cd front-end
 mvn compile
 mvn exec:java
