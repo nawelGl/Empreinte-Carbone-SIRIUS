@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.front;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,6 +30,9 @@ public class PathManagement implements ActionListener{
     private Point endPoint = null;
     private ArrayList<Point> path = new ArrayList<>();
     private JButton backHomeButton;
+    private JButton addPath;
+    private JButton modifyPath;
+    private JButton deletePath;
 
     public PathManagement(){
 
@@ -116,7 +119,7 @@ public class PathManagement implements ActionListener{
             }
         });
 
-        mapPanel.setBounds(315, 50,770, 580);
+        mapPanel.setBounds(60, 50,770, 580);
 
         //Bouton retour :
         backHomeButton = new JButton("Retour à l'accueil");
@@ -124,7 +127,33 @@ public class PathManagement implements ActionListener{
         backHomeButton.setBounds(610, 650, 180, 40);
         mainPanel.add(backHomeButton);
 
+        //Panel boutons d'actions
+        JPanel actionButtonsPanel = new JPanel();
+        actionButtonsPanel.setLayout(null);
+        actionButtonsPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        actionButtonsPanel.setBounds(840, 50,500,580);
+
+        //Boutons d'acions :
+        addPath = new JButton();
+        addPath.setText("Ajouter un chemin");
+        addPath.setBounds(100, 160, 300, 70);
+        addPath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
+        actionButtonsPanel.add(addPath);
+
+        modifyPath = new JButton();
+        modifyPath.setText("Modifier un chemin");
+        modifyPath.setBounds(100, 260, 300, 70);
+        modifyPath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
+        actionButtonsPanel.add(modifyPath);
+
+        deletePath = new JButton();
+        deletePath.setText("Supprimer un chemin");
+        deletePath.setBounds(100, 360, 300, 70);
+        deletePath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
+        actionButtonsPanel.add(deletePath);
+
         mainPanel.add(mapPanel);
+        mainPanel.add(actionButtonsPanel);
         pathManagementFrame.getContentPane().add(mainPanel);
         pathManagementFrame.setVisible(true);
     }
