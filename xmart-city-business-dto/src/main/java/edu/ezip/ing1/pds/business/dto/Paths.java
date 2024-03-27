@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Paths {
     //Collection de tous les chemins reliés à leur ID.
-    HashMap<Integer, Path> paths = new HashMap<Integer, Path>();
+    private static HashMap<Integer, Path> paths = new HashMap<Integer, Path>();
 
     //Ajouter un chemin :
     public void addPath(Integer numeroRayon, Path path){

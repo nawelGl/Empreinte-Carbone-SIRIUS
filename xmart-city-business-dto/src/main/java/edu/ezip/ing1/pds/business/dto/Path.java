@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.business.dto;
 
 import java.util.ArrayList;
 import java.awt.*;
+import java.lang.reflect.Array;
 
 //path class to register a path for each product place.
 public class Path {
@@ -13,4 +14,7 @@ public class Path {
         points.add(point);
     }
     
+    public ArrayList<Point> getPoint(){
+        return points;
+    }
 }

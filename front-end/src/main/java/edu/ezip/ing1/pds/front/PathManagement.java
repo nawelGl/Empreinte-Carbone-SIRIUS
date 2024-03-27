@@ -103,25 +103,6 @@ public class PathManagement implements ActionListener{
         };
 
         mapPanel.setLayout(null);
-        
-        mapPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                Point point = e.getPoint();
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    points.add(point);
-                } else if (SwingUtilities.isRightMouseButton(e)) {
-                    if (startPoint == null) {
-                        startPoint = point;
-                    } else if (endPoint == null) {
-                        endPoint = point;
-                        points.add(endPoint);
-                    }
-                }
-                mapPanel.repaint();
-            }
-        });
 
         mapPanel.setBounds(60, 50,770, 580);
 
@@ -203,6 +184,24 @@ public class PathManagement implements ActionListener{
             pathManagementFrame.dispose();
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
         } else if(e.getSource() == addPath){
+            mapPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Point point = e.getPoint();
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    points.add(point);
+                } else if (SwingUtilities.isRightMouseButton(e)) {
+                    if (startPoint == null) {
+                        startPoint = point;
+                    } else if (endPoint == null) {
+                        endPoint = point;
+                        points.add(endPoint);
+                    }
+                }
+                mapPanel.repaint();
+            }
+        });
             calculatePath.setText("Tracer le chemin");
             calculatePath.setBounds(910, 650, 180, 40);
             calculatePath.addActionListener(this);
