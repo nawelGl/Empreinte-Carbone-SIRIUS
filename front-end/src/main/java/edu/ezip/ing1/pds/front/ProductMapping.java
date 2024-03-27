@@ -20,6 +20,7 @@ public class ProductMapping implements ActionListener{
     private String productName = RechercheReference.product.getNomProduit();
     private String productColor = RechercheReference.product.getCouleur();
     JButton backHomeButton;
+    JButton setPath;
 
     private Emplacement emplacement;
     private int idEmplacement = RechercheReference.product.getIdEmplacement();
@@ -97,18 +98,12 @@ public class ProductMapping implements ActionListener{
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
 
-        //Bouton retour :
-        backHomeButton = new JButton("Retour à l'accueil");
-        backHomeButton.addActionListener(this);
-        backHomeButton.setBounds(610, 650, 180, 40);
-        mainPanel.add(backHomeButton);
-
         //==============================================
         //Tester les dimensions de la map avec un panel (en prenant en compte le header)
-        JPanel panelTestMap = new JPanel();
-        panelTestMap.setLayout(null);
-        panelTestMap.setBounds(60, 50,770,580);
-        panelTestMap.setBackground(Color.WHITE);
+        JPanel panelMap = new JPanel();
+        panelMap.setLayout(null);
+        panelMap.setBounds(60, 50,770,580);
+        panelMap.setBackground(Color.WHITE);
 
         ImageIcon map = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
 
@@ -118,18 +113,31 @@ public class ProductMapping implements ActionListener{
 
        // mainPanel.add(panelTestMap);
 
-        JPanel panelTestPlan = new JPanel();
-        panelTestPlan.setLayout(null);
-        panelTestPlan.setBounds(840, 50,500,580);
-        panelTestPlan.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
-        mainPanel.add(panelTestPlan);
+        JPanel panelPlan = new JPanel();
+        panelPlan.setLayout(null);
+        panelPlan.setBounds(840, 50,500,580);
+        panelPlan.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        mainPanel.add(panelPlan);
 
         //==============================================
 
-        panelTestPlan.add(titleLabel);
+            //Bouton retour :
+            backHomeButton = new JButton("Retour à l'accueil");
+            backHomeButton.addActionListener(this);
+            backHomeButton.setBounds(610, 650, 180, 40);
+            mainPanel.add(backHomeButton);
+        
+            //Bouton config :
+            setPath = new JButton();
+            setPath.setText("Configurer les chemins");
+            setPath.addActionListener(this);
+            setPath.setBounds(1150, 650, 200, 40);
+            mainPanel.add(setPath);
+
+        panelPlan.add(titleLabel);
         //panelTestPlan.add(aislePanel);
-        panelTestPlan.add(shelfPanel);
-        panelTestPlan.add(floorPanel);
+        panelPlan.add(shelfPanel);
+        panelPlan.add(floorPanel);
         productMappingFrame.setVisible(true);
     }
 
@@ -139,6 +147,9 @@ public class ProductMapping implements ActionListener{
        if(e.getSource() == backHomeButton){
             productMappingFrame.dispose();
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
+       } else if(e.getSource() == setPath){
+        productMappingFrame.dispose();
+        PathManagement pathManagement = new PathManagement();
        }
     }
     
