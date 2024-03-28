@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -37,6 +36,7 @@ public class PathManagement implements ActionListener{
     private JButton deletePath;
     private JButton calculatePath = new JButton();
     private JButton validate = new JButton();
+    private boolean firstPath = true;
 
     public PathManagement(){
 
@@ -79,17 +79,19 @@ public class PathManagement implements ActionListener{
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
                 // Dessiner les points et le chemin
-                for (Point point : points) {
-                    g.setColor(Color.BLACK);
-                    g.fillOval(point.x - 5, point.y - 5, 10, 10);
-                }
-                if (startPoint != null) {
-                    g.setColor(Color.GREEN);
-                    g.fillOval(startPoint.x - 5, startPoint.y - 5, 10, 10);
-                }
-                if (endPoint != null) {
-                    g.setColor(Color.RED);
-                    g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
+                if(firstPath){
+                    for (Point point : points) {
+                        g.setColor(Color.BLACK);
+                        g.fillOval(point.x - 5, point.y - 5, 10, 10);
+                    }
+                    if (startPoint != null) {
+                        g.setColor(Color.GREEN);
+                        g.fillOval(startPoint.x - 5, startPoint.y - 5, 10, 10);
+                    }
+                    if (endPoint != null) {
+                        g.setColor(Color.RED);
+                        g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
+                    }
                 }
                 if (!path.isEmpty()) {
                     g.setColor(Color.RED);
@@ -212,9 +214,11 @@ public class PathManagement implements ActionListener{
             mainPanel.revalidate();
             mainPanel.repaint();
         } else if (e.getSource() == calculatePath){
-            System.out.println("dans tracer chemin");
-            calculatePath();
-            mapPanel.repaint();
+            if(firstPath){
+                firstPath = false;
+                calculatePath();
+                mapPanel.repaint();
+            }
         }
     }
     
