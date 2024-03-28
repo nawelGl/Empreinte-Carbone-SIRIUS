@@ -1,6 +1,9 @@
 package edu.ezip.ing1.pds.business.dto;
 
 import java.util.ArrayList;
+
+import static java.lang.String.valueOf;
+
 import java.awt.*;
 import java.lang.reflect.Array;
 
@@ -14,7 +17,16 @@ public class Path {
         points.add(point);
     }
     
-    public ArrayList<Point> getPoint(){
+    public ArrayList<Point> getPoints(){
         return points;
+    }
+
+    public String toString(){
+        StringBuilder string = new StringBuilder();
+        string.append("Path de coordonnées :\n");
+        for (Point point : points) {
+            string.append("(" + point.x + ", " + point.y + ")\n");
+        }
+        return String.valueOf(string);
     }
 }

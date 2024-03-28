@@ -13,23 +13,32 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import edu.ezip.ing1.pds.business.dto.Path;
+import edu.ezip.ing1.pds.business.dto.Paths;
 
 public class PathManagement implements ActionListener{
 
     JFrame pathManagementFrame = new JFrame();
     private JPanel mainPanel;
     private JPanel mapPanel;
+    private JPanel actionButtonsPanel;
     private BufferedImage backgroundImage;
-    private ArrayList<Point> points = new ArrayList<>();
+    private Path path = new Path();
+    //private ArrayList<Point> points = new ArrayList<>();
     private Point startPoint = null;
     private Point endPoint = null;
-    private ArrayList<Point> path = new ArrayList<>();
+    private Paths paths = new Paths();
+    private ArrayList<Point> pathPoint = new ArrayList<>();
     private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
@@ -37,6 +46,8 @@ public class PathManagement implements ActionListener{
     private JButton calculatePath = new JButton();
     private JButton validate = new JButton();
     private boolean firstPath = true;
+    private JComboBox<Integer> comboBox;
+    private static Integer numeroRayon;
 
     public PathManagement(){
 
@@ -80,7 +91,7 @@ public class PathManagement implements ActionListener{
                 }
                 // Dessiner les points et le chemin
                 if(firstPath){
-                    for (Point point : points) {
+                    for (Point point : path.getPoints()) {
                         g.setColor(Color.BLACK);
                         g.fillOval(point.x - 5, point.y - 5, 10, 10);
                     }
@@ -93,11 +104,11 @@ public class PathManagement implements ActionListener{
                         g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
                     }
                 }
-                if (!path.isEmpty()) {
+                if (!pathPoint.isEmpty()) {
                     g.setColor(Color.RED);
-                    for (int i = 0; i < path.size() - 1; i++) {
-                        Point p1 = path.get(i);
-                        Point p2 = path.get(i + 1);
+                    for (int i = 0; i < pathPoint.size() - 1; i++) {
+                        Point p1 = pathPoint.get(i);
+                        Point p2 = pathPoint.get(i + 1);
                         g.drawLine(p1.x, p1.y, p2.x, p2.y);
                     }
                 }
@@ -115,7 +126,7 @@ public class PathManagement implements ActionListener{
         mainPanel.add(backHomeButton);
 
         //Panel boutons d'actions
-        JPanel actionButtonsPanel = new JPanel();
+        actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(null);
         actionButtonsPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
         actionButtonsPanel.setBounds(840, 50,500,580);
@@ -152,15 +163,15 @@ public class PathManagement implements ActionListener{
         if (startPoint == null || endPoint == null) {
             return;
         }
-        path.clear();
+        pathPoint.clear();
         Point currentPoint = startPoint;
-        path.add(currentPoint);
+        pathPoint.add(currentPoint);
         while (!currentPoint.equals(endPoint)) {
             Point nextPoint = findClosestPoint(currentPoint);
             if (nextPoint == null) {
                 break;
             }
-            path.add(nextPoint);
+            pathPoint.add(nextPoint);
             currentPoint = nextPoint;
         }
     }
@@ -168,8 +179,8 @@ public class PathManagement implements ActionListener{
     private Point findClosestPoint(Point from) {
         double minDistance = Double.MAX_VALUE;
         Point closestPoint = null;
-        for (Point point : points) {
-            if (!path.contains(point)) {
+        for (Point point : path.getPoints()) {
+            if (!pathPoint.contains(point)) {
                 double distance = point.distance(from);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -192,13 +203,13 @@ public class PathManagement implements ActionListener{
                 super.mouseClicked(e);
                 Point point = e.getPoint();
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    points.add(point);
+                    path.getPoints().add(point);
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     if (startPoint == null) {
                         startPoint = point;
                     } else if (endPoint == null) {
                         endPoint = point;
-                        points.add(endPoint);
+                        path.getPoints().add(endPoint);
                     }
                 }
                 mapPanel.repaint();
@@ -210,15 +221,58 @@ public class PathManagement implements ActionListener{
             mainPanel.add(calculatePath);
             validate.setText("Valider");
             validate.setBounds(1110, 650, 180, 40);
+            validate.addActionListener(this);
             mainPanel.add(validate);
             mainPanel.revalidate();
             mainPanel.repaint();
+
+            //Modifier la configuration du panel actions :
+            actionButtonsPanel.remove(addPath);
+            actionButtonsPanel.remove(modifyPath);
+            actionButtonsPanel.remove(deletePath);
+            actionButtonsPanel.repaint();
+            actionButtonsPanel.revalidate();
+            JLabel labelRayon = new JLabel("Pour quel rayon voulez vous ajouter un chemin ?");
+            labelRayon.setForeground(Color.WHITE);
+            labelRayon.setBounds(35, 170, 500, 70);
+            labelRayon.setFont(new Font(Template.POLICE, Font.BOLD, 20));
+            actionButtonsPanel.add(labelRayon);
+
+            Integer[] options = new Integer[14];
+            for(int i = 1; i <= 14; i++){
+                options[i-1] = i;
+            }
+            
+            comboBox = new JComboBox<>(options);
+            comboBox.setBounds(200, 270, 100, 80);
+            actionButtonsPanel.add(comboBox);
+
         } else if (e.getSource() == calculatePath){
             if(firstPath){
                 firstPath = false;
                 calculatePath();
                 mapPanel.repaint();
             }
+        } else if(e.getSource() == validate){
+            //TODO : ajouter le path crée aux Paths.
+            //Pour se faire, besoin de savoir pour quel rayon on enregistre ce path :
+            //Demander à l'user avec une liste déroulante pour limiter les choix.
+            numeroRayon = (Integer)comboBox.getSelectedItem();
+            System.out.println("Éléments de l'ArrayList :");
+            for (Point point : path.getPoints()) {
+                System.out.println("(" + point.x + ", " + point.y + ")");
+            }
+
+            paths.addPath(numeroRayon, path);
+
+             // Affichage des éléments de la HashMap
+        System.out.println("Éléments de la HashMap :");
+        for (Map.Entry<Integer, Path> entry : paths.getPaths().entrySet()) {
+            //Integer numeroRayon = entry.getKey();
+            Path path = entry.getValue();
+            System.out.println("Clé : " + numeroRayon + ", Valeur : " + path);
+        }
+
         }
     }
     

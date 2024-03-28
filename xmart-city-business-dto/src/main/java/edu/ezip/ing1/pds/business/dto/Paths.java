@@ -21,4 +21,8 @@ public class Paths {
         removePath(numeroRayon);
         addPath(numeroRayon, path);
     }
+
+    public HashMap<Integer, Path> getPaths(){
+        return paths;
+    }
 }
