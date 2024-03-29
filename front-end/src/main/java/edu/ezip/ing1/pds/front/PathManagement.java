@@ -37,7 +37,7 @@ public class PathManagement implements ActionListener{
     //private ArrayList<Point> points = new ArrayList<>();
     private Point startPoint = null;
     private Point endPoint = null;
-    private Paths paths = new Paths();
+    //private Paths paths = new Paths();
     private ArrayList<Point> pathPoint = new ArrayList<>();
     private JButton backHomeButton;
     private JButton addPath;
@@ -47,7 +47,7 @@ public class PathManagement implements ActionListener{
     private JButton validate = new JButton();
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
-    private static Integer numeroRayon;
+    private Integer numeroRayon;
 
     public PathManagement(){
 
@@ -263,14 +263,14 @@ public class PathManagement implements ActionListener{
                 System.out.println("(" + point.x + ", " + point.y + ")");
             }
 
-            paths.addPath(numeroRayon, path);
+            Paths.paths.put(numeroRayon, path);
 
              // Affichage des éléments de la HashMap
         System.out.println("Éléments de la HashMap :");
-        for (Map.Entry<Integer, Path> entry : paths.getPaths().entrySet()) {
+        for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
             //Integer numeroRayon = entry.getKey();
             Path path = entry.getValue();
-            System.out.println("Clé : " + numeroRayon + ", Valeur : " + path);
+            System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
         }
 
         }

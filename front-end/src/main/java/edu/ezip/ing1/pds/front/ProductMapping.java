@@ -99,7 +99,6 @@ public class ProductMapping implements ActionListener{
         floorPanel.add(floorLabel);
 
         //==============================================
-        //Tester les dimensions de la map avec un panel (en prenant en compte le header)
         JPanel panelMap = new JPanel();
         panelMap.setLayout(null);
         panelMap.setBounds(60, 50,770,580);
