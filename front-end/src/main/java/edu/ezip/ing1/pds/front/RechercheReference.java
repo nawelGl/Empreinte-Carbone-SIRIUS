@@ -5,10 +5,13 @@ import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.commons.Request;
 
 import edu.ezip.ing1.pds.client.SelectProductByReference;
+import edu.ezip.ing1.pds.client.commons.ClientRequest;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 class RechercheReference implements ActionListener {
 
@@ -92,7 +95,11 @@ class RechercheReference implements ActionListener {
             try {
                 String refEnString = searchBar.getText();
                 try{
-                    Integer refEnInt = Integer.parseInt(refEnString);
+                    Integer refEnInt = Integer.parseInt(refEnString);                
+                } catch(IOException io){
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la connection avec le serveur n'a pas pu petre établie.", "Connection refusée !", JOptionPane.ERROR_MESSAGE);
+                } catch(InterruptedException ie){
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la connection avec le serveur n'a pas pu petre établie.", "Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex){
                     System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
                     referenceIsNotAnInt = true;

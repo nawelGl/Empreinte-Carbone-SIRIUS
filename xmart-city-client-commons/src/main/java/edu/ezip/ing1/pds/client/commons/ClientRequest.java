@@ -35,6 +35,7 @@ public abstract class ClientRequest<N,S> implements Runnable {
     private final Request request;
     private final N info;
     private  S result;
+    private static boolean connectionRefused = false;
 
     //Constructeur
     public ClientRequest(final NetworkConfig networkConfig,
@@ -82,8 +83,10 @@ public abstract class ClientRequest<N,S> implements Runnable {
             result = readResult(response.responseBody);
 
         } catch (IOException e) {
+            connectionRefused = true;
             logger.error("Connection fails, exception tells {} — {}", e.getMessage(), e.getClass());
         } catch (InterruptedException e) {
+            connectionRefused = true;
             e.printStackTrace();
         }
     }
@@ -102,5 +105,9 @@ public abstract class ClientRequest<N,S> implements Runnable {
 
     public final S getResult() {
         return result;
+    }
+
+    public static boolean isConnectionRefused(){
+        return connectionRefused;
     }
 }
