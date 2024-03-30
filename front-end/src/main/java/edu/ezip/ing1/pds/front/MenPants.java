@@ -44,5 +44,4 @@ public class MenPants extends CategoriesTemplate implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
     }
-    
 }
