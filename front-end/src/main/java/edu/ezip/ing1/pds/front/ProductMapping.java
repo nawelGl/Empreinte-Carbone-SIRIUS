@@ -38,6 +38,16 @@ public class ProductMapping implements ActionListener{
             System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
         }
 
+        try{
+            if(emplacement.getEtage() == null || emplacement.getAllee() == null || emplacement.getRayon() == null){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+        }
+
         productMappingFrame  = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
         productMappingFrame.setTitle("Trouvez votre produit.");
