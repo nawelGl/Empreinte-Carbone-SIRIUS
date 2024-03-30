@@ -107,11 +107,11 @@ class RechercheReference implements ActionListener {
             if(ClientRequest.isConnectionRefused() == true){
                 System.out.println("Problème de connexion");
                 searchBar.setText("");
-                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la connection avec le serveur n'a pas pu être établie.", "Connection refusée !", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 referenceIsNotAnInt = false;
             } else {
                 if(referenceIsNotAnInt){
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 405] Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "[ERREUR 405] - Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");
                     referenceIsNotAnInt = false;
                 } else {
@@ -119,7 +119,7 @@ class RechercheReference implements ActionListener {
                         menuEmpreinteCarbone.dispose();
                         ProductInfo productInfo=new ProductInfo();
                     }else {
-                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 406] Attention, cette référence produit n'existe pas. Veuillez réessayer.", "[ERREUR 406] - Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                         searchBar.setText("");
                     }
                 }
