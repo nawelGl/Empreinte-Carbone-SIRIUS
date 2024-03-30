@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class WomenCategory extends CategoriesTemplate implements ActionListener {
+public class WomenCategories extends CategoriesTemplate implements ActionListener {
 
     //buttons for each sub category :
     JButton hauts;
@@ -14,7 +14,7 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
     JButton vetementsMaternite;
     JButton lingerie;
 
-    public WomenCategory(){
+    public WomenCategories(){
         super();
 
         hauts = new JButton("Hauts");
