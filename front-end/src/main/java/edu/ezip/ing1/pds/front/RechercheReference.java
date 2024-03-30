@@ -108,17 +108,22 @@ class RechercheReference implements ActionListener {
                 System.out.println("Problème de connexion");
                 searchBar.setText("");
                 JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la connection avec le serveur n'a pas pu être établie.", "Connection refusée !", JOptionPane.ERROR_MESSAGE);
-            }
-
-            if(referenceIsNotAnInt){
-                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
-                searchBar.setText("");
                 referenceIsNotAnInt = false;
-            }
-
-            if(product != null){
-                menuEmpreinteCarbone.dispose();
-                ProductInfo productInfo=new ProductInfo();
+            } else {
+                if(referenceIsNotAnInt){
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                    searchBar.setText("");
+                    referenceIsNotAnInt = false;
+                } else {
+                    if(product != null){
+                        menuEmpreinteCarbone.dispose();
+                        ProductInfo productInfo=new ProductInfo();
+                    }else {
+                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+                        searchBar.setText("");
+                    }
+                }
+    
             }
         } else if (e.getSource() == boutonCategories) {
             menuEmpreinteCarbone.dispose();
