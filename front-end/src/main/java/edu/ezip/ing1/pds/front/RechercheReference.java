@@ -107,7 +107,7 @@ class RechercheReference implements ActionListener {
             if(ClientRequest.isConnectionRefused() == true){
                 System.out.println("Problème de connexion");
                 searchBar.setText("");
-                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
                 referenceIsNotAnInt = false;
             } else {
                 if(referenceIsNotAnInt){
