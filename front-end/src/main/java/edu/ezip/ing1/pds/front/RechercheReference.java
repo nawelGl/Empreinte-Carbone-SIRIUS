@@ -1,18 +1,18 @@
 package edu.ezip.ing1.pds.front;
 
-import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.commons.Request;
 
 import edu.ezip.ing1.pds.client.SelectProductByReference;
+import edu.ezip.ing1.pds.client.commons.ClientRequest;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 class RechercheReference implements ActionListener {
-
-    //Boutons :
 
     static Produit product;
     static Vente vente;
@@ -21,9 +21,7 @@ class RechercheReference implements ActionListener {
     JButton boutonConfirmer;
     JTextField searchBar;
     String titre;
-    Boolean referenceIsNotAnInt = false;
-
-
+    boolean referenceIsNotAnInt = false;
     String titreLabelSecondaire ;
 
     String titreHeader;
@@ -89,34 +87,38 @@ class RechercheReference implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
-            try {
-                String refEnString = searchBar.getText();
-                try{
-                    Integer refEnInt = Integer.parseInt(refEnString);
-                } catch (Exception ex){
-                    System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
-                    referenceIsNotAnInt = true;
-                }
+            String refEnString = searchBar.getText();
+   
+            try{
+                Integer refEnInt = Integer.parseInt(refEnString);
+            } catch (Exception ex){
+                System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
+                referenceIsNotAnInt = true;
+            }
 
-                if(referenceIsNotAnInt){
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
-                    referenceIsNotAnInt = false;
-                } else {
-                    Request request = new Request();
-                    request.setRequestContent(refEnString);
-                    product = SelectProductByReference.launchSelectProductByReference(request);
-                    if(product != null){
-                        menuEmpreinteCarbone.dispose();
-                       // ProductMapping productMapping = new ProductMapping();
-                        ProductInfo productInfo=new ProductInfo();
-                } else{
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
-                }
-                }
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+            try{
+                Request request = new Request();
+                request.setRequestContent(refEnString);
+                product = SelectProductByReference.launchSelectProductByReference(request);
+            } catch(Exception exception){
+                System.out.println(exception.getMessage());
+            }
+
+            if(ClientRequest.isConnectionRefused() == true){
+                System.out.println("Problème de connexion");
+                searchBar.setText("");
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la connection avec le serveur n'a pas pu être établie.", "Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            }
+
+            if(referenceIsNotAnInt){
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                searchBar.setText("");
+                referenceIsNotAnInt = false;
+            }
+
+            if(product != null){
+                menuEmpreinteCarbone.dispose();
+                ProductInfo productInfo=new ProductInfo();
             }
         } else if (e.getSource() == boutonCategories) {
             menuEmpreinteCarbone.dispose();
