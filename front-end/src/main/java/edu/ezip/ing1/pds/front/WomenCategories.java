@@ -32,18 +32,21 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
         mainPanel.add(bas, gbc);
 
         robes = new JButton("Robes");
+        robes.addActionListener(this);
         setButtonStyle(robes, width, height); 
         gbc.gridx = 2;
         gbc.gridy = 0;
         mainPanel.add(robes, gbc);
 
         vetementsMaternite = new JButton("Vêtements de maternité");
+        vetementsMaternite.addActionListener(this);
         setButtonStyle(vetementsMaternite, width, height); 
         gbc.gridx = 0;
         gbc.gridy = 1;
         mainPanel.add(vetementsMaternite, gbc);
 
         lingerie = new JButton("Lingerie");
+        lingerie.addActionListener(this);
         setButtonStyle(lingerie, width, height); 
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -52,14 +55,22 @@ public class WomenCategory extends CategoriesTemplate implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        super.actionPerformed(e);
         if(e.getSource() == hauts){
             categorieFrame.dispose();
             WomenTop womenTop = new WomenTop();
         } else  if(e.getSource() == bas){
             categorieFrame.dispose();
             WomenPants womenPants = new WomenPants();
-        } else if(e.getSource() == backButton){
-            super.actionPerformed(e);
+        } else if (e.getSource() == robes){
+            categorieFrame.dispose();
+            WomenDresses womenDresses = new WomenDresses();
+        } else if(e.getSource() == vetementsMaternite){
+            categorieFrame.dispose();
+            WomenMaternityClothes womenMaternityClothes = new WomenMaternityClothes();
+        } else if(e.getSource() == lingerie){
+            categorieFrame.dispose();
+            WomenLingerie womenLingerie = new WomenLingerie();
         }
     }
     
