@@ -53,7 +53,8 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
             categorieFrame.dispose();
             MenCategories menCategories = new MenCategories();
         } else if(e.getSource() == categorieEnfant){
-
+            categorieFrame.dispose();
+            ChildrenCategories childrenCategories = new ChildrenCategories();
         } 
     }
     
