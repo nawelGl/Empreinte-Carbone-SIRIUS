@@ -1,6 +1,9 @@
 package edu.ezip.ing1.pds.front.UC3;
+//import edu.ezip.ing1.pds.front.*;
 
-import edu.ezip.ing1.pds.front.*;
+import edu.ezip.ing1.pds.front.EcranAcceuil;
+import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +13,7 @@ import java.awt.event.ActionListener;
 public class AccueilUC3 extends JFrame implements ActionListener {
 
 
-    //TODO: find
+
 
     JFrame accueilUC3;
     private JButton salesBtt;
@@ -34,9 +37,9 @@ public class AccueilUC3 extends JFrame implements ActionListener {
         // settings de bases
         accueilUC3 = new JFrame("Usecase2: Statistique");
         accueilUC3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        accueilUC3.setLocationRelativeTo(null);
         accueilUC3.setResizable(false);
         accueilUC3.setSize(Template.LONGUEUR, Template.LARGEUR);
+        accueilUC3.setLocationRelativeTo(null);
 
 
         //accueilUC3.getContentPane().setBackground(new Color(0xE7EBE4));
