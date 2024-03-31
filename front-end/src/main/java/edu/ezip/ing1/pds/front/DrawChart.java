@@ -1,12 +1,21 @@
 package edu.ezip.ing1.pds.front;
 
 
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class DrawChart extends JPanel {
 
-    //private final String title;
     private final String[] labels;
     private final double[] values;
     private final Color[] colors;
@@ -15,40 +24,34 @@ public class DrawChart extends JPanel {
         this.labels = labels;
         this.values = values;
         this.colors = colors;
+
+        // JavaFX Panel 생성
+        JFXPanel fxPanel = new JFXPanel();
+        setLayout(new BorderLayout());
+        add(fxPanel, BorderLayout.CENTER);
+
+        Platform.runLater(() -> {
+            initFX(fxPanel);
+        });
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    private void initFX(JFXPanel fxPanel) {
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Category");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Value");
 
-        int width = getWidth();
-        int height = getHeight();
-        int barWidth = width / values.length;
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
 
-
-        // Calculate maximum value
-        double maxValue = 0;
-        for (double value : values) {
-            if (value > maxValue) {
-                maxValue = value;
-            }
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (int i = 0; i < labels.length; i++) {
+            series.getData().add(new XYChart.Data<>(labels[i], values[i]));
+            series.getData().get(i).getNode().setStyle("-fx-bar-fill: #" + Integer.toHexString(colors[i].getRGB()).substring(2));
         }
 
-        // Draw bars
-        for (int i = 0; i < values.length; i++) {
-            int x = i * barWidth;
-            int barHeight = (int) (values[i] / maxValue * height);
-            int y = height - barHeight;
+        barChart.getData().add(series);
 
-            g.setColor(colors[i]);
-            g.fillRect(x, y, barWidth, barHeight);
-
-            g.setColor(Color.WHITE);
-            g.drawRect(x, y, barWidth, barHeight);
-
-            // Draw label
-            g.drawString(labels[i], x + (barWidth - g.getFontMetrics().stringWidth(labels[i])) / 4, height - 5);
-        }
+        Scene scene = new Scene(barChart);
+        fxPanel.setScene(scene);
     }
-
 }
