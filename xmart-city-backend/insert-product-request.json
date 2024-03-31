@@ -6,7 +6,7 @@
 
       "produit_idEmplacement" : 4,
       "produit_paysDepart" : "France",
-      "produit_paysArrivee" : "Belgique",
+      "produit_idVilleArrive" : "Belgique",
       "produit_couleur" : "Bleu",
       "produit_taille" : "S",
       "produit_reference" : 38402,

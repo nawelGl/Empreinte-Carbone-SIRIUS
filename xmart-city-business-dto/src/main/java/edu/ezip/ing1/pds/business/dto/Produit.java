@@ -9,8 +9,8 @@ import java.sql.SQLException;
 public class Produit {
     private int idProduit;
     private int idEmplacement;
-    private String paysDepart;
-    private String paysArrivee;
+    private int idVilleDepart;
+    private int idVilleArrive;
     private String couleur;
     private String taille;
     private int reference;
@@ -23,26 +23,25 @@ public class Produit {
 
     private Integer idsouscatB;
 
-    public Produit() {
-    }
-
+    
+public Produit(){}
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "paysDepart", "paysArrivee", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "idVilleDepart", "idVilleArrive", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idEmplacement, paysDepart, paysArrivee, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB);
+        return buildPreparedStatement(preparedStatement, idEmplacement,idVilleDepart, idVilleArrive, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB);
     }
 
-    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB) {
+    public Produit(int idProduit, int idEmplacement, int idVilleDepart,int idVilleArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
-        this.paysDepart = paysDepart;
-        this.paysArrivee = paysArrive;
+        this.idVilleDepart =idVilleDepart;
+        this.idVilleArrive =idVilleArrive;
         this.couleur = couleur;
         this.taille = taille;
         this.reference = reference;
@@ -71,18 +70,7 @@ public class Produit {
 
     public void setIdEmplacement(int idEmplacement){this.idEmplacement = idEmplacement;}
 
-    public String getPaysDepart() {
-        return paysDepart;
-    }
 
-
-    public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
-
-    public String getPaysArrivee() {
-        return paysArrivee;
-    }
-
-    public void setPaysArrivee(String paysArrivee){this.paysArrivee = paysArrivee;}
 
     public String getCouleur() {
         return couleur;
@@ -144,6 +132,22 @@ public class Produit {
         this.idsouscatB = idsouscatB;
     }
 
+    public int getIdVilleArrive() {
+        return idVilleArrive;
+    }
+
+    public void setIdVilleArrive(int idVilleArrive) {
+        this.idVilleArrive = idVilleArrive;
+    }
+
+    public int getIdVilleDepart() {
+        return idVilleDepart;
+    }
+
+    public void setIdVilleDepart(int idVilleDepart) {
+        this.idVilleDepart = idVilleDepart;
+    }
+
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
         for (final String fieldName : fieldNames) {
@@ -167,8 +171,8 @@ public class Produit {
         return "Produit{" +
                 "idProduit=" + idProduit +
                 ", idEmplacement=" + idEmplacement +
-                ", paysDepart='" + paysDepart + '\'' +
-                ", paysArrive='" + paysArrivee + '\'' +
+                ",idVilleDepart='" +idVilleDepart + '\'' +
+                ", idVilleArrive='" + idVilleArrive + '\'' +
                 ", couleur='" + couleur + '\'' +
                 ", taille='" + taille + '\'' +
                 ", reference=" + reference +
