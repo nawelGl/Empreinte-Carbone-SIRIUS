@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC3;
 
 
 import javafx.application.Platform;

@@ -1,4 +1,6 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC3;
+
+import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

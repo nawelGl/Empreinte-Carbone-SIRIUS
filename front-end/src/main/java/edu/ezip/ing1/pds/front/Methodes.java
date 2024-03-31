@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Objects;
 
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
-class Methodes {
+public class Methodes {
     // Header for frames
     public static void header(JFrame frame, String titre, int x) {
         // ----------panel header : Logo + label titre--------------
