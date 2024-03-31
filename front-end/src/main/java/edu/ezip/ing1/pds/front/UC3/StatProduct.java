@@ -38,9 +38,9 @@ public class StatProduct {
 
         statUC3 = new JFrame("Statistiques");
         statUC3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        statUC3.setLocationRelativeTo(null);
         statUC3.setResizable(false);
         statUC3.setSize(Template.LONGUEUR,Template.LARGEUR);
+        statUC3.setLocationRelativeTo(null);
 
         //------------------panel header---------------------------
         Methodes.header(statUC3,"Vos statistiques par produit",525);
@@ -56,20 +56,17 @@ public class StatProduct {
 
         RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
         JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
-        infoTitle.setFont(new Font("Avenir", Font.BOLD,textSize));
         infoTitlePanel.add(infoTitle);
+        infoTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
-//        JLabel refLabel = new JLabel();
-//        refLabel.setText("Information de votre produit "+vente.getReference());
-//        refLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
-        //refLabel.setBorder(new EmptyBorder());
+        JPanel emptyBox = new JPanel();
+        emptyBox.setBackground(Color.LIGHT_GRAY);
+        emptyBox.setPreferredSize(new Dimension(150, 150));
 
         JLabel textLabel = new JLabel("le score de votre produit est ");
-        textLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
 
         JLabel scoreLabel = new JLabel();
-        scoreLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
-
         // Switch case pour recuperer l'icone correspondqnt
 
         switch (score) {
@@ -92,8 +89,11 @@ public class StatProduct {
 
         //-------ajout de labels----------
         infoPanel.add(BorderLayout.NORTH,infoTitlePanel);
-        infoPanel.add(BorderLayout.WEST,textLabel);
-        infoPanel.add(BorderLayout.EAST,scoreLabel);
+
+        infoPanel.add(emptyBox);
+        infoPanel.add(scoreLabel);
+
+        infoPanel.add(BorderLayout.CENTER,textLabel);
 
         infoPanel.setBounds(150,100,500,550);
 
@@ -109,8 +109,7 @@ public class StatProduct {
 
 
         double[] values = {salesBefore, salesAfter};
-        Color[] colors = {Color.decode("#6CE5E8"), Color.decode("#41B8D5")};
-        DrawChart barChart = new DrawChart(labels, values, colors);
+        DrawChart barChart = new DrawChart(labels, values);
         chartPanel.add(BorderLayout.NORTH,chartTitlePanel);
         chartPanel.add(BorderLayout.CENTER, barChart);
 

@@ -3,27 +3,31 @@ package edu.ezip.ing1.pds.front.UC3;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.paint.Color;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
+
+//TODO: resoudre le pb de couleur
 public class DrawChart extends JPanel {
 
     private final String[] labels;
     private final double[] values;
-    private final Color[] colors;
+//    private Color[] colors = {Color.rgb(108, 229, 232), Color.rgb(65, 184, 213)};
 
-    public DrawChart(String[] labels, double[] values, Color[] colors) {
+    public DrawChart(String[] labels, double[] values) {
         this.labels = labels;
         this.values = values;
-        this.colors = colors;
+//        this.colors = colors;
 
         // JavaFX Panel 생성
         JFXPanel fxPanel = new JFXPanel();
@@ -45,8 +49,20 @@ public class DrawChart extends JPanel {
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         for (int i = 0; i < labels.length; i++) {
-            series.getData().add(new XYChart.Data<>(labels[i], values[i]));
-            series.getData().get(i).getNode().setStyle("-fx-bar-fill: #" + Integer.toHexString(colors[i].getRGB()).substring(2));
+            XYChart.Data<String, Number> data = new XYChart.Data<>(labels[i], values[i]);
+            series.getData().add(data);
+
+            // 데이터 노드 초기화
+            Node node = data.getNode();
+            if (node != null) {
+                if (i == 0) {
+                    // 첫 번째 막대를 하늘색으로 설정
+                    node.setStyle("-fx-background-color: #6CE5E8;");
+                } else if (i == 1) {
+                    // 두 번째 막대를 파란색으로 설정
+                    node.setStyle("-fx-background-color: #41B8D5;");
+                }
+            }
         }
 
         barChart.getData().add(series);
@@ -54,4 +70,5 @@ public class DrawChart extends JPanel {
         Scene scene = new Scene(barChart);
         fxPanel.setScene(scene);
     }
+
 }
