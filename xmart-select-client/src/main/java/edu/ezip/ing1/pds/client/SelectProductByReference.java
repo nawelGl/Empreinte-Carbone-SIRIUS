@@ -71,7 +71,7 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
                 Produit dernierProduit = null;
                 for (final Produit produit : produits.getProduits()) {
                     asciiTable.addRule();
-                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getIdVilleDepart(), produit.getIdVilleDepart(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(), produit.getIdsouscatB());
+                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getIdVilleDepart(), produit.getIdVilleDepart(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(), produit.getIdsouscatB(),produit.getIdTransportMode(),produit.getPoids(),produit.getPrix());
                     dernierProduit = produit;
                 }
                 asciiTable.addRule();
