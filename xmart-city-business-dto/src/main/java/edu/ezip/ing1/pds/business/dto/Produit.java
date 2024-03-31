@@ -28,23 +28,25 @@ public class Produit {
     private double poids;
 
     private double prix;
+    private Integer idSousCatA;
+    private Integer idCategorie;
 
 
     
 public Produit(){}
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB", "idVilleDepart", "idVilleArrive","idTransportMode", "poids","prix");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB", "idVilleDepart", "idVilleArrive","idTransportMode", "poids","prix","idSousCatA","idCategorie");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idEmplacement, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB,idVilleDepart, idVilleArrive,idTransportMode, poids,prix);
+        return buildPreparedStatement(preparedStatement, idEmplacement, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB,idVilleDepart, idVilleArrive,idTransportMode, poids,prix, idSousCatA,idCategorie);
     }
 
-    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix) {
+    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix, int idSousCatA,int idCategorie) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.idVilleDepart =idVilleDepart;
@@ -62,6 +64,8 @@ public Produit(){}
         this.idTransportMode=idTransportMode;
         this.poids=poids;
         this.prix=prix;
+        this.idSousCatA=idSousCatA;
+        this.idCategorie=idCategorie;
     }
 
     // Getters and setters for each field
@@ -146,13 +150,9 @@ public Produit(){}
         return idVilleArrive;
     }
 
-    public void setIdVilleArrive(int idVilleArrive) {
-        this.idVilleArrive = idVilleArrive;
-    }
+    public void setIdVilleArrive(int idVilleArrive) {this.idVilleArrive = idVilleArrive;}
 
-    public int getIdVilleDepart() {
-        return idVilleDepart;
-    }
+    public int getIdVilleDepart() {return idVilleDepart;}
 
     public void setIdVilleDepart(int idVilleDepart) {
         this.idVilleDepart = idVilleDepart;
@@ -180,6 +180,22 @@ public Produit(){}
 
     public void setPrix(double prix) {
         this.prix = prix;
+    }
+
+    public Integer getIdCategorie() {
+        return idCategorie;
+    }
+
+    public void setIdCategorie(Integer idCategorie) {
+        this.idCategorie = idCategorie;
+    }
+
+    public Integer getIdSousCatA() {
+        return idSousCatA;
+    }
+
+    public void setIdSousCatA(Integer idSousCatA) {
+        this.idSousCatA = idSousCatA;
     }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
@@ -219,6 +235,8 @@ public Produit(){}
                 ", idTransportMode =" + idTransportMode +
                 ", poids =" + poids +
                 ", prix =" + prix +
+                ", idSousCatA =" + idSousCatA +
+                ", idCategorie =" + idCategorie+
                 '}';
     }
 
