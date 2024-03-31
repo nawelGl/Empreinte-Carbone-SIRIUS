@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 public class AccueilUC3 extends JFrame implements ActionListener {
 
+
+    //TODO: find
+
     JFrame accueilUC3;
     private JButton salesBtt;
     private JButton productBtt;
@@ -90,7 +93,7 @@ public class AccueilUC3 extends JFrame implements ActionListener {
         if(e.getSource() == productBtt) {
             accueilUC3.dispose();
             RechercheReferenceUC3 rechercheReferenceUC3 = new RechercheReferenceUC3(titre,titreHeader,titreLabelSecondaire,x);
-            //StatProduct statProduct = new StatProduct(2,8);
+
         }
         if(e.getSource() == categoryBtt) {
             //accueilUC3.dispose();
