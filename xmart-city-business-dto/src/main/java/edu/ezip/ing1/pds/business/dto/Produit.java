@@ -20,7 +20,6 @@ public class Produit {
     private int idMagasin;
     private int idMarque;
     private String nomProduit;
-
     private Integer idsouscatB;
 
     public Produit() {
