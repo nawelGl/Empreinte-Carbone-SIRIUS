@@ -18,11 +18,14 @@ public class StatProduct {
 
     JFrame statUC3;
     String[] labels = {"Avant", "Après"};
+    String photoName;
 
     private int reference = RechercheReferenceUC3.venteBefore.getReference();
     private String score = RechercheReferenceUC3.venteBefore.getScore();
     private Vente vente;
     private  int textSize=20;
+
+
 
     public StatProduct(int salesBefore, int salesAfter ){
 
@@ -60,9 +63,11 @@ public class StatProduct {
         infoTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
         infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
-        JPanel emptyBox = new JPanel();
-        emptyBox.setBackground(Color.LIGHT_GRAY);
-        emptyBox.setPreferredSize(new Dimension(150, 150));
+
+        photoName = Integer.toString(reference)+".png";
+        JLabel photoLabel = new JLabel();
+        photoLabel.setIcon(new ImageIcon(getClass().getResource(photoName)));
+
 
         JLabel textLabel = new JLabel("le score de votre produit est ");
 
@@ -90,10 +95,12 @@ public class StatProduct {
         //-------ajout de labels----------
         infoPanel.add(BorderLayout.NORTH,infoTitlePanel);
 
-        infoPanel.add(emptyBox);
-        infoPanel.add(scoreLabel);
+        photoLabel.setBounds(160,200,200,200);
+        scoreLabel.setBounds(300,200,100,100);
 
-        infoPanel.add(BorderLayout.CENTER,textLabel);
+        infoPanel.add(photoLabel);
+        infoPanel.add(scoreLabel);
+        infoPanel.add(BorderLayout.SOUTH,textLabel);
 
         infoPanel.setBounds(150,100,500,550);
 
