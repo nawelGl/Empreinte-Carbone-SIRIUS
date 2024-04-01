@@ -12,6 +12,7 @@ import static java.lang.String.valueOf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class ProductMapping implements ActionListener{
 
@@ -19,6 +20,7 @@ public class ProductMapping implements ActionListener{
     private String productName = RechercheReference.product.getNomProduit();
     private String productColor = RechercheReference.product.getCouleur();
     JButton backHomeButton;
+    JButton setPath;
 
     private Emplacement emplacement;
     private int idEmplacement = RechercheReference.product.getIdEmplacement();
@@ -34,6 +36,16 @@ public class ProductMapping implements ActionListener{
             emplacement = SelectEmplacementById.launchSelectEmplacementById(request);
         } catch(Exception e){
             System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
+        }
+
+        try{
+            if(emplacement.getEtage() == null || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
         }
 
         productMappingFrame  = new JFrame();
@@ -56,22 +68,23 @@ public class ProductMapping implements ActionListener{
         //------------title label-------------
         JLabel titleLabel = new JLabel();
         titleLabel.setText("Voici l'emplacement de votre produit :");
+        titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Avenir", Font.BOLD, textSize+3));
-        titleLabel.setBounds(500, 150, 400, 50);
+        titleLabel.setBounds(50, 70, 400, 50);
 
         //------------aisle panel-----------
         RoundedPanel aislePanel = new RoundedPanel(60, 60);
-        aislePanel.setBounds(400, 280, 600, 70);
+        aislePanel.setBounds(100, 170, 300, 70);
         aislePanel.setBackground(Color.WHITE);
 
         //------------shelf panel----------
         RoundedPanel shelfPanel = new RoundedPanel(60, 60);
-        shelfPanel.setBounds(400, 380, 600, 70);
+        shelfPanel.setBounds(100, 310, 300, 70);
         shelfPanel.setBackground(Color.WHITE);
 
         //------------floor panel----------
         RoundedPanel floorPanel = new RoundedPanel(60, 60);
-        floorPanel.setBounds(400, 480, 600, 70);
+        floorPanel.setBounds(100, 200, 300, 70);
         floorPanel.setBackground(Color.WHITE);
 
         //------------aisle label-----------
@@ -83,28 +96,57 @@ public class ProductMapping implements ActionListener{
 
         //------------shelf label-----------
         JLabel shelfLabel = new JLabel();
-        shelfLabel.setText("Rayon n° " + emplacement.getRayon());
+        shelfLabel.setText("Rayon n° " + emplacement.getIdRayon());
         shelfLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
         shelfLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         shelfPanel.add(shelfLabel);
 
         //------------floor label-----------
         JLabel floorLabel = new JLabel();
-        floorLabel.setText("Étage n° " + emplacement.getEtage());
+        floorLabel.setText("Étage : " + emplacement.getEtage());
         floorLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
 
-        //Bouton retour :
-        backHomeButton = new JButton("Retour à l'accueil");
-        backHomeButton.addActionListener(this);
-        backHomeButton.setBounds(610, 600, 180, 40);
-        mainPanel.add(backHomeButton);
+        //==============================================
+        JPanel panelMap = new JPanel();
+        panelMap.setLayout(null);
+        panelMap.setBounds(60, 50,770,580);
+        panelMap.setBackground(Color.WHITE);
 
-        mainPanel.add(titleLabel);
-        mainPanel.add(aislePanel);
-        mainPanel.add(shelfPanel);
-        mainPanel.add(floorPanel);
+        ImageIcon map = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
+
+        JLabel mapLabel = new JLabel(map);
+        mapLabel.setBounds(60, 50, 770, 580);
+        mainPanel.add(mapLabel);
+
+       // mainPanel.add(panelTestMap);
+
+        JPanel panelPlan = new JPanel();
+        panelPlan.setLayout(null);
+        panelPlan.setBounds(840, 50,500,580);
+        panelPlan.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        mainPanel.add(panelPlan);
+
+        //==============================================
+
+            //Bouton retour :
+            backHomeButton = new JButton("Retour à l'accueil");
+            backHomeButton.addActionListener(this);
+            backHomeButton.setBounds(610, 650, 180, 40);
+            mainPanel.add(backHomeButton);
+        
+            //Bouton config :
+            setPath = new JButton();
+            setPath.setText("Configurer les chemins");
+            setPath.addActionListener(this);
+            setPath.setBounds(1150, 650, 200, 40);
+            mainPanel.add(setPath);
+
+        panelPlan.add(titleLabel);
+        //panelTestPlan.add(aislePanel);
+        panelPlan.add(shelfPanel);
+        panelPlan.add(floorPanel);
         productMappingFrame.setVisible(true);
     }
 
@@ -114,6 +156,9 @@ public class ProductMapping implements ActionListener{
        if(e.getSource() == backHomeButton){
             productMappingFrame.dispose();
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
+       } else if(e.getSource() == setPath){
+        productMappingFrame.dispose();
+        PathManagement pathManagement = new PathManagement();
        }
     }
     

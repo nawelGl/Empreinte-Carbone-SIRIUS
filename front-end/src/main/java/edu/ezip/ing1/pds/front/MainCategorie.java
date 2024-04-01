@@ -45,17 +45,17 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        super.actionPerformed(e);
         if(e.getSource() == categorieFemme){
             categorieFrame.dispose();
-            WomenCategory womenCategory = new WomenCategory();
-
+            WomenCategories womenCategories = new WomenCategories();
         } else if(e.getSource() == categorieHomme){
-
+            categorieFrame.dispose();
+            MenCategories menCategories = new MenCategories();
         } else if(e.getSource() == categorieEnfant){
-
-        } else if(e.getSource() == backButton){
-            super.actionPerformed(e);
-        }
+            categorieFrame.dispose();
+            ChildrenCategories childrenCategories = new ChildrenCategories();
+        } 
     }
     
 }

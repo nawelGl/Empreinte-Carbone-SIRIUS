@@ -1,18 +1,18 @@
 package edu.ezip.ing1.pds.front;
 
-import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.commons.Request;
 
 import edu.ezip.ing1.pds.client.SelectProductByReference;
+import edu.ezip.ing1.pds.client.commons.ClientRequest;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 class RechercheReference implements ActionListener {
-
-    //Boutons :
 
     static Produit product;
     static Vente vente;
@@ -21,9 +21,7 @@ class RechercheReference implements ActionListener {
     JButton boutonConfirmer;
     JTextField searchBar;
     String titre;
-    Boolean referenceIsNotAnInt = false;
-
-
+    boolean referenceIsNotAnInt = false;
     String titreLabelSecondaire ;
 
     String titreHeader;
@@ -57,7 +55,7 @@ class RechercheReference implements ActionListener {
         secondPanel.setLayout(null);
         secondPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
-        secondPanel.setBounds(300, 200, 800, 350);
+        secondPanel.setBounds(300, 200, 800, 250);
 
         //Ajout du JLabel :
         JLabel titrePanelSecondaire = new JLabel(titreLabelSecondaire);
@@ -68,10 +66,10 @@ class RechercheReference implements ActionListener {
 
         //Ajout de la search bar :
         searchBar = new RoundJTextField(100);
-        searchBar.setBounds(80, 150, 650, 40);
+        searchBar.setBounds(80, 120, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.addActionListener(this);
-        boutonConfirmer.setBounds(360,230, 80, 30);
+        boutonConfirmer.setBounds(360,200, 80, 30);
         secondPanel.add(searchBar);
         secondPanel.add(boutonConfirmer);
 
@@ -89,37 +87,45 @@ class RechercheReference implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfirmer){
-            try {
-                String refEnString = searchBar.getText();
-                try{
-                    Integer refEnInt = Integer.parseInt(refEnString);
-                } catch (Exception ex){
-                    System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
-                    referenceIsNotAnInt = true;
-                }
+            String refEnString = searchBar.getText();
+   
+            try{
+                Integer refEnInt = Integer.parseInt(refEnString);
+            } catch (Exception ex){
+                System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
+                referenceIsNotAnInt = true;
+            }
 
+            try{
+                Request request = new Request();
+                request.setRequestContent(refEnString);
+                product = SelectProductByReference.launchSelectProductByReference(request);
+            } catch(Exception exception){
+                System.out.println(exception.getMessage());
+            }
+
+            if(ClientRequest.isConnectionRefused() == true){
+                System.out.println("Problème de connexion");
+                searchBar.setText("");
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
+                referenceIsNotAnInt = false;
+            } else {
                 if(referenceIsNotAnInt){
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 405] Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "[ERREUR 405] - Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");
                     referenceIsNotAnInt = false;
                 } else {
-                    Request request = new Request();
-                    request.setRequestContent(refEnString);
-                    product = SelectProductByReference.launchSelectProductByReference(request);
                     if(product != null){
                         menuEmpreinteCarbone.dispose();
-                       // ProductMapping productMapping = new ProductMapping();
                         ProductInfo productInfo=new ProductInfo();
-                } else{
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
+                    }else {
+                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 406] Attention, cette référence produit n'existe pas. Veuillez réessayer.", "[ERREUR 406] - Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+                        searchBar.setText("");
+                    }
                 }
-                }
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+    
             }
         } else if (e.getSource() == boutonCategories) {
-            //TODO : Ajouter dans le code une frame catégries et dispose celle ci
             menuEmpreinteCarbone.dispose();
             MainCategorie mainCategorie = new MainCategorie();
         }
