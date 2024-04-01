@@ -37,7 +37,11 @@ public class XMartCityService {
         SELECT_AFTER_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit\n" +
                 "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
-                "WHERE \"reference\"=? AND \"date\">'2024-01-01';");
+                "WHERE \"reference\"=? AND \"date\">'2024-01-01';"),
+
+        SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idTransportMode = ?"),
+        SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idVille = ?");
+
 
         private final String query;
 
@@ -355,10 +359,71 @@ public class XMartCityService {
                     }
                     break;
 
+                case "SELECT_TRANSPORTMODE_BY_ID":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_TRANSPORTMODE_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                       TransportMode transportMode = new TransportMode();
+
+                        while (resultSet.next()) {
+                           transportMode.setIdTransportMode(resultSet.getInt("idEmplacement"));
+                          transportMode.build(resultSet);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(transportMode);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_TRANSPORTMODE_BY_ID query");
+                        logger.error("Error executing SELECT_TRANSPORTMODE_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_VILLE_BY_ID":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_VILLE_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Ville ville = new Ville();
+
+                        while (resultSet.next()) {
+                            ville.setIdVille(resultSet.getInt("idVille"));
+                            ville.build(resultSet);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(ville);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_VILLE_BY_ID query");
+                        logger.error("Error executing SELECT_VILLE_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
                 default:
                     // Handle unknown action
                     response = new Response(request.getRequestId(), "Unknown action");
                     break;
+
                 }
             }
 

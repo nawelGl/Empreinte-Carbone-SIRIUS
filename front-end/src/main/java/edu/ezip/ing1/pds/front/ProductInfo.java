@@ -1,10 +1,15 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.client.SelectEmplacementById;
+import edu.ezip.ing1.pds.commons.Request;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.*;
+
+import static java.lang.String.valueOf;
 
 public class ProductInfo implements ActionListener {
 
@@ -13,6 +18,10 @@ public class ProductInfo implements ActionListener {
     private String productScore = RechercheReference.product.getScore();
     private String productColor = RechercheReference.product.getCouleur();
     private Float productEmpreinte= RechercheReference.product.getEmpreinte();
+    private double productPrice= RechercheReference.product.getPrix();
+    private Integer idTransportMode= RechercheReference.product.getIdTransportMode();
+    private Integer idVilleDepart= RechercheReference.product.getIdVilleDepart();
+    private  Integer idVilleArrive= RechercheReference.product.getIdVilleArrive();
 
 
     public ProductInfo(){
@@ -40,7 +49,22 @@ public class ProductInfo implements ActionListener {
         mainPanel.setLayout(null);
         productInfoFrame.getContentPane().add(mainPanel);
 
-        //-------panel produit choisi---------
+
+
+        try {
+            // TODO:Faire 3 requetes.
+            //  1. requetes sur idTransport ( recuperer coeffEmission)
+            //  2. requetes sur idVilledepart ( recuperer coordLatitude , coordLongitude)
+            //  3. requete sur idVilleArrivée ( recuperer coordLatitude , coordLongitude)
+
+//            Request request = new Request();
+//            request.setRequestContent(valueOf(idTransportMode));
+//            emplacement = SelectEmplacementById.launchSelectEmplacementById(request);
+        } catch(Exception e){
+//            System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
+        }
+
+        //-------panel item chosen---------
         JPanel productPanel = new JPanel();
         productPanel.setLayout(null);
         productPanel.setBounds(180,60,1030,300);
@@ -51,7 +75,7 @@ public class ProductInfo implements ActionListener {
         productPanel.add(label1);
 
 
-        JLabel priceLabel = new JLabel("Prix: xxxx € ");
+        JLabel priceLabel = new JLabel("Prix: "+productPrice +" € ");
         priceLabel.setBounds(600,70,300,50);
         productPanel.add(priceLabel);
 
@@ -88,10 +112,11 @@ public class ProductInfo implements ActionListener {
         label2.setBounds(450,5,100,50);
         suggestionPanel.add(label2);
 
-        //------- articles suggérés
+        //------- Suggestion items --------------------------------------------
         JButton suggest1Button = new JButton("PRODUIT 1");
         suggest1Button.setBounds(80,65,200,150);
         suggestionPanel.add(suggest1Button);
+
 
         JLabel priceLabel1 = new JLabel("Prix: xxxx € ");
         priceLabel1.setBounds(140,210,300,50);
