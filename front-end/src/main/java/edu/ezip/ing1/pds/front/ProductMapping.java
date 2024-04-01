@@ -39,7 +39,7 @@ public class ProductMapping implements ActionListener{
         }
 
         try{
-            if(emplacement.getEtage() == null || emplacement.getAllee() == null || emplacement.getRayon() == null){
+            if(emplacement.getEtage() == null || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
                 throw new Exception();
             }
         } catch(Exception exc){
@@ -96,7 +96,7 @@ public class ProductMapping implements ActionListener{
 
         //------------shelf label-----------
         JLabel shelfLabel = new JLabel();
-        shelfLabel.setText("Rayon n° " + emplacement.getRayon());
+        shelfLabel.setText("Rayon n° " + emplacement.getIdRayon());
         shelfLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
         shelfLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         shelfPanel.add(shelfLabel);
