@@ -21,7 +21,7 @@ public class XMartCityService {
 
     private enum Queries {
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
-        INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"paysDepart\", \"paysArrivee\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"idVilleDepart\", \"idVilleArrive\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
 
@@ -110,8 +110,8 @@ public class XMartCityService {
                         PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_PRODUCT.query);
                         insertStatement.setInt(1, produit.getIdProduit());
                         insertStatement.setInt(2, produit.getIdEmplacement());
-                        insertStatement.setString(3, produit.getPaysDepart());
-                        insertStatement.setString(3, produit.getPaysArrivee());
+                        insertStatement.setInt(3, produit.getIdVilleDepart());
+                        insertStatement.setInt(3, produit.getIdVilleDepart());
                         insertStatement.setString(3, produit.getCouleur());
                         insertStatement.setString(3, produit.getTaille());
                         insertStatement.setInt(3, produit.getReference());
@@ -121,6 +121,9 @@ public class XMartCityService {
                         insertStatement.setInt(3, produit.getIdMagasin());
                         insertStatement.setInt(3, produit.getIdMarque());
                         insertStatement.setString(3, produit.getNomProduit());
+                        insertStatement.setInt(3, produit.getIdTransportMode());
+                        insertStatement.setDouble(3, produit.getPoids());
+
 
                         produit.build(insertStatement);
 

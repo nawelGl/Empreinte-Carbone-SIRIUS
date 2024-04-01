@@ -9,8 +9,8 @@ import java.sql.SQLException;
 public class Produit {
     private int idProduit;
     private int idEmplacement;
-    private String paysDepart;
-    private String paysArrivee;
+    private int idVilleDepart;
+    private int idVilleArrive;
     private String couleur;
     private String taille;
     private int reference;
@@ -22,26 +22,34 @@ public class Produit {
     private String nomProduit;
     private Integer idsouscatB;
 
-    public Produit() {
-    }
+    private int idTransportMode;
 
+    private double poids;
+
+    private double prix;
+    private Integer idSousCatA;
+    private Integer idCategorie;
+
+
+    
+public Produit(){}
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "paysDepart", "paysArrivee", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB", "idVilleDepart", "idVilleArrive","idTransportMode", "poids","prix","idSousCatA","idCategorie");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idEmplacement, paysDepart, paysArrivee, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB);
+        return buildPreparedStatement(preparedStatement, idEmplacement, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB,idVilleDepart, idVilleArrive,idTransportMode, poids,prix, idSousCatA,idCategorie);
     }
 
-    public Produit(int idProduit, int idEmplacement, String paysDepart, String paysArrive, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB) {
+    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix, int idSousCatA,int idCategorie) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
-        this.paysDepart = paysDepart;
-        this.paysArrivee = paysArrive;
+        this.idVilleDepart =idVilleDepart;
+        this.idVilleArrive =idVilleArrive;
         this.couleur = couleur;
         this.taille = taille;
         this.reference = reference;
@@ -52,6 +60,11 @@ public class Produit {
         this.idMarque = idMarque;
         this.nomProduit = nomProduit;
         this.idsouscatB = idsouscatB;
+        this.idTransportMode=idTransportMode;
+        this.poids=poids;
+        this.prix=prix;
+        this.idSousCatA=idSousCatA;
+        this.idCategorie=idCategorie;
     }
 
     // Getters and setters for each field
@@ -70,18 +83,7 @@ public class Produit {
 
     public void setIdEmplacement(int idEmplacement){this.idEmplacement = idEmplacement;}
 
-    public String getPaysDepart() {
-        return paysDepart;
-    }
 
-
-    public void setPaysDepart(String paysDepart){this.paysDepart = paysDepart;}
-
-    public String getPaysArrivee() {
-        return paysArrivee;
-    }
-
-    public void setPaysArrivee(String paysArrivee){this.paysArrivee = paysArrivee;}
 
     public String getCouleur() {
         return couleur;
@@ -143,6 +145,58 @@ public class Produit {
         this.idsouscatB = idsouscatB;
     }
 
+    public int getIdVilleArrive() {
+        return idVilleArrive;
+    }
+
+    public void setIdVilleArrive(int idVilleArrive) {this.idVilleArrive = idVilleArrive;}
+
+    public int getIdVilleDepart() {return idVilleDepart;}
+
+    public void setIdVilleDepart(int idVilleDepart) {
+        this.idVilleDepart = idVilleDepart;
+    }
+
+    public int getIdTransportMode() {
+        return idTransportMode;
+    }
+
+    public void setIdTransportMode(int idTransportMode) {
+        this.idTransportMode = idTransportMode;
+    }
+
+    public double getPoids() {
+        return poids;
+    }
+
+    public void setPoids(double poids) {
+        this.poids = poids;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
+    public Integer getIdCategorie() {
+        return idCategorie;
+    }
+
+    public void setIdCategorie(Integer idCategorie) {
+        this.idCategorie = idCategorie;
+    }
+
+    public Integer getIdSousCatA() {
+        return idSousCatA;
+    }
+
+    public void setIdSousCatA(Integer idSousCatA) {
+        this.idSousCatA = idSousCatA;
+    }
+
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
         for (final String fieldName : fieldNames) {
@@ -166,8 +220,8 @@ public class Produit {
         return "Produit{" +
                 "idProduit=" + idProduit +
                 ", idEmplacement=" + idEmplacement +
-                ", paysDepart='" + paysDepart + '\'' +
-                ", paysArrive='" + paysArrivee + '\'' +
+                ",idVilleDepart='" +idVilleDepart + '\'' +
+                ", idVilleArrive='" + idVilleArrive + '\'' +
                 ", couleur='" + couleur + '\'' +
                 ", taille='" + taille + '\'' +
                 ", reference=" + reference +
@@ -177,6 +231,11 @@ public class Produit {
                 ", id_magasin =" + idMagasin +
                 ", nom_produit =" + nomProduit +
                 ", idsouscatb =" + idsouscatB +
+                ", idTransportMode =" + idTransportMode +
+                ", poids =" + poids +
+                ", prix =" + prix +
+                ", idSousCatA =" + idSousCatA +
+                ", idCategorie =" + idCategorie+
                 '}';
     }
 
