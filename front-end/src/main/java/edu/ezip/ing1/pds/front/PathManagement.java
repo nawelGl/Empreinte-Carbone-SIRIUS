@@ -47,7 +47,7 @@ public class PathManagement implements ActionListener{
     private JButton validate = new JButton();
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
-    private Integer numeroRayon;
+    private int numeroRayon;
 
     public PathManagement(){
 
@@ -257,7 +257,7 @@ public class PathManagement implements ActionListener{
             //TODO : ajouter le path crée aux Paths.
             //Pour se faire, besoin de savoir pour quel rayon on enregistre ce path :
             //Demander à l'user avec une liste déroulante pour limiter les choix.
-            numeroRayon = (Integer)comboBox.getSelectedItem();
+            numeroRayon = (int)comboBox.getSelectedItem();
             System.out.println("Éléments de l'ArrayList :");
             for (Point point : path.getPoints()) {
                 System.out.println("(" + point.x + ", " + point.y + ")");
@@ -268,7 +268,7 @@ public class PathManagement implements ActionListener{
              // Affichage des éléments de la HashMap
         System.out.println("Éléments de la HashMap :");
         for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
-            //Integer numeroRayon = entry.getKey();
+            int numeroRayon = entry.getKey();
             Path path = entry.getValue();
             System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
         }

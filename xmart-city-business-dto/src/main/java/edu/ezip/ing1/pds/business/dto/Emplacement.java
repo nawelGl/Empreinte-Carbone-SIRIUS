@@ -8,17 +8,17 @@ import java.sql.SQLException;
 public class Emplacement {
     private int idEmplacement;
     private String allee;
-    private String rayon;
+    private int idRayon;
     private String etage;
 
     public Emplacement(){
 
     }
 
-    public Emplacement(int idEmplacement, String allee, String rayon, String etage){
+    public Emplacement(int idEmplacement, String allee, int rayon, String etage){
         this.idEmplacement = idEmplacement;
         this.allee = allee;
-        this.rayon = rayon;
+        this.idRayon = rayon;
         this.etage = etage;
     }
 
@@ -39,12 +39,12 @@ public class Emplacement {
         this.allee = allee;
     }
 
-    public String getRayon() {
-        return rayon;
+    public int getIdRayon() {
+        return idRayon;
     }
 
-    public void setRayon(String rayon) {
-        this.rayon = rayon;
+    public void setIdRayon(int rayon) {
+        this.idRayon = rayon;
     }
 
     public String getEtage() {
@@ -57,13 +57,13 @@ public class Emplacement {
 
     public final Emplacement build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "allee", "rayon", "etage");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "allee", "idRayon", "etage");
         return this;
     }
 
         public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idEmplacement, allee, rayon, etage);
+        return buildPreparedStatement(preparedStatement, idEmplacement, allee, idRayon, etage);
     }
 
         private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
@@ -89,7 +89,7 @@ public class Emplacement {
         return "Emplacement{" +
                 "idEmplacement=" + idEmplacement +
                 ", allée ='" + allee + '\'' +
-                ", rayon ='" + rayon + '\'' +
+                ", rayon ='" + idRayon + '\'' +
                 ", étage ='" + etage + '\'' +
                 '}';
     }

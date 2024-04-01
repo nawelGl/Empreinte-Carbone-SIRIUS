@@ -68,7 +68,7 @@ public class SelectEmplacementById extends ClientRequest<Object, Emplacement>{
                  final Emplacement emplacement = (Emplacement) joinedClientRequest.getResult();
                  final AsciiTable asciiTable = new AsciiTable();
                  asciiTable.addRule();
-                 asciiTable.addRow(emplacement.getIdEmplacement(), emplacement.getAllee(), emplacement.getRayon(), emplacement.getEtage());
+                 asciiTable.addRow(emplacement.getIdEmplacement(), emplacement.getAllee(), emplacement.getIdRayon(), emplacement.getEtage());
                  asciiTable.addRule();
                  logger.debug("\n{}\n", asciiTable.render());
                  return emplacement;

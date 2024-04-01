@@ -4,7 +4,12 @@ package edu.ezip.ing1.pds.front;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
+
 import javax.swing.*;
+
+import edu.ezip.ing1.pds.business.dto.Path;
+import edu.ezip.ing1.pds.business.dto.Paths;
 
 public class EcranAcceuil implements ActionListener {
     JFrame acceuilApp;
@@ -104,7 +109,6 @@ public class EcranAcceuil implements ActionListener {
         panelFrame.add(panelCentre, BorderLayout.CENTER);
 
         acceuilApp.setVisible(true);
-
 
     }
 
