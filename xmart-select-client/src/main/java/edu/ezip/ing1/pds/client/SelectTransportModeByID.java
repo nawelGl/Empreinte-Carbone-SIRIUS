@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.client;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
@@ -19,7 +20,7 @@ import java.util.Deque;
 import java.util.UUID;
 
 
-public class SelectTransportModeById extends ClientRequest<Object, TransportMode>{
+public class SelectTransportModeByID extends ClientRequest<Object, TransportMode>{
 
     //Attributs pour lancer la requête.
     private final static String LoggingLabel = "S e l e c t - T R A S P O R T M O D E - B y - I D";
@@ -30,7 +31,7 @@ public class SelectTransportModeById extends ClientRequest<Object, TransportMode
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
-    public SelectTransportModeById(
+    public SelectTransportModeByID(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
@@ -56,7 +57,7 @@ public class SelectTransportModeById extends ClientRequest<Object, TransportMode
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectTransportModeById clientRequest = new SelectTransportModeById(
+        final SelectTransportModeByID clientRequest = new SelectTransportModeByID(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
