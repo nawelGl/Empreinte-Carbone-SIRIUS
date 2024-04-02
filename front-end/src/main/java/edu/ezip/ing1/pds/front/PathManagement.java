@@ -287,13 +287,22 @@ public class PathManagement implements ActionListener{
                 throw new RuntimeException(ex);
             }
 
-            // Asffichage des éléments de la HashMap
+            // Affichage des éléments de la HashMap
         System.out.println("Éléments de la HashMap :");
         for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
             int numeroRayon = entry.getKey();
             Path path = entry.getValue();
             System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
         }
+
+        //Test affichage des elements comem indiqués dans le for :
+            System.out.println("========================================");
+            System.out.println(valueOf(pathPoint.get(0).x));
+            System.out.println(valueOf(pathPoint.get(0).y));
+            System.out.println(valueOf(numeroRayon));
+            System.out.println("========================================");
+
+
 
         }
     }

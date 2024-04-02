@@ -144,10 +144,22 @@ public class XMartCityService {
 
                     case "INSERT_POINT":
                     try {
+                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
                         String requestBody = "";
                         ObjectMapper objectMapper = new ObjectMapper();
-                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
                         PointChemin point = null;
+
+                        //==========================================
+                        System.out.println("========================================");
+                        System.out.println("TESTS SUR LES GETREQUIESTBODY : ");
+                        // index 0 : ["{\n  \"idPoint\" : 0,\n  \"coordX\" : 0,\n  \"coordY\" : 0,\n  \"idRayon\" : 0\n}"]
+                        System.out.println("index 0 : " + request.getRequestBody(0));
+                        //Pour l'index 1 on a : java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1
+                        System.out.println("index 1 : " + request.getRequestBody(1));
+                        System.out.println("index 2 : " + request.getRequestBody(2));
+
+                        System.out.println("========================================");
+                        //==========================================
 
                         for (int i = 0; i < request.getRequestBody().size(); i++) {
                             requestBody = request.getRequestBody(i);
@@ -214,7 +226,7 @@ public class XMartCityService {
                 case "SELECT_BEFORE_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BEFORE_VENTE_BY_REFERENCE.query);
-                        String ref = request.getRequestBody(0).replaceAll("\"", "");
+                        String ref = request.getRequestBody(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
 
                         selectStatement.setInt(1, Integer.valueOf(ref));
                         ResultSet resultSet = selectStatement.executeQuery();

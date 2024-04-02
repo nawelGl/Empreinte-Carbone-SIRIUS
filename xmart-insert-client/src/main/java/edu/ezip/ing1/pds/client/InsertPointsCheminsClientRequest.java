@@ -50,7 +50,6 @@ public class InsertPointsCheminsClientRequest extends ClientRequest<PointChemin,
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
-        // for(final Produit produit : produits.getProduits()) {
              final ObjectMapper objectMapper = new ObjectMapper();
              final String jsonifiedGuy = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointCheminToInsert);
              logger.trace("Point with its JSON face : {}", jsonifiedGuy);
@@ -66,7 +65,6 @@ public class InsertPointsCheminsClientRequest extends ClientRequest<PointChemin,
                                                                          networkConfig,
                                                                          birthdate++, request, pointCheminToInsert, requestBytes);
              clientRequests.push(clientRequest);
-        // }
 
         while (!clientRequests.isEmpty()) {
             final ClientRequest clientRequest2 = clientRequests.pop();
