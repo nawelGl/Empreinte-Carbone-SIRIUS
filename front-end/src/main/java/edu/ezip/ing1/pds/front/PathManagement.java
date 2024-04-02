@@ -22,9 +22,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.Paths;
+import edu.ezip.ing1.pds.commons.Request;
 
 public class PathManagement implements ActionListener{
 
@@ -34,10 +34,8 @@ public class PathManagement implements ActionListener{
     private JPanel actionButtonsPanel;
     private BufferedImage backgroundImage;
     private Path path = new Path();
-    //private ArrayList<Point> points = new ArrayList<>();
     private Point startPoint = null;
     private Point endPoint = null;
-    //private Paths paths = new Paths();
     private ArrayList<Point> pathPoint = new ArrayList<>();
     private JButton backHomeButton;
     private JButton addPath;
@@ -47,7 +45,10 @@ public class PathManagement implements ActionListener{
     private JButton validate = new JButton();
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
+    //Attributs pour enregistrer les points en base
     private int numeroRayon;
+    private int coordX;
+    private int coordY;
 
     public PathManagement(){
 
@@ -265,6 +266,11 @@ public class PathManagement implements ActionListener{
 
             Paths.paths.put(numeroRayon, path);
 
+            //Quand on valide, on enregistre les points dans la BD (ceux de l'arraylist) avec le rayon selectionné par l'user
+            //Création de la requete :
+            Request request = new Request();
+
+
              // Affichage des éléments de la HashMap
         System.out.println("Éléments de la HashMap :");
         for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
@@ -275,5 +281,4 @@ public class PathManagement implements ActionListener{
 
         }
     }
-    
 }

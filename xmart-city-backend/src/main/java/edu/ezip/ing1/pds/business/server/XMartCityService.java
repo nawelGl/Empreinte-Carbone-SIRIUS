@@ -22,7 +22,8 @@ public class XMartCityService {
     private enum Queries {
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"idVilleDepart\", \"idVilleArrive\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
-        
+        INSERT_POINT("INSERT into \"ezip-ing1\".point (\"coordX\", \"coordY\", \"idRayon\") values (?, ?, ?)"),
+
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE \"idEmplacement\" = ?"),
@@ -136,6 +137,34 @@ public class XMartCityService {
                     } catch (SQLException | IOException e) {
                         response = new Response(request.getRequestId(), "Error executing INSERT_PRODUCT query");
                         logger.error("Error executing INSERT_PRODUCT query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                    case "INSERT_POINT":
+                    try {
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        PointChemin point = objectMapper.readValue(requestBody, PointChemin.class);
+
+                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
+                        insertStatement.setInt(1, point.getCoordX());
+                        insertStatement.setInt(2, point.getCoordY());
+                        insertStatement.setInt(3, point.getIdPoint());
+
+                        point.build(insertStatement);
+
+                        int rowsAffected = insertStatement.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            response = new Response(request.getRequestId(), String.format("{\"idProduit\": %d}", rowsAffected));
+                        } else {
+                            response = new Response(request.getRequestId(), "Failed to insert point");
+                        }
+                    } catch (SQLException | IOException e) {
+                        response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");
+                        logger.error("Error executing INSERT_POINT query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }

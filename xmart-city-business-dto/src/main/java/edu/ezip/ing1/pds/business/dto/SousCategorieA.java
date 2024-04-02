@@ -76,8 +76,6 @@ public class SousCategorieA {
                 "idSouscatA='" + idSousCategorieA + '\'' +','+
                 "nomSouscatA='" + nom+ '\'' +','+
                 "idCategorie='" + idCategorie + '\'' +','+
-
-
                 '}';
     }
 
