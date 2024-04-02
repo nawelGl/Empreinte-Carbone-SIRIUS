@@ -103,7 +103,7 @@ public class XMartCityService {
 
                 case "INSERT_PRODUCT":
                     try {
-                        String requestBody = request.getRequestBody();
+                        String requestBody = request.getRequestBody(0);
                         ObjectMapper objectMapper = new ObjectMapper();
                         Produit produit = objectMapper.readValue(requestBody, Produit.class);
 
@@ -144,21 +144,29 @@ public class XMartCityService {
 
                     case "INSERT_POINT":
                     try {
-                        String requestBody = request.getRequestBody();
+                        String requestBody = "";
                         ObjectMapper objectMapper = new ObjectMapper();
-                        PointChemin point = objectMapper.readValue(requestBody, PointChemin.class);
-
                         PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
-                        insertStatement.setInt(1, point.getCoordX());
-                        insertStatement.setInt(2, point.getCoordY());
-                        insertStatement.setInt(3, point.getIdPoint());
+                        PointChemin point = null;
+
+                        for (int i = 0; i < request.getRequestBody().size(); i++) {
+                            requestBody = request.getRequestBody(i);
+                            point = objectMapper.readValue(requestBody, PointChemin.class);
+                            if(i == 0){
+                                insertStatement.setInt(i+1, point.getCoordX());
+                            } else if (i == 1) {
+                                insertStatement.setInt(i+1, point.getCoordY());
+                            } else if (i == 2){
+                                insertStatement.setInt(i+1, point.getIdRayon());
+                            }
+                        }
 
                         point.build(insertStatement);
 
                         int rowsAffected = insertStatement.executeUpdate();
 
                         if (rowsAffected > 0) {
-                            response = new Response(request.getRequestId(), String.format("{\"idProduit\": %d}", rowsAffected));
+                            response = new Response(request.getRequestId(), String.format("{\"idPoint\": %d}", rowsAffected));
                         } else {
                             response = new Response(request.getRequestId(), "Failed to insert point");
                         }
@@ -175,8 +183,7 @@ public class XMartCityService {
 
                     try{
                     PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_PRODUCT_BY_REFERENCE.query);
-                        String ref = request.getRequestBody().replaceAll("\"", "");
-
+                        String ref = request.getRequestBody(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
                     selectStatement.setInt(1, Integer.valueOf(ref));
 
                         // mapper produits en Json
@@ -207,7 +214,7 @@ public class XMartCityService {
                 case "SELECT_BEFORE_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BEFORE_VENTE_BY_REFERENCE.query);
-                        String ref = request.getRequestBody().replaceAll("\"", "");
+                        String ref = request.getRequestBody(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(ref));
                         ResultSet resultSet = selectStatement.executeQuery();
@@ -236,7 +243,7 @@ public class XMartCityService {
                 case "SELECT_AFTER_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_AFTER_VENTE_BY_REFERENCE.query);
-                        String ref = request.getRequestBody().replaceAll("\"", "");
+                        String ref = request.getRequestBody(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(ref));
                         ResultSet resultSet = selectStatement.executeQuery();
@@ -267,7 +274,7 @@ public class XMartCityService {
                 case "SELECT_EMPLACEMENT_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
-                        String id = request.getRequestBody().replaceAll("\"", "");
+                        String id = request.getRequestBody(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -297,7 +304,7 @@ public class XMartCityService {
                 case "SELECT_SOUS_CATEGORIE_B_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_B_BY_ID.query);
-                        String id = request.getRequestBody().replaceAll("\"", "");
+                        String id = request.getRequestBody(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -326,7 +333,7 @@ public class XMartCityService {
                 case "SELECT_SOUS_CATEGORIE_A_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_A_BY_ID.query);
-                        String id = request.getRequestBody().replaceAll("\"", "");
+                        String id = request.getRequestBody(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -355,7 +362,7 @@ public class XMartCityService {
                 case "SELECT_ALL_CATEGORIE":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
-                        String id = request.getRequestBody().replaceAll("\"", "");
+                        String id = request.getRequestBody(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 

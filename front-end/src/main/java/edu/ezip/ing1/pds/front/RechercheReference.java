@@ -2,15 +2,12 @@ package edu.ezip.ing1.pds.front;
 
 import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.commons.Request;
-
 import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 class RechercheReference implements ActionListener {
 

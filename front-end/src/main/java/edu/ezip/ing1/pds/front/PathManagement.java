@@ -25,6 +25,9 @@ import javax.swing.SwingUtilities;
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.Paths;
 import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.client.InsertPointsCheminsClientRequest;
+
+import static java.lang.String.valueOf;
 
 public class PathManagement implements ActionListener{
 
@@ -269,9 +272,22 @@ public class PathManagement implements ActionListener{
             //Quand on valide, on enregistre les points dans la BD (ceux de l'arraylist) avec le rayon selectionné par l'user
             //Création de la requete :
             Request request = new Request();
+            //Injecter les donnéels dans la requete
+            //Coord X :
+            for (int i = 0; i < pathPoint.size(); i++){
+                request.setRequestContent(valueOf(pathPoint.get(i).x));
+                request.setRequestContent(valueOf(pathPoint.get(i).y));
+                request.setRequestContent(valueOf(numeroRayon));
+            }
+            try {
+                InsertPointsCheminsClientRequest.insertPoints(request);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
 
-
-             // Affichage des éléments de la HashMap
+            // Asffichage des éléments de la HashMap
         System.out.println("Éléments de la HashMap :");
         for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
             int numeroRayon = entry.getKey();

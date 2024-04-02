@@ -2,24 +2,28 @@ package edu.ezip.ing1.pds.commons;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.util.ArrayList;
+
 public class Request {
 
     public String requestId;
 
     private String requestOrder;
 
-    private String requestBody;
+    //private String requestBody;
+    private ArrayList<String> requestBody = new ArrayList<String>();
 
     public void setRequestOrder(String requestOrder) {
         this.requestOrder = requestOrder;
     }
 
     public void setRequestBody(JsonNode requestBody) {
-        this.requestBody = requestBody.toString();
+        //this.requestBody = requestBody.toString();
+        this.requestBody.add(requestBody.toString());
     }
 
     public void setRequestContent(final String requestBody) {
-        this.requestBody = requestBody;
+        this.requestBody.add(requestBody);
     }
 
     public void setRequestId(String requestId) {
@@ -34,8 +38,12 @@ public class Request {
         return requestOrder;
     }
 
-    public String getRequestBody() {
-        return requestBody;
+    public String getRequestBody(int index) {
+        return requestBody.get(index);
+    }
+
+    public ArrayList<String> getRequestBody(){
+        return this.requestBody;
     }
 
     @Override

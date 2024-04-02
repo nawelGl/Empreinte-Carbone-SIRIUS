@@ -41,7 +41,7 @@ public class InsertPointsCheminsClientRequest extends ClientRequest<PointChemin,
 
     // Fonction pour faire les inserts (à partir du main) :
 
-    public void insertPoints() throws IOException, InterruptedException{
+    public static void insertPoints(Request request) throws IOException, InterruptedException{
 
         final PointChemin pointCheminToInsert = new PointChemin();
         //final Produits produits = ConfigLoader.loadConfig(Produits.class, productsToBeInserted);
@@ -55,7 +55,7 @@ public class InsertPointsCheminsClientRequest extends ClientRequest<PointChemin,
              final String jsonifiedGuy = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointCheminToInsert);
              logger.trace("Point with its JSON face : {}", jsonifiedGuy);
              final String requestId = UUID.randomUUID().toString();
-             final Request request = new Request();
+             request = new Request();
              request.setRequestId(requestId);
              request.setRequestOrder(requestOrder);
              request.setRequestContent(jsonifiedGuy);
