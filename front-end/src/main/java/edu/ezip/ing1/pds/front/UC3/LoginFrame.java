@@ -1,11 +1,16 @@
 package edu.ezip.ing1.pds.front.UC3;
 
+import edu.ezip.ing1.pds.front.Methodes;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LoginFrame {
+public class LoginFrame implements ActionListener {
     JFrame loginFrame;
+    JButton loginBtt;
+
 
     public LoginFrame(){
 
@@ -16,6 +21,9 @@ public class LoginFrame {
         loginFrame.setResizable(false);
         loginFrame.setSize(Template.LONGUEUR,Template.LARGEUR);
         loginFrame.setLocationRelativeTo(null);
+
+        //------header-----------
+        Methodes.header(loginFrame,"Vos statistiques par produit",525);
 
 
         //-----------panel de login
@@ -38,26 +46,39 @@ public class LoginFrame {
         pwPanel.add(pwLabel);
         idPanel.add(pwTxt);
 
-        //bouton login ou annuler
+        //bouton login
         JButton loginBtt = new JButton("Login");
-        JButton cancleBtt = new JButton("Annuler");
+
+        loginBtt.addActionListener(this);
+
         JPanel subPanel = new JPanel();
         subPanel.add(loginBtt);
-        subPanel.add(cancleBtt);
+
 
         //--------ajout des panels
         loginPanel.add(idPanel);
         loginPanel.add(pwPanel);
         loginPanel.add(subPanel);
 
+        loginPanel.setBounds(300,200,600,450);
+
         //----ajout au frame
 
         loginFrame.add(loginPanel);
+        loginFrame.setVisible(true);
 
 
 
 
 
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==loginBtt) {
+            loginFrame.dispose();
+            AccueilUC3 accueilUC3 = new AccueilUC3();
+        }
 
     }
 

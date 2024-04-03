@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.front;
 
 
 import edu.ezip.ing1.pds.front.UC3.AccueilUC3;
+import edu.ezip.ing1.pds.front.UC3.LoginFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -123,7 +124,7 @@ public class EcranAcceuil implements ActionListener {
 //        }
         if(e.getSource()==boutonUC3) {
             acceuilApp.dispose();
-            AccueilUC3 accueilUC3=new AccueilUC3();
+            LoginFrame loginFrame = new LoginFrame();
         }
     }
 }
