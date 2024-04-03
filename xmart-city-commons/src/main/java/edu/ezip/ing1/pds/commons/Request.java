@@ -26,9 +26,20 @@ public class Request {
         this.requestBody.add(requestBody);
     }
 
+
+//    public void setRequestBody(ArrayList<String> requestBody) {
+//        this.requestBody = requestBody;
+//    }
+
+    public void addRequestBody(String s){
+        requestBody.add(s);
+    }
+
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
+
+
 
     public String getRequestId() {
         return requestId;
@@ -38,12 +49,16 @@ public class Request {
         return requestOrder;
     }
 
-    public String getRequestBody(int index) {
-        return requestBody.get(index);
-    }
+//    public String getRequestBody(int index) {
+//        return requestBody.get(index);
+//    }
+//
+//    public ArrayList<String> getRequestBody(){
+//        return this.requestBody;
 
-    public ArrayList<String> getRequestBody(){
-        return this.requestBody;
+
+    public ArrayList<String> getRequestBody() {
+        return requestBody;
     }
 
     @Override

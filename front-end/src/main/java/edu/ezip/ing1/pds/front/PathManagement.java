@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -22,12 +21,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
-import edu.ezip.ing1.pds.business.dto.Paths;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.client.InsertPointsCheminsClientRequest;
-
-import static java.lang.String.valueOf;
 
 public class PathManagement implements ActionListener{
 
@@ -36,10 +35,13 @@ public class PathManagement implements ActionListener{
     private JPanel mapPanel;
     private JPanel actionButtonsPanel;
     private BufferedImage backgroundImage;
-    private Path path = new Path();
     private Point startPoint = null;
     private Point endPoint = null;
-    private ArrayList<Point> pathPoint = new ArrayList<>();
+
+    //Arraylist de points de base
+    Path points = new Path();
+
+    private ArrayList<Point> pathPoints = new ArrayList<Point>();
     private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
@@ -95,7 +97,7 @@ public class PathManagement implements ActionListener{
                 }
                 // Dessiner les points et le chemin
                 if(firstPath){
-                    for (Point point : path.getPoints()) {
+                    for (Point point : points.getPoints()) {
                         g.setColor(Color.BLACK);
                         g.fillOval(point.x - 5, point.y - 5, 10, 10);
                     }
@@ -108,11 +110,11 @@ public class PathManagement implements ActionListener{
                         g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
                     }
                 }
-                if (!pathPoint.isEmpty()) {
+                if (!points.getPoints().isEmpty()) {
                     g.setColor(Color.RED);
-                    for (int i = 0; i < pathPoint.size() - 1; i++) {
-                        Point p1 = pathPoint.get(i);
-                        Point p2 = pathPoint.get(i + 1);
+                    for (int i = 0; i < points.getPoints().size() - 1; i++) {
+                        Point p1 = points.getPoints().get(i);
+                        Point p2 = points.getPoints().get(i + 1);
                         g.drawLine(p1.x, p1.y, p2.x, p2.y);
                     }
                 }
@@ -167,15 +169,15 @@ public class PathManagement implements ActionListener{
         if (startPoint == null || endPoint == null) {
             return;
         }
-        pathPoint.clear();
+        points.getPoints().clear();
         Point currentPoint = startPoint;
-        pathPoint.add(currentPoint);
+        points.getPoints().add(currentPoint);
         while (!currentPoint.equals(endPoint)) {
             Point nextPoint = findClosestPoint(currentPoint);
             if (nextPoint == null) {
                 break;
             }
-            pathPoint.add(nextPoint);
+            points.getPoints().add(nextPoint);
             currentPoint = nextPoint;
         }
     }
@@ -183,8 +185,8 @@ public class PathManagement implements ActionListener{
     private Point findClosestPoint(Point from) {
         double minDistance = Double.MAX_VALUE;
         Point closestPoint = null;
-        for (Point point : path.getPoints()) {
-            if (!pathPoint.contains(point)) {
+        for (Point point : points.getPoints()) {
+            if (!points.getPoints().contains(point)) {
                 double distance = point.distance(from);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -207,13 +209,14 @@ public class PathManagement implements ActionListener{
                 super.mouseClicked(e);
                 Point point = e.getPoint();
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    path.getPoints().add(point);
+                    points.getPoints().add(point);
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     if (startPoint == null) {
                         startPoint = point;
+                        points.getPoints().add(startPoint);
                     } else if (endPoint == null) {
                         endPoint = point;
-                        path.getPoints().add(endPoint);
+                        points.getPoints().add(endPoint);
                     }
                 }
                 mapPanel.repaint();
@@ -258,34 +261,31 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == validate){
-            //TODO : ajouter le path crée aux Paths.
-            //Pour se faire, besoin de savoir pour quel rayon on enregistre ce path :
-            //Demander à l'user avec une liste déroulante pour limiter les choix.
+            //TODO : ajouter l'arraylist des paths à la requete
+            //Récupératon du numero de rayon :
             numeroRayon = (int)comboBox.getSelectedItem();
-            System.out.println("Éléments de l'ArrayList :");
-            for (Point point : path.getPoints()) {
+
+            //OK contient les bonnes valeurs
+            System.out.println("Éléments de l'ArrayList points.getPoints( de type Point déclarée dans pathManagement:");
+            for (Point point : points.getPoints()) {
                 System.out.println("(" + point.x + ", " + point.y + ")");
             }
 
-            Paths.paths.put(numeroRayon, path);
-
-            //Quand on valide, on enregistre les points dans la BD (ceux de l'arraylist) avec le rayon selectionné par l'user
-            //Création de la requete :
             Request request = new Request();
-            //Injecter les donnéels dans la requete
-            //Coord X :
-            for (int i = 0; i < pathPoint.size()-1; i++){
-                request.setRequestContent(valueOf(path.getPoints().get(i).x));
-                request.setRequestContent(valueOf(path.getPoints().get(i).y));
-                request.setRequestContent(valueOf(numeroRayon));
+            String responseBody = "";
+
+            //Objet mapper :
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                responseBody = objectMapper.writeValueAsString(points);
+            } catch (JsonProcessingException ex) {
+                throw new RuntimeException(ex);
             }
-            System.out.println("========================================");
-            System.out.println("Resultat du for : ");
-            System.out.println(request.getRequestBody());
-            System.out.println("classe du requestbody : " + request.getRequestBody().getClass());
-            System.out.println("Test avec un index (ici 0 donc doit donner le x du premier couple ): " + request.getRequestBody(0));
-            System.out.println("Test avec un index (ici 1 donc doit donner le y du premier couple ): " + request.getRequestBody(1));
-            System.out.println("========================================");
+
+            request.addRequestBody(responseBody);
+
+            System.out.println("Taille de l'arrayList de la requete : " + request.getRequestBody().size());
+            System.out.println(request.getRequestBody().toString());
 
             try {
                 InsertPointsCheminsClientRequest.insertPoints(request);
@@ -294,28 +294,6 @@ public class PathManagement implements ActionListener{
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
-
-
-//            // Affichage des éléments de la HashMap
-//        System.out.println("Éléments de la HashMap :");
-//        for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
-//            int numeroRayon = entry.getKey();
-//            Path path = entry.getValue();
-//            System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
-//        }
-
-        //Test affichage des elements comem indiqués dans le for :
-//            System.out.println("========================================");
-//            System.out.println("Test avec path.getPoints() [OK] :");
-//            System.out.println(path.getPoints());
-//            System.out.println("Récupérer que le premier couple de points :");
-//            System.out.println(path.getPoints().get(0));
-//            System.out.println("Essayer de récupérer que X / que Y :");
-//            System.out.println("Point x du premier couple de points " + path.getPoints().get(0).x);
-//            System.out.println("Point y du premier couple de points " + path.getPoints().get(0).y);
-//            System.out.print("Numéro de rayon : " + numeroRayon);
-//            System.out.println("========================================");
-
 
 
         }

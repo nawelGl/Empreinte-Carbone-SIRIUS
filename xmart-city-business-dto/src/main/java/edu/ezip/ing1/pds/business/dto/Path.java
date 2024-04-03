@@ -1,9 +1,6 @@
 package edu.ezip.ing1.pds.business.dto;
 
 import java.util.ArrayList;
-
-import static java.lang.String.valueOf;
-
 import java.awt.*;
 import java.lang.reflect.Array;
 

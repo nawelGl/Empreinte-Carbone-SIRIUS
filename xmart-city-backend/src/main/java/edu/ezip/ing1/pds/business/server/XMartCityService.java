@@ -103,7 +103,7 @@ public class XMartCityService {
 
                 case "INSERT_PRODUCT":
                     try {
-                        String requestBody = request.getRequestBody(0);
+                        String requestBody = request.getRequestBody().get(0);
                         ObjectMapper objectMapper = new ObjectMapper();
                         Produit produit = objectMapper.readValue(requestBody, Produit.class);
 
@@ -144,55 +144,66 @@ public class XMartCityService {
 
                     case "INSERT_POINT":
                     try {
-                        PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
-                        String requestBody = "";
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        PointChemin point = null;
+                        String requestBody = request.getRequestBody().get(0);
+                        System.out.println("REQUEST BODY : " + requestBody);
+                      //  PreparedStatement insertStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
+                        //ObjectMapper objectMapper = new ObjectMapper();
+//                        Path points = objectMapper.readValue(requestBody, Path.class);
 
-                        //==========================================
-                        System.out.println("========================================");
-                        System.out.println("TESTS SUR LES GETREQUIESTBODY : ");
-                        System.out.println("index 0 : " + request.getRequestBody(0));
-                        System.out.println("index 1 : " + request.getRequestBody(1));
-                        System.out.println("index 2 : " + request.getRequestBody(2));
-                        System.out.println("========================================");
-                        //==========================================
+//                        System.out.println("Test sur l'objet points de type Path avec l'object mapper : ");
+//                        System.out.println(points.toString());
+//                        System.out.println(points.getPoints().get(0).x);
+//                        System.out.println(points.getPoints().get(0).y);
+//                        String sTest = points.toString();
 
-                        for (int i = 0; i < request.getRequestBody().size(); i++) {
-                            requestBody = request.getRequestBody(i);
-                            point = objectMapper.readValue(requestBody, PointChemin.class);
-                            if(i == 0){
-                                insertStatement.setInt(i+1, point.getCoordX());
-                            } else if (i == 1) {
-                                insertStatement.setInt(i+1, point.getCoordY());
-                            } else if (i == 2){
-                                insertStatement.setInt(i+1, point.getIdRayon());
-                            }
-                        }
+//                        String[] parts = sTest.split("\"x\":|,\"y\":|\\}");
+//                        int[] xCoordinates = new int[parts.length - 1];
+//                        int[] yCoordinates = new int[parts.length - 1];
+//
+//                        for (int i = 1; i < parts.length; i += 2) {
+//                            xCoordinates[i - 1] = (int) Double.parseDouble(parts[i]);
+//                            yCoordinates[i - 1] = (int) Double.parseDouble(parts[i + 1]);
+//                        }
+//
+//                        System.out.println("X Coordinates: " + Arrays.toString(xCoordinates));
+//                        System.out.println("Y Coordinates: " + Arrays.toString(yCoordinates));
 
-                        point.build(insertStatement);
 
-                        int rowsAffected = insertStatement.executeUpdate();
 
-                        if (rowsAffected > 0) {
-                            response = new Response(request.getRequestId(), String.format("{\"idPoint\": %d}", rowsAffected));
-                        } else {
-                            response = new Response(request.getRequestId(), "Failed to insert point");
-                        }
-                    } catch (SQLException | IOException e) {
+//                        for (int i = 0; i < request.getRequestBody().size(); i++) {
+//                            requestBody = request.getRequestBody().get(i);
+//                            points = objectMapper.readValue(requestBody, Path.class);
+//                            if(i == 0){
+//                                insertStatement.setInt(i+1, points.getCoordX());
+//                            } else if (i == 1) {
+//                                insertStatement.setInt(i+1, points.getCoordY());
+//                            } else if (i == 2){
+//                                insertStatement.setInt(i+1, points.getIdRayon());
+//                            }
+//                        }
+//
+//                        points.build(insertStatement);
+
+//                        int rowsAffected = insertStatement.executeUpdate();
+//
+//                        if (rowsAffected > 0) {
+//                            response = new Response(request.getRequestId(), String.format("{\"idPoint\": %d}", rowsAffected));
+//                        } else {
+//                            response = new Response(request.getRequestId(), "Failed to insert point");
+//                        }
+                    } catch (/*SQLException | IOException e*/ Exception e) {
                         response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");
                         logger.error("Error executing INSERT_POINT query: {}", e.getMessage());
-                    } catch (NoSuchFieldException e) {
-                        throw new RuntimeException(e);
                     }
-                    break;
+                        break;
 
 
                 case "SELECT_PRODUCT_BY_REFERENCE":
 
                     try{
                     PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_PRODUCT_BY_REFERENCE.query);
-                        String ref = request.getRequestBody(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
+                        String ref = request.getRequestBody().get(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
+                        System.out.println("REFERENCE PRODUIT : " + ref);
                     selectStatement.setInt(1, Integer.valueOf(ref));
 
                         // mapper produits en Json
@@ -223,7 +234,7 @@ public class XMartCityService {
                 case "SELECT_BEFORE_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BEFORE_VENTE_BY_REFERENCE.query);
-                        String ref = request.getRequestBody(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
+                        String ref = request.getRequestBody().get(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
 
                         selectStatement.setInt(1, Integer.valueOf(ref));
                         ResultSet resultSet = selectStatement.executeQuery();
@@ -252,7 +263,7 @@ public class XMartCityService {
                 case "SELECT_AFTER_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_AFTER_VENTE_BY_REFERENCE.query);
-                        String ref = request.getRequestBody(0).replaceAll("\"", "");
+                        String ref = request.getRequestBody().get(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(ref));
                         ResultSet resultSet = selectStatement.executeQuery();
@@ -283,7 +294,7 @@ public class XMartCityService {
                 case "SELECT_EMPLACEMENT_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
-                        String id = request.getRequestBody(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
+                        String id = request.getRequestBody().get(0).replaceAll("\"", "").replaceAll("]", "").replaceAll("\\[", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -313,7 +324,7 @@ public class XMartCityService {
                 case "SELECT_SOUS_CATEGORIE_B_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_B_BY_ID.query);
-                        String id = request.getRequestBody(0).replaceAll("\"", "");
+                        String id = request.getRequestBody().get(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -342,7 +353,7 @@ public class XMartCityService {
                 case "SELECT_SOUS_CATEGORIE_A_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_A_BY_ID.query);
-                        String id = request.getRequestBody(0).replaceAll("\"", "");
+                        String id = request.getRequestBody().get(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -371,7 +382,7 @@ public class XMartCityService {
                 case "SELECT_ALL_CATEGORIE":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
-                        String id = request.getRequestBody(0).replaceAll("\"", "");
+                        String id = request.getRequestBody().get(0).replaceAll("\"", "");
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
