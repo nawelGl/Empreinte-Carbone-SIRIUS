@@ -11,7 +11,7 @@ public class Paths {
         paths.remove(numeroRayon);
     }
 
-    //Modifier un chemin : revient à le redessner donc el supprimer et le rajouter
+    //Modifier un chemin : revient à le redessiner donc el supprimer et le rajouter
     public static void modifyPath(Integer numeroRayon, Path path){
         removePath(numeroRayon);
         paths.put(numeroRayon, path);

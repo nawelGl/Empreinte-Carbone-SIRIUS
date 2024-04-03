@@ -152,12 +152,9 @@ public class XMartCityService {
                         //==========================================
                         System.out.println("========================================");
                         System.out.println("TESTS SUR LES GETREQUIESTBODY : ");
-                        // index 0 : ["{\n  \"idPoint\" : 0,\n  \"coordX\" : 0,\n  \"coordY\" : 0,\n  \"idRayon\" : 0\n}"]
                         System.out.println("index 0 : " + request.getRequestBody(0));
-                        //Pour l'index 1 on a : java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1
                         System.out.println("index 1 : " + request.getRequestBody(1));
                         System.out.println("index 2 : " + request.getRequestBody(2));
-
                         System.out.println("========================================");
                         //==========================================
 

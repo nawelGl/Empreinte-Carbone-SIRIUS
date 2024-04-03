@@ -274,11 +274,19 @@ public class PathManagement implements ActionListener{
             Request request = new Request();
             //Injecter les donnéels dans la requete
             //Coord X :
-            for (int i = 0; i < pathPoint.size(); i++){
-                request.setRequestContent(valueOf(pathPoint.get(i).x));
-                request.setRequestContent(valueOf(pathPoint.get(i).y));
+            for (int i = 0; i < pathPoint.size()-1; i++){
+                request.setRequestContent(valueOf(path.getPoints().get(i).x));
+                request.setRequestContent(valueOf(path.getPoints().get(i).y));
                 request.setRequestContent(valueOf(numeroRayon));
             }
+            System.out.println("========================================");
+            System.out.println("Resultat du for : ");
+            System.out.println(request.getRequestBody());
+            System.out.println("classe du requestbody : " + request.getRequestBody().getClass());
+            System.out.println("Test avec un index (ici 0 donc doit donner le x du premier couple ): " + request.getRequestBody(0));
+            System.out.println("Test avec un index (ici 1 donc doit donner le y du premier couple ): " + request.getRequestBody(1));
+            System.out.println("========================================");
+
             try {
                 InsertPointsCheminsClientRequest.insertPoints(request);
             } catch (IOException ex) {
@@ -287,20 +295,26 @@ public class PathManagement implements ActionListener{
                 throw new RuntimeException(ex);
             }
 
-            // Affichage des éléments de la HashMap
-        System.out.println("Éléments de la HashMap :");
-        for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
-            int numeroRayon = entry.getKey();
-            Path path = entry.getValue();
-            System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
-        }
+
+//            // Affichage des éléments de la HashMap
+//        System.out.println("Éléments de la HashMap :");
+//        for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
+//            int numeroRayon = entry.getKey();
+//            Path path = entry.getValue();
+//            System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
+//        }
 
         //Test affichage des elements comem indiqués dans le for :
-            System.out.println("========================================");
-            System.out.println(valueOf(pathPoint.get(0).x));
-            System.out.println(valueOf(pathPoint.get(0).y));
-            System.out.println(valueOf(numeroRayon));
-            System.out.println("========================================");
+//            System.out.println("========================================");
+//            System.out.println("Test avec path.getPoints() [OK] :");
+//            System.out.println(path.getPoints());
+//            System.out.println("Récupérer que le premier couple de points :");
+//            System.out.println(path.getPoints().get(0));
+//            System.out.println("Essayer de récupérer que X / que Y :");
+//            System.out.println("Point x du premier couple de points " + path.getPoints().get(0).x);
+//            System.out.println("Point y du premier couple de points " + path.getPoints().get(0).y);
+//            System.out.print("Numéro de rayon : " + numeroRayon);
+//            System.out.println("========================================");
 
 
 
