@@ -64,9 +64,11 @@ public class StatProduct {
         infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
 
-        photoName = Integer.toString(reference)+".png";
+        photoName = "/"+Integer.toString(reference)+".png";
+
+        System.out.println(photoName);
         JLabel photoLabel = new JLabel();
-        photoLabel.setIcon(new ImageIcon(getClass().getResource(photoName)));
+        photoLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(photoName))));
 
 
         JLabel textLabel = new JLabel("le score de votre produit est ");
@@ -116,7 +118,7 @@ public class StatProduct {
 
 
         double[] values = {salesBefore, salesAfter};
-        DrawChart barChart = new DrawChart(labels, values);
+        DrawBarChart barChart = new DrawBarChart(labels, values);
         chartPanel.add(BorderLayout.NORTH,chartTitlePanel);
         chartPanel.add(BorderLayout.CENTER, barChart);
 

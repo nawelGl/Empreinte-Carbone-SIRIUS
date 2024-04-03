@@ -9,22 +9,19 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.paint.Color;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 
 
 //TODO: resoudre le pb de couleur
-public class DrawChart extends JPanel {
+public class DrawBarChart extends JPanel {
 
     private final String[] labels;
     private final double[] values;
 //    private Color[] colors = {Color.rgb(108, 229, 232), Color.rgb(65, 184, 213)};
 
-    public DrawChart(String[] labels, double[] values) {
+    public DrawBarChart(String[] labels, double[] values) {
         this.labels = labels;
         this.values = values;
 //        this.colors = colors;
@@ -51,6 +48,9 @@ public class DrawChart extends JPanel {
         for (int i = 0; i < labels.length; i++) {
             XYChart.Data<String, Number> data = new XYChart.Data<>(labels[i], values[i]);
             series.getData().add(data);
+
+
+            //-----------------------------------------------
 
             // 데이터 노드 초기화
             Node node = data.getNode();
