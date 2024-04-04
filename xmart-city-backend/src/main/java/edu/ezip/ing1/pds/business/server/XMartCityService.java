@@ -144,7 +144,7 @@ public class XMartCityService {
 
                 case "INSERT_POINT":
                     try {
-                        String requestBody = request.getRequestBody().get(0);
+                        String requestBody = request.getRequestBody();
                         System.out.println("REQUEST BODY : " + requestBody);
 
                     } catch (/*SQLException | IOException e*/ Exception e) {

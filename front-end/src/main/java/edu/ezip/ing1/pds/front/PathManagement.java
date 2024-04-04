@@ -12,8 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -22,8 +20,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
-import edu.ezip.ing1.pds.business.dto.Paths;
+import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.client.InsertPointsRequest;
 
 public class PathManagement implements ActionListener{
 
@@ -35,8 +36,6 @@ public class PathManagement implements ActionListener{
     private Path path = new Path();
     private Point startPoint = null;
     private Point endPoint = null;
-    //private Paths paths = new Paths();
-   // private ArrayList<Point> pathPoint = new ArrayList<>();
     private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
@@ -256,20 +255,38 @@ public class PathManagement implements ActionListener{
             //TODO : créer une requete qui contient les infos necessaires aux inserts, càd les points du path à insérer en base
             //Rappel : requestBody = String et non Arraylist !!
             numeroRayon = (int)comboBox.getSelectedItem();
-            System.out.println("Éléments de l'ArrayList :");
-            for (Point point : path.getPoints()) {
-                System.out.println("(" + point.x + ", " + point.y + ")");
+            //Création de la requete :
+            Request request = new Request();
+            //Création d'un String qui va etre set dans la requete en tant que requestBody pour devenir responseBody :
+            String responseBody = "";
+            //Création d'un object mapper pour mettre les données de l'arraylist dans le String crée ci dessus :
+            ObjectMapper objectMapper = new ObjectMapper();
+            //on met ce qu'il faut dans response body grace à l'object mapper :
+
+            //Pour chaque point de l'arraylist, on fait un insert
+            //car dans la methode d'inser : on utilise un obejt de type pointChemin et non une arraylist
+            for (int i = 0; i < path.getPoints().size(); i++){
+                try {
+                    responseBody = objectMapper.writeValueAsString(path.getPoints().get(i));
+                    System.out.println("RESPONSEBODY : " + responseBody.toString());
+                } catch (JsonProcessingException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                request.setRequestContent(responseBody);
+
+                //Appel à la méthode d'insert en passant en paramètres la requete :
+                try {
+                    InsertPointsRequest.insertPoints(request);
+                } catch (IOException ex) {
+                    System.out.println("Erreur d'insertion des points : " + ex.getMessage());
+                    throw new RuntimeException(ex);
+                } catch (InterruptedException ex) {
+                    System.out.println("Erreur d'insertion des points : " + ex.getMessage());
+                    throw new RuntimeException(ex);
+                }
+
             }
-
-            Paths.paths.put(numeroRayon, path);
-
-             // Affichage des éléments de la HashMap
-        System.out.println("Éléments de la HashMap :");
-        for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
-            int numeroRayon = entry.getKey();
-            Path path = entry.getValue();
-            System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
-        }
 
         }
     }

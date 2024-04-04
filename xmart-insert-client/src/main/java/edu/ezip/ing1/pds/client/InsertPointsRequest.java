@@ -34,12 +34,10 @@ public class InsertPointsRequest extends ClientRequest<PointChemin, String> {
         super(networkConfig, myBirthDate, request, info, bytes);
     }
 
-    // Fonction pour faire les inserts (à partir du main) :
+    // Fonction pour faire les inserts :
 
     public static void insertPoints(Request request) throws IOException, InterruptedException{
-
         final PointChemin pointCheminToInsert = new PointChemin();
-        //final Produits produits = ConfigLoader.loadConfig(Produits.class, productsToBeInserted);
         final NetworkConfig networkConfig =  ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.trace("Points loaded : {}", pointCheminToInsert.toString());
         logger.debug("Load Network config file : {}", networkConfig.toString());
