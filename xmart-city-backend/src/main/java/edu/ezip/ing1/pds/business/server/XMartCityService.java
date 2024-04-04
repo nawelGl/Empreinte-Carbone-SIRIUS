@@ -373,7 +373,7 @@ public class XMartCityService {
                        TransportMode transportMode = new TransportMode();
 
                         while (resultSet.next()) {
-                           transportMode.setIdTransportMode(resultSet.getInt("idEmplacement"));
+                           transportMode.setIdTransportMode(resultSet.getInt("idTransportMode"));
                           transportMode.build(resultSet);
                         }
 

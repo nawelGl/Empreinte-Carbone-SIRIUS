@@ -74,5 +74,62 @@ class Methodes {
 
     }
 
+    public static String attributeLetterScore(double carbonFootPrint){
+        double borneAInf = 1.0391e9;
+        double borneASup = 1.3e9;
+        double borneBInf = 1.3e9;
+        double borneBSup = 1.529e9;
+        double borneCInf = 1.529e9;
+        double borneCSup = 1.639e9;
+        double borneDInf = 1.639e9;
+        double borneDSup = 1.715e9;
+        double borneEInf = 1.715e9;
+        double borneESup = 1.84e9;
+
+        if (carbonFootPrint >= borneAInf && carbonFootPrint <= borneASup) {
+            return "Cas A";
+        } else if (carbonFootPrint >= borneBInf && carbonFootPrint <= borneBSup) {
+            return "Cas B";
+        } else if (carbonFootPrint >= borneCInf && carbonFootPrint <= borneCSup) {
+            return "Cas C";
+        } else if (carbonFootPrint >= borneDInf && carbonFootPrint <= borneDSup) {
+            return "Cas D";
+        } else if (carbonFootPrint > borneEInf && carbonFootPrint <= borneESup) {
+            return "Cas E";
+        } else {
+            return "Erreur hors borne";
+        }
+
+    }
+
+    public static JLabel labelIconScore(String scoreLetter) {
+        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
+
+
+
+        switch (scoreLetter) {
+            case "A":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_A.png"))));
+                break;
+            case "B":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_B.png"))));
+                break;
+            case "C":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_C.png"))));
+                break;
+            case "D":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_D.png"))));
+                break;
+            case "E":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_E.png"))));
+                break;
+
+        }
+        label.setBackground(Color.WHITE);
+        label.setOpaque(true);
+
+        return label;
+    }
+
 
 }

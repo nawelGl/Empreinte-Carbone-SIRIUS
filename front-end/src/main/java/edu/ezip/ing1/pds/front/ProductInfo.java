@@ -14,6 +14,7 @@ import edu.ezip.ing1.pds.client.SelectVilleById;
 import edu.ezip.ing1.pds.commons.Request;
 
 import static edu.ezip.ing1.pds.front.Methodes.carbonFootPrintCalcul;
+import static edu.ezip.ing1.pds.front.Methodes.labelIconScore;
 import static java.lang.String.valueOf;
 
 public class ProductInfo implements ActionListener {
@@ -185,34 +186,34 @@ public class ProductInfo implements ActionListener {
 
     }
 
-    public static JLabel labelIconScore(String scoreLetter) {
-        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
-
-
-
-        switch (scoreLetter) {
-            case "A":
-                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_A.png"))));
-                break;
-            case "B":
-                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_B.png"))));
-                break;
-            case "C":
-                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_C.png"))));
-                break;
-            case "D":
-                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_D.png"))));
-                break;
-            case "E":
-                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_E.png"))));
-                break;
-
-        }
-        label.setBackground(Color.WHITE);
-        label.setOpaque(true);
-
-        return label;
-    }
+//    public static JLabel labelIconScore(String scoreLetter) {
+//        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
+//
+//
+//
+//        switch (scoreLetter) {
+//            case "A":
+//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_A.png"))));
+//                break;
+//            case "B":
+//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_B.png"))));
+//                break;
+//            case "C":
+//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_C.png"))));
+//                break;
+//            case "D":
+//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_D.png"))));
+//                break;
+//            case "E":
+//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_E.png"))));
+//                break;
+//
+//        }
+//        label.setBackground(Color.WHITE);
+//        label.setOpaque(true);
+//
+//        return label;
+//    }
 
 
     @Override

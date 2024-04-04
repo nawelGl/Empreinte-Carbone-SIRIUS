@@ -60,13 +60,13 @@ public class TransportMode {
 
     public final TransportMode build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "carburant", "nomTransport", "coeffEmission", "idTransportMode");
+        setFieldsFromResultSet(resultSet, "idTransportMode","carburant", "nomTransport", "coeffEmission");
         return this;
     }
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, carburant, nomTransport, coeffEmission, idTransportMode);
+        return buildPreparedStatement(preparedStatement, idTransportMode,carburant, nomTransport, coeffEmission);
     }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
