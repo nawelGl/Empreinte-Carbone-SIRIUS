@@ -52,7 +52,6 @@ public abstract class ClientRequest<N,S> implements Runnable {
         this.info = info;
         self = new Thread(this, threadNameBuffer.toString());
         self.start();
-
     }
     @Override
     public void run() {
