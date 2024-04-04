@@ -22,6 +22,7 @@ public class XMartCityService {
     private enum Queries {
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"idVilleDepart\", \"idVilleArrive\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        INSERT_POINT("INSERT into \"ezip-ing1\".point (\"coordX\", \"coordY\", \"idRayon\") values (?, ?, ?)"),
         
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
@@ -138,6 +139,17 @@ public class XMartCityService {
                         logger.error("Error executing INSERT_PRODUCT query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "INSERT_POINT":
+                    try {
+                        String requestBody = request.getRequestBody().get(0);
+                        System.out.println("REQUEST BODY : " + requestBody);
+
+                    } catch (/*SQLException | IOException e*/ Exception e) {
+                        response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");
+                        logger.error("Error executing INSERT_POINT query: {}", e.getMessage());
                     }
                     break;
 
