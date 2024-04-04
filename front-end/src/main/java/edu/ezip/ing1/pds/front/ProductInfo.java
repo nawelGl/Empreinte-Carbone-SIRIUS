@@ -13,8 +13,7 @@ import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.SelectVilleById;
 import edu.ezip.ing1.pds.commons.Request;
 
-import static edu.ezip.ing1.pds.front.Methodes.carbonFootPrintCalcul;
-import static edu.ezip.ing1.pds.front.Methodes.labelIconScore;
+import static edu.ezip.ing1.pds.front.Methodes.*;
 import static java.lang.String.valueOf;
 
 public class ProductInfo implements ActionListener {
@@ -69,6 +68,7 @@ public class ProductInfo implements ActionListener {
             //  2. requetes sur idVilledepart ( recuperer coordLatitude , coordLongitude)
             //  3. requete sur idVilleArrivée ( recuperer coordLatitude , coordLongitude)
 
+        System.out.println("==========================");
         try {
             try {
                 Request request = new Request();
@@ -94,7 +94,13 @@ public class ProductInfo implements ActionListener {
                 System.out.println("Erreur sur l'idVilleDepart");
             }
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
+            System.out.println("=================================================");
+            System.out.println(carbonFootPrint);
+            System.out.println("================================================");
+
         }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
+
+
 //TODO:Recuperer les donnée necessaire au calcule et les mettre en paramètre d'une fonction
 
         //-------panel item chosen---------
@@ -121,7 +127,11 @@ public class ProductInfo implements ActionListener {
         scoreLabel.setBounds(600,160,200,50);
         productPanel.add(scoreLabel);
 
-        JLabel IconScore = labelIconScore(productScore);
+//        JLabel IconScore = labelIconScore(productScore);
+//        IconScore.setBounds(760,160,80,80);
+//        productPanel.add(IconScore);
+        JLabel IconScore = setlabelIconScore(attributeLetterScore(carbonFootPrint));
+//        System.out.println(carbonFootPrint);
         IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
@@ -177,49 +187,17 @@ public class ProductInfo implements ActionListener {
 
 
 
-
-
-
-
-
         productInfoFrame.setVisible(true);
 
     }
-
-//    public static JLabel labelIconScore(String scoreLetter) {
-//        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
-//
-//
-//
-//        switch (scoreLetter) {
-//            case "A":
-//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_A.png"))));
-//                break;
-//            case "B":
-//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_B.png"))));
-//                break;
-//            case "C":
-//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_C.png"))));
-//                break;
-//            case "D":
-//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_D.png"))));
-//                break;
-//            case "E":
-//                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_E.png"))));
-//                break;
-//
-//        }
-//        label.setBackground(Color.WHITE);
-//        label.setOpaque(true);
-//
-//        return label;
-//    }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         productInfoFrame.dispose();
+
         ProductMapping productMapping=new ProductMapping();
+        System.out.println("================");
 
     }
 }
