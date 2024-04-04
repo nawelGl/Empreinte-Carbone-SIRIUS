@@ -45,7 +45,7 @@ public class SelectTransportModeByID extends ClientRequest<Object, TransportMode
     }
 
 
-    public static TransportMode launchSelectEmplacementById(Request request) throws IOException, InterruptedException{
+    public static TransportMode launchSelectTransportModeById(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 

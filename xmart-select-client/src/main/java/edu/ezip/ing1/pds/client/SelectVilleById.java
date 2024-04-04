@@ -45,7 +45,7 @@ public class SelectVilleById extends ClientRequest<Object, Ville>{
     }
 
 
-    public static Ville launchSelectEmplacementById(Request request) throws IOException, InterruptedException{
+    public static Ville launchSelectVilleById(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 

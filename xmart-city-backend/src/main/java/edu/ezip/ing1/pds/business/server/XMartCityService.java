@@ -38,8 +38,8 @@ public class XMartCityService {
                 "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
                 "WHERE \"reference\"=? AND \"date\">'2024-01-01';"),
 
-        SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idTransportMode = ?"),
-        SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE idVille = ?");
+        SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".transportmode WHERE \"idTransportMode\" = ?"),
+        SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?");
 
 
         private final String query;

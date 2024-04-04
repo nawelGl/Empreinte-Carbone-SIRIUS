@@ -60,7 +60,7 @@ public class TransportMode {
 
     public final TransportMode build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "allee", "rayon", "etage");
+        setFieldsFromResultSet(resultSet, "carburant", "nomTransport", "coeffEmission", "idTransportMode");
         return this;
     }
 

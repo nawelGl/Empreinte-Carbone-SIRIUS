@@ -1,6 +1,7 @@
 package edu.ezip.ing1.pds.front;
 
-import edu.ezip.ing1.pds.client.SelectEmplacementById;
+import edu.ezip.ing1.pds.business.dto.TransportMode;
+import edu.ezip.ing1.pds.client.SelectTransportModeByID;
 import edu.ezip.ing1.pds.commons.Request;
 
 import java.awt.*;
@@ -8,7 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.*;
+import edu.ezip.ing1.pds.business.dto.Ville;
+import edu.ezip.ing1.pds.client.SelectVilleById;
+import edu.ezip.ing1.pds.commons.Request;
 
+import static edu.ezip.ing1.pds.front.Methodes.carbonFootPrintCalcul;
 import static java.lang.String.valueOf;
 
 public class ProductInfo implements ActionListener {
@@ -17,11 +22,17 @@ public class ProductInfo implements ActionListener {
     private String productName = RechercheReference.product.getNomProduit();
     private String productScore = RechercheReference.product.getScore();
     private String productColor = RechercheReference.product.getCouleur();
-    private Float productEmpreinte= RechercheReference.product.getEmpreinte();
+    private Double carbonFootPrint;
+            //= RechercheReference.product.getEmpreinte();
     private double productPrice= RechercheReference.product.getPrix();
+    private double prodcutWeight= RechercheReference.product.getPoids();
     private Integer idTransportMode= RechercheReference.product.getIdTransportMode();
     private Integer idVilleDepart= RechercheReference.product.getIdVilleDepart();
     private  Integer idVilleArrive= RechercheReference.product.getIdVilleArrive();
+    private Ville villeArrive;
+    private Ville villeDepart;
+    private TransportMode transportMode;
+
 
 
     public ProductInfo(){
@@ -51,18 +62,39 @@ public class ProductInfo implements ActionListener {
 
 
 
-        try {
+
             // TODO:Faire 3 requetes.
             //  1. requetes sur idTransport ( recuperer coeffEmission)
             //  2. requetes sur idVilledepart ( recuperer coordLatitude , coordLongitude)
             //  3. requete sur idVilleArrivée ( recuperer coordLatitude , coordLongitude)
 
-//            Request request = new Request();
-//            request.setRequestContent(valueOf(idTransportMode));
-//            emplacement = SelectEmplacementById.launchSelectEmplacementById(request);
-        } catch(Exception e){
-//            System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
-        }
+        try {
+            try {
+                Request request = new Request();
+                request.setRequestContent(valueOf(idTransportMode));
+                transportMode = SelectTransportModeByID.launchSelectTransportModeById(request);
+            } catch (Exception e) {
+                System.out.println("Erreur sur l'idTransportMode");
+            }
+
+            try {
+                Request request = new Request();
+                request.setRequestContent(valueOf(idVilleArrive));
+                villeArrive = SelectVilleById.launchSelectVilleById(request);
+            } catch (Exception e) {
+                System.out.println("Erreur sur l'idVilleArrivée");
+            }
+
+            try {
+                Request request = new Request();
+                request.setRequestContent(valueOf(idVilleDepart));
+                villeDepart = SelectVilleById.launchSelectVilleById(request);
+            } catch (Exception e) {
+                System.out.println("Erreur sur l'idVilleDepart");
+            }
+            carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
+        }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
+//TODO:Recuperer les donnée necessaire au calcule et les mettre en paramètre d'une fonction
 
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
@@ -79,7 +111,7 @@ public class ProductInfo implements ActionListener {
         priceLabel.setBounds(600,70,300,50);
         productPanel.add(priceLabel);
 
-        JLabel empreinteLabel = new JLabel("Empreinte Carbon: "+  productEmpreinte +" kgCO2e ");
+        JLabel empreinteLabel = new JLabel("Empreinte Carbon: "+  carbonFootPrint +" gCO2e ");
         empreinteLabel.setBounds(600,120,300,50);
         productPanel.add(empreinteLabel);
 

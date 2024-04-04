@@ -48,7 +48,7 @@ public class Ville {
 
     public final Ville build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idVille", "allee", "rayon", "etage");
+        setFieldsFromResultSet(resultSet, "idVille", "nomVille", "nomPays", "coordLatitude","coordLongitude");
         return this;
     }
 

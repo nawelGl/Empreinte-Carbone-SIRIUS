@@ -57,4 +57,22 @@ class Methodes {
         // Définir les coordonnées et la taille du label
         label.setBounds(x, y, labelWidth, labelHeight);
     }
+
+   //Source => https://fr.martech.zone/calculate-great-circle-distance/
+    public static double getDistanceBetweenPointsNew(double latitude1, double longitude1, double latitude2, double longitude2) {
+        double theta = longitude1 - longitude2;
+        double distance = 60 * 1.1515 * (180/Math.PI) * Math.acos(
+                Math.sin(latitude1 * (Math.PI/180)) * Math.sin(latitude2 * (Math.PI/180)) +
+                        Math.cos(latitude1 * (Math.PI/180)) * Math.cos(latitude2 * (Math.PI/180)) * Math.cos(theta * (Math.PI/180))
+        );
+        return Math.round(distance * 1.609344);
+    }
+
+    public static double carbonFootPrintCalcul(double coordLat1, double coordLat2, double coordLong1, double coordLong2, double coeff,double poids ){
+        double distance=  getDistanceBetweenPointsNew(coordLat1,coordLong1,coordLat2, coordLong2);
+        return distance*coeff*poids;
+
+    }
+
+
 }
