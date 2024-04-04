@@ -33,11 +33,10 @@ public class PathManagement implements ActionListener{
     private JPanel actionButtonsPanel;
     private BufferedImage backgroundImage;
     private Path path = new Path();
-    //private ArrayList<Point> points = new ArrayList<>();
     private Point startPoint = null;
     private Point endPoint = null;
     //private Paths paths = new Paths();
-    private ArrayList<Point> pathPoint = new ArrayList<>();
+   // private ArrayList<Point> pathPoint = new ArrayList<>();
     private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
@@ -103,11 +102,11 @@ public class PathManagement implements ActionListener{
                         g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
                     }
                 }
-                if (!pathPoint.isEmpty()) {
+                if (!path.getPoints().isEmpty()) {
                     g.setColor(Color.RED);
-                    for (int i = 0; i < pathPoint.size() - 1; i++) {
-                        Point p1 = pathPoint.get(i);
-                        Point p2 = pathPoint.get(i + 1);
+                    for (int i = 0; i < path.getPoints().size() - 1; i++) {
+                        Point p1 = path.getPoints().get(i);
+                        Point p2 = path.getPoints().get(i + 1);
                         g.drawLine(p1.x, p1.y, p2.x, p2.y);
                     }
                 }
@@ -162,15 +161,15 @@ public class PathManagement implements ActionListener{
         if (startPoint == null || endPoint == null) {
             return;
         }
-        pathPoint.clear();
+        path.getPoints().clear();
         Point currentPoint = startPoint;
-        pathPoint.add(currentPoint);
+        path.getPoints().add(currentPoint);
         while (!currentPoint.equals(endPoint)) {
             Point nextPoint = findClosestPoint(currentPoint);
             if (nextPoint == null) {
                 break;
             }
-            pathPoint.add(nextPoint);
+            path.getPoints().add(nextPoint);
             currentPoint = nextPoint;
         }
     }
@@ -179,7 +178,7 @@ public class PathManagement implements ActionListener{
         double minDistance = Double.MAX_VALUE;
         Point closestPoint = null;
         for (Point point : path.getPoints()) {
-            if (!pathPoint.contains(point)) {
+            if (!path.getPoints().contains(point)) {
                 double distance = point.distance(from);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -206,6 +205,7 @@ public class PathManagement implements ActionListener{
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     if (startPoint == null) {
                         startPoint = point;
+                        path.getPoints().add(startPoint);
                     } else if (endPoint == null) {
                         endPoint = point;
                         path.getPoints().add(endPoint);
@@ -253,9 +253,8 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == validate){
-            //TODO : ajouter le path crée aux Paths.
-            //Pour se faire, besoin de savoir pour quel rayon on enregistre ce path :
-            //Demander à l'user avec une liste déroulante pour limiter les choix.
+            //TODO : créer une requete qui contient les infos necessaires aux inserts, càd les points du path à insérer en base
+            //Rappel : requestBody = String et non Arraylist !!
             numeroRayon = (int)comboBox.getSelectedItem();
             System.out.println("Éléments de l'ArrayList :");
             for (Point point : path.getPoints()) {
