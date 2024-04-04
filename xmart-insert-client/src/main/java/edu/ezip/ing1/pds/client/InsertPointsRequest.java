@@ -44,10 +44,12 @@ public class InsertPointsRequest extends ClientRequest<PointChemin, String> {
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
-        final String jsonifiedGuy = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointCheminToInsert);
+        final String jsonifiedGuy = request.getRequestBody();
+        System.out.println("====================================");
+        System.out.println("JSONIFIEDGUY (donc request body ) : " + jsonifiedGuy);
+        System.out.println("====================================");
         logger.trace("Point with its JSON face : {}", jsonifiedGuy);
         final String requestId = UUID.randomUUID().toString();
-        request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         request.setRequestContent(jsonifiedGuy);

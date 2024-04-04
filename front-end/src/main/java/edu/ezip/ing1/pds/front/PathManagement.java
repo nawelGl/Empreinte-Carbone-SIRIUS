@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
+import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
 
@@ -266,9 +267,13 @@ public class PathManagement implements ActionListener{
             //Pour chaque point de l'arraylist, on fait un insert
             //car dans la methode d'inser : on utilise un obejt de type pointChemin et non une arraylist
             for (int i = 0; i < path.getPoints().size(); i++){
+                PointChemin pointChemin = new PointChemin();
+                pointChemin.setCoordX(path.getPoints().get(i).x);
+                pointChemin.setCoordY(path.getPoints().get(i).y);
+                pointChemin.setIdRayon(numeroRayon);
                 try {
-                    responseBody = objectMapper.writeValueAsString(path.getPoints().get(i));
-                    System.out.println("RESPONSEBODY : " + responseBody.toString());
+                    responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
+                    System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
                 } catch (JsonProcessingException ex) {
                     throw new RuntimeException(ex);
                 }
