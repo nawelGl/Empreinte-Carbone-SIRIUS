@@ -1,6 +1,7 @@
 package edu.ezip.ing1.pds.business.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ezip.ing1.pds.business.dto.*;
@@ -144,8 +145,16 @@ public class XMartCityService {
 
                 case "INSERT_POINT":
                     try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
                         String requestBody = request.getRequestBody();
-                        System.out.println("REQUEST BODY : " + requestBody);
+                        ObjectMapper objectMapper = new ObjectMapper();
+                       // PointChemin point = new PointChemin();
+                        PointChemin point = objectMapper.readValue(requestBody, PointChemin.class);
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        System.out.println(point.toString());
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+
 
                     } catch (/*SQLException | IOException e*/ Exception e) {
                         response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");

@@ -19,6 +19,13 @@ public class PointChemin {
 
     }
 
+    public PointChemin(String idPoint, String x, String y, String idRayon){
+        this.idPoint = Integer.parseInt(idPoint);
+        this.coordX = Integer.parseInt(x);
+        this.coordY = Integer.parseInt(y);
+        this.idRayon = Integer.parseInt(idRayon);
+    }
+
     public final PointChemin build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResultSet(resultSet, "idPoint", "coordX", "coordY", "idRayon");
