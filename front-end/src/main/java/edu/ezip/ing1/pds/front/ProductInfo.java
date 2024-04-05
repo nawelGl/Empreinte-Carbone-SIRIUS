@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.business.dto.TransportMode;
 import edu.ezip.ing1.pds.client.SelectTransportModeByID;
 import edu.ezip.ing1.pds.commons.Request;
@@ -7,6 +8,8 @@ import edu.ezip.ing1.pds.commons.Request;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import javax.swing.*;
 import edu.ezip.ing1.pds.business.dto.Ville;
@@ -32,6 +35,7 @@ public class ProductInfo implements ActionListener {
     private Ville villeArrive;
     private Ville villeDepart;
     private TransportMode transportMode;
+    private ArrayList<Produits> produits;
 
 
 
@@ -92,6 +96,14 @@ public class ProductInfo implements ActionListener {
                 villeDepart = SelectVilleById.launchSelectVilleById(request);
             } catch (Exception e) {
                 System.out.println("Erreur sur l'idVilleDepart");
+
+//            try{ Request request = new Request();
+//                request.setRequestContent(valueOf(idVilleDepart));
+//                villeDepart = SelectVilleById.launchSelectVilleById(request);
+//
+//            }catch (Exception e) {
+//                System.out.println("Erreur sur l'idVilleDepart");
+
             }
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
             System.out.println("=================================================");

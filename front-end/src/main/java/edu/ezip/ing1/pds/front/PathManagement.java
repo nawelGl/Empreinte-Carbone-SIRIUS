@@ -128,7 +128,7 @@ public class PathManagement implements ActionListener{
         //Panel boutons d'actions
         actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(null);
-        actionButtonsPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        actionButtonsPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         actionButtonsPanel.setBounds(840, 50,500,580);
 
         //Boutons d'acions :
