@@ -46,6 +46,9 @@ public class PathManagement implements ActionListener{
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
     private int numeroRayon;
+    private boolean canValidate = false;
+    //Boolean qui permet ed gerer l'appui sur le bouton valider :
+    //si pas de startPoint ET de endPoint : on ne peut pas valider
 
     public PathManagement(){
 
@@ -210,6 +213,9 @@ public class PathManagement implements ActionListener{
                         endPoint = point;
                         path.getPoints().add(endPoint);
                     }
+                    if(startPoint != null && endPoint != null){
+                        canValidate = true;
+                    }
                 }
                 mapPanel.repaint();
             }
@@ -254,21 +260,29 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == validate){
-            numeroRayon = (int)comboBox.getSelectedItem();
-            Request request = new Request();
-            String responseBody = "";
-            ObjectMapper objectMapper = new ObjectMapper();
-            for (int i = 0; i < path.getPoints().size(); i++){
-                PointChemin pointChemin = new PointChemin();
-                pointChemin.setCoordX(path.getPoints().get(i).x);
-                pointChemin.setCoordY(path.getPoints().get(i).y);
-                pointChemin.setIdRayon(numeroRayon);
-                try {
-                    responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
-                    InsertPointsRequest.insertPoints(responseBody);
-                } catch (IOException | InterruptedException ex) {
-                    throw new RuntimeException(ex);
+            if(canValidate){
+                numeroRayon = (int)comboBox.getSelectedItem();
+                Request request = new Request();
+                String responseBody = "";
+                ObjectMapper objectMapper = new ObjectMapper();
+                for (int i = 0; i < path.getPoints().size(); i++){
+                    PointChemin pointChemin = new PointChemin();
+                    pointChemin.setCoordX(path.getPoints().get(i).x);
+                    pointChemin.setCoordY(path.getPoints().get(i).y);
+                    pointChemin.setIdRayon(numeroRayon);
+                    try {
+                        responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
+                        InsertPointsRequest.insertPoints(responseBody);
+                    } catch (IOException | InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
+            } else {
+                //On ne fait rien niveau enregistrement et on réinitialise tout si validation non ok
+                path.getPoints().clear();
+                startPoint = null;
+                endPoint = null;
+                mapPanel.repaint();
             }
         }
     }
