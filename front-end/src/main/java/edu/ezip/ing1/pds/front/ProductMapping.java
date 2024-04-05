@@ -19,7 +19,6 @@ public class ProductMapping implements ActionListener{
     JFrame productMappingFrame;
     private String productName = RechercheReference.product.getNomProduit();
     private String productColor = RechercheReference.product.getCouleur();
-    JButton backHomeButton;
     JButton setPath;
 
     private Emplacement emplacement;
@@ -129,13 +128,6 @@ public class ProductMapping implements ActionListener{
         mainPanel.add(panelPlan);
 
         //==============================================
-
-            //Bouton retour :
-            backHomeButton = new JButton("Retour à l'accueil");
-            backHomeButton.addActionListener(this);
-            backHomeButton.setBounds(610, 650, 180, 40);
-            mainPanel.add(backHomeButton);
-        
             //Bouton config :
             setPath = new JButton();
             setPath.setText("Configurer les chemins");
@@ -153,10 +145,7 @@ public class ProductMapping implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getSource() == backHomeButton){
-            productMappingFrame.dispose();
-            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-       } else if(e.getSource() == setPath){
+       if(e.getSource() == setPath){
         productMappingFrame.dispose();
         PathManagement pathManagement = new PathManagement();
        }

@@ -10,7 +10,6 @@ public class CategoriesTemplate implements ActionListener{
 
     JFrame categorieFrame;
     JPanel mainPanel;
-    JButton backButton;
     GridBagConstraints gbc;
     //Size for buttons :
     int width = 260;
@@ -38,14 +37,10 @@ public class CategoriesTemplate implements ActionListener{
         gbc = new GridBagConstraints();
         gbc.insets = insets;
 
-        backButton = new JButton("Retour à l'accueil");
-        backButton.addActionListener(this);
-
         JPanel panelRetour = new JPanel();
         categorieFrame.getContentPane().add(panelRetour, BorderLayout.SOUTH);
         panelRetour.setLayout(new FlowLayout());
         panelRetour.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
-        panelRetour.add(backButton);
 
         categorieFrame.getContentPane().add(mainPanel);
         categorieFrame.setVisible(true);
@@ -59,9 +54,6 @@ public class CategoriesTemplate implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == backButton){
-            categorieFrame.dispose();
-            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-        }
+
     }
 }
