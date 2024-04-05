@@ -57,4 +57,81 @@ class Methodes {
         // Définir les coordonnées et la taille du label
         label.setBounds(x, y, labelWidth, labelHeight);
     }
+
+   //Source => https://fr.martech.zone/calculate-great-circle-distance/
+   public static double getDistanceBetweenPointsNew(double latitude1, double longitude1, double latitude2, double longitude2) {
+       double theta = longitude1 - longitude2;
+       double distance = 60 * 1.1515 * (180/Math.PI) * Math.acos(
+               Math.sin(latitude1 * (Math.PI/180)) * Math.sin(latitude2 * (Math.PI/180)) +
+                       Math.cos(latitude1 * (Math.PI/180)) * Math.cos(latitude2 * (Math.PI/180)) * Math.cos(theta * (Math.PI/180))
+       );
+
+       return Math.round(distance * 1.609344);
+   }
+
+    public static double carbonFootPrintCalcul(double coordLat1, double coordLat2, double coordLong1, double coordLong2, double coeff,double poids ){
+        double distance=  getDistanceBetweenPointsNew(coordLat1,coordLong1,coordLat2, coordLong2);
+        double carbonFootPrint;
+        carbonFootPrint=distance*coeff*poids;
+        return carbonFootPrint;
+
+    }
+
+    public static String attributeLetterScore(double carbonFootPrint){
+        double borneAInf = 0.0E9;
+        double borneASup = 1.2E9;
+        double borneBInf = 1.2E9;
+        double borneBSup = 1.5E9;
+        double borneCInf = 1.5E9;
+        double borneCSup = 1.6E9;
+        double borneDInf = 1.6E9;
+        double borneDSup = 1.7E9;
+        double borneEInf = 1.7E9;
+        double borneESup = 1.9E9;
+
+        if (carbonFootPrint >= borneAInf && carbonFootPrint < borneASup) {
+            return "A";
+        } else if (carbonFootPrint >= borneBInf && carbonFootPrint < borneBSup) {
+            return "B";
+        } else if (carbonFootPrint >= borneCInf && carbonFootPrint < borneCSup) {
+            return "C";
+        } else if (carbonFootPrint >= borneDInf && carbonFootPrint < borneDSup) {
+            return "D";
+        } else if (carbonFootPrint > borneEInf) {
+            return "E";
+        } else {
+            return "Erreur hors borne";
+        }
+
+    }
+
+    public static JLabel setlabelIconScore(String scoreLetter) {
+        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
+
+
+        switch (scoreLetter) {
+            case "A":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_A.png"))));
+                break;
+            case "B":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_B.png"))));
+                break;
+            case "C":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_C.png"))));
+                break;
+            case "D":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_D.png"))));
+                break;
+            case "E":
+                label.setIcon(new ImageIcon(Objects.requireNonNull(ProductInfo.class.getResource("/icon_E.png"))));
+                break;
+
+        }
+        label.setBackground(Color.WHITE);
+        label.setOpaque(true);
+
+        return label;
+    }
+
+
 }
