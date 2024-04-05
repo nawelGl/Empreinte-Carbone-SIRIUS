@@ -1,5 +1,8 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +29,16 @@ public class PointChemin {
         this.idRayon = Integer.parseInt(idRayon);
     }
 
+    public PointChemin(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        PointChemin temp = objectMapper.readValue(json, PointChemin.class);
+        this.idPoint = temp.getIdPoint();
+        this.coordX = temp.getCoordX();
+        this.coordY = temp.getCoordY();
+        this.idRayon = temp.getIdRayon();
+    }
+
+
     public final PointChemin build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResultSet(resultSet, "idPoint", "coordX", "coordY", "idRayon");
@@ -38,12 +51,12 @@ public class PointChemin {
         return buildPreparedStatement(preparedStatement, idPoint, coordX, coordY, idRayon);
     }
 
-    public PointChemin(int idPoint, int coordX, int coordY, int idRayon){
-        this.idPoint = idPoint;
-        this.coordX = coordX;
-        this.coordY = coordY;
-        this.idRayon = idRayon;
-    }
+//    public PointChemin(int idPoint, int coordX, int coordY, int idRayon){
+//        this.idPoint = idPoint;
+//        this.coordX = coordX;
+//        this.coordY = coordY;
+//        this.idRayon = idRayon;
+//    }
 
     //Getters ans setters :
     public int getIdPoint() {

@@ -154,11 +154,18 @@ public class XMartCityService {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
                         String requestBody = request.getRequestBody();
                         ObjectMapper objectMapper = new ObjectMapper();
-                       // PointChemin point = new PointChemin();
+
                         PointChemin point = objectMapper.readValue(requestBody, PointChemin.class);
-                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        System.out.println(point.toString());
-                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        selectStatement.setInt(1,point.getCoordX());
+                        selectStatement.setInt(2,point.getCoordY());
+                        selectStatement.setInt(3,point.getIdRayon());
+                        selectStatement.executeUpdate();
+
+//                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//                        System.out.println(point.toString());
+//                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                        return new Response(request.getRequestId(),point.toString());
 
 
 
