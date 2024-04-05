@@ -37,7 +37,6 @@ public class PathManagement implements ActionListener{
     private Path path = new Path();
     private Point startPoint = null;
     private Point endPoint = null;
-    private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
     private JButton deletePath;
@@ -120,12 +119,6 @@ public class PathManagement implements ActionListener{
 
         mapPanel.setBounds(60, 50,770, 580);
 
-        //Bouton retour :
-        backHomeButton = new JButton("Retour à l'accueil");
-        backHomeButton.addActionListener(this);
-        backHomeButton.setBounds(610, 650, 180, 40);
-        mainPanel.add(backHomeButton);
-
         //Panel boutons d'actions
         actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(null);
@@ -194,10 +187,7 @@ public class PathManagement implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == backHomeButton){
-            pathManagementFrame.dispose();
-            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-        } else if(e.getSource() == addPath){
+        if(e.getSource() == addPath){
             mapPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
