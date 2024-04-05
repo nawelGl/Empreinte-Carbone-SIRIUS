@@ -46,7 +46,7 @@ public class Select3Suggestions extends ClientRequest<Object, Produits>{
     }
 
 
-    public static Produit launchSelect3Suggestions(Request request) throws IOException, InterruptedException{
+    public static Produits launchSelect3Suggestions(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -69,13 +69,15 @@ public class Select3Suggestions extends ClientRequest<Object, Produits>{
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Produit produit = (Produit) joinedClientRequest.getResult();
+                final Produits produits = (Produits) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
-                asciiTable.addRule();
-                asciiTable.addRow(produit.getIdProduit());
+                for (final Produit produit : produits.getProduits()) {
+                    asciiTable.addRule();
+                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getIdVilleDepart(), produit.getIdVilleDepart(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(), produit.getIdsouscatB(),produit.getIdTransportMode(),produit.getPoids(),produit.getPrix(),produit.getIdSousCatA(),produit.getIdCategorie());
+                }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return produit;
+                return produits;
             }
         } catch(Exception e){
             System.out.println("Erreur : id inexistant");

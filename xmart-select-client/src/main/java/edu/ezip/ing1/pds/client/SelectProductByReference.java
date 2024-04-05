@@ -44,13 +44,15 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
     }
 
 
-    public static Produit launchSelectProductByReference(Request request) throws IOException, InterruptedException{
+    public static Produit launchSelectProductByReference(String ref) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
+        Request request=new Request();
+        request.setRequestContent(ref);
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
