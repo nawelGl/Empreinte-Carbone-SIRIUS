@@ -277,6 +277,15 @@ public class PathManagement implements ActionListener{
                         throw new RuntimeException(ex);
                     }
                 }
+                //Si validation finie sans catch :
+                actionButtonsPanel.removeAll();
+                actionButtonsPanel.revalidate();
+                actionButtonsPanel.repaint();
+                JLabel reussite = new JLabel("Votre chemin a bien été enregistré !");
+                reussite.setForeground(Color.WHITE);
+                reussite.setBounds(50, 170, 500, 70);
+                reussite.setFont(new Font(Template.POLICE, Font.BOLD, 20));
+                actionButtonsPanel.add(reussite);
             } else {
                 //On ne fait rien niveau enregistrement et on réinitialise tout si validation non ok
                 path.getPoints().clear();
