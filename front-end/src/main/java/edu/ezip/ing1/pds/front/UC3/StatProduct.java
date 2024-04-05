@@ -56,23 +56,41 @@ public class StatProduct {
         //infoPanel
         JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(Color.white);
+        infoPanel.setBounds(150,100,500,550);
 
+        //titlePanel
         RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
         JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
         infoTitlePanel.add(infoTitle);
         infoTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
         infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
-
+        // recuperer l'image de produit par reference
         photoName = "/"+Integer.toString(reference)+".png";
 
-        System.out.println(photoName);
+        // controle de dimension de l'image
+
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource(photoName));
+        Image image = imageIcon.getImage();
+        Image newImage = image.getScaledInstance(200, 205, Image.SCALE_SMOOTH);
+
+        ImageIcon scaledImageIcon = new ImageIcon(newImage);
+
         JLabel photoLabel = new JLabel();
+        photoLabel.setIcon(scaledImageIcon);
+
+        // photoLabel
         photoLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(photoName))));
 
 
+
+        // textLabel
         JLabel textLabel = new JLabel("le score de votre produit est ");
 
+
+
+
+        // scoreLabel
         JLabel scoreLabel = new JLabel();
         // Switch case pour recuperer l'icone correspondqnt
 
@@ -94,17 +112,24 @@ public class StatProduct {
                 break;
         }
 
+        photoLabel.setBounds(150,100,200,205);
+        textLabel.setBounds(30,380,200,20);
+        scoreLabel.setBounds(400,380,50,50);
+
         //-------ajout de labels----------
         infoPanel.add(BorderLayout.NORTH,infoTitlePanel);
 
-        photoLabel.setBounds(160,200,200,200);
-        scoreLabel.setBounds(300,200,100,100);
+
 
         infoPanel.add(photoLabel);
+        infoPanel.add(textLabel);
         infoPanel.add(scoreLabel);
-        infoPanel.add(BorderLayout.SOUTH,textLabel);
 
-        infoPanel.setBounds(150,100,500,550);
+
+
+
+
+
 
         //chartPanel
         JPanel chartPanel = new JPanel(new BorderLayout());
