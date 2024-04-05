@@ -39,7 +39,9 @@ public class XMartCityService {
                 "WHERE \"reference\"=? AND \"date\">'2024-01-01';"),
 
         SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".transportmode WHERE \"idTransportMode\" = ?"),
-        SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?");
+        SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
+        SELECT_3_SUGGESTIONS("SELECT * FROM produits WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"score\" <= ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"idProduit\" != ? ORDER BY \"score\" ASC, \"empreinte\" ASC LIMIT 3");
+
 
 
         private final String query;
