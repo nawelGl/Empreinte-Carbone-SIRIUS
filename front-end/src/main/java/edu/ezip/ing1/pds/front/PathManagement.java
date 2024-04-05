@@ -12,7 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -21,12 +20,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
+import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.commons.Request;
-import edu.ezip.ing1.pds.client.InsertPointsCheminsClientRequest;
+import edu.ezip.ing1.pds.client.InsertPointsRequest;
 
 public class PathManagement implements ActionListener{
 
@@ -35,13 +34,9 @@ public class PathManagement implements ActionListener{
     private JPanel mapPanel;
     private JPanel actionButtonsPanel;
     private BufferedImage backgroundImage;
+    private Path path = new Path();
     private Point startPoint = null;
     private Point endPoint = null;
-
-    //Arraylist de points de base
-    Path points = new Path();
-
-    private ArrayList<Point> pathPoints = new ArrayList<Point>();
     private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
@@ -50,10 +45,7 @@ public class PathManagement implements ActionListener{
     private JButton validate = new JButton();
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
-    //Attributs pour enregistrer les points en base
     private int numeroRayon;
-    private int coordX;
-    private int coordY;
 
     public PathManagement(){
 
@@ -97,7 +89,7 @@ public class PathManagement implements ActionListener{
                 }
                 // Dessiner les points et le chemin
                 if(firstPath){
-                    for (Point point : points.getPoints()) {
+                    for (Point point : path.getPoints()) {
                         g.setColor(Color.BLACK);
                         g.fillOval(point.x - 5, point.y - 5, 10, 10);
                     }
@@ -110,11 +102,11 @@ public class PathManagement implements ActionListener{
                         g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
                     }
                 }
-                if (!points.getPoints().isEmpty()) {
+                if (!path.getPoints().isEmpty()) {
                     g.setColor(Color.RED);
-                    for (int i = 0; i < points.getPoints().size() - 1; i++) {
-                        Point p1 = points.getPoints().get(i);
-                        Point p2 = points.getPoints().get(i + 1);
+                    for (int i = 0; i < path.getPoints().size() - 1; i++) {
+                        Point p1 = path.getPoints().get(i);
+                        Point p2 = path.getPoints().get(i + 1);
                         g.drawLine(p1.x, p1.y, p2.x, p2.y);
                     }
                 }
@@ -169,15 +161,15 @@ public class PathManagement implements ActionListener{
         if (startPoint == null || endPoint == null) {
             return;
         }
-        points.getPoints().clear();
+        path.getPoints().clear();
         Point currentPoint = startPoint;
-        points.getPoints().add(currentPoint);
+        path.getPoints().add(currentPoint);
         while (!currentPoint.equals(endPoint)) {
             Point nextPoint = findClosestPoint(currentPoint);
             if (nextPoint == null) {
                 break;
             }
-            points.getPoints().add(nextPoint);
+            path.getPoints().add(nextPoint);
             currentPoint = nextPoint;
         }
     }
@@ -185,8 +177,8 @@ public class PathManagement implements ActionListener{
     private Point findClosestPoint(Point from) {
         double minDistance = Double.MAX_VALUE;
         Point closestPoint = null;
-        for (Point point : points.getPoints()) {
-            if (!points.getPoints().contains(point)) {
+        for (Point point : path.getPoints()) {
+            if (!path.getPoints().contains(point)) {
                 double distance = point.distance(from);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -209,14 +201,14 @@ public class PathManagement implements ActionListener{
                 super.mouseClicked(e);
                 Point point = e.getPoint();
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    points.getPoints().add(point);
+                    path.getPoints().add(point);
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     if (startPoint == null) {
                         startPoint = point;
-                        points.getPoints().add(startPoint);
+                        path.getPoints().add(startPoint);
                     } else if (endPoint == null) {
                         endPoint = point;
-                        points.getPoints().add(endPoint);
+                        path.getPoints().add(endPoint);
                     }
                 }
                 mapPanel.repaint();
@@ -261,41 +253,32 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == validate){
-            //TODO : ajouter l'arraylist des paths à la requete
-            //Récupératon du numero de rayon :
+            //TODO : créer une requete qui contient les infos necessaires aux inserts, càd les points du path à insérer en base
+            //Rappel : requestBody = String et non Arraylist !!
             numeroRayon = (int)comboBox.getSelectedItem();
-
-            //OK contient les bonnes valeurs
-            System.out.println("Éléments de l'ArrayList points.getPoints( de type Point déclarée dans pathManagement:");
-            for (Point point : points.getPoints()) {
-                System.out.println("(" + point.x + ", " + point.y + ")");
-            }
-
+            //Création de la requete :
             Request request = new Request();
+            //Création d'un String qui va etre set dans la requete en tant que requestBody pour devenir responseBody :
             String responseBody = "";
-
-            //Objet mapper :
+            //Création d'un object mapper pour mettre les données de l'arraylist dans le String crée ci dessus :
             ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                responseBody = objectMapper.writeValueAsString(points);
-            } catch (JsonProcessingException ex) {
-                throw new RuntimeException(ex);
+            //on met ce qu'il faut dans response body grace à l'object mapper :
+
+            //Pour chaque point de l'arraylist, on fait un insert
+            //car dans la methode d'inser : on utilise un obejt de type pointChemin et non une arraylist
+            for (int i = 0; i < path.getPoints().size(); i++){
+                PointChemin pointChemin = new PointChemin();
+                pointChemin.setCoordX(path.getPoints().get(i).x);
+                pointChemin.setCoordY(path.getPoints().get(i).y);
+                pointChemin.setIdRayon(numeroRayon);
+                try {
+                    responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
+                    InsertPointsRequest.insertPoints(responseBody);
+                    System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
+                } catch (IOException | InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-
-            request.addRequestBody(responseBody);
-
-            System.out.println("Taille de l'arrayList de la requete : " + request.getRequestBody().size());
-            System.out.println(request.getRequestBody().toString());
-
-            try {
-                InsertPointsCheminsClientRequest.insertPoints(request);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-
-
         }
     }
 }

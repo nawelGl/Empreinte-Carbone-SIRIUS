@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
-import edu.ezip.ing1.pds.business.dto.Produit;
-import edu.ezip.ing1.pds.business.dto.Produits;
+
+import edu.ezip.ing1.pds.business.dto.TransportMode;
+import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -18,47 +19,45 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
-public class SelectProductByReference extends ClientRequest<Object, Produits> {
+
+public class SelectVilleById extends ClientRequest<Object, Ville>{
 
     //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - P r o d u c t - B y - R e f e r e n c e";
+    private final static String LoggingLabel = "S e l e c t - T R A S P O R T M O D E - B y - I D";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
-    private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_PRODUCT_BY_REFERENCE";
+    private static final String requestOrder = "SELECT_VILLE_BY_ID";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
-    public SelectProductByReference(
+    public SelectVilleById(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
     }
 
     @Override
-    public Produits readResult(String body) throws IOException {
+    public Ville readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final Produits produits = mapper.readValue(body, Produits.class);
-        return produits;
+        final Ville ville = mapper.readValue(body, Ville.class);
+        return ville;
     }
 
 
-    public static Produit launchSelectProductByReference(String ref) throws IOException, InterruptedException{
+    public static Ville launchSelectVilleById(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
-        Request request = new Request();
         final String requestId = UUID.randomUUID().toString();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
-        request.setRequestContent(ref);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectProductByReference clientRequest = new SelectProductByReference(
+        final SelectVilleById clientRequest = new SelectVilleById(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -68,24 +67,22 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Produits produits = (Produits) joinedClientRequest.getResult();
+                final Ville ville = (Ville) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
-                Produit dernierProduit = null;
-                for (final Produit produit : produits.getProduits()) {
-                    asciiTable.addRule();
-                    asciiTable.addRow(produit.getIdProduit(), produit.getIdEmplacement(), produit.getIdVilleDepart(), produit.getIdVilleDepart(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(), produit.getIdsouscatB(),produit.getIdTransportMode(),produit.getPoids(),produit.getPrix(),produit.getIdSousCatA(),produit.getIdCategorie());
-                    dernierProduit = produit;
-                }
+                asciiTable.addRule();
+                asciiTable.addRow(ville.getIdVille(), ville.getNomPays(), ville.getCoordLatitude(), ville.getCoordLongitude());
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return dernierProduit;
+                return ville;
             }
         } catch(Exception e){
-            System.out.println("Erreur : référence inexistante");
+            System.out.println("Erreur : id inexistant");
             return null;
         }
 
         return null;
     }
 
+
 }
+

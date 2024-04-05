@@ -7,7 +7,12 @@ import java.lang.reflect.Array;
 //path class to register a path for each product place.
 public class Path {
     //unknow number of points for each path
-    ArrayList<Point> points = new ArrayList<Point>();
+    ArrayList<Point> points;
+
+    //Constructeur :
+    public Path(){
+        points = new ArrayList<Point>();
+    }
 
     //set a point :
     public void setPoint(Point point){

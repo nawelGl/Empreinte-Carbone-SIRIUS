@@ -94,9 +94,7 @@ class RechercheReference implements ActionListener {
             }
 
             try{
-                Request request = new Request();
-                request.setRequestContent(refEnString);
-                product = SelectProductByReference.launchSelectProductByReference(request);
+                product = SelectProductByReference.launchSelectProductByReference(refEnString);
             } catch(Exception exception){
                 System.out.println(exception.getMessage());
             }
