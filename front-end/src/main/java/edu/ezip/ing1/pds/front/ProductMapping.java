@@ -125,7 +125,7 @@ public class ProductMapping implements ActionListener{
         JPanel panelPlan = new JPanel();
         panelPlan.setLayout(null);
         panelPlan.setBounds(840, 50,500,580);
-        panelPlan.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        panelPlan.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         mainPanel.add(panelPlan);
 
         //==============================================

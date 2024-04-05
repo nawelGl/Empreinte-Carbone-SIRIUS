@@ -70,13 +70,13 @@ public class EcranAcceuil implements ActionListener {
         boutonUC1.setForeground(Color.BLACK);
         boutonUC1.setFocusPainted(false);
 //        boutonUC1.setOpaque(true);
-//        boutonUC1.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+//        boutonUC1.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
 
         //boutonarriere plan
         boutonArriere.setBounds(400, 235, 600, 200); // x, y, largeur, hauteur
 
 
-        boutonArriere.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        boutonArriere.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         boutonArriere.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
         boutonArriere.setForeground(Color.BLACK);
         boutonArriere.setFocusPainted(false);
