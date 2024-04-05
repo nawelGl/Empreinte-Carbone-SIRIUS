@@ -36,13 +36,15 @@ public class InsertPointsRequest extends ClientRequest<PointChemin, String> {
 
     // Fonction pour faire les inserts :
 
-    public static void insertPoints(Request request) throws IOException, InterruptedException{
+    public static void insertPoints(String responseBody) throws IOException, InterruptedException{
         final PointChemin pointCheminToInsert = new PointChemin();
         final NetworkConfig networkConfig =  ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.trace("Points loaded : {}", pointCheminToInsert.toString());
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
+        Request request = new Request();
+        request.setRequestContent(responseBody);
         final ObjectMapper objectMapper = new ObjectMapper();
         final String jsonifiedGuy = request.getRequestBody();
         logger.trace("Point with its JSON face : {}", jsonifiedGuy);

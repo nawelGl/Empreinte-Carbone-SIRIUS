@@ -273,27 +273,12 @@ public class PathManagement implements ActionListener{
                 pointChemin.setIdRayon(numeroRayon);
                 try {
                     responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
+                    InsertPointsRequest.insertPoints(responseBody);
                     System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
-                } catch (JsonProcessingException ex) {
+                } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
-
-                request.setRequestContent(responseBody);
-
-                //Appel à la méthode d'insert en passant en paramètres la requete :
-                try {
-                    InsertPointsRequest.insertPoints(request);
-                } catch (IOException ex) {
-                    System.out.println("Erreur d'insertion des points : " + ex.getMessage());
-                    throw new RuntimeException(ex);
-                } catch (InterruptedException ex) {
-                    System.out.println("Erreur d'insertion des points : " + ex.getMessage());
-                    throw new RuntimeException(ex);
-                }
-
             }
-
         }
     }
-    
 }
