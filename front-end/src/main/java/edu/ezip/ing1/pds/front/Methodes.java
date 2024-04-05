@@ -3,10 +3,12 @@ package edu.ezip.ing1.pds.front;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
-class Methodes {
+class Methodes  {
     // Header for frames
     public static void header(JFrame frame, String titre, int x) {
         // ----------panel header : Logo + label titre--------------
@@ -23,9 +25,17 @@ class Methodes {
 
 
         ImageIcon homeIcon= new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/home.png")));
-        JButton homeButton= new JButton();
+        JButton homeButton=new JButton(homeIcon);
                 //new JButton(homeIcon);
-        homeButton.setBounds(900,20,60,60);
+        homeButton.setBounds(1320,20,60,60);
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EcranAcceuil ecranAcceuil=new EcranAcceuil();
+                frame.dispose();
+
+            }
+        });
         headerPanel.add(homeButton);
 
 //
@@ -140,6 +150,7 @@ class Methodes {
 
         return label;
     }
+
 
 
 }
