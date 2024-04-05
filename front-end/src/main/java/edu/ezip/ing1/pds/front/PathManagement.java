@@ -274,7 +274,7 @@ public class PathManagement implements ActionListener{
                 try {
                     responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
                     InsertPointsRequest.insertPoints(responseBody);
-                    System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
+                    //System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
