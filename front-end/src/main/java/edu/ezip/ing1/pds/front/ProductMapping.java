@@ -1,6 +1,7 @@
 package edu.ezip.ing1.pds.front;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import edu.ezip.ing1.pds.business.dto.Emplacement;
@@ -111,6 +112,8 @@ public class ProductMapping implements ActionListener{
         JPanel panelMap = new JPanel();
         panelMap.setLayout(null);
         panelMap.setBounds(60, 50,770,580);
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        panelMap.setBorder(border);
         panelMap.setBackground(Color.WHITE);
 
         ImageIcon map = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
