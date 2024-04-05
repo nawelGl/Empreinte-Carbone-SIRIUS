@@ -214,10 +214,11 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         });
+            //Pas besoin pour l'instant car chemin déjà tracé
             calculatePath.setText("Tracer le chemin");
             calculatePath.setBounds(910, 650, 180, 40);
             calculatePath.addActionListener(this);
-            mainPanel.add(calculatePath);
+            //mainPanel.add(calculatePath);
             validate.setText("Valider");
             validate.setBounds(1110, 650, 180, 40);
             validate.addActionListener(this);
@@ -253,19 +254,10 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == validate){
-            //TODO : créer une requete qui contient les infos necessaires aux inserts, càd les points du path à insérer en base
-            //Rappel : requestBody = String et non Arraylist !!
             numeroRayon = (int)comboBox.getSelectedItem();
-            //Création de la requete :
             Request request = new Request();
-            //Création d'un String qui va etre set dans la requete en tant que requestBody pour devenir responseBody :
             String responseBody = "";
-            //Création d'un object mapper pour mettre les données de l'arraylist dans le String crée ci dessus :
             ObjectMapper objectMapper = new ObjectMapper();
-            //on met ce qu'il faut dans response body grace à l'object mapper :
-
-            //Pour chaque point de l'arraylist, on fait un insert
-            //car dans la methode d'inser : on utilise un obejt de type pointChemin et non une arraylist
             for (int i = 0; i < path.getPoints().size(); i++){
                 PointChemin pointChemin = new PointChemin();
                 pointChemin.setCoordX(path.getPoints().get(i).x);
@@ -274,7 +266,6 @@ public class PathManagement implements ActionListener{
                 try {
                     responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
                     InsertPointsRequest.insertPoints(responseBody);
-                    //System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
