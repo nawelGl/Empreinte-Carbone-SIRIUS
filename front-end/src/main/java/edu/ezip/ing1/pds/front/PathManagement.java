@@ -12,8 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -22,9 +20,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
-import edu.ezip.ing1.pds.business.dto.Paths;
+import edu.ezip.ing1.pds.business.dto.PointChemin;
+import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.client.InsertPointsRequest;
 
 public class PathManagement implements ActionListener{
 
@@ -34,11 +35,8 @@ public class PathManagement implements ActionListener{
     private JPanel actionButtonsPanel;
     private BufferedImage backgroundImage;
     private Path path = new Path();
-    //private ArrayList<Point> points = new ArrayList<>();
     private Point startPoint = null;
     private Point endPoint = null;
-    //private Paths paths = new Paths();
-    private ArrayList<Point> pathPoint = new ArrayList<>();
     private JButton backHomeButton;
     private JButton addPath;
     private JButton modifyPath;
@@ -104,11 +102,11 @@ public class PathManagement implements ActionListener{
                         g.fillOval(endPoint.x - 5, endPoint.y - 5, 10, 10);
                     }
                 }
-                if (!pathPoint.isEmpty()) {
+                if (!path.getPoints().isEmpty()) {
                     g.setColor(Color.RED);
-                    for (int i = 0; i < pathPoint.size() - 1; i++) {
-                        Point p1 = pathPoint.get(i);
-                        Point p2 = pathPoint.get(i + 1);
+                    for (int i = 0; i < path.getPoints().size() - 1; i++) {
+                        Point p1 = path.getPoints().get(i);
+                        Point p2 = path.getPoints().get(i + 1);
                         g.drawLine(p1.x, p1.y, p2.x, p2.y);
                     }
                 }
@@ -163,15 +161,15 @@ public class PathManagement implements ActionListener{
         if (startPoint == null || endPoint == null) {
             return;
         }
-        pathPoint.clear();
+        path.getPoints().clear();
         Point currentPoint = startPoint;
-        pathPoint.add(currentPoint);
+        path.getPoints().add(currentPoint);
         while (!currentPoint.equals(endPoint)) {
             Point nextPoint = findClosestPoint(currentPoint);
             if (nextPoint == null) {
                 break;
             }
-            pathPoint.add(nextPoint);
+            path.getPoints().add(nextPoint);
             currentPoint = nextPoint;
         }
     }
@@ -180,7 +178,7 @@ public class PathManagement implements ActionListener{
         double minDistance = Double.MAX_VALUE;
         Point closestPoint = null;
         for (Point point : path.getPoints()) {
-            if (!pathPoint.contains(point)) {
+            if (!path.getPoints().contains(point)) {
                 double distance = point.distance(from);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -207,6 +205,7 @@ public class PathManagement implements ActionListener{
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     if (startPoint == null) {
                         startPoint = point;
+                        path.getPoints().add(startPoint);
                     } else if (endPoint == null) {
                         endPoint = point;
                         path.getPoints().add(endPoint);
@@ -254,26 +253,32 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == validate){
-            //TODO : ajouter le path crée aux Paths.
-            //Pour se faire, besoin de savoir pour quel rayon on enregistre ce path :
-            //Demander à l'user avec une liste déroulante pour limiter les choix.
+            //TODO : créer une requete qui contient les infos necessaires aux inserts, càd les points du path à insérer en base
+            //Rappel : requestBody = String et non Arraylist !!
             numeroRayon = (int)comboBox.getSelectedItem();
-            System.out.println("Éléments de l'ArrayList :");
-            for (Point point : path.getPoints()) {
-                System.out.println("(" + point.x + ", " + point.y + ")");
+            //Création de la requete :
+            Request request = new Request();
+            //Création d'un String qui va etre set dans la requete en tant que requestBody pour devenir responseBody :
+            String responseBody = "";
+            //Création d'un object mapper pour mettre les données de l'arraylist dans le String crée ci dessus :
+            ObjectMapper objectMapper = new ObjectMapper();
+            //on met ce qu'il faut dans response body grace à l'object mapper :
+
+            //Pour chaque point de l'arraylist, on fait un insert
+            //car dans la methode d'inser : on utilise un obejt de type pointChemin et non une arraylist
+            for (int i = 0; i < path.getPoints().size(); i++){
+                PointChemin pointChemin = new PointChemin();
+                pointChemin.setCoordX(path.getPoints().get(i).x);
+                pointChemin.setCoordY(path.getPoints().get(i).y);
+                pointChemin.setIdRayon(numeroRayon);
+                try {
+                    responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
+                    InsertPointsRequest.insertPoints(responseBody);
+                    System.out.println("RESPONSEBODY POINT CHEMIN : " + responseBody.toString());
+                } catch (IOException | InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-
-            Paths.paths.put(numeroRayon, path);
-
-             // Affichage des éléments de la HashMap
-        System.out.println("Éléments de la HashMap :");
-        for (Map.Entry<Integer, Path> entry : Paths.getPaths().entrySet()) {
-            int numeroRayon = entry.getKey();
-            Path path = entry.getValue();
-            System.out.println("Rayon : " + numeroRayon + ", Path : " + path);
-        }
-
         }
     }
-    
 }

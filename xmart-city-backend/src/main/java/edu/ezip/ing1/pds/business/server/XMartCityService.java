@@ -1,6 +1,7 @@
 package edu.ezip.ing1.pds.business.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ezip.ing1.pds.business.dto.*;
@@ -22,6 +23,7 @@ public class XMartCityService {
     private enum Queries {
         INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"idVilleDepart\", \"idVilleArrive\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        INSERT_POINT("INSERT into \"ezip-ing1\".point (\"coordX\", \"coordY\", \"idRayon\") values (?, ?, ?)"),
         
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
@@ -144,6 +146,32 @@ public class XMartCityService {
                         logger.error("Error executing INSERT_PRODUCT query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "INSERT_POINT":
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.INSERT_POINT.query);
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        PointChemin point = objectMapper.readValue(requestBody, PointChemin.class);
+                        selectStatement.setInt(1,point.getCoordX());
+                        selectStatement.setInt(2,point.getCoordY());
+                        selectStatement.setInt(3,point.getIdRayon());
+                        selectStatement.executeUpdate();
+
+//                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//                        System.out.println(point.toString());
+//                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                        return new Response(request.getRequestId(),point.toString());
+
+
+
+                    } catch (/*SQLException | IOException e*/ Exception e) {
+                        response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");
+                        logger.error("Error executing INSERT_POINT query: {}", e.getMessage());
                     }
                     break;
 

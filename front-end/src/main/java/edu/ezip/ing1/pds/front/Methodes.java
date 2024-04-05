@@ -78,6 +78,7 @@ class Methodes {
     }
 
     public static String attributeLetterScore(double carbonFootPrint){
+        //TODO METTRE EN BASE
         double borneAInf = 0.0E9;
         double borneASup = 1.2E9;
         double borneBInf = 1.2E9;

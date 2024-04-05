@@ -1,0 +1,2 @@
+Notes nawel UC2 :
+==> remettre le insert pour les points qui provient de la branche de base mais ne pas refaire l'arraylist.

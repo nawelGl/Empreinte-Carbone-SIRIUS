@@ -1,11 +1,15 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 //Nom = point chemin pour eviter la confusion avec java.awt.Point.java
+//Classe pour la table points sur psql
 
 public class PointChemin {
 
@@ -17,6 +21,23 @@ public class PointChemin {
     public PointChemin(){
 
     }
+
+    public PointChemin(String idPoint, String x, String y, String idRayon){
+        this.idPoint = Integer.parseInt(idPoint);
+        this.coordX = Integer.parseInt(x);
+        this.coordY = Integer.parseInt(y);
+        this.idRayon = Integer.parseInt(idRayon);
+    }
+
+    public PointChemin(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        PointChemin temp = objectMapper.readValue(json, PointChemin.class);
+        this.idPoint = temp.getIdPoint();
+        this.coordX = temp.getCoordX();
+        this.coordY = temp.getCoordY();
+        this.idRayon = temp.getIdRayon();
+    }
+
 
     public final PointChemin build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
@@ -30,18 +51,18 @@ public class PointChemin {
         return buildPreparedStatement(preparedStatement, idPoint, coordX, coordY, idRayon);
     }
 
-    public PointChemin(int idPoint, int coordX, int coordY, int idRayon){
-        this.idPoint = idPoint;
-        this.coordX = coordX;
-        this.coordY = coordY;
-        this.idRayon = idRayon;
-    }
+//    public PointChemin(int idPoint, int coordX, int coordY, int idRayon){
+//        this.idPoint = idPoint;
+//        this.coordX = coordX;
+//        this.coordY = coordY;
+//        this.idRayon = idRayon;
+//    }
 
     //Getters ans setters :
     public int getIdPoint() {
         return idPoint;
     }
-    
+
     public void setIdPoint(int idPoint) {
         this.idPoint = idPoint;
     }
@@ -96,7 +117,7 @@ public class PointChemin {
                 "coordonnée X = " + coordX +
                 "coordonnée Y = " + coordY +
                 "idRayon = " + idRayon+
-        "}";
+                "}";
     }
-    
+
 }
