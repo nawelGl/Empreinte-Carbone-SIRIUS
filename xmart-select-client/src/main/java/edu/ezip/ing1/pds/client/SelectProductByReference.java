@@ -50,7 +50,7 @@ public class SelectProductByReference extends ClientRequest<Object, Produits> {
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
-        Request request = new Request();
+
         final String requestId = UUID.randomUUID().toString();
         Request request=new Request();
         request.setRequestContent(ref);
