@@ -54,7 +54,7 @@ public class CategoriesTemplate implements ActionListener{
     public static void setButtonStyle(JButton button, int width, int height){
         button.setPreferredSize(new Dimension(width, height));
         button.setFont(new Font(Template.POLICE, Font.BOLD, 18));
-        button.setForeground(Color.decode(Template.COUELUR_SECONDAIRE));
+        button.setForeground(Color.decode(Template.COULEUR_SECONDAIRE));
     }
 
     @Override

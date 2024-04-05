@@ -101,7 +101,7 @@ public class StatProduct {
         RoundedPanel chartTitlePanel = new RoundedPanel(30,30);
         JLabel charTitle = new JLabel("Statistiques des ventes");
         chartTitlePanel.add(charTitle);
-        chartTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        chartTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         chartTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
 

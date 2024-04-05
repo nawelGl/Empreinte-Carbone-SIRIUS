@@ -50,7 +50,7 @@ class RechercheReference implements ActionListener {
         //JPanel secondPanel = new JPanel();
         RoundedPanel secondPanel = new RoundedPanel(60,60);
         secondPanel.setLayout(null);
-        secondPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        secondPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
         secondPanel.setBounds(300, 200, 800, 250);
 
@@ -94,6 +94,7 @@ class RechercheReference implements ActionListener {
             }
 
             try{
+
                 product = SelectProductByReference.launchSelectProductByReference(refEnString);
             } catch(Exception exception){
                 System.out.println(exception.getMessage());

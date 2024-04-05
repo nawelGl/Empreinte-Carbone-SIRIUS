@@ -21,10 +21,17 @@ class Methodes {
         logoLabel.setBounds(10, 8, 70, 70);
         headerPanel.add(logoLabel);
 
+
+        ImageIcon homeIcon= new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/home.png")));
+        JButton homeButton= new JButton();
+                //new JButton(homeIcon);
+        homeButton.setBounds(900,20,60,60);
+        headerPanel.add(homeButton);
+
 //
         JPanel nomAppPanel = new JPanel();
         nomAppPanel.setBounds(100,25,200,35);
-        nomAppPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        nomAppPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         headerPanel.add(nomAppPanel);
 
         JLabel nomAppLabel = new JLabel("EPIGREEN-SHOP");
