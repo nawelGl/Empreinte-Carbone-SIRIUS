@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
@@ -48,6 +47,8 @@ public class PathManagement implements ActionListener{
     private boolean canValidate = false;
     //Boolean qui permet ed gerer l'appui sur le bouton valider :
     //si pas de startPoint ET de endPoint : on ne peut pas valider
+
+    private JButton backMenu;
 
     public PathManagement(){
 
@@ -251,6 +252,16 @@ public class PathManagement implements ActionListener{
             }
         } else if(e.getSource() == validate){
             if(canValidate){
+//                Ne fonctionne pas :
+//                actionButtonsPanel.removeAll();
+//                actionButtonsPanel.revalidate();
+//                actionButtonsPanel.repaint();
+//                JLabel enCours = new JLabel("Votre chemin est en cours d'enregistrement ...");
+//                enCours.setForeground(Color.WHITE);
+//                enCours.setBounds(85, 270, 500, 70);
+//                enCours.setFont(new Font(Template.POLICE, Font.BOLD, 20));
+//                actionButtonsPanel.add(enCours);
+
                 numeroRayon = (int)comboBox.getSelectedItem();
                 Request request = new Request();
                 String responseBody = "";
@@ -267,15 +278,24 @@ public class PathManagement implements ActionListener{
                         throw new RuntimeException(ex);
                     }
                 }
+
                 //Si validation finie sans catch :
+                backMenu = new JButton("Retour au menu");
+                backMenu.addActionListener(this);
+                backMenu.setBounds(920, 650, 180, 40);
+                mainPanel.add(backMenu);
+                mainPanel.revalidate();
+                mainPanel.repaint();
+
                 actionButtonsPanel.removeAll();
                 actionButtonsPanel.revalidate();
                 actionButtonsPanel.repaint();
                 JLabel reussite = new JLabel("Votre chemin a bien été enregistré !");
                 reussite.setForeground(Color.WHITE);
-                reussite.setBounds(50, 170, 500, 70);
+                reussite.setBounds(85, 270, 500, 70);
                 reussite.setFont(new Font(Template.POLICE, Font.BOLD, 20));
                 actionButtonsPanel.add(reussite);
+
             } else {
                 //On ne fait rien niveau enregistrement et on réinitialise tout si validation non ok
                 path.getPoints().clear();
@@ -283,6 +303,9 @@ public class PathManagement implements ActionListener{
                 endPoint = null;
                 mapPanel.repaint();
             }
+        } else if(e.getSource() == backMenu){
+            pathManagementFrame.dispose();
+            PathManagement pathManagement = new PathManagement();
         }
     }
 }
