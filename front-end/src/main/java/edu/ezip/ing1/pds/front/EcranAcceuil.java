@@ -26,7 +26,7 @@ public class EcranAcceuil implements ActionListener {
 
 
     String titre= "Home UC1 - Empreinte Carbone";
-    String titreLabelSecondaire ="Entrez la référence de votre produit pour connaitre son empreinte carbone:";
+    String titreLabelSecondaire ="Entrez la référence de votre produit pour connaitre son empreinte carbone :";
     String titreHeader="Empreinte Carbone du produit :";
     int x=520;
 

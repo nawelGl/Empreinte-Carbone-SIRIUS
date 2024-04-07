@@ -234,6 +234,12 @@ public class PathManagement implements ActionListener{
             labelRayon.setBounds(35, 170, 500, 70);
             labelRayon.setFont(new Font(Template.POLICE, Font.BOLD, 20));
             actionButtonsPanel.add(labelRayon);
+            JLabel explications = new JLabel();
+            explications.setText("<html>Pour ajouter le point de départ et le point d'arrivée, faites un clic droit. Pour ajouter un point intermediaire, faites un clic gauche. Attention, si vous n'indiquez pas un point de départ et un point d'arrivée, vous devrez recommencer.</html>");
+            explications.setBounds(35, 440, 440, 115);
+            explications.setForeground(Color.WHITE);
+            explications.setFont(new Font(Template.POLICE, Font.BOLD, 17));
+            actionButtonsPanel.add(explications);
 
             Integer[] options = new Integer[14];
             for(int i = 1; i <= 14; i++){
@@ -265,7 +271,6 @@ public class PathManagement implements ActionListener{
                 //TODO : à modifier pour ne pas faire apparaitre la requete ici !
 
                 numeroRayon = (int)comboBox.getSelectedItem();
-                Request request = new Request();
                 String responseBody = "";
                 ObjectMapper objectMapper = new ObjectMapper();
                 for (int i = 0; i < path.getPoints().size(); i++){

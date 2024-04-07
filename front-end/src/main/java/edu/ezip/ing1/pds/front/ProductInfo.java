@@ -130,7 +130,7 @@ public class ProductInfo implements ActionListener {
         priceLabel.setBounds(600,70,300,50);
         productPanel.add(priceLabel);
 
-        JLabel empreinteLabel = new JLabel("Empreinte Carbon: "+  carbonFootPrint +" gCO2e ");
+        JLabel empreinteLabel = new JLabel("Empreinte Carbone : "+  carbonFootPrint +" gCO2e ");
         empreinteLabel.setBounds(600,120,300,50);
         productPanel.add(empreinteLabel);
 
