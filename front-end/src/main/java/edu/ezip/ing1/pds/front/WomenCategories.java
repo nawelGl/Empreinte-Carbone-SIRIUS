@@ -57,20 +57,20 @@ public class WomenCategories extends CategoriesTemplate implements ActionListene
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
         if(e.getSource() == hauts){
-            categorieFrame.dispose();
             WomenTop womenTop = new WomenTop();
+            categorieFrame.dispose();
         } else  if(e.getSource() == bas){
-            categorieFrame.dispose();
             WomenPants womenPants = new WomenPants();
+            categorieFrame.dispose();
         } else if (e.getSource() == robes){
-            categorieFrame.dispose();
             WomenDresses womenDresses = new WomenDresses();
+            categorieFrame.dispose();
         } else if(e.getSource() == vetementsMaternite){
-            categorieFrame.dispose();
             WomenMaternityClothes womenMaternityClothes = new WomenMaternityClothes();
-        } else if(e.getSource() == lingerie){
             categorieFrame.dispose();
+        } else if(e.getSource() == lingerie){
             WomenLingerie womenLingerie = new WomenLingerie();
+            categorieFrame.dispose();
         }
     }
     
