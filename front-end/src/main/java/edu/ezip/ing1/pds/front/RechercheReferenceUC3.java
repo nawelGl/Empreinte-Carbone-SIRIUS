@@ -120,11 +120,8 @@ class RechercheReferenceUC3 implements ActionListener {
                     System.out.println(quantiteAfter);
 
                     if(venteBefore != null && venteAfter != null){
-                        menuEmpreinteCarbone.dispose();
-                        //ProductMapping productMapping = new ProductMapping();
-                        //ProductInfo productInfo=new ProductInfo();
-
                         StatProduct statProduct = new StatProduct(quantiteBefore,quantiteAfter);
+                        menuEmpreinteCarbone.dispose();
                 } else{
                     JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");

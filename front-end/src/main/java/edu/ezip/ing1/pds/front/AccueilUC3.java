@@ -83,21 +83,21 @@ public class AccueilUC3 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == salesBtt) {
-            accueilUC3.dispose();
             SalesFrame salesFrame = new SalesFrame();
             salesFrame.createSalesFrame();
+            accueilUC3.dispose();
         }
         if(e.getSource() == productBtt) {
-            accueilUC3.dispose();
             RechercheReferenceUC3 rechercheReferenceUC3 = new RechercheReferenceUC3(titre,titreHeader,titreLabelSecondaire,x);
             //StatProduct statProduct = new StatProduct(2,8);
+            accueilUC3.dispose();
         }
         if(e.getSource() == categoryBtt) {
             //accueilUC3.dispose();
         }
         if(e.getSource() == backButton){
-            accueilUC3.dispose();
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            accueilUC3.dispose();
         }
     }
 }

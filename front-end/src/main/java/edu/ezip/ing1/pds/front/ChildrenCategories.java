@@ -48,17 +48,17 @@ public class ChildrenCategories extends CategoriesTemplate implements ActionList
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
         if(e.getSource() == bebe){
-            categorieFrame.dispose();
             BabiesCategories babiesCategories = new BabiesCategories();
+            categorieFrame.dispose();
         } else if(e.getSource() == garcons){
-            categorieFrame.dispose();
             BoyCategories boyCategories = new BoyCategories();
+            categorieFrame.dispose();
         } else if(e.getSource() == filles){
-            categorieFrame.dispose();
             GirlsCategories girlsCategories = new GirlsCategories();
-        } else if(e.getSource() == accessoires){
             categorieFrame.dispose();
+        } else if(e.getSource() == accessoires){
             ChildrenAccessories childrenAccessories = new ChildrenAccessories();
+            categorieFrame.dispose();
         }
     }
     

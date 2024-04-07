@@ -206,10 +206,7 @@ public class ProductInfo implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        productInfoFrame.dispose();
-
         ProductMapping productMapping=new ProductMapping();
-        System.out.println("================");
-
+        productInfoFrame.dispose();
     }
 }

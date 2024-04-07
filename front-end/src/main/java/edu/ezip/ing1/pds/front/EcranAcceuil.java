@@ -116,16 +116,16 @@ public class EcranAcceuil implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==boutonUC1) {
-            acceuilApp.dispose();
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
+            acceuilApp.dispose();
         }
         //frame avec les deux boutons
 //        if(e.getSource()==boutonUC3) {
 //            AccueilUC2 accueilUC2=new AccueilUC2();
 //        }
         if(e.getSource()==boutonUC3) {
-            acceuilApp.dispose();
             AccueilUC3 accueilUC3=new AccueilUC3();
+            acceuilApp.dispose();
         }
     }
 }

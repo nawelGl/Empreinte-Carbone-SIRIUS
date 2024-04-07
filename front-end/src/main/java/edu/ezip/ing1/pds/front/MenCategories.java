@@ -57,20 +57,20 @@ public class MenCategories extends CategoriesTemplate implements ActionListener{
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
         if(e.getSource() == hauts){
-            categorieFrame.dispose();
             MenTops menTops = new MenTops();
+            categorieFrame.dispose();
         } else if (e.getSource() == bas){
-            categorieFrame.dispose();
             MenPants menPants = new MenPants();
+            categorieFrame.dispose();
         } else if(e.getSource() == costumes){
-            categorieFrame.dispose();
             MenSuits menSuits = new MenSuits();
+            categorieFrame.dispose();
         } else if(e.getSource() == sousVetements){
-            categorieFrame.dispose();
             MenUnderwears menUnderwears = new MenUnderwears();
-        } else if(e.getSource() == sport){
             categorieFrame.dispose();
+        } else if(e.getSource() == sport){
             MenSportswear menSportswear = new MenSportswear();
+            categorieFrame.dispose();
         }
     }
 }
