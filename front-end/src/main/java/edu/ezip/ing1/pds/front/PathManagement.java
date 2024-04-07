@@ -48,7 +48,7 @@ public class PathManagement implements ActionListener{
     //Boolean qui permet ed gerer l'appui sur le bouton valider :
     //si pas de startPoint ET de endPoint : on ne peut pas valider
 
-    private JButton backMenu;
+    private JButton backMenu = new JButton("Retour au menu");
 
     public PathManagement(){
 
@@ -116,6 +116,7 @@ public class PathManagement implements ActionListener{
             }
         };
 
+        backMenu.addActionListener(this);
         mapPanel.setLayout(null);
 
         mapPanel.setBounds(60, 50,770, 580);
@@ -220,6 +221,10 @@ public class PathManagement implements ActionListener{
             validate.setBounds(1110, 650, 180, 40);
             validate.addActionListener(this);
             mainPanel.add(validate);
+            backMenu.setBounds(920, 650, 180, 40);
+            mainPanel.add(backMenu);
+            mainPanel.revalidate();
+            mainPanel.repaint();
             mainPanel.revalidate();
             mainPanel.repaint();
 
@@ -258,17 +263,6 @@ public class PathManagement implements ActionListener{
             }
         } else if(e.getSource() == validate){
             if(canValidate){
-//                Ne fonctionne pas :
-//                actionButtonsPanel.removeAll();
-//                actionButtonsPanel.revalidate();
-//                actionButtonsPanel.repaint();
-//                JLabel enCours = new JLabel("Votre chemin est en cours d'enregistrement ...");
-//                enCours.setForeground(Color.WHITE);
-//                enCours.setBounds(85, 270, 500, 70);
-//                enCours.setFont(new Font(Template.POLICE, Font.BOLD, 20));
-//                actionButtonsPanel.add(enCours);
-
-                //TODO : à modifier pour ne pas faire apparaitre la requete ici !
 
                 numeroRayon = (int)comboBox.getSelectedItem();
                 String responseBody = "";
@@ -287,9 +281,8 @@ public class PathManagement implements ActionListener{
                 }
 
                 //Si validation finie sans catch :
-                backMenu = new JButton("Retour au menu");
-                backMenu.addActionListener(this);
-                backMenu.setBounds(920, 650, 180, 40);
+                mainPanel.remove(validate);
+                backMenu.setBounds(1110, 650, 180, 40);
                 mainPanel.add(backMenu);
                 mainPanel.revalidate();
                 mainPanel.repaint();
