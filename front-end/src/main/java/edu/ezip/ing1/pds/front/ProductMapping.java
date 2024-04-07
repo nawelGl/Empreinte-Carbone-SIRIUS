@@ -149,8 +149,8 @@ public class ProductMapping implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
        if(e.getSource() == setPath){
-        productMappingFrame.dispose();
-        PathManagement pathManagement = new PathManagement();
+            PathManagement pathManagement = new PathManagement();
+            productMappingFrame.dispose();
        }
     }
     

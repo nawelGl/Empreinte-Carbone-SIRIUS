@@ -262,6 +262,8 @@ public class PathManagement implements ActionListener{
 //                enCours.setFont(new Font(Template.POLICE, Font.BOLD, 20));
 //                actionButtonsPanel.add(enCours);
 
+                //TODO : à modifier pour ne pas faire apparaitre la requete ici !
+
                 numeroRayon = (int)comboBox.getSelectedItem();
                 Request request = new Request();
                 String responseBody = "";
@@ -304,8 +306,8 @@ public class PathManagement implements ActionListener{
                 mapPanel.repaint();
             }
         } else if(e.getSource() == backMenu){
-            pathManagementFrame.dispose();
             PathManagement pathManagement = new PathManagement();
+            pathManagementFrame.dispose();
         }
     }
 }

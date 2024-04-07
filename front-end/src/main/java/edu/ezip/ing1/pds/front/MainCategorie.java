@@ -47,14 +47,14 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
         if(e.getSource() == categorieFemme){
-            categorieFrame.dispose();
             WomenCategories womenCategories = new WomenCategories();
+            categorieFrame.dispose();
         } else if(e.getSource() == categorieHomme){
-            categorieFrame.dispose();
             MenCategories menCategories = new MenCategories();
-        } else if(e.getSource() == categorieEnfant){
             categorieFrame.dispose();
+        } else if(e.getSource() == categorieEnfant){
             ChildrenCategories childrenCategories = new ChildrenCategories();
+            categorieFrame.dispose();
         } 
     }
     
