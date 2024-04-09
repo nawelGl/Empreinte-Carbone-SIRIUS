@@ -1,4 +1,7 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC1;
+
+import edu.ezip.ing1.pds.front.RechercheReference;
+import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +26,7 @@ public class TestAffichageProduit {
         textArea = new JTextArea();
         textArea.setBounds(140, 70, 670, 600);
         textArea.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
-        textArea.append(RechercheReference.product.toString());
+        textArea.append(RechercheReference.getProduct().toString());
         mainPanel.add(textArea);
 
         testAffichageProduit.getContentPane().add(mainPanel);

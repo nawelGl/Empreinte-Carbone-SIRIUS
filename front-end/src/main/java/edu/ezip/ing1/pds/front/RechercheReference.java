@@ -1,28 +1,31 @@
 package edu.ezip.ing1.pds.front;
 
 import edu.ezip.ing1.pds.business.dto.*;
-import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
+import edu.ezip.ing1.pds.front.Categories.MainCategorie;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class RechercheReference implements ActionListener {
+public class RechercheReference implements ActionListener {
 
     static Produit product;
     static Vente vente;
-
     JFrame menuEmpreinteCarbone;
     JButton boutonConfirmer;
     JTextField searchBar;
     String titre;
     boolean referenceIsNotAnInt = false;
     String titreLabelSecondaire ;
-
     String titreHeader;
     int x;
+
+    public static Produit getProduct() {
+        return product;
+    }
 
     //Bouton pour acceder aux categories :
     JButton boutonCategories = new JButton();

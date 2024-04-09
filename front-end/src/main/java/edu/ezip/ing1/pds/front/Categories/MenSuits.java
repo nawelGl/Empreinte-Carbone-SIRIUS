@@ -1,4 +1,6 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.Categories;
+
+import edu.ezip.ing1.pds.front.Categories.CategoriesTemplate;
 
 import java.awt.event.ActionListener;
 

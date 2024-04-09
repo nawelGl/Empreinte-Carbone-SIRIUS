@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.Categories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

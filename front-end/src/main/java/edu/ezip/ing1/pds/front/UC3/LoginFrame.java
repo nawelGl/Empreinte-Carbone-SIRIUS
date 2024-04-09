@@ -3,7 +3,6 @@ package edu.ezip.ing1.pds.front.UC3;
 import edu.ezip.ing1.pds.front.Methodes;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +41,7 @@ public class LoginFrame implements ActionListener {
         //JPanel secondPanel = new JPanel();
         RoundedPanel secondPanel = new RoundedPanel(60,60);
         secondPanel.setLayout(null);
-        secondPanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        secondPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
         secondPanel.setBounds(300, 200, 800, 350);
         //Ajout du JLabel :

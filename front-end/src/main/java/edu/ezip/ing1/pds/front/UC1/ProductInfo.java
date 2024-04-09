@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC1;
 
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.business.dto.TransportMode;
@@ -9,12 +9,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 import javax.swing.*;
 import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.SelectVilleById;
-import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.RechercheReference;
+import edu.ezip.ing1.pds.front.Template;
+import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
 import static edu.ezip.ing1.pds.front.Methodes.*;
 import static java.lang.String.valueOf;
@@ -22,16 +23,16 @@ import static java.lang.String.valueOf;
 public class ProductInfo implements ActionListener {
 
     JFrame productInfoFrame;
-    private String productName = RechercheReference.product.getNomProduit();
-    private String productScore = RechercheReference.product.getScore();
-    private String productColor = RechercheReference.product.getCouleur();
+    private String productName = RechercheReference.getProduct().getNomProduit();
+    private String productScore = RechercheReference.getProduct().getScore();
+    private String productColor = RechercheReference.getProduct().getCouleur();
     private Double carbonFootPrint;
             //= RechercheReference.product.getEmpreinte();
-    private double productPrice= RechercheReference.product.getPrix();
-    private double prodcutWeight= RechercheReference.product.getPoids();
-    private Integer idTransportMode= RechercheReference.product.getIdTransportMode();
-    private Integer idVilleDepart= RechercheReference.product.getIdVilleDepart();
-    private  Integer idVilleArrive= RechercheReference.product.getIdVilleArrive();
+    private double productPrice= RechercheReference.getProduct().getPrix();
+    private double prodcutWeight= RechercheReference.getProduct().getPoids();
+    private Integer idTransportMode= RechercheReference.getProduct().getIdTransportMode();
+    private Integer idVilleDepart= RechercheReference.getProduct().getIdVilleDepart();
+    private  Integer idVilleArrive= RechercheReference.getProduct().getIdVilleArrive();
     private Ville villeArrive;
     private Ville villeDepart;
     private TransportMode transportMode;

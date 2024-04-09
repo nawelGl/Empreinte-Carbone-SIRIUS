@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC2;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -23,8 +23,9 @@ import javax.swing.SwingUtilities;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
-import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
+import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.Template;
 
 public class PathManagement implements ActionListener{
 

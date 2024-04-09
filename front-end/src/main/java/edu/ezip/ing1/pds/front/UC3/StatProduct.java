@@ -62,7 +62,7 @@ public class StatProduct {
         RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
         JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
         infoTitlePanel.add(infoTitle);
-        infoTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        infoTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
         // recuperer l'image de produit par reference

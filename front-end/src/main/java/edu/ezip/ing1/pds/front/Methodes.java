@@ -1,5 +1,7 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC2;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.client.SelectEmplacementById;
 import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.front.*;
+import edu.ezip.ing1.pds.front.UC2.PathManagement;
 
 import static java.lang.String.valueOf;
 
@@ -18,12 +20,12 @@ import java.util.Objects;
 public class ProductMapping implements ActionListener{
 
     JFrame productMappingFrame;
-    private String productName = RechercheReference.product.getNomProduit();
-    private String productColor = RechercheReference.product.getCouleur();
+    private String productName = RechercheReference.getProduct().getNomProduit();
+    private String productColor = RechercheReference.getProduct().getCouleur();
     JButton setPath;
 
     private Emplacement emplacement;
-    private int idEmplacement = RechercheReference.product.getIdEmplacement();
+    private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
     private int borderTop = 20;

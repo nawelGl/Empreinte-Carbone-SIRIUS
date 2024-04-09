@@ -1,4 +1,7 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.Categories;
+
+import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import java.awt.*;
