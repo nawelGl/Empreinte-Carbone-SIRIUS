@@ -2,8 +2,8 @@ package edu.ezip.ing1.pds.front.UC3;
 
 
 import edu.ezip.ing1.pds.business.dto.Vente;
-import edu.ezip.ing1.pds.client.SelectAfterVenteByReference;
-import edu.ezip.ing1.pds.client.SelectBeforeVenteByReference;
+import edu.ezip.ing1.pds.client.UC3.SelectAfterVenteByReference;
+import edu.ezip.ing1.pds.client.UC3.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
 

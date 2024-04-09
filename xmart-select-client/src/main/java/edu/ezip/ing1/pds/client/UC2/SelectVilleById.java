@@ -1,12 +1,11 @@
-package edu.ezip.ing1.pds.client;
-
+package edu.ezip.ing1.pds.client.UC2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
 
-import edu.ezip.ing1.pds.business.dto.TransportMode;
+import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -20,32 +19,32 @@ import java.util.Deque;
 import java.util.UUID;
 
 
-public class SelectTransportModeByID extends ClientRequest<Object, TransportMode>{
+public class SelectVilleById extends ClientRequest<Object, Ville>{
 
     //Attributs pour lancer la requête.
     private final static String LoggingLabel = "S e l e c t - T R A S P O R T M O D E - B y - I D";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_TRANSPORTMODE_BY_ID";
+    private static final String requestOrder = "SELECT_VILLE_BY_ID";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
-    public SelectTransportModeByID(
+    public SelectVilleById(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
     }
 
     @Override
-    public TransportMode readResult(String body) throws IOException {
+    public Ville readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final TransportMode transportMode = mapper.readValue(body, TransportMode.class);
-        return transportMode;
+        final Ville ville = mapper.readValue(body, Ville.class);
+        return ville;
     }
 
 
-    public static TransportMode launchSelectTransportModeById(Request request) throws IOException, InterruptedException{
+    public static Ville launchSelectVilleById(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -57,7 +56,7 @@ public class SelectTransportModeByID extends ClientRequest<Object, TransportMode
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectTransportModeByID clientRequest = new SelectTransportModeByID(
+        final SelectVilleById clientRequest = new SelectVilleById(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -67,13 +66,13 @@ public class SelectTransportModeByID extends ClientRequest<Object, TransportMode
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final TransportMode transportMode = (TransportMode) joinedClientRequest.getResult();
+                final Ville ville = (Ville) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
                 asciiTable.addRule();
-                asciiTable.addRow(transportMode.getIdTransportMode(),transportMode.getNomTransport(),transportMode.getCarburant(),transportMode.getCoeffEmission());
+                asciiTable.addRow(ville.getIdVille(), ville.getNomPays(), ville.getCoordLatitude(), ville.getCoordLongitude());
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return transportMode;
+                return ville;
             }
         } catch(Exception e){
             System.out.println("Erreur : id inexistant");

@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.client;
+package edu.ezip.ing1.pds.client.UC3;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Ventes;

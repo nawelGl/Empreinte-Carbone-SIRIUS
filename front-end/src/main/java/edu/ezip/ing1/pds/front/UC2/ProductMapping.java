@@ -5,10 +5,9 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import edu.ezip.ing1.pds.business.dto.Emplacement;
-import edu.ezip.ing1.pds.client.SelectEmplacementById;
+import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
-import edu.ezip.ing1.pds.front.UC2.PathManagement;
 
 import static java.lang.String.valueOf;
 

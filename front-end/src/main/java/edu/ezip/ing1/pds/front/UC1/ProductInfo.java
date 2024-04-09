@@ -2,7 +2,7 @@ package edu.ezip.ing1.pds.front.UC1;
 
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.business.dto.TransportMode;
-import edu.ezip.ing1.pds.client.SelectTransportModeByID;
+import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
 import edu.ezip.ing1.pds.commons.Request;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import edu.ezip.ing1.pds.business.dto.Ville;
-import edu.ezip.ing1.pds.client.SelectVilleById;
+import edu.ezip.ing1.pds.client.UC2.SelectVilleById;
 import edu.ezip.ing1.pds.front.Methodes;
 import edu.ezip.ing1.pds.front.RechercheReference;
 import edu.ezip.ing1.pds.front.Template;
