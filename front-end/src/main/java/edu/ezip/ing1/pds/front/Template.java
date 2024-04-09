@@ -1,7 +1,7 @@
 package edu.ezip.ing1.pds.front;
 
 
-interface Template {
+public interface Template {
     //Valeurs constantes pour les frames qui vont implémenter l'interface :
     int LONGUEUR = 1400;
     int LARGEUR = 820;

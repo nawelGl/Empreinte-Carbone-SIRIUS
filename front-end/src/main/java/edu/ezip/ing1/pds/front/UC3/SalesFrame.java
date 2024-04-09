@@ -1,19 +1,20 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC3;
+
+import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class SalesFrame extends JFrame {
-    private int width = 1000;
-    private int height= 700;
+
 
     private JLabel text;
     public void createSalesFrame() {
         // installation de frame
         JFrame frame = new JFrame("Vos meilleures ventes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(width, height);
+        frame.setSize(Template.LONGUEUR, Template.LARGEUR);
         frame.getContentPane().setBackground(new Color(0xE7EBE4));
 
         // main panel

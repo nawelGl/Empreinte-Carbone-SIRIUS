@@ -1,8 +1,11 @@
-package edu.ezip.ing1.pds.front;
+package edu.ezip.ing1.pds.front.UC3;
 
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.client.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.RoundedPanel;
+import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,11 +18,14 @@ public class StatProduct {
 
     JFrame statUC3;
     String[] labels = {"Avant", "Après"};
+    String photoName;
 
     private int reference = RechercheReferenceUC3.venteBefore.getReference();
     private String score = RechercheReferenceUC3.venteBefore.getScore();
     private Vente vente;
     private  int textSize=20;
+
+
 
     public StatProduct(int salesBefore, int salesAfter ){
 
@@ -35,9 +41,9 @@ public class StatProduct {
 
         statUC3 = new JFrame("Statistiques");
         statUC3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        statUC3.setLocationRelativeTo(null);
         statUC3.setResizable(false);
         statUC3.setSize(Template.LONGUEUR,Template.LARGEUR);
+        statUC3.setLocationRelativeTo(null);
 
         //------------------panel header---------------------------
         Methodes.header(statUC3,"Vos statistiques par produit",525);
@@ -50,23 +56,42 @@ public class StatProduct {
         //infoPanel
         JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(Color.white);
+        infoPanel.setBounds(150,100,500,550);
 
+        //titlePanel
         RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
         JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
-        infoTitle.setFont(new Font("Avenir", Font.BOLD,textSize));
         infoTitlePanel.add(infoTitle);
+        infoTitlePanel.setBackground(Color.decode(Template.COUELUR_SECONDAIRE));
+        infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
 
-//        JLabel refLabel = new JLabel();
-//        refLabel.setText("Information de votre produit "+vente.getReference());
-//        refLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
-        //refLabel.setBorder(new EmptyBorder());
+        // recuperer l'image de produit par reference
+        photoName = "/"+Integer.toString(reference)+".png";
 
+        // controle de dimension de l'image
+
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource(photoName));
+        Image image = imageIcon.getImage();
+        Image newImage = image.getScaledInstance(200, 205, Image.SCALE_SMOOTH);
+
+        ImageIcon scaledImageIcon = new ImageIcon(newImage);
+
+        JLabel photoLabel = new JLabel();
+        photoLabel.setIcon(scaledImageIcon);
+
+        // photoLabel
+        photoLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(photoName))));
+
+
+
+        // textLabel
         JLabel textLabel = new JLabel("le score de votre produit est ");
-        textLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
 
+
+
+
+        // scoreLabel
         JLabel scoreLabel = new JLabel();
-        scoreLabel.setFont(new Font("Avenir", Font.BOLD,textSize));
-
         // Switch case pour recuperer l'icone correspondqnt
 
         switch (score) {
@@ -87,12 +112,24 @@ public class StatProduct {
                 break;
         }
 
+        photoLabel.setBounds(150,100,200,205);
+        textLabel.setBounds(30,380,200,20);
+        scoreLabel.setBounds(400,380,50,50);
+
         //-------ajout de labels----------
         infoPanel.add(BorderLayout.NORTH,infoTitlePanel);
-        infoPanel.add(BorderLayout.WEST,textLabel);
-        infoPanel.add(BorderLayout.EAST,scoreLabel);
 
-        infoPanel.setBounds(150,100,500,550);
+
+
+        infoPanel.add(photoLabel);
+        infoPanel.add(textLabel);
+        infoPanel.add(scoreLabel);
+
+
+
+
+
+
 
         //chartPanel
         JPanel chartPanel = new JPanel(new BorderLayout());
@@ -106,8 +143,7 @@ public class StatProduct {
 
 
         double[] values = {salesBefore, salesAfter};
-        Color[] colors = {Color.decode("#6CE5E8"), Color.decode("#41B8D5")};
-        DrawChart barChart = new DrawChart(labels, values, colors);
+        DrawBarChart barChart = new DrawBarChart(labels, values);
         chartPanel.add(BorderLayout.NORTH,chartTitlePanel);
         chartPanel.add(BorderLayout.CENTER, barChart);
 
