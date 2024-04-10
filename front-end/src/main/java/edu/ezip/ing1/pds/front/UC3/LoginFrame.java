@@ -65,7 +65,7 @@ public class LoginFrame implements ActionListener {
         pwLabel.setForeground(Color.WHITE);
         pwLabel.setFont(new Font("Avenir", Font.BOLD, 15));
 
-        pwTxt= new JTextField(20);
+        pwTxt= new JPasswordField(20);
         pwLabel.setBounds(250, 170, 120, 20);
         pwTxt.setBounds(360, 170, 120, 20);
 
