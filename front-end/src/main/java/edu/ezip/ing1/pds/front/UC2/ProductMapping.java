@@ -1,16 +1,12 @@
 package edu.ezip.ing1.pds.front.UC2;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
 import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
-
 import static java.lang.String.valueOf;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,7 +54,7 @@ public class ProductMapping implements ActionListener{
 
         //----------panel header--------------
         String titreHeader = "Se rendre au produit \"" + productName + " " + productColor + "\"";
-        Methodes.header(productMappingFrame, titreHeader, 470);
+        Methodes.header(productMappingFrame, titreHeader, 480);
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -112,22 +108,20 @@ public class ProductMapping implements ActionListener{
         //==============================================
         JPanel panelMap = new JPanel();
         panelMap.setLayout(null);
-        panelMap.setBounds(60, 50,770,580);
-        Border border = BorderFactory.createLineBorder(Color.BLACK);
-        panelMap.setBorder(border);
+        panelMap.setBounds(60, 60,770,580);
         panelMap.setBackground(Color.WHITE);
 
         ImageIcon map = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
 
         JLabel mapLabel = new JLabel(map);
-        mapLabel.setBounds(60, 50, 770, 580);
+        mapLabel.setBounds(60, 60, 770, 580);
         mainPanel.add(mapLabel);
 
        // mainPanel.add(panelTestMap);
 
         JPanel panelPlan = new JPanel();
         panelPlan.setLayout(null);
-        panelPlan.setBounds(840, 50,500,580);
+        panelPlan.setBounds(840, 60,500,580);
         panelPlan.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         mainPanel.add(panelPlan);
 
@@ -138,6 +132,12 @@ public class ProductMapping implements ActionListener{
             setPath.addActionListener(this);
             setPath.setBounds(1150, 650, 200, 40);
             mainPanel.add(setPath);
+
+        //Titre : numero d'étage du plan
+        JLabel etageTitre = new JLabel("Plan du 1er étage :");
+        etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
+        etageTitre.setBounds(600, 10, 300, 50);
+        mainPanel.add(etageTitre);
 
         panelPlan.add(titleLabel);
         //panelTestPlan.add(aislePanel);
