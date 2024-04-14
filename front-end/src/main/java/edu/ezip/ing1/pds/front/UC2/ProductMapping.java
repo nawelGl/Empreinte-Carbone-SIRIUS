@@ -3,7 +3,9 @@ package edu.ezip.ing1.pds.front.UC2;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import edu.ezip.ing1.pds.business.dto.Emplacement;
+import edu.ezip.ing1.pds.business.dto.Etage;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
+import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
 import static java.lang.String.valueOf;
@@ -20,6 +22,7 @@ public class ProductMapping implements ActionListener{
     JButton setPath;
 
     private Emplacement emplacement;
+    private Etage etage;
     private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
@@ -37,6 +40,23 @@ public class ProductMapping implements ActionListener{
 
         try{
             if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+        }
+
+        //Recherche de l'étage via l'idEtage de l'emplacement :
+        try {
+            etage = SelectEtageById.lauchSelectEtageById(valueOf(emplacement.getIdEtage()));
+        } catch(Exception e){
+            System.out.println("Erreur sur l'idEtage : " + e.getMessage());
+        }
+
+        try{
+            if(etage.getIdEtage() == 0 || etage.getNumeroEtage() == 0){
                 throw new Exception();
             }
         } catch(Exception exc){
@@ -100,8 +120,7 @@ public class ProductMapping implements ActionListener{
 
         //------------floor label-----------
         JLabel floorLabel = new JLabel();
-        //TODO : faire une requete pour recuperer l'ateg via idEtage car on ne peut pas considerer l'idEtage comme le numero d'étage effectif
-        floorLabel.setText("Étage n° " + emplacement.getIdEmplacement());
+        floorLabel.setText("Étage n° " + etage.getNumeroEtage());
         floorLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
@@ -135,7 +154,10 @@ public class ProductMapping implements ActionListener{
             mainPanel.add(setPath);
 
         //Titre : numero d'étage du plan
-        JLabel etageTitre = new JLabel("Plan du 1er étage :");
+        JLabel etageTitre = new JLabel();
+        if(etage.getNumeroEtage() == 1){
+            etageTitre.setText("Plan du 1er étage :");
+        } else  etageTitre.setText("Plan du " + etage.getNumeroEtage() + "eme étage :");
         etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
         etageTitre.setBounds(600, 10, 300, 50);
         mainPanel.add(etageTitre);

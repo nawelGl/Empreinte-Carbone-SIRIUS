@@ -30,6 +30,7 @@ public class Produit {
 
     
 public Produit(){}
+
     public final Produit build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResultSet(resultSet, "idEmplacement", "couleur", "taille", "reference", "score", "genre", "empreinte", "idMagasin", "idMarque", "nomProduit", "idsouscatB", "idVilleDepart", "idVilleArrive","idTransportMode", "poids","prix","idSousCatA","idCategorie");
@@ -79,8 +80,6 @@ public Produit(){}
     }
 
     public void setIdEmplacement(int idEmplacement){this.idEmplacement = idEmplacement;}
-
-
 
     public String getCouleur() {
         return couleur;

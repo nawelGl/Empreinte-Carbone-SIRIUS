@@ -1,4 +1,4 @@
-package edu.ezip.ing1.pds.client.UC2;
+package edu.ezip.ing1.pds.client.UC1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
