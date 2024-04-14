@@ -41,7 +41,7 @@ public class RechercheReference implements ActionListener {
         menuEmpreinteCarbone.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(menuEmpreinteCarbone, titreHeader, x);
+        MethodesFront.header(menuEmpreinteCarbone, titreHeader, x);
 
         //----------panel principal--------------
         JPanel mainPanel = new JPanel();

@@ -1,6 +1,6 @@
 package edu.ezip.ing1.pds.front.Categories;
 
-import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class CategoriesTemplate implements ActionListener{
         categorieFrame.setResizable(false);
 
         //Adding a header :
-        Methodes.header(categorieFrame, "Choisissez une catégorie", 540);
+        MethodesFront.header(categorieFrame, "Choisissez une catégorie", 540);
 
         //Adding the main panel :
         mainPanel = new JPanel();

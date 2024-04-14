@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import javax.swing.*;
 import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.UC2.SelectVilleById;
-import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RechercheReference;
 import edu.ezip.ing1.pds.front.Template;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
-import static edu.ezip.ing1.pds.front.Methodes.*;
+import static edu.ezip.ing1.pds.front.MethodesFront.*;
 import static java.lang.String.valueOf;
 
 public class ProductInfo implements ActionListener {
@@ -56,7 +56,7 @@ public class ProductInfo implements ActionListener {
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
        // String titreHeader="Produit nom couleur";
 
-        Methodes.header(productInfoFrame, titreHeader, 540);
+        MethodesFront.header(productInfoFrame, titreHeader, 540);
 
 
         //---------panel principal-----------

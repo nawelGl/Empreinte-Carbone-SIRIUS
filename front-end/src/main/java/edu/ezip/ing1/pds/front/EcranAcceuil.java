@@ -1,18 +1,13 @@
 package edu.ezip.ing1.pds.front;
 
 
-import edu.ezip.ing1.pds.front.UC3.AccueilUC3;
 import edu.ezip.ing1.pds.front.UC3.LoginFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 
 import javax.swing.*;
-
-import edu.ezip.ing1.pds.business.dto.Path;
-import edu.ezip.ing1.pds.business.dto.Paths;
 
 public class EcranAcceuil implements ActionListener {
     JFrame acceuilApp;
@@ -47,7 +42,7 @@ public class EcranAcceuil implements ActionListener {
         acceuilApp.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(acceuilApp, "Empreinte carbone", 575);
+        MethodesFront.header(acceuilApp, "Empreinte carbone", 575);
 
         // initialisation des panels
         panelCentre = new JPanel(null); // Utiliser un layout null pour pouvoir utiliser setBounds

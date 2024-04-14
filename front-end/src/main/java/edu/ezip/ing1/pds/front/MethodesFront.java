@@ -12,7 +12,7 @@ import java.util.Objects;
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
 
 
-public class Methodes {
+public class MethodesFront {
     // Header for frames
     public static void header(JFrame frame, String titre, int x) {
         // ----------panel header : Logo + label titre--------------
@@ -21,14 +21,14 @@ public class Methodes {
         JLabel titreLabel = new JLabel(titre);
         titreLabel.setBounds(x, 13, 600, 50);
 
-        ImageIcon logo = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/logo.png")));
+        ImageIcon logo = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/logo.png")));
 
         JLabel logoLabel = new JLabel(logo);
         logoLabel.setBounds(10, 8, 70, 70);
         headerPanel.add(logoLabel);
 
 
-        ImageIcon homeIcon= new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/home.png")));
+        ImageIcon homeIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/home.png")));
         JButton homeButton=new JButton(homeIcon);
                 //new JButton(homeIcon);
         homeButton.setBounds(1320,20,60,60);
