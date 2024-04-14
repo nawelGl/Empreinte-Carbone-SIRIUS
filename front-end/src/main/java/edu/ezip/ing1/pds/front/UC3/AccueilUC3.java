@@ -2,7 +2,7 @@ package edu.ezip.ing1.pds.front.UC3;
 //import edu.ezip.ing1.pds.front.*;
 
 import edu.ezip.ing1.pds.front.EcranAcceuil;
-import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
@@ -58,7 +58,7 @@ public class AccueilUC3 extends JFrame implements ActionListener {
 
 
         //------------Panel header-------------------
-        Methodes.header(accueilUC3,"Statistique pour votre business",525);
+        MethodesFront.header(accueilUC3,"Statistique pour votre business",525);
 
         //mainPanel (principal)
         JPanel mainPanel = new JPanel();

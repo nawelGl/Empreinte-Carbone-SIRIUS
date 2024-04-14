@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
-import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
 public class PathManagement implements ActionListener{
@@ -62,12 +62,12 @@ public class PathManagement implements ActionListener{
 
         //----------panel header--------------
         String titreHeader = "Configurez les emplacements de votre magasin";
-        Methodes.header(pathManagementFrame, titreHeader, 450);
+        MethodesFront.header(pathManagementFrame, titreHeader, 450);
         //------------------------------------
 
         // Charger l'image de fond
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(MethodesFront.class.getResource("/mapV1.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

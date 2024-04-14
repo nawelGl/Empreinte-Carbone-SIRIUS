@@ -36,7 +36,7 @@ public class ProductMapping implements ActionListener{
         }
 
         try{
-            if(emplacement.getEtage() == null || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
                 throw new Exception();
             }
         } catch(Exception exc){
@@ -54,7 +54,7 @@ public class ProductMapping implements ActionListener{
 
         //----------panel header--------------
         String titreHeader = "Se rendre au produit \"" + productName + " " + productColor + "\"";
-        Methodes.header(productMappingFrame, titreHeader, 480);
+        MethodesFront.header(productMappingFrame, titreHeader, 480);
 
         //---------panel principal-----------
         JPanel mainPanel = new JPanel();
@@ -100,7 +100,8 @@ public class ProductMapping implements ActionListener{
 
         //------------floor label-----------
         JLabel floorLabel = new JLabel();
-        floorLabel.setText("Étage : " + emplacement.getEtage());
+        //TODO : faire une requete pour recuperer l'ateg via idEtage car on ne peut pas considerer l'idEtage comme le numero d'étage effectif
+        floorLabel.setText("Étage n° " + emplacement.getIdEmplacement());
         floorLabel.setFont(new Font("Avenir", Font.BOLD, textSize));
         floorLabel.setBorder(new EmptyBorder(borderTop, 0, 0, 0));
         floorPanel.add(floorLabel);
@@ -111,7 +112,7 @@ public class ProductMapping implements ActionListener{
         panelMap.setBounds(60, 60,770,580);
         panelMap.setBackground(Color.WHITE);
 
-        ImageIcon map = new ImageIcon(Objects.requireNonNull(Methodes.class.getResource("/mapV1.png")));
+        ImageIcon map = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/mapV1.png")));
 
         JLabel mapLabel = new JLabel(map);
         mapLabel.setBounds(60, 60, 770, 580);

@@ -1,6 +1,6 @@
 package edu.ezip.ing1.pds.front.UC3;
 
-import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
 import javax.swing.*;
@@ -29,7 +29,7 @@ public class LoginFrame implements ActionListener {
         loginFrame.setLocationRelativeTo(null);
 
         //------header-----------
-        Methodes.header(loginFrame,"Connectez pour accéder à votre statistisque",500);
+        MethodesFront.header(loginFrame,"Connectez pour accéder à votre statistisque",500);
 
         //----------panel principal--------------
         JPanel mainPanel = new JPanel();

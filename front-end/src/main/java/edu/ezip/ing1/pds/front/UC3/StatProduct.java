@@ -3,7 +3,7 @@ package edu.ezip.ing1.pds.front.UC3;
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.client.UC3.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
-import edu.ezip.ing1.pds.front.Methodes;
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
 
@@ -46,7 +46,7 @@ public class StatProduct {
         statUC3.setLocationRelativeTo(null);
 
         //------------------panel header---------------------------
-        Methodes.header(statUC3,"Vos statistiques par produit",525);
+        MethodesFront.header(statUC3,"Vos statistiques par produit",525);
 
         //mainPanel(principal)
         JPanel mainPanel = new JPanel();
