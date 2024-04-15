@@ -19,10 +19,13 @@ public class ProductMapping implements ActionListener{
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
     private String productColor = RechercheReference.getProduct().getCouleur();
-    JButton setPath;
-
+    private JButton setPath;
+    private JButton flecheGauche;
+    private JButton flecheDroite;
     private Emplacement emplacement;
     private Etage etage;
+    private int etageActuel = 0;
+    //Pour l'étage actuel : vaut 0 à la base et si on appuie sur -> on fait +1 et si on appuie sur <- on fait -1
     private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
@@ -80,6 +83,18 @@ public class ProductMapping implements ActionListener{
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+
+        //TODO : ajouter les flèches
+        ImageIcon leftArrow= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheGauche.png")));
+        flecheGauche = new JButton(leftArrow);
+        flecheGauche.setBounds(350, 645, 50, 50);
+        mainPanel.add(flecheGauche);
+
+        ImageIcon rightArrow= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheDroite.png")));
+        flecheDroite = new JButton(rightArrow);
+        flecheDroite.setBounds(450, 645, 50, 50);
+        mainPanel.add(flecheDroite);
+
         productMappingFrame.getContentPane().add(mainPanel);
 
         //------------title label-------------
@@ -150,7 +165,7 @@ public class ProductMapping implements ActionListener{
             setPath = new JButton();
             setPath.setText("Configurer les chemins");
             setPath.addActionListener(this);
-            setPath.setBounds(1150, 650, 200, 40);
+            setPath.setBounds(1145, 650, 200, 40);
             mainPanel.add(setPath);
 
         //Titre : numero d'étage du plan
@@ -167,6 +182,14 @@ public class ProductMapping implements ActionListener{
         panelPlan.add(shelfPanel);
         panelPlan.add(floorPanel);
         productMappingFrame.setVisible(true);
+
+        //=================================================
+        //TODO : si l'étage actuel (qui s'affiche sur la map) < étage du produit (rayon.getNumeroRayon), afficher le path jusqu'aux escalators.
+        if(etageActuel < etage.getNumeroEtage()){
+            //TODO : Afficher path jusqu'aux escalators.
+        } else {
+            //Sinon, si etageActuel == etage du produit : afficher le path jusquau produit (SELECT sur les points associés au rayon)
+        }
     }
 
 
