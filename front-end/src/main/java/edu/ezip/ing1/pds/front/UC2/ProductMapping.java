@@ -22,9 +22,11 @@ public class ProductMapping implements ActionListener{
     private JButton setPath;
     private JButton flecheGauche;
     private JButton flecheDroite;
+    private JLabel etageTitre;
     private Emplacement emplacement;
     private Etage etage;
-    private int etageActuel = 0;
+    private JPanel mainPanel;
+    private int etageActuel = 1;
     //Pour l'étage actuel : vaut 0 à la base et si on appuie sur -> on fait +1 et si on appuie sur <- on fait -1
     private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
@@ -80,19 +82,20 @@ public class ProductMapping implements ActionListener{
         MethodesFront.header(productMappingFrame, titreHeader, 480);
 
         //---------panel principal-----------
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
 
-        //TODO : ajouter les flèches
         ImageIcon leftArrow= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheGauche.png")));
         flecheGauche = new JButton(leftArrow);
-        flecheGauche.setBounds(350, 645, 50, 50);
+        flecheGauche.addActionListener(this);
+        flecheGauche.setBounds(355, 645, 50, 50);
         mainPanel.add(flecheGauche);
 
         ImageIcon rightArrow= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheDroite.png")));
         flecheDroite = new JButton(rightArrow);
-        flecheDroite.setBounds(450, 645, 50, 50);
+        flecheDroite.addActionListener(this);
+        flecheDroite.setBounds(455, 645, 50, 50);
         mainPanel.add(flecheDroite);
 
         productMappingFrame.getContentPane().add(mainPanel);
@@ -169,13 +172,8 @@ public class ProductMapping implements ActionListener{
             mainPanel.add(setPath);
 
         //Titre : numero d'étage du plan
-        JLabel etageTitre = new JLabel();
-        if(etage.getNumeroEtage() == 1){
-            etageTitre.setText("Plan du 1er étage :");
-        } else  etageTitre.setText("Plan du " + etage.getNumeroEtage() + "eme étage :");
-        etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
-        etageTitre.setBounds(600, 10, 300, 50);
-        mainPanel.add(etageTitre);
+        etageTitre = new JLabel();
+        afficherEtageTitre();
 
         panelPlan.add(titleLabel);
         //panelTestPlan.add(aislePanel);
@@ -191,13 +189,37 @@ public class ProductMapping implements ActionListener{
             //Sinon, si etageActuel == etage du produit : afficher le path jusquau produit (SELECT sur les points associés au rayon)
         }
     }
-
+    
+    public void afficherEtageTitre(){
+        if(etageActuel == 1){
+            etageTitre.setText("Plan du 1er étage :");
+        } else  etageTitre.setText("Plan du " + etageActuel + "ème étage :");
+        etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
+        etageTitre.setBounds(600, 10, 300, 50);
+        mainPanel.add(etageTitre);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
        if(e.getSource() == setPath){
             PathManagement pathManagement = new PathManagement();
             productMappingFrame.dispose();
+       } else if(e.getSource() == flecheGauche){
+           //Pas possible d'avoir un étage négatif
+           if(etageActuel > 1){
+               etageActuel --;
+               afficherEtageTitre();
+               mainPanel.repaint();
+               mainPanel.revalidate();
+           }
+       } else if(e.getSource() == flecheDroite){
+           //Pas possible que l'etage actuel soit supérieur à l'étage effectif
+           if(etageActuel < etage.getNumeroEtage()){
+               etageActuel++;
+               afficherEtageTitre();
+               mainPanel.repaint();
+               mainPanel.revalidate();
+           }
        }
     }
     
