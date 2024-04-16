@@ -31,9 +31,8 @@ public class ProductMapping implements ActionListener{
     public ProductMapping(){
         //Recherche de l'emplacement via l'idEmplacement du produit :
         try {
-            Request request = new Request();
-            request.setRequestContent(valueOf(idEmplacement));
-            emplacement = SelectEmplacementById.launchSelectEmplacementById(request);
+
+            emplacement = SelectEmplacementById.launchSelectEmplacementById(idEmplacement);
         } catch(Exception e){
             System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
         }

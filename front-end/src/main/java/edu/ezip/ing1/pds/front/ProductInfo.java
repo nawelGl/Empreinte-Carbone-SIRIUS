@@ -118,7 +118,7 @@ public class ProductInfo implements ActionListener {
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
         productPanel.setLayout(null);
-        productPanel.setBounds(180,60,1030,300);
+        productPanel.setBounds(180,30,1030,300);
         productPanel.setBackground(Color.WHITE);
 
         JLabel label1 = new JLabel("Votre produit ");
@@ -139,9 +139,7 @@ public class ProductInfo implements ActionListener {
         scoreLabel.setBounds(600,160,200,50);
         productPanel.add(scoreLabel);
 
-//        JLabel IconScore = labelIconScore(productScore);
-//        IconScore.setBounds(760,160,80,80);
-//        productPanel.add(IconScore);
+
         JLabel IconScore = setlabelIconScore(attributeLetterScore(carbonFootPrint));
 //        System.out.println(carbonFootPrint);
         IconScore.setBounds(760,160,80,80);
@@ -158,7 +156,7 @@ public class ProductInfo implements ActionListener {
 
         JPanel suggestionPanel = new JPanel();
         suggestionPanel.setLayout(null);
-        suggestionPanel.setBounds(180,370,1030,330);
+        suggestionPanel.setBounds(180,350,1030,330);
         suggestionPanel.setBackground(Color.WHITE);
 
 

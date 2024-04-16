@@ -44,10 +44,10 @@ public class SelectSousCategorieAByID extends ClientRequest<Object, SousCategori
      }
  
  
-     public static SousCategorieA launchSelectEmplacementById(Request request) throws IOException, InterruptedException{
+     public static SousCategorieA launchSelectEmplacementById(int id) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
- 
+    Request request=new Request();
          int birthdate = 0;
          final ObjectMapper objectMapper = new ObjectMapper();
          final String requestId = UUID.randomUUID().toString();

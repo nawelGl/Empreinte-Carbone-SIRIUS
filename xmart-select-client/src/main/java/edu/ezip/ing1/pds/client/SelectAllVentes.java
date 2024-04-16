@@ -46,10 +46,10 @@ public class SelectAllVentes extends ClientRequest<Object, Ventes> {
 
 // Fonction pour lancer les requêtes (à la place de main)
 
-    public static Vente launchSelectAllVentes(Request request) throws  IOException, InterruptedException{
+    public static Vente launchSelectAllVentes(String ref) throws  IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file: {}", networkConfig.toString());
-
+Request request=new Request();
         int birthdate=0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
