@@ -185,11 +185,12 @@ public class ProductMapping implements ActionListener{
         //TODO : si l'étage actuel (qui s'affiche sur la map) < étage du produit (rayon.getNumeroRayon), afficher le path jusqu'aux escalators.
         if(etageActuel < etage.getNumeroEtage()){
             //TODO : Afficher path jusqu'aux escalators.
+            //Ajouter path dans la BD dans le rayon 0.
         } else {
             //Sinon, si etageActuel == etage du produit : afficher le path jusquau produit (SELECT sur les points associés au rayon)
         }
     }
-    
+
     public void afficherEtageTitre(){
         if(etageActuel == 1){
             etageTitre.setText("Plan du 1er étage :");
