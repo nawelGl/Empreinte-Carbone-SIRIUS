@@ -18,6 +18,9 @@ public class Vente {
     private float empreinte;
 
 
+    //TODO: résoudre le probleme de format
+
+
     public Vente() {
     }
 

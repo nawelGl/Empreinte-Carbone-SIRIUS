@@ -28,6 +28,7 @@ public class XMartCityService {
         SELECT_ALL_PRODUCTS("SELECT * FROM \"ezip-ing1\".produit"),
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE \"idEmplacement\" = ?"),
+        SELECT_ETAGE_BY_ID("SELECT * FROM  \"ezip-ing1\".etage WHERE \"idEtage\" = ?"),
         SELECT_SOUS_CATEGORIE_B_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieB\" WHERE \"idSousCategorieB\" = ?"),
         SELECT_SOUS_CATEGORIE_A_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieA\" WHERE \"idSousCategorieA\" = ?"),
         SELECT_SOUS_CATEGORIE("SELECT * FROM \"ezip-ing1\".Categorie;"),
@@ -162,14 +163,7 @@ public class XMartCityService {
                         selectStatement.setInt(2,point.getCoordY());
                         selectStatement.setInt(3,point.getIdRayon());
                         selectStatement.executeUpdate();
-
-//                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//                        System.out.println(point.toString());
-//                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
                         return new Response(request.getRequestId(),point.toString());
-
-
 
                     } catch (/*SQLException | IOException e*/ Exception e) {
                         response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");
@@ -211,6 +205,7 @@ public class XMartCityService {
                     }
                     break;
 
+
                 case "SELECT_BEFORE_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BEFORE_VENTE_BY_REFERENCE.query);
@@ -240,6 +235,8 @@ public class XMartCityService {
                         throw  new RuntimeException(e);
                         }
                         break;
+
+
                 case "SELECT_AFTER_VENTE_BY_REFERENCE": // requête SELECT with date
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_AFTER_VENTE_BY_REFERENCE.query);
@@ -300,6 +297,37 @@ public class XMartCityService {
                         throw new RuntimeException(e);
                     }
                     break;
+
+                case "SELECT_ETAGE_BY_ID":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ETAGE_BY_ID.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Etage etage = new Etage();
+
+                        while (resultSet.next()) {
+                            etage.setIdEtage(resultSet.getInt("idEtage"));
+                            etage.build(resultSet);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(etage);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                            response = new Response(request.getRequestId(), "Error executing SELECT_ETAGE_BY_ID query");
+                        logger.error("Error executing SELECT_ETAGE_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
 
                 case "SELECT_SOUS_CATEGORIE_B_BY_ID":
                     try{

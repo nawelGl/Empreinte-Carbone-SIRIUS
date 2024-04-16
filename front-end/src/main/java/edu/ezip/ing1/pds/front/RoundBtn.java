@@ -4,7 +4,7 @@ package edu.ezip.ing1.pds.front;
 import javax.swing.*;
 import java.awt.*;
 
-class RoundBtn extends JButton {
+public class RoundBtn extends JButton {
 
     private int radius;
 

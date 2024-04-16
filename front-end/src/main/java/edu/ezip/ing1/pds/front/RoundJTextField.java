@@ -7,7 +7,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JTextField;
 
 //From StackOverflow : https://stackoverflow.com/questions/8515601/java-swing-rounded-border-for-jtextfield
-class RoundJTextField extends JTextField {
+public class RoundJTextField extends JTextField {
     private Shape shape;
     public RoundJTextField(int size) {
         super(size);

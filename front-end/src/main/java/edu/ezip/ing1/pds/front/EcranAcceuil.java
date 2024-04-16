@@ -1,15 +1,13 @@
 package edu.ezip.ing1.pds.front;
 
 
+import edu.ezip.ing1.pds.front.UC3.LoginFrame;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 
 import javax.swing.*;
-
-import edu.ezip.ing1.pds.business.dto.Path;
-import edu.ezip.ing1.pds.business.dto.Paths;
 
 public class EcranAcceuil implements ActionListener {
     JFrame acceuilApp;
@@ -26,7 +24,7 @@ public class EcranAcceuil implements ActionListener {
 
 
     String titre= "Home UC1 - Empreinte Carbone";
-    String titreLabelSecondaire ="Entrez la référence de votre produit pour connaitre son empreinte carbone:";
+    String titreLabelSecondaire ="Entrez la référence de votre produit pour connaitre son empreinte carbone :";
     String titreHeader="Empreinte Carbone du produit :";
     int x=520;
 
@@ -44,7 +42,7 @@ public class EcranAcceuil implements ActionListener {
         acceuilApp.setResizable(false);
 
         //----------panel header--------------
-        Methodes.header(acceuilApp, "Empreinte carbone", 575);
+        MethodesFront.header(acceuilApp, "Empreinte carbone", 575);
 
         // initialisation des panels
         panelCentre = new JPanel(null); // Utiliser un layout null pour pouvoir utiliser setBounds
@@ -116,16 +114,17 @@ public class EcranAcceuil implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==boutonUC1) {
-            acceuilApp.dispose();
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
+            acceuilApp.dispose();
         }
         //frame avec les deux boutons
 //        if(e.getSource()==boutonUC3) {
 //            AccueilUC2 accueilUC2=new AccueilUC2();
 //        }
         if(e.getSource()==boutonUC3) {
+
             acceuilApp.dispose();
-            AccueilUC3 accueilUC3=new AccueilUC3();
+            LoginFrame loginFrame = new LoginFrame();
         }
     }
 }
