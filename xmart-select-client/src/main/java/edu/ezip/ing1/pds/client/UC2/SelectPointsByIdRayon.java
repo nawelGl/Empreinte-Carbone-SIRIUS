@@ -44,7 +44,7 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
      }
  
  
-     public static Etage launchSelectPointsByIdRayon(String id) throws IOException, InterruptedException{
+     public static PathPointChemin launchSelectPointsByIdRayon(String id) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
  
@@ -77,6 +77,7 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
                  }
                  asciiTable.addRule();
                  logger.debug("\n{}\n", asciiTable.render());
+                 return points;
              }
          } catch(Exception e){
              System.out.println("Erreur : id rayon inexistant");

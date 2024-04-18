@@ -4,8 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.business.dto.Etage;
+import edu.ezip.ing1.pds.business.dto.PathPointChemin;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
+import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
 import static java.lang.String.valueOf;
@@ -25,6 +27,7 @@ public class ProductMapping implements ActionListener{
     private JLabel etageTitre;
     private Emplacement emplacement;
     private Etage etage;
+    private PathPointChemin path;
     private JPanel mainPanel;
     private int etageActuel = 1;
     //Pour l'étage actuel : vaut 0 à la base et si on appuie sur -> on fait +1 et si on appuie sur <- on fait -1
@@ -50,25 +53,42 @@ public class ProductMapping implements ActionListener{
         } catch(Exception exc){
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
-            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
         }
 
         //Recherche de l'étage via l'idEtage de l'emplacement :
         try {
             etage = SelectEtageById.lauchSelectEtageById(valueOf(emplacement.getIdEtage()));
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erreur sur l'idEtage : " + e.getMessage());
         }
 
-        try{
-            if(etage.getIdEtage() == 0 || etage.getNumeroEtage() == 0){
+        try {
+            if (etage.getIdEtage() == 0 || etage.getNumeroEtage() == 0) {
                 throw new Exception();
             }
-        } catch(Exception exc){
+        } catch (Exception exc) {
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
         }
+
+        //Test sur le Select point by idRayon :
+//        try {
+//            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+//        } catch(Exception e){
+//            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
+//        }
+
+//        try{
+//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+//                throw new Exception();
+//            }
+//        } catch(Exception exc){
+//            System.out.println(exc.getMessage());
+//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+//            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+//        }
 
         productMappingFrame  = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);

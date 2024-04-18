@@ -6,3 +6,4 @@ Error codes :
 Connection refused : Error 404
 The product reference does not exist : Error 405
 The product reference contains forbidden characters : Error 406
+One of the values is null : Error 407

@@ -299,6 +299,7 @@ public class XMartCityService {
                     }
                     break;
 
+
                 case "SELECT_ETAGE_BY_ID":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ETAGE_BY_ID.query);
