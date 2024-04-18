@@ -4,8 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.business.dto.Etage;
+import edu.ezip.ing1.pds.business.dto.PathPointChemin;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
+import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
 import static java.lang.String.valueOf;
@@ -19,10 +21,16 @@ public class ProductMapping implements ActionListener{
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
     private String productColor = RechercheReference.getProduct().getCouleur();
-    JButton setPath;
-
+    private JButton setPath;
+    private JButton flecheGauche;
+    private JButton flecheDroite;
+    private JLabel etageTitre;
     private Emplacement emplacement;
     private Etage etage;
+    private PathPointChemin path;
+    private JPanel mainPanel;
+    private int etageActuel = 1;
+    //Pour l'étage actuel : vaut 0 à la base et si on appuie sur -> on fait +1 et si on appuie sur <- on fait -1
     private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
@@ -45,25 +53,42 @@ public class ProductMapping implements ActionListener{
         } catch(Exception exc){
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
-            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
         }
 
         //Recherche de l'étage via l'idEtage de l'emplacement :
         try {
             etage = SelectEtageById.lauchSelectEtageById(valueOf(emplacement.getIdEtage()));
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erreur sur l'idEtage : " + e.getMessage());
         }
 
-        try{
-            if(etage.getIdEtage() == 0 || etage.getNumeroEtage() == 0){
+        try {
+            if (etage.getIdEtage() == 0 || etage.getNumeroEtage() == 0) {
                 throw new Exception();
             }
-        } catch(Exception exc){
+        } catch (Exception exc) {
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
         }
+
+        //Test sur le Select point by idRayon :
+//        try {
+//            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+//        } catch(Exception e){
+//            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
+//        }
+
+//        try{
+//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+//                throw new Exception();
+//            }
+//        } catch(Exception exc){
+//            System.out.println(exc.getMessage());
+//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+//            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+//        }
 
         productMappingFrame  = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
@@ -77,9 +102,22 @@ public class ProductMapping implements ActionListener{
         MethodesFront.header(productMappingFrame, titreHeader, 480);
 
         //---------panel principal-----------
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+
+        ImageIcon leftArrow= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheGauche.png")));
+        flecheGauche = new JButton(leftArrow);
+        flecheGauche.addActionListener(this);
+        flecheGauche.setBounds(355, 645, 50, 50);
+        mainPanel.add(flecheGauche);
+
+        ImageIcon rightArrow= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheDroite.png")));
+        flecheDroite = new JButton(rightArrow);
+        flecheDroite.addActionListener(this);
+        flecheDroite.setBounds(455, 645, 50, 50);
+        mainPanel.add(flecheDroite);
+
         productMappingFrame.getContentPane().add(mainPanel);
 
         //------------title label-------------
@@ -150,31 +188,59 @@ public class ProductMapping implements ActionListener{
             setPath = new JButton();
             setPath.setText("Configurer les chemins");
             setPath.addActionListener(this);
-            setPath.setBounds(1150, 650, 200, 40);
+            setPath.setBounds(1145, 650, 200, 40);
             mainPanel.add(setPath);
 
         //Titre : numero d'étage du plan
-        JLabel etageTitre = new JLabel();
-        if(etage.getNumeroEtage() == 1){
-            etageTitre.setText("Plan du 1er étage :");
-        } else  etageTitre.setText("Plan du " + etage.getNumeroEtage() + "eme étage :");
-        etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
-        etageTitre.setBounds(600, 10, 300, 50);
-        mainPanel.add(etageTitre);
+        etageTitre = new JLabel();
+        afficherEtageTitre();
 
         panelPlan.add(titleLabel);
         //panelTestPlan.add(aislePanel);
         panelPlan.add(shelfPanel);
         panelPlan.add(floorPanel);
         productMappingFrame.setVisible(true);
+
+        //=================================================
+        //TODO : si l'étage actuel (qui s'affiche sur la map) < étage du produit (rayon.getNumeroRayon), afficher le path jusqu'aux escalators.
+        if(etageActuel < etage.getNumeroEtage()){
+            //TODO : Afficher path jusqu'aux escalators.
+            //Ajouter path dans la BD dans le rayon 0.
+        } else {
+            //Sinon, si etageActuel == etage du produit : afficher le path jusquau produit (SELECT sur les points associés au rayon)
+        }
     }
 
+    public void afficherEtageTitre(){
+        if(etageActuel == 1){
+            etageTitre.setText("Plan du 1er étage :");
+        } else  etageTitre.setText("Plan du " + etageActuel + "ème étage :");
+        etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
+        etageTitre.setBounds(600, 10, 300, 50);
+        mainPanel.add(etageTitre);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
        if(e.getSource() == setPath){
             PathManagement pathManagement = new PathManagement();
             productMappingFrame.dispose();
+       } else if(e.getSource() == flecheGauche){
+           //Pas possible d'avoir un étage négatif
+           if(etageActuel > 1){
+               etageActuel --;
+               afficherEtageTitre();
+               mainPanel.repaint();
+               mainPanel.revalidate();
+           }
+       } else if(e.getSource() == flecheDroite){
+           //Pas possible que l'etage actuel soit supérieur à l'étage effectif
+           if(etageActuel < etage.getNumeroEtage()){
+               etageActuel++;
+               afficherEtageTitre();
+               mainPanel.repaint();
+               mainPanel.revalidate();
+           }
        }
     }
     

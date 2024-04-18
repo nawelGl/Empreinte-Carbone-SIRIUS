@@ -29,6 +29,7 @@ public class XMartCityService {
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE \"idEmplacement\" = ?"),
         SELECT_ETAGE_BY_ID("SELECT * FROM  \"ezip-ing1\".etage WHERE \"idEtage\" = ?"),
+        SELECT_POINTS_BY_ID_RAYON("SELECT * FROM  \"ezip-ing1\".point WHERE \"idRayon\" = ?"),
         SELECT_SOUS_CATEGORIE_B_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieB\" WHERE \"idSousCategorieB\" = ?"),
         SELECT_SOUS_CATEGORIE_A_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieA\" WHERE \"idSousCategorieA\" = ?"),
         SELECT_SOUS_CATEGORIE("SELECT * FROM \"ezip-ing1\".Categorie;"),
@@ -297,6 +298,7 @@ public class XMartCityService {
                         throw new RuntimeException(e);
                     }
                     break;
+
 
                 case "SELECT_ETAGE_BY_ID":
                     try{
