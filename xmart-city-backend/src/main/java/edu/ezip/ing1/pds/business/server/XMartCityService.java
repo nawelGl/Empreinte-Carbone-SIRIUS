@@ -29,6 +29,7 @@ public class XMartCityService {
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE \"idEmplacement\" = ?"),
         SELECT_ETAGE_BY_ID("SELECT * FROM  \"ezip-ing1\".etage WHERE \"idEtage\" = ?"),
+        SELECT_HIGHER_FLOOR("SELECT \"numeroEtage\" FROM \"ezip-ing1\".\"etage\" ORDER BY \"numeroEtage\" DESC LIMIT 1"),
         SELECT_POINTS_BY_ID_RAYON("SELECT * FROM  \"ezip-ing1\".point WHERE \"idRayon\" = ?"),
         SELECT_SOUS_CATEGORIE_B_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieB\" WHERE \"idSousCategorieB\" = ?"),
         SELECT_SOUS_CATEGORIE_A_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieA\" WHERE \"idSousCategorieA\" = ?"),
@@ -327,6 +328,14 @@ public class XMartCityService {
                         logger.error("Error executing SELECT_ETAGE_BY_ID query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_HIGHER_FLOOR":
+                    try{
+                        //TODO : completer la requete.
+                    } catch(Exception e){
+
                     }
                     break;
 
