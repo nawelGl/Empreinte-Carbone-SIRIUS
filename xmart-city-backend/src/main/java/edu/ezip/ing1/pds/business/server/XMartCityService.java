@@ -333,7 +333,7 @@ public class XMartCityService {
 
                 case "SELECT_HIGHER_FLOOR":
                     try{
-                        //TODO : completer la requete.
+                        //TODO : completer la requete pour récupérer l'étage le plus haut.
                     } catch(Exception e){
 
                     }
