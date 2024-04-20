@@ -17,6 +17,7 @@ import edu.ezip.ing1.pds.front.RechercheReference;
 import edu.ezip.ing1.pds.front.Template;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
+import static edu.ezip.ing1.pds.commons.Methodes.*;
 import static edu.ezip.ing1.pds.front.MethodesFront.*;
 import static java.lang.String.valueOf;
 
@@ -24,7 +25,7 @@ public class ProductInfo implements ActionListener {
 
     JFrame productInfoFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
-    private String productScore = RechercheReference.getProduct().getScore();
+//    private String productScore = RechercheReference.getProduct().getScore();
     private String productColor = RechercheReference.getProduct().getCouleur();
     private Double carbonFootPrint;
             //= RechercheReference.product.getEmpreinte();
@@ -54,7 +55,7 @@ public class ProductInfo implements ActionListener {
 
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
-       // String titreHeader="Produit nom couleur";
+
 
         MethodesFront.header(productInfoFrame, titreHeader, 540);
 
@@ -98,12 +99,6 @@ public class ProductInfo implements ActionListener {
             } catch (Exception e) {
                 System.out.println("Erreur sur l'idVilleDepart");
 
-//            try{ Request request = new Request();
-//                request.setRequestContent(valueOf(idVilleDepart));
-//                villeDepart = SelectVilleById.launchSelectVilleById(request);
-//
-//            }catch (Exception e) {
-//                System.out.println("Erreur sur l'idVilleDepart");
 
             }
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
@@ -119,7 +114,7 @@ public class ProductInfo implements ActionListener {
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
         productPanel.setLayout(null);
-        productPanel.setBounds(180,60,1030,300);
+        productPanel.setBounds(180,40,1030,300);
         productPanel.setBackground(Color.WHITE);
 
         JLabel label1 = new JLabel("Votre produit ");
@@ -159,7 +154,7 @@ public class ProductInfo implements ActionListener {
 
         JPanel suggestionPanel = new JPanel();
         suggestionPanel.setLayout(null);
-        suggestionPanel.setBounds(180,370,1030,330);
+        suggestionPanel.setBounds(180,350,1030,330);
         suggestionPanel.setBackground(Color.WHITE);
 
 

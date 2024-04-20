@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
@@ -93,23 +95,25 @@ public class MethodesFront {
     public static double carbonFootPrintCalcul(double coordLat1, double coordLat2, double coordLong1, double coordLong2, double coeff,double poids ){
         double distance=  getDistanceBetweenPointsNew(coordLat1,coordLong1,coordLat2, coordLong2);
         double carbonFootPrint;
-        carbonFootPrint=distance*coeff*poids;
-        return carbonFootPrint;
+        carbonFootPrint=distance*coeff*(poids/1000)/1000;
+        BigDecimal bd = new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+       // return carbonFootPrint;
 
     }
 
     public static String attributeLetterScore(double carbonFootPrint){
         //TODO METTRE EN BASE
-        double borneAInf = 0.0E9;
-        double borneASup = 1.2E9;
-        double borneBInf = 1.2E9;
-        double borneBSup = 1.5E9;
-        double borneCInf = 1.5E9;
-        double borneCSup = 1.6E9;
-        double borneDInf = 1.6E9;
-        double borneDSup = 1.7E9;
-        double borneEInf = 1.7E9;
-        double borneESup = 1.9E9;
+        double borneAInf = 0.0E8;
+        double borneASup = 1200;
+        double borneBInf = 1200;
+        double borneBSup = 1500;
+        double borneCInf = 1500;
+        double borneCSup = 1600;
+        double borneDInf = 1600;
+        double borneDSup = 1700;
+        double borneEInf = 1700;
+        double borneESup = 1900;
 
         if (carbonFootPrint >= borneAInf && carbonFootPrint < borneASup) {
             return "A";
