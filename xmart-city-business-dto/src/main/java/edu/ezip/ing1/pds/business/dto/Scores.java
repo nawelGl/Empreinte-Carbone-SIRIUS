@@ -5,25 +5,25 @@ import java.util.Set;
 
 public class Scores {
 
-    private Set<Score> Scores = new LinkedHashSet<>();
+    private Set<Score> scores = new LinkedHashSet<>();
 
     public Set<Score> getScores() {
-        return Scores;
+        return scores;
     }
 
-    public void setScores(Set<Score> Scores) {
-        this.Scores = Scores;
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
 
     public final Scores add(final Score Score) {
-        Scores.add(Score);
+        scores.add(Score);
         return this;
     }
 
     @Override
     public String toString() {
         return "Scores{" +
-                "Scores=" + Scores +
+                "scores=" + scores +
                 '}';
     }
 }

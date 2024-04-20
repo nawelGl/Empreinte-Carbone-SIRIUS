@@ -45,7 +45,7 @@ public class XMartCityService {
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\"produits WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"score\" <= ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"idProduit\" != ? ORDER BY \"score\" ASC, \"empreinte\" ASC LIMIT 3"),
-        SELECT_ALL_SCORE("SELECT * FROME  \"ezip-ing1\".score");
+        SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score");
 
 
 
@@ -475,6 +475,37 @@ public class XMartCityService {
                     } catch (SQLException | JsonProcessingException e) {
                         response = new Response(request.getRequestId(), "Error executing SELECT_VILLE_BY_ID query");
                         logger.error("Error executing SELECT_VILLE_BY_ID query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_ALL_SCORE":
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_SCORE.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Scores scores = new Scores();
+
+                        while (resultSet.next()) {
+                            Score score = new Score();
+                            score.build(resultSet);
+                            System.out.println("score to string :");
+                            System.out.println(score.toString());
+                            scores.add(score);
+                        }
+
+                        System.out.println("scores to string :");
+                        System.out.println(scores.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(scores);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_SCORE query");
+                        logger.error("Error executing SELECT_ALL_SCORE query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }

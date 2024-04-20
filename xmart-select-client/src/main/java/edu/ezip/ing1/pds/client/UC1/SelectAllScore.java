@@ -6,7 +6,7 @@ import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
 import edu.ezip.ing1.pds.business.dto.Score;
 import edu.ezip.ing1.pds.business.dto.Scores;
-import edu.ezip.ing1.pds.client.Categories.SelectSousCategorieAByID;
+
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -46,19 +46,20 @@ public class SelectAllScore extends ClientRequest<Object, Scores>{
     }
 
 
-    public static Scores launchSelectAllScore(Request request) throws IOException, InterruptedException{
+    public static Scores launchSelectAllScore() throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectSousCategorieAByID clientRequest = new SelectSousCategorieAByID(
+        final SelectAllScore clientRequest = new SelectAllScore(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -69,15 +70,15 @@ public class SelectAllScore extends ClientRequest<Object, Scores>{
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Scores Scores = (Scores) joinedClientRequest.getResult();
+                final Scores scores = (Scores) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
-                for (final Score Score : Scores.getScores()) {
+                for (final Score score : scores.getScores()) {
                     asciiTable.addRule();
-                    asciiTable.addRow(Score.getlettreScore(),Score.getborneInf(),Score.getborneSup());
+                    asciiTable.addRow(score.getlettreScore(),score.getborneInf(),score.getborneSup());
                 }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return Scores;
+                return scores;
             }
         } catch(Exception e){
             System.out.println("Erreur : id inexistant");

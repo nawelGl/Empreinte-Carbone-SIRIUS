@@ -1,5 +1,9 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.Score;
+import edu.ezip.ing1.pds.business.dto.Scores;
+import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
+import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 
 import javax.swing.*;
@@ -7,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -102,34 +107,31 @@ public class MethodesFront {
 
     }
 
-    public static String attributeLetterScore(double carbonFootPrint){
-        //TODO METTRE EN BASE
-        double borneAInf = 0.0E8;
-        double borneASup = 1200;
-        double borneBInf = 1200;
-        double borneBSup = 1500;
-        double borneCInf = 1500;
-        double borneCSup = 1600;
-        double borneDInf = 1600;
-        double borneDSup = 1700;
-        double borneEInf = 1700;
-        double borneESup = 1900;
-
-        if (carbonFootPrint >= borneAInf && carbonFootPrint < borneASup) {
-            return "A";
-        } else if (carbonFootPrint >= borneBInf && carbonFootPrint < borneBSup) {
-            return "B";
-        } else if (carbonFootPrint >= borneCInf && carbonFootPrint < borneCSup) {
-            return "C";
-        } else if (carbonFootPrint >= borneDInf && carbonFootPrint < borneDSup) {
-            return "D";
-        } else if (carbonFootPrint > borneEInf) {
-            return "E";
-        } else {
-            return "Erreur hors borne";
+    public static String attributeLetterScore(double carbonFootPrint) {
+        // Appeler la méthode pour récupérer les bornes
+        Scores scores = null;
+        try {
+            scores = SelectAllScore.launchSelectAllScore();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
+        // Vérifier si les bornes ont été récupérées avec succès
+        if (scores != null) {
+            // Parcourir les scores pour trouver la borne correspondante
+            for (Score score : scores.getScores()) {
+                if (carbonFootPrint >= score.getborneInf() && carbonFootPrint < score.getborneSup()) {
+                    return score.getlettreScore();
+
+                } System.out.println(score.getlettreScore());
+            }
+        }
+
+        // Si aucune borne correspondante n'est trouvée, retourner une erreur
+        System.out.println("FAIL SCORE");
+        return "Erreur hors borne";
     }
+
 
     public static JLabel setlabelIconScore(String scoreLetter) {
         JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
