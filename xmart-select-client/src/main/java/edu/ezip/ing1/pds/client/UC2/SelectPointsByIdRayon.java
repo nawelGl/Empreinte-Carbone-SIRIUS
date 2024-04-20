@@ -47,7 +47,11 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
      public static PathPointChemin launchSelectPointsByIdRayon(String id) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
- 
+
+         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+         System.out.println("Dans le SelectPointByIdRayon du select client");
+         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
          int birthdate = 0;
          final ObjectMapper objectMapper = new ObjectMapper();
          final String requestId = UUID.randomUUID().toString();
@@ -74,9 +78,11 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
                  for (final PointChemin point : points.getPoints()) {
                      asciiTable.addRule();
                      asciiTable.addRow(point.getIdPoint(), point.getCoordX(), point.getCoordY(), point.getIdRayon());
+                     //points.getPoints().add(point);
                  }
                  asciiTable.addRule();
                  logger.debug("\n{}\n", asciiTable.render());
+                 System.out.println((asciiTable.render()));
                  return points;
              }
          } catch(Exception e){

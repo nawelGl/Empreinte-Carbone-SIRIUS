@@ -331,6 +331,40 @@ public class XMartCityService {
                     }
                     break;
 
+                case "SELECT_POINTS_BY_ID_RAYON":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_POINTS_BY_ID_RAYON.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");
+
+                        selectStatement.setInt(1, Integer.valueOf(id));
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        PathPointChemin path = new PathPointChemin();
+
+                        while (resultSet.next()) {
+                            PointChemin point = new PointChemin();
+                            point.build(resultSet);
+                            System.out.println("Point to string :");
+                            System.out.println(point.toString());
+                            path.getPoints().add(point);
+                        }
+
+                        String responseBody = objectMapper.writeValueAsString(path);
+
+                        response = new Response(request.getRequestId(), responseBody);
+
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_POINTS_BY_ID_RAYON query");
+                        logger.error("Error executing SELECT_POINTS_BY_ID_RAYON query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
                 case "SELECT_HIGHER_FLOOR":
                     try{
                         //TODO : completer la requete pour récupérer l'étage le plus haut.

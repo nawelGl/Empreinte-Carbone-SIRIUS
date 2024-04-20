@@ -74,21 +74,24 @@ public class ProductMapping implements ActionListener{
         }
 
         //Test sur le Select point by idRayon :
-//        try {
-//            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
-//        } catch(Exception e){
-//            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-//        }
+        try {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            System.out.println("Dans le test SelectPointsByIdRayon");
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+        } catch(Exception e){
+            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
+        }
 
-//        try{
-//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                throw new Exception();
-//            }
-//        } catch(Exception exc){
-//            System.out.println(exc.getMessage());
-//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-//        }
+        try{
+            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+        }
 
         productMappingFrame  = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);

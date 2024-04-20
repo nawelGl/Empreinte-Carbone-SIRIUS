@@ -1,5 +1,8 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PathPointChemin {
@@ -15,7 +18,16 @@ public class PathPointChemin {
         return pathPoints;
     }
 
-
+//    public final PathPointChemin build(final ResultSet resultSet)
+//            throws SQLException, NoSuchFieldException, IllegalAccessException {
+//        setFieldsFromResultSet(resultSet, "idPoint", "coordX", "coordY", "idRayon");
+//        return this;
+//    }
+//
+//    public final PreparedStatement build(PreparedStatement preparedStatement)
+//            throws SQLException, NoSuchFieldException, IllegalAccessException {
+//        return buildPreparedStatement(preparedStatement, idPoint, coordX, coordY, idRayon);
+//    }
 
     public String toString(){
         StringBuilder string = new StringBuilder();
