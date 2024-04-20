@@ -7,7 +7,7 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JPanel;
 
-class RoundedPanel extends JPanel {
+public class RoundedPanel extends JPanel {
     private int arcWidth = 20;
     private int arcHeight = 20;
 

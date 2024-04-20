@@ -9,17 +9,17 @@ public class Emplacement {
     private int idEmplacement;
     private String allee;
     private int idRayon;
-    private String etage;
+    private int idEtage;
 
     public Emplacement(){
 
     }
 
-    public Emplacement(int idEmplacement, String allee, int rayon, String etage){
+    public Emplacement(int idEmplacement, String allee, int rayon, int idEtage){
         this.idEmplacement = idEmplacement;
         this.allee = allee;
         this.idRayon = rayon;
-        this.etage = etage;
+        this.idEtage = idEtage;
     }
 
     // Getters and setters for each field
@@ -47,23 +47,23 @@ public class Emplacement {
         this.idRayon = rayon;
     }
 
-    public String getEtage() {
-        return etage;
+    public int getIdEtage() {
+        return idEtage;
     }
 
-    public void setEtage(String etage) {
-        this.etage = etage;
+    public void setEtage(int idEtage) {
+        this.idEtage = idEtage;
     }
 
     public final Emplacement build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idEmplacement", "allee", "idRayon", "etage");
+        setFieldsFromResultSet(resultSet, "idEmplacement", "allee", "idRayon", "idEtage");
         return this;
     }
 
         public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idEmplacement, allee, idRayon, etage);
+        return buildPreparedStatement(preparedStatement, idEmplacement, allee, idRayon, idEtage);
     }
 
         private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
@@ -90,7 +90,7 @@ public class Emplacement {
                 "idEmplacement=" + idEmplacement +
                 ", allée ='" + allee + '\'' +
                 ", rayon ='" + idRayon + '\'' +
-                ", étage ='" + etage + '\'' +
+                ", étage ='" + idEtage + '\'' +
                 '}';
     }
     
