@@ -108,26 +108,26 @@ public class MethodesFront {
     }
 
     public static String attributeLetterScore(double carbonFootPrint) {
-        // Appeler la méthode pour récupérer les bornes
+
         Scores scores = null;
         try {
-            scores = SelectAllScore.launchSelectAllScore();
+            scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        // Vérifier si les bornes ont été récupérées avec succès
+
         if (scores != null) {
-            // Parcourir les scores pour trouver la borne correspondante
-            for (Score score : scores.getScores()) {
+
+            for (Score score : scores.getScores()) { //parcours de la liste et pour chaque score on compare l'empreinte aux bornes du score
                 if (carbonFootPrint >= score.getborneInf() && carbonFootPrint < score.getborneSup()) {
                     return score.getlettreScore();
 
-                } System.out.println(score.getlettreScore());
+                }
             }
         }
 
-        // Si aucune borne correspondante n'est trouvée, retourner une erreur
+        //TODO : FAIRE UN LOGGER
         System.out.println("FAIL SCORE");
         return "Erreur hors borne";
     }

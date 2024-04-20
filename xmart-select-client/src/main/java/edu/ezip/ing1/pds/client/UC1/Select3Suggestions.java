@@ -7,6 +7,7 @@ import edu.ezip.commons.LoggingUtils;
 import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.client.Categories.SelectSousCategorieAByID;
+import edu.ezip.ing1.pds.client.SelectAllProductsClientRequest;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -46,19 +47,20 @@ public class Select3Suggestions extends ClientRequest<Object, Produits>{
     }
 
 
-    public static Produits launchSelect3Suggestions(Request request) throws IOException, InterruptedException{
+    public static Produits launchSelect3Suggestions() throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectSousCategorieAByID clientRequest = new SelectSousCategorieAByID(
+        final Select3Suggestions clientRequest = new Select3Suggestions(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
