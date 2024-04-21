@@ -73,20 +73,8 @@ public class ProductMapping implements ActionListener{
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
         }
 
-        //Test sur le Select point by idRayon :
         try {
             path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
-//            System.out.println("#########################################################");
-//            System.out.println("Valeur de l'arraylist Path dans la classe ProductMapping :");
-//            System.out.println("#########################################################");
-//            for (PointChemin point : path.getPoints()) {
-//                System.out.println("CODE" + point);
-//            }
-            System.out.println("#########################################################");
-            System.out.println("Type de retour de la requete : " + SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon())).getClass().getName() );
-            System.out.println("Type de retour de l'objet path : " + path.getClass().getName());
-            System.out.println("#########################################################");
-
         } catch(Exception e){
             System.out.println("Erreur sur la récupération des points : " + e.getMessage());
         }
