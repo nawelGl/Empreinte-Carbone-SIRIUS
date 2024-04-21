@@ -1,40 +1,29 @@
 package edu.ezip.ing1.pds.business.dto;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class PathPointChemin {
-    //Collection de points (PointChemin) pour le SELECT
 
-    private ArrayList<PointChemin> pathPoints;
+    private Set<PointChemin> path = new LinkedHashSet<>();
 
-    public PathPointChemin(){
-        pathPoints = new ArrayList<PointChemin>();
+    public Set<PointChemin> getPath() {
+        return path;
     }
 
-    public ArrayList<PointChemin> getPoints(){
-        return pathPoints;
+    public void setPoints(Set<PointChemin> path) {
+        this.path = path;
     }
 
-//    public final PathPointChemin build(final ResultSet resultSet)
-//            throws SQLException, NoSuchFieldException, IllegalAccessException {
-//        setFieldsFromResultSet(resultSet, "idPoint", "coordX", "coordY", "idRayon");
-//        return this;
-//    }
-//
-//    public final PreparedStatement build(PreparedStatement preparedStatement)
-//            throws SQLException, NoSuchFieldException, IllegalAccessException {
-//        return buildPreparedStatement(preparedStatement, idPoint, coordX, coordY, idRayon);
-//    }
+    public final PathPointChemin add(final PointChemin point) {
+        path.add(point);
+        return this;
+    }
 
-    public String toString(){
-        StringBuilder string = new StringBuilder();
-        string.append("Path de coordonnées :\n");
-        for (PointChemin point : pathPoints) {
-            string.append("(" + point.getCoordX() + ", " + point.getCoordY() + ")\n");
-        }
-        return String.valueOf(string);
+    @Override
+    public String toString() {
+        return "Path{" +
+                "path=" + path +
+                '}';
     }
 }

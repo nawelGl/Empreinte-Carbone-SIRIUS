@@ -8,9 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//Nom = point chemin pour eviter la confusion avec java.awt.Point.java
-//Classe pour la table points sur psql
-
 public class PointChemin {
 
     private int idPoint;
@@ -29,14 +26,14 @@ public class PointChemin {
         this.idRayon = Integer.parseInt(idRayon);
     }
 
-    public PointChemin(String json) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        PointChemin temp = objectMapper.readValue(json, PointChemin.class);
-        this.idPoint = temp.getIdPoint();
-        this.coordX = temp.getCoordX();
-        this.coordY = temp.getCoordY();
-        this.idRayon = temp.getIdRayon();
-    }
+//    public PointChemin(String json) throws IOException {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        PointChemin temp = objectMapper.readValue(json, PointChemin.class);
+//        this.idPoint = temp.getIdPoint();
+//        this.coordX = temp.getCoordX();
+//        this.coordY = temp.getCoordY();
+//        this.idRayon = temp.getIdRayon();
+//    }
 
 
     public final PointChemin build(final ResultSet resultSet)

@@ -338,9 +338,6 @@ public class XMartCityService {
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
-                        // mapper produits en Json
-                        ObjectMapper objectMapper = new ObjectMapper();
-
                         ResultSet resultSet = selectStatement.executeQuery();
 
                         PathPointChemin path = new PathPointChemin();
@@ -350,11 +347,11 @@ public class XMartCityService {
                             point.build(resultSet);
                             System.out.println("Point to string :");
                             System.out.println(point.toString());
-                            path.getPoints().add(point);
+                            path.getPath().add(point);
                         }
 
+                        ObjectMapper objectMapper = new ObjectMapper();
                         String responseBody = objectMapper.writeValueAsString(path);
-
                         response = new Response(request.getRequestId(), responseBody);
 
                     } catch (SQLException | JsonProcessingException e) {

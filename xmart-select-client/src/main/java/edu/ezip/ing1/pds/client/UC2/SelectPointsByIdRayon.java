@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.client.UC2;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
@@ -19,7 +20,7 @@ import java.util.Deque;
 import java.util.UUID;
 
 
-public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
+public class SelectPointsByIdRayon extends ClientRequest<Object, PathPointChemin>{
 
      //Attributs pour lancer la requête.
      private final static String LoggingLabel = "S e l e c t - P o i n t s - B y - I d - r a y o n";
@@ -37,20 +38,16 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
      }
  
      @Override
-     public PointChemin readResult(String body) throws IOException {
+     public PathPointChemin readResult(String body) throws IOException {
          final ObjectMapper mapper = new ObjectMapper();
-         final PointChemin pointChemin = mapper.readValue(body, PointChemin.class);
-         return pointChemin;
+         final PathPointChemin path = mapper.readValue(body, PathPointChemin.class);
+         return path;
      }
  
  
      public static PathPointChemin launchSelectPointsByIdRayon(String id) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
-
-         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-         System.out.println("Dans le SelectPointByIdRayon du select client");
-         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
          int birthdate = 0;
          final ObjectMapper objectMapper = new ObjectMapper();
@@ -60,6 +57,7 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
          request.setRequestContent(id);
          request.setRequestOrder(requestOrder);
          objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
          final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
          LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
          final SelectPointsByIdRayon clientRequest = new SelectPointsByIdRayon(
@@ -74,15 +72,14 @@ public class SelectPointsByIdRayon extends ClientRequest<Object, PointChemin>{
                  joinedClientRequest.join();
                  logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
                  final PathPointChemin points = (PathPointChemin) joinedClientRequest.getResult();
+                 System.out.println(points);
                  final AsciiTable asciiTable = new AsciiTable();
-                 for (final PointChemin point : points.getPoints()) {
+                 for (final PointChemin point : points.getPath()) {
                      asciiTable.addRule();
                      asciiTable.addRow(point.getIdPoint(), point.getCoordX(), point.getCoordY(), point.getIdRayon());
-                     //points.getPoints().add(point);
                  }
                  asciiTable.addRule();
                  logger.debug("\n{}\n", asciiTable.render());
-                 System.out.println((asciiTable.render()));
                  return points;
              }
          } catch(Exception e){

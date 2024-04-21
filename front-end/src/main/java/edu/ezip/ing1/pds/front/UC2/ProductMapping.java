@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.business.dto.Etage;
 import edu.ezip.ing1.pds.business.dto.PathPointChemin;
+import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
@@ -75,10 +76,18 @@ public class ProductMapping implements ActionListener{
 
         //Test sur le Select point by idRayon :
         try {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println("Dans le test SelectPointsByIdRayon");
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+//            System.out.println("#########################################################");
+//            System.out.println("Valeur de l'arraylist Path dans la classe ProductMapping :");
+//            System.out.println("#########################################################");
+//            for (PointChemin point : path.getPoints()) {
+//                System.out.println("CODE" + point);
+//            }
+            System.out.println("#########################################################");
+            System.out.println("Type de retour de la requete : " + SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon())).getClass().getName() );
+            System.out.println("Type de retour de l'objet path : " + path.getClass().getName());
+            System.out.println("#########################################################");
+
         } catch(Exception e){
             System.out.println("Erreur sur la récupération des points : " + e.getMessage());
         }
