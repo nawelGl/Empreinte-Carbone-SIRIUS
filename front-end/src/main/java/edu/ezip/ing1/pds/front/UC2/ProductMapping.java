@@ -182,11 +182,6 @@ public class ProductMapping implements ActionListener{
         floorPanel.add(floorLabel);
 
         //==============================================
-//        JPanel panelMap = new JPanel();
-//        panelMap.setLayout(null);
-//        panelMap.setBounds(60, 60,770,580);
-//        panelMap.setBackground(Color.WHITE);
-
         ImageIcon map = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/mapV1.png")));
 
         JLabel mapLabel = new JLabel(map);
