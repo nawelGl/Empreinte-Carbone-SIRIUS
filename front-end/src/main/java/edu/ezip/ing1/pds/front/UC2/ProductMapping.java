@@ -97,10 +97,6 @@ public class ProductMapping implements ActionListener{
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
         }
-        //Test d'affichage des valeurs de path
-//        for (PointChemin point : path.getPath()) {
-//            System.out.println("POINT DE L'ARRAYLIST : " + point);
-//        }
         //======================================================================================
 
         productMappingFrame  = new JFrame();
@@ -186,10 +182,10 @@ public class ProductMapping implements ActionListener{
         floorPanel.add(floorLabel);
 
         //==============================================
-        JPanel panelMap = new JPanel();
-        panelMap.setLayout(null);
-        panelMap.setBounds(60, 60,770,580);
-        panelMap.setBackground(Color.WHITE);
+//        JPanel panelMap = new JPanel();
+//        panelMap.setLayout(null);
+//        panelMap.setBounds(60, 60,770,580);
+//        panelMap.setBackground(Color.WHITE);
 
         ImageIcon map = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/mapV1.png")));
 
@@ -256,7 +252,6 @@ public class ProductMapping implements ActionListener{
             //Ajouter path dans la BD dans le rayon 0.
         } else {
             //Sinon, si etageActuel == etage du produit : afficher le path jusquau produit (SELECT sur les points associés au rayon)
-
         }
     }
 
