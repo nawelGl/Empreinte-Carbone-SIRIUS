@@ -44,7 +44,7 @@ public class XMartCityService {
         SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".transportmode WHERE \"idTransportMode\" = ?"),
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
 
-        SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\"produits WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"score\" <= ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"idProduit\" != ? ORDER BY \"score\" ASC, \"empreinte\" ASC LIMIT 3"),
+        SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score");
 
 
@@ -506,6 +506,51 @@ public class XMartCityService {
                     } catch (SQLException | JsonProcessingException e) {
                         response = new Response(request.getRequestId(), "Error executing SELECT_ALL_SCORE query");
                         logger.error("Error executing SELECT_ALL_SCORE query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_3_SUGGESTIONS":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_3_SUGGESTIONS.query);
+
+                        String parametres= request.getRequestBody().replaceAll("\"", "");
+
+                        String[] tabParametres = parametres.split(",");
+
+                        selectStatement.setInt(1, Integer.valueOf(tabParametres[0]));
+                        selectStatement.setInt(2, Integer.valueOf(tabParametres[1]));
+                        selectStatement.setInt(3, Integer.valueOf(tabParametres[2]));
+                        selectStatement.setDouble(4, Double.valueOf(tabParametres[3]));
+                        selectStatement.setString(5, tabParametres[4]);
+
+
+
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Produits produits= new Produits();
+
+                        while (resultSet.next()) {
+                            Produit produit=new Produit();
+                            produit.build(resultSet);
+                            System.out.println("produit to string :");
+                            System.out.println(produit.toString());
+                            produits.add(produit);
+                        }
+
+                        System.out.println("produits to string :");
+                        System.out.println(produits.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(produits);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_3_SUGGESTIONS query");
+                        logger.error("Error executing SELECT_3_SUGGESTIONS query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
