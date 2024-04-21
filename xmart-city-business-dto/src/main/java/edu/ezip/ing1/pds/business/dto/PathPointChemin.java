@@ -1,17 +1,19 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class PathPointChemin {
 
-    private Set<PointChemin> path = new LinkedHashSet<>();
+    private ArrayList<PointChemin> path = new ArrayList<>();
 
-    public Set<PointChemin> getPath() {
+    public ArrayList<PointChemin> getPath() {
         return path;
     }
 
-    public void setPoints(Set<PointChemin> path) {
+    public void setPoints(ArrayList<PointChemin> path) {
         this.path = path;
     }
 

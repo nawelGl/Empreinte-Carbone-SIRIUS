@@ -48,13 +48,6 @@ public class PointChemin {
         return buildPreparedStatement(preparedStatement, idPoint, coordX, coordY, idRayon);
     }
 
-//    public PointChemin(int idPoint, int coordX, int coordY, int idRayon){
-//        this.idPoint = idPoint;
-//        this.coordX = coordX;
-//        this.coordY = coordY;
-//        this.idRayon = idRayon;
-//    }
-
     //Getters ans setters :
     public int getIdPoint() {
         return idPoint;
@@ -110,10 +103,10 @@ public class PointChemin {
     @Override
     public String toString(){
         return "Point{" +
-                "idPoint = " + idPoint +
-                "coordonnée X = " + coordX +
-                "coordonnée Y = " + coordY +
-                "idRayon = " + idRayon+
+                "idPoint = " + idPoint + ","+
+                " coordonnée X = " + coordX + ","+
+                " coordonnée Y = " + coordY + ","+
+                " idRayon = " + idRayon+
                 "}";
     }
 

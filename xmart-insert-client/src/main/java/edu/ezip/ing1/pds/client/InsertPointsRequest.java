@@ -38,12 +38,9 @@ public class InsertPointsRequest extends ClientRequest<PointChemin, String> {
 
     public static void insertPoints(String responseBody) throws IOException, InterruptedException{
 
-
         final ObjectMapper objectMapper= new ObjectMapper();
-       final PointChemin pointCheminToInsert = objectMapper.readValue(responseBody, PointChemin.class);
+        final PointChemin pointCheminToInsert = objectMapper.readValue(responseBody, PointChemin.class);
 
-
-        //final PointChemin pointCheminToInsert = new PointChemin();
         final NetworkConfig networkConfig =  ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.trace("Points loaded : {}", pointCheminToInsert.toString());
         logger.debug("Load Network config file : {}", networkConfig.toString());
@@ -52,7 +49,6 @@ public class InsertPointsRequest extends ClientRequest<PointChemin, String> {
         Request request = new Request();
         request.setRequestContent(responseBody);
 
-//       final ObjectMapper objectMapper = new ObjectMapper();
         final String jsonifiedGuy = request.getRequestBody();
 
         logger.trace("Point with its JSON face : {}", jsonifiedGuy);
@@ -77,7 +73,6 @@ public class InsertPointsRequest extends ClientRequest<PointChemin, String> {
                     pointChemin.getIdPoint(), pointChemin.getCoordX(), pointChemin.getCoordY(), pointChemin.getIdRayon(),
                     clientRequest2.getResult());
         }
-
     }
 
     @Override
