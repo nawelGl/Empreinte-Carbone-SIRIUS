@@ -31,7 +31,6 @@ public class ProductMapping implements ActionListener{
     private PathPointChemin path;
     private JPanel mainPanel;
     private int etageActuel = 1;
-    //Pour l'étage actuel : vaut 0 à la base et si on appuie sur -> on fait +1 et si on appuie sur <- on fait -1
     private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
