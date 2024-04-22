@@ -185,10 +185,14 @@ public class XMartCityService {
 
                         updateStatement.setDouble(1,produit.getEmpreinte());
                         updateStatement.setString(2,produit.getScore());
+                        updateStatement.setInt(3, produit.getReference());
+
                         updateStatement.executeUpdate();
                         return new Response(request.getRequestId(),produit.toString());
 
                     } catch (/*SQLException | IOException e*/ Exception e) {
+
+
                         response = new Response(request.getRequestId(), "Error executing UPDATE_INFO_PRODUCT query");
                         logger.error("Error executing UPDATE_INFO_PRODUCT query: {}", e.getMessage());
                     }

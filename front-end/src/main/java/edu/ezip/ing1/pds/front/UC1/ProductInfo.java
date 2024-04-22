@@ -47,6 +47,7 @@ public class ProductInfo implements ActionListener {
     private Integer idSousCatA=RechercheReference.getProduct().getIdSousCatA();
     private Integer idSousCatB=RechercheReference.getProduct().getIdsouscatB();
     private String colorProduct= RechercheReference.getProduct().getCouleur();
+    private int reference = RechercheReference.getProduct().getReference();
     private String score;
 
     private Ville villeArrive;
@@ -112,7 +113,7 @@ public class ProductInfo implements ActionListener {
             }
 
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
-
+           
         }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
 
         score=attributeLetterScore(carbonFootPrint);
@@ -122,12 +123,13 @@ public class ProductInfo implements ActionListener {
         Produit produit= new Produit();
         produit.setEmpreinte(carbonFootPrint);
         produit.setScore(score);
+        produit.setReference(reference);
         try {
             String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
             UpdateInfoProduct.launchUpdateProduit(responseBody);
-            System.out.println("UDPATE EFFECTUÉ");
+
         } catch (IOException | InterruptedException ex) {
-           System.out.println("ERREUR DANS L'UPDATE");
+
         }
 
         //-------panel item chosen---------

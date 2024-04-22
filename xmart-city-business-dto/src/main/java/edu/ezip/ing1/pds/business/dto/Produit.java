@@ -1,5 +1,8 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +67,31 @@ public Produit(){}
         this.idSousCatA=idSousCatA;
         this.idCategorie=idCategorie;
     }
+
+        public Produit(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Produit temp = objectMapper.readValue(json, Produit.class);
+            this.idProduit = temp.getIdProduit();
+            this.idEmplacement = temp.getIdEmplacement();
+            this.idVilleDepart =temp.getIdVilleDepart();
+            this.idVilleArrive =temp.getIdVilleArrive();
+            this.couleur = temp.getCouleur();
+            this.taille = temp.getTaille();
+            this.reference = temp.getReference();
+            this.score = temp.getScore();
+            this.genre = temp.getGenre();
+            this.empreinte = temp.getEmpreinte();
+            this.idMagasin = temp.getIdMagasin();
+            this.idMarque = temp.getIdMarque();
+            this.nomProduit = temp.getNomProduit();
+            this.idsouscatB = temp.getIdsouscatB();
+            this.idTransportMode=temp.getIdTransportMode();
+            this.poids=temp.getPoids();
+            this.prix=temp.getPrix();
+            this.idSousCatA=temp.getIdSousCatA();
+            this.idCategorie= temp.getIdCategorie();
+    }
+
 
     // Getters and setters for each field
     public int getIdProduit() {

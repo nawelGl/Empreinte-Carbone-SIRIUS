@@ -23,7 +23,7 @@ public class UpdateInfoProduct extends ClientRequest<Produit, String> {
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "update-produit";
-        private static final String requestOrder = "UPDATE-PRODUIT";
+        private static final String requestOrder = "UPDATE_INFO_PRODUCT";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
     //============================================================
@@ -51,9 +51,12 @@ public class UpdateInfoProduct extends ClientRequest<Produit, String> {
         int birthdate = 0;
         Request request = new Request();
         request.setRequestContent(responseBody);
+        System.out.println("responseBody   "+responseBody);
+        System.out.println("request.getRequestBody() " +request.getRequestBody());
 
 
         final String jsonifiedGuy = request.getRequestBody();
+        System.out.println("jsonifiedGuy  "  +jsonifiedGuy);
 
         logger.trace("Point with its JSON face : {}", jsonifiedGuy);
         final String requestId = UUID.randomUUID().toString();
@@ -69,6 +72,7 @@ public class UpdateInfoProduct extends ClientRequest<Produit, String> {
         clientRequests.push(clientRequest);
 
         while (!clientRequests.isEmpty()) {
+
             final ClientRequest clientRequest2 = clientRequests.pop();
             clientRequest2.join();
             final Produit produit= (Produit) clientRequest2.getInfo();
@@ -77,6 +81,7 @@ public class UpdateInfoProduct extends ClientRequest<Produit, String> {
                     produit.getIdEmplacement(), produit.getIdVilleDepart(), produit.getIdVilleArrive(), produit.getCouleur(), produit.getTaille(), produit.getReference(), produit.getScore(), produit.getGenre(), produit.getEmpreinte(), produit.getIdMagasin(), produit.getIdMarque(), produit.getNomProduit(),produit.getIdTransportMode(),produit.getPoids(),produit.getPrix(),
                     clientRequest.getResult());
         }
+
 
     }
 
