@@ -213,7 +213,7 @@ public class ProductMapping implements ActionListener{
         };
 
         mapPanel.setLayout(null);
-        mapPanel.setBounds(60, 50,770, 580);
+        mapPanel.setBounds(60, 60,770, 580);
         mainPanel.add(mapPanel);
 
         panelPlan = new JPanel();
@@ -255,7 +255,7 @@ public class ProductMapping implements ActionListener{
             etageTitre.setText("Plan du 1er étage :");
         } else  etageTitre.setText("Plan du " + etageActuel + "ème étage :");
         etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
-        etageTitre.setBounds(600, 10, 300, 60);
+        etageTitre.setBounds(600, 10, 300, 50);
         mainPanel.add(etageTitre);
     }
 
