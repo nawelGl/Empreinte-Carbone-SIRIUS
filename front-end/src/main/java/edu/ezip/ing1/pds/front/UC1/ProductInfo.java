@@ -1,11 +1,14 @@
 package edu.ezip.ing1.pds.front.UC1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.business.dto.TransportMode;
+import edu.ezip.ing1.pds.client.InsertPointsRequest;
 import edu.ezip.ing1.pds.client.UC1.Select3Suggestions;
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
 import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
+import edu.ezip.ing1.pds.client.UpdateInfoProduct;
 import edu.ezip.ing1.pds.commons.Request;
 
 import java.awt.*;
@@ -33,7 +36,7 @@ public class ProductInfo implements ActionListener {
     private String productName = RechercheReference.getProduct().getNomProduit();
 
     private String productColor = RechercheReference.getProduct().getCouleur();
-    private Double carbonFootPrint;
+    private double carbonFootPrint;
 
     private double productPrice= RechercheReference.getProduct().getPrix();
     private double prodcutWeight= RechercheReference.getProduct().getPoids();
@@ -44,6 +47,8 @@ public class ProductInfo implements ActionListener {
     private Integer idSousCatA=RechercheReference.getProduct().getIdSousCatA();
     private Integer idSousCatB=RechercheReference.getProduct().getIdsouscatB();
     private String colorProduct= RechercheReference.getProduct().getCouleur();
+    private int reference = RechercheReference.getProduct().getReference();
+    private String score;
 
     private Ville villeArrive;
     private Ville villeDepart;
@@ -106,10 +111,26 @@ public class ProductInfo implements ActionListener {
 
 
             }
-            carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
 
+            carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
+           
         }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
 
+        score=attributeLetterScore(carbonFootPrint);
+
+        //Faire UPDATE BASE ---------------------------
+        ObjectMapper objectMapper = new ObjectMapper();
+        Produit produit= new Produit();
+        produit.setEmpreinte(carbonFootPrint);
+        produit.setScore(score);
+        produit.setReference(reference);
+        try {
+            String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
+            UpdateInfoProduct.launchUpdateProduit(responseBody);
+
+        } catch (IOException | InterruptedException ex) {
+
+        }
 
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
@@ -136,7 +157,7 @@ public class ProductInfo implements ActionListener {
         productPanel.add(scoreLabel);
 
 
-        JLabel IconScore = setlabelIconScore(attributeLetterScore(carbonFootPrint));
+        JLabel IconScore = setlabelIconScore(score);
         IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
@@ -161,6 +182,7 @@ public class ProductInfo implements ActionListener {
         suggestionPanel.add(label2);
 
         Produits suggestions= null;
+
 
         try {
             suggestions = Select3Suggestions.launchSelect3Suggestions(idCategorie + "," + idSousCatA + "," + idSousCatB + "," + carbonFootPrint + "," + colorProduct);
@@ -276,7 +298,6 @@ public class ProductInfo implements ActionListener {
             e.printStackTrace();
         }
 
-        
         mainPanel.add(suggestionPanel);
 
 
