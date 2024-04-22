@@ -68,9 +68,9 @@ public class AccueilUC3 extends JFrame implements ActionListener {
 
 
         //ajout des btts
-        salesBtt.setBounds(170,170,300,330);
-        productBtt.setBounds(520,170,300,330);
-        categoryBtt.setBounds(870,170,300,330);
+        salesBtt.setBounds(200,250,300,200);
+        productBtt.setBounds(550,250,300,200);
+        categoryBtt.setBounds(900,250,300,200);
         backButton = new JButton("Retour à l'accueil");
         backButton.addActionListener(this);
         backButton.setBounds(650, 800, 150, 30);

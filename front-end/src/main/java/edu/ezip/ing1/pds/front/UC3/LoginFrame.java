@@ -29,7 +29,7 @@ public class LoginFrame implements ActionListener {
         loginFrame.setLocationRelativeTo(null);
 
         //------header-----------
-        MethodesFront.header(loginFrame,"Connectez pour accéder à votre statistisque",500);
+        MethodesFront.header(loginFrame,"Connectez pour accéder à l'interface administrateur",410);
 
         //----------panel principal--------------
         JPanel mainPanel = new JPanel();
@@ -43,39 +43,36 @@ public class LoginFrame implements ActionListener {
         secondPanel.setLayout(null);
         secondPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
-        secondPanel.setBounds(300, 200, 800, 350);
+        secondPanel.setBounds(300, 200, 800, 300);
         //Ajout du JLabel :
-        JLabel titrePanelSecondaire = new JLabel("Veuillez saisir votre identifiant et mot de passe");
+        JLabel titrePanelSecondaire = new JLabel("Veuillez saisir votre identifiant et mot de passe :");
         titrePanelSecondaire.setForeground(Color.WHITE);
-        titrePanelSecondaire.setFont(new Font("Avenir", Font.BOLD, 22));
+        titrePanelSecondaire.setFont(new Font("Avenir", Font.BOLD, 21));
         titrePanelSecondaire.setBounds(40, 25, 760, 80);
         secondPanel.add(titrePanelSecondaire);
 
         //------------panel de ID------------
-        JLabel idLabel = new JLabel("Identifaint:");
+        JLabel idLabel = new JLabel("Identifiant :");
         idLabel.setForeground(Color.WHITE);
-        idLabel.setFont(new Font("Avenir", Font.BOLD, 15));
+        idLabel.setFont(new Font("Avenir", Font.BOLD, 16));
 
         idTxt= new JTextField(20);
-        idLabel.setBounds(250, 150, 120, 20); // 위치와 크기 설정
-        idTxt.setBounds(360, 150, 120, 20);
+        idLabel.setBounds(250, 130, 120, 20); // 위치와 크기 설정
+        idTxt.setBounds(360, 130, 120, 20);
 
         //------------panel de mot de passe------------
-        JLabel pwLabel = new JLabel("Mot de passe:");
+        JLabel pwLabel = new JLabel("Mot de passe :");
         pwLabel.setForeground(Color.WHITE);
-        pwLabel.setFont(new Font("Avenir", Font.BOLD, 15));
+        pwLabel.setFont(new Font("Avenir", Font.BOLD, 16));
 
         pwTxt= new JPasswordField(20);
-        pwLabel.setBounds(250, 170, 120, 20);
-        pwTxt.setBounds(360, 170, 120, 20);
-
-
+        pwLabel.setBounds(250, 160, 120, 20);
+        pwTxt.setBounds(360, 160, 120, 20);
 
         //bouton login
-        loginBtt = new JButton("Login");
+        loginBtt = new JButton("Connexion");
         loginBtt.addActionListener(this);
-        loginBtt.setBounds(360, 210, 100, 30);
-
+        loginBtt.setBounds(360, 197, 100, 30);
 
 
         //--------ajout des panels
@@ -104,8 +101,8 @@ public class LoginFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==loginBtt) {
             if (id.equals(idTxt.getText()) && pwd.equals(pwTxt.getText())){
-            loginFrame.dispose();
-            AccueilUC3 accueilUC3 = new AccueilUC3();
+                AccueilUC3 accueilUC3 = new AccueilUC3();
+                loginFrame.dispose();
         }else {
             JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe inconnue");
             }
