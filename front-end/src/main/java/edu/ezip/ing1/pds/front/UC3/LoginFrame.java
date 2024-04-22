@@ -52,7 +52,7 @@ public class LoginFrame implements ActionListener {
         secondPanel.add(titrePanelSecondaire);
 
         //------------panel de ID------------
-        JLabel idLabel = new JLabel("Identifiant:");
+        JLabel idLabel = new JLabel("Identifiant :");
         idLabel.setForeground(Color.WHITE);
         idLabel.setFont(new Font("Avenir", Font.BOLD, 16));
 
@@ -61,7 +61,7 @@ public class LoginFrame implements ActionListener {
         idTxt.setBounds(360, 130, 120, 20);
 
         //------------panel de mot de passe------------
-        JLabel pwLabel = new JLabel("Mot de passe:");
+        JLabel pwLabel = new JLabel("Mot de passe :");
         pwLabel.setForeground(Color.WHITE);
         pwLabel.setFont(new Font("Avenir", Font.BOLD, 16));
 
