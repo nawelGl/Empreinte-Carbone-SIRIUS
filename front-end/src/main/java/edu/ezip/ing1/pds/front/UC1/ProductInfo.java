@@ -98,12 +98,7 @@ public class ProductInfo implements ActionListener {
             } catch (Exception e) {
                 System.out.println("Erreur sur l'idVilleDepart");
 
-//            try{ Request request = new Request();
-//                request.setRequestContent(valueOf(idVilleDepart));
-//                villeDepart = SelectVilleById.launchSelectVilleById(request);
-//
-//            }catch (Exception e) {
-//                System.out.println("Erreur sur l'idVilleDepart");
+
 
             }
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
