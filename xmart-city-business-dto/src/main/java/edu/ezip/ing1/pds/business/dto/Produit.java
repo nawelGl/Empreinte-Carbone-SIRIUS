@@ -1,5 +1,8 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +19,7 @@ public class Produit {
     private int reference;
     private String score;
     private String genre;
-    private float empreinte;
+    private double empreinte;
     private int idMagasin;
     private int idMarque;
     private String nomProduit;
@@ -43,7 +46,7 @@ public Produit(){}
         return buildPreparedStatement(preparedStatement, idEmplacement, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB,idVilleDepart, idVilleArrive,idTransportMode, poids,prix, idSousCatA,idCategorie);
     }
 
-    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix, int idSousCatA,int idCategorie) {
+    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, double empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix, int idSousCatA,int idCategorie) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.idVilleDepart =idVilleDepart;
@@ -64,6 +67,31 @@ public Produit(){}
         this.idSousCatA=idSousCatA;
         this.idCategorie=idCategorie;
     }
+
+        public Produit(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Produit temp = objectMapper.readValue(json, Produit.class);
+            this.idProduit = temp.getIdProduit();
+            this.idEmplacement = temp.getIdEmplacement();
+            this.idVilleDepart =temp.getIdVilleDepart();
+            this.idVilleArrive =temp.getIdVilleArrive();
+            this.couleur = temp.getCouleur();
+            this.taille = temp.getTaille();
+            this.reference = temp.getReference();
+            this.score = temp.getScore();
+            this.genre = temp.getGenre();
+            this.empreinte = temp.getEmpreinte();
+            this.idMagasin = temp.getIdMagasin();
+            this.idMarque = temp.getIdMarque();
+            this.nomProduit = temp.getNomProduit();
+            this.idsouscatB = temp.getIdsouscatB();
+            this.idTransportMode=temp.getIdTransportMode();
+            this.poids=temp.getPoids();
+            this.prix=temp.getPrix();
+            this.idSousCatA=temp.getIdSousCatA();
+            this.idCategorie= temp.getIdCategorie();
+    }
+
 
     // Getters and setters for each field
     public int getIdProduit() {
@@ -111,11 +139,11 @@ public Produit(){}
 
     public void setGenre(String genre){this.genre = genre;}
 
-    public float getEmpreinte() {
+    public double getEmpreinte() {
         return empreinte;
     }
 
-    public void setEmpreinte(float empreinte){this.empreinte = empreinte;}
+    public void setEmpreinte(double empreinte){this.empreinte = empreinte;}
 
     public int getIdMagasin() {
         return idMagasin;

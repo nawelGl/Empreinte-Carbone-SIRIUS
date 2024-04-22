@@ -1,5 +1,9 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.Score;
+import edu.ezip.ing1.pds.business.dto.Scores;
+import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
+import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 
 import javax.swing.*;
@@ -7,6 +11,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
@@ -93,39 +100,38 @@ public class MethodesFront {
     public static double carbonFootPrintCalcul(double coordLat1, double coordLat2, double coordLong1, double coordLong2, double coeff,double poids ){
         double distance=  getDistanceBetweenPointsNew(coordLat1,coordLong1,coordLat2, coordLong2);
         double carbonFootPrint;
-        carbonFootPrint=distance*coeff*poids;
-        return carbonFootPrint;
+        carbonFootPrint=distance*coeff*(poids/1000)/1000;
+        BigDecimal bd = new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+       // return carbonFootPrint;
 
     }
 
-    public static String attributeLetterScore(double carbonFootPrint){
-        //TODO METTRE EN BASE
-        double borneAInf = 0.0E9;
-        double borneASup = 1.2E9;
-        double borneBInf = 1.2E9;
-        double borneBSup = 1.5E9;
-        double borneCInf = 1.5E9;
-        double borneCSup = 1.6E9;
-        double borneDInf = 1.6E9;
-        double borneDSup = 1.7E9;
-        double borneEInf = 1.7E9;
-        double borneESup = 1.9E9;
+    public static String attributeLetterScore(double carbonFootPrint) {
 
-        if (carbonFootPrint >= borneAInf && carbonFootPrint < borneASup) {
-            return "A";
-        } else if (carbonFootPrint >= borneBInf && carbonFootPrint < borneBSup) {
-            return "B";
-        } else if (carbonFootPrint >= borneCInf && carbonFootPrint < borneCSup) {
-            return "C";
-        } else if (carbonFootPrint >= borneDInf && carbonFootPrint < borneDSup) {
-            return "D";
-        } else if (carbonFootPrint > borneEInf) {
-            return "E";
-        } else {
-            return "Erreur hors borne";
+        Scores scores = null;
+        try {
+            scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
+
+        if (scores != null) {
+
+            for (Score score : scores.getScores()) { //parcours de la liste et pour chaque score on compare l'empreinte aux bornes du score
+                if (carbonFootPrint >= score.getborneInf() && carbonFootPrint < score.getborneSup()) {
+                    return score.getlettreScore();
+
+                }
+            }
+        }
+
+        //TODO : FAIRE UN LOGGER
+        System.out.println("FAIL SCORE");
+        return "Erreur hors borne";
     }
+
 
     public static JLabel setlabelIconScore(String scoreLetter) {
         JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
