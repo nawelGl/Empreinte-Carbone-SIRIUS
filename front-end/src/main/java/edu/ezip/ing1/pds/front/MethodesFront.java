@@ -21,12 +21,15 @@ import java.util.Objects;
 
 public class MethodesFront {
     // Header for frames
+
     public static void header(JFrame frame, String titre, int x) {
         // ----------panel header : Logo + label titre--------------
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(null);
         JLabel titreLabel = new JLabel(titre);
         titreLabel.setBounds(x, 13, 600, 50);
+        Font font = new Font(Template.POLICE, Font.BOLD, 20);
+        titreLabel.setFont(font);
 
         ImageIcon logo = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/logo.png")));
 
@@ -56,7 +59,6 @@ public class MethodesFront {
         headerPanel.add(nomAppPanel);
 
         JLabel nomAppLabel = new JLabel("EPIGREEN-SHOP");
-        Font font = new Font(Template.POLICE, Font.BOLD, 20);
         nomAppLabel.setFont(font);
         nomAppLabel.setForeground(Color.WHITE);
         nomAppPanel.add(nomAppLabel);
