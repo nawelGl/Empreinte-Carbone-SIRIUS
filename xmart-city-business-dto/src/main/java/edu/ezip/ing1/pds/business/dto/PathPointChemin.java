@@ -1,28 +1,31 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class PathPointChemin {
-    //Collection de points (PointChemin) pour le SELECT
 
-    private ArrayList<PointChemin> pathPoints;
+    private ArrayList<PointChemin> path = new ArrayList<>();
 
-    public PathPointChemin(){
-        pathPoints = new ArrayList<PointChemin>();
+    public ArrayList<PointChemin> getPath() {
+        return path;
     }
 
-    public ArrayList<PointChemin> getPoints(){
-        return pathPoints;
+    public void setPoints(ArrayList<PointChemin> path) {
+        this.path = path;
     }
 
+    public final PathPointChemin add(final PointChemin point) {
+        path.add(point);
+        return this;
+    }
 
-
-    public String toString(){
-        StringBuilder string = new StringBuilder();
-        string.append("Path de coordonnées :\n");
-        for (PointChemin point : pathPoints) {
-            string.append("(" + point.getCoordX() + ", " + point.getCoordY() + ")\n");
-        }
-        return String.valueOf(string);
+    @Override
+    public String toString() {
+        return "Path{" +
+                "path=" + path +
+                '}';
     }
 }

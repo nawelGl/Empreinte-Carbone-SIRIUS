@@ -119,7 +119,6 @@ public class PathManagement implements ActionListener{
 
         backMenu.addActionListener(this);
         mapPanel.setLayout(null);
-
         mapPanel.setBounds(60, 50,770, 580);
 
         //Panel boutons d'actions

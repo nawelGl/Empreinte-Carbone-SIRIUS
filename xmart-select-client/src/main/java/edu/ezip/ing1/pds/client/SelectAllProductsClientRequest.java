@@ -83,6 +83,4 @@ public class SelectAllProductsClientRequest extends ClientRequest<Object, Produi
         return null;
     }
 
-
-
 }

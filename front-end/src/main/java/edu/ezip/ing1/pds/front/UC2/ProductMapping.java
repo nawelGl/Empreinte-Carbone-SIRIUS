@@ -1,10 +1,12 @@
 package edu.ezip.ing1.pds.front.UC2;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import edu.ezip.ing1.pds.business.dto.Emplacement;
 import edu.ezip.ing1.pds.business.dto.Etage;
 import edu.ezip.ing1.pds.business.dto.PathPointChemin;
+import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
@@ -14,6 +16,8 @@ import static java.lang.String.valueOf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Objects;
 
 public class ProductMapping implements ActionListener{
@@ -29,15 +33,17 @@ public class ProductMapping implements ActionListener{
     private Etage etage;
     private PathPointChemin path;
     private JPanel mainPanel;
+    private JPanel mapPanel;
+    private JPanel panelPlan;
+    private BufferedImage backgroundImage;
     private int etageActuel = 1;
-    //Pour l'étage actuel : vaut 0 à la base et si on appuie sur -> on fait +1 et si on appuie sur <- on fait -1
     private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
     private int borderTop = 20;
 
     public ProductMapping(){
-        //Recherche de l'emplacement via l'idEmplacement du produit :
+        //=============Selection de l'emplacement via l'idEmplacement du produit===============
         try {
             Request request = new Request();
             request.setRequestContent(valueOf(idEmplacement));
@@ -55,8 +61,9 @@ public class ProductMapping implements ActionListener{
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
         }
+        //======================================================================================
 
-        //Recherche de l'étage via l'idEtage de l'emplacement :
+        //=================Selection de l'étage via l'idEtage de l'emplacement==================
         try {
             etage = SelectEtageById.lauchSelectEtageById(valueOf(emplacement.getIdEtage()));
         } catch (Exception e) {
@@ -72,23 +79,25 @@ public class ProductMapping implements ActionListener{
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
         }
+        //======================================================================================
 
-        //Test sur le Select point by idRayon :
-//        try {
-//            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
-//        } catch(Exception e){
-//            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-//        }
+        //============Selection des points du chemin vers un rayon via l'id du rayon============
+        try {
+            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+        } catch(Exception e){
+            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
+        }
 
-//        try{
-//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                throw new Exception();
-//            }
-//        } catch(Exception exc){
-//            System.out.println(exc.getMessage());
-//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-//        }
+        try{
+            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+        }
+        //======================================================================================
 
         productMappingFrame  = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
@@ -100,6 +109,15 @@ public class ProductMapping implements ActionListener{
         //----------panel header--------------
         String titreHeader = "Se rendre au produit \"" + productName + " " + productColor + "\"";
         MethodesFront.header(productMappingFrame, titreHeader, 480);
+        //------------------------------------
+
+        //-------charger l'image de fond------
+        try {
+            backgroundImage = ImageIO.read(Objects.requireNonNull(MethodesFront.class.getResource("/mapV1.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //-----------------------------------
 
         //---------panel principal-----------
         mainPanel = new JPanel();
@@ -164,20 +182,41 @@ public class ProductMapping implements ActionListener{
         floorPanel.add(floorLabel);
 
         //==============================================
-        JPanel panelMap = new JPanel();
-        panelMap.setLayout(null);
-        panelMap.setBounds(60, 60,770,580);
-        panelMap.setBackground(Color.WHITE);
-
         ImageIcon map = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/mapV1.png")));
 
         JLabel mapLabel = new JLabel(map);
-        mapLabel.setBounds(60, 60, 770, 580);
         mainPanel.add(mapLabel);
 
-       // mainPanel.add(panelTestMap);
+        mapPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
 
-        JPanel panelPlan = new JPanel();
+                Graphics2D g2d = (Graphics2D) g;
+                // Épaisseur de la ligne (chemin)
+                g2d.setStroke(new BasicStroke(5));
+
+                // Dessiner l'image de fond
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+                // Dessiner le chemin
+                if (!path.getPath().isEmpty()) {
+                    g.setColor(Color.RED);
+                    for (int i = 0; i < path.getPath().size() - 1; i++) {
+                        PointChemin p1 = path.getPath().get(i);
+                        PointChemin p2 = path.getPath().get(i + 1);
+                        g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
+                    }
+                }
+            }
+        };
+
+        mapPanel.setLayout(null);
+        mapPanel.setBounds(60, 60,770, 580);
+        mainPanel.add(mapPanel);
+
+        panelPlan = new JPanel();
         panelPlan.setLayout(null);
         panelPlan.setBounds(840, 60,500,580);
         panelPlan.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));

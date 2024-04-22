@@ -8,9 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//Nom = point chemin pour eviter la confusion avec java.awt.Point.java
-//Classe pour la table points sur psql
-
 public class PointChemin {
 
     private int idPoint;
@@ -38,7 +35,6 @@ public class PointChemin {
         this.idRayon = temp.getIdRayon();
     }
 
-
     public final PointChemin build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResultSet(resultSet, "idPoint", "coordX", "coordY", "idRayon");
@@ -50,13 +46,6 @@ public class PointChemin {
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         return buildPreparedStatement(preparedStatement, idPoint, coordX, coordY, idRayon);
     }
-
-//    public PointChemin(int idPoint, int coordX, int coordY, int idRayon){
-//        this.idPoint = idPoint;
-//        this.coordX = coordX;
-//        this.coordY = coordY;
-//        this.idRayon = idRayon;
-//    }
 
     //Getters ans setters :
     public int getIdPoint() {
@@ -113,10 +102,10 @@ public class PointChemin {
     @Override
     public String toString(){
         return "Point{" +
-                "idPoint = " + idPoint +
-                "coordonnée X = " + coordX +
-                "coordonnée Y = " + coordY +
-                "idRayon = " + idRayon+
+                "idPoint = " + idPoint + ","+
+                " coordonnée X = " + coordX + ","+
+                " coordonnée Y = " + coordY + ","+
+                " idRayon = " + idRayon+
                 "}";
     }
 
