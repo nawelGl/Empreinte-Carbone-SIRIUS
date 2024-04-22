@@ -26,15 +26,14 @@ public class PointChemin {
         this.idRayon = Integer.parseInt(idRayon);
     }
 
-//    public PointChemin(String json) throws IOException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        PointChemin temp = objectMapper.readValue(json, PointChemin.class);
-//        this.idPoint = temp.getIdPoint();
-//        this.coordX = temp.getCoordX();
-//        this.coordY = temp.getCoordY();
-//        this.idRayon = temp.getIdRayon();
-//    }
-
+    public PointChemin(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        PointChemin temp = objectMapper.readValue(json, PointChemin.class);
+        this.idPoint = temp.getIdPoint();
+        this.coordX = temp.getCoordX();
+        this.coordY = temp.getCoordY();
+        this.idRayon = temp.getIdRayon();
+    }
 
     public final PointChemin build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {

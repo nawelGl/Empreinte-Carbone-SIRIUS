@@ -255,7 +255,7 @@ public class ProductMapping implements ActionListener{
             etageTitre.setText("Plan du 1er étage :");
         } else  etageTitre.setText("Plan du " + etageActuel + "ème étage :");
         etageTitre.setFont(new Font("Avenir", Font.BOLD, textSize+2));
-        etageTitre.setBounds(600, 10, 300, 50);
+        etageTitre.setBounds(600, 10, 300, 60);
         mainPanel.add(etageTitre);
     }
 
