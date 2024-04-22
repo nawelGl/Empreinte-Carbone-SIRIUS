@@ -16,7 +16,7 @@ public class Produit {
     private int reference;
     private String score;
     private String genre;
-    private float empreinte;
+    private double empreinte;
     private int idMagasin;
     private int idMarque;
     private String nomProduit;
@@ -43,7 +43,7 @@ public Produit(){}
         return buildPreparedStatement(preparedStatement, idEmplacement, couleur, taille, reference, score, genre, empreinte, idMagasin, idMarque, nomProduit, idsouscatB,idVilleDepart, idVilleArrive,idTransportMode, poids,prix, idSousCatA,idCategorie);
     }
 
-    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, float empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix, int idSousCatA,int idCategorie) {
+    public Produit(int idProduit, int idEmplacement, String couleur, String taille, int reference, String score, String genre, double empreinte, int idMagasin, int idMarque, String nomProduit, Integer idsouscatB, int idVilleDepart,int idVilleArrive, int idTransportMode, double poids,double prix, int idSousCatA,int idCategorie) {
         this.idProduit = idProduit;
         this.idEmplacement = idEmplacement;
         this.idVilleDepart =idVilleDepart;
@@ -111,11 +111,11 @@ public Produit(){}
 
     public void setGenre(String genre){this.genre = genre;}
 
-    public float getEmpreinte() {
+    public double getEmpreinte() {
         return empreinte;
     }
 
-    public void setEmpreinte(float empreinte){this.empreinte = empreinte;}
+    public void setEmpreinte(double empreinte){this.empreinte = empreinte;}
 
     public int getIdMagasin() {
         return idMagasin;

@@ -45,7 +45,9 @@ public class XMartCityService {
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? ORDER BY \"empreinte\" ASC LIMIT 3"),
-        SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score");
+        SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
+        UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?");
+
 
 
 
@@ -129,7 +131,7 @@ public class XMartCityService {
                         insertStatement.setInt(3, produit.getReference());
                         insertStatement.setString(3, produit.getScore());
                         insertStatement.setString(3, produit.getGenre());
-                        insertStatement.setFloat(3, produit.getEmpreinte());
+                        insertStatement.setDouble(3, produit.getEmpreinte());
                         insertStatement.setInt(3, produit.getIdMagasin());
                         insertStatement.setInt(3, produit.getIdMarque());
                         insertStatement.setString(3, produit.getNomProduit());
@@ -170,6 +172,25 @@ public class XMartCityService {
                     } catch (/*SQLException | IOException e*/ Exception e) {
                         response = new Response(request.getRequestId(), "Error executing INSERT_POINT query");
                         logger.error("Error executing INSERT_POINT query: {}", e.getMessage());
+                    }
+                    break;
+
+                case "UPDATE_INFO_PRODUCT":
+                    try {
+                        PreparedStatement updateStatement = connection.prepareStatement(Queries.UPDATE_INFO_PRODUCT.query);
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        Produit produit = objectMapper.readValue(requestBody, Produit.class);
+
+                        updateStatement.setDouble(1,produit.getEmpreinte());
+                        updateStatement.setString(2,produit.getScore());
+                        updateStatement.executeUpdate();
+                        return new Response(request.getRequestId(),produit.toString());
+
+                    } catch (/*SQLException | IOException e*/ Exception e) {
+                        response = new Response(request.getRequestId(), "Error executing UPDATE_INFO_PRODUCT query");
+                        logger.error("Error executing UPDATE_INFO_PRODUCT query: {}", e.getMessage());
                     }
                     break;
 

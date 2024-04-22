@@ -1,11 +1,14 @@
 package edu.ezip.ing1.pds.front.UC1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Produit;
 import edu.ezip.ing1.pds.business.dto.Produits;
 import edu.ezip.ing1.pds.business.dto.TransportMode;
+import edu.ezip.ing1.pds.client.InsertPointsRequest;
 import edu.ezip.ing1.pds.client.UC1.Select3Suggestions;
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
 import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
+import edu.ezip.ing1.pds.client.UpdateInfoProduct;
 import edu.ezip.ing1.pds.commons.Request;
 
 import java.awt.*;
@@ -33,7 +36,7 @@ public class ProductInfo implements ActionListener {
     private String productName = RechercheReference.getProduct().getNomProduit();
 
     private String productColor = RechercheReference.getProduct().getCouleur();
-    private Double carbonFootPrint;
+    private double carbonFootPrint;
 
     private double productPrice= RechercheReference.getProduct().getPrix();
     private double prodcutWeight= RechercheReference.getProduct().getPoids();
@@ -44,6 +47,7 @@ public class ProductInfo implements ActionListener {
     private Integer idSousCatA=RechercheReference.getProduct().getIdSousCatA();
     private Integer idSousCatB=RechercheReference.getProduct().getIdsouscatB();
     private String colorProduct= RechercheReference.getProduct().getCouleur();
+    private String score;
 
     private Ville villeArrive;
     private Ville villeDepart;
@@ -106,10 +110,25 @@ public class ProductInfo implements ActionListener {
 
 
             }
+
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
 
         }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
 
+        score=attributeLetterScore(carbonFootPrint);
+
+        //Faire UPDATE BASE ---------------------------
+        ObjectMapper objectMapper = new ObjectMapper();
+        Produit produit= new Produit();
+        produit.setEmpreinte(carbonFootPrint);
+        produit.setScore(score);
+        try {
+            String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
+            UpdateInfoProduct.launchUpdateProduit(responseBody);
+            System.out.println("UDPATE EFFECTUÉ");
+        } catch (IOException | InterruptedException ex) {
+           System.out.println("ERREUR DANS L'UPDATE");
+        }
 
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
@@ -136,7 +155,7 @@ public class ProductInfo implements ActionListener {
         productPanel.add(scoreLabel);
 
 
-        JLabel IconScore = setlabelIconScore(attributeLetterScore(carbonFootPrint));
+        JLabel IconScore = setlabelIconScore(score);
         IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
@@ -161,24 +180,7 @@ public class ProductInfo implements ActionListener {
         suggestionPanel.add(label2);
 
         Produits suggestions= null;
-//        try {
-//            suggestions = Select3Suggestions.launchSelect3Suggestions(idCategorie + "," + idSousCatA + "," + idSousCatB + "," + carbonFootPrint + "," + colorProduct);
-//            List<Produit> suggestList = new ArrayList<Produit>(suggestions.getProduits());
-//            if (suggestions != null && suggestList.size()==3) {
-//                suggestProduct1 = suggestList.get(0);
-//                suggestProduct2 = suggestList.get(1);
-//                suggestProduct3 = suggestList.get(2);
-//                System.out.println("============================");
-//                System.out.println("Suggestions recuperée ");
-//                System.out.println("============================");
-//
-//            }else {
-//                System.out.println("Aucune suggestion n'a été récupérée.");
-//                //TODO : faire logger
-//            }
-//        } catch (IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
 
         try {
             suggestions = Select3Suggestions.launchSelect3Suggestions(idCategorie + "," + idSousCatA + "," + idSousCatB + "," + carbonFootPrint + "," + colorProduct);
@@ -293,55 +295,6 @@ public class ProductInfo implements ActionListener {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
-        //------- Suggestion items --------------------------------------------
-
-//        //----------Product suggested 1
-//        JButton suggest1Button = new JButton("PRODUIT 1");
-//        suggest1Button.setBounds(80,65,150,150);
-//        suggestionPanel.add(suggest1Button);
-//
-//        JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-//        priceLabel1.setBounds(140,210,300,50);
-//        suggestionPanel.add(priceLabel1);
-//
-//        JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-//        IconScoreP1.setBounds(150,240,80,80);
-//        suggestionPanel.add(IconScoreP1);
-//
-//       // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
-//
-//
-//
-//        //----------Product suggested 2----------------------------------------
-//        JButton suggest2Button = new JButton("PRODUIT 2");
-//        suggest2Button.setBounds(420,65,150,150);
-//        suggestionPanel.add(suggest2Button);
-//
-//        JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
-//        priceLabel2.setBounds(460,210,300,50);
-//        suggestionPanel.add(priceLabel2);
-//
-//        JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
-//        IconScoreP2.setBounds(470,240,80,80);
-//        suggestionPanel.add(IconScoreP2);
-//
-//        //----------Product suggested 3----------------------------------------
-//        JButton suggest3Button = new JButton("PRODUIT 3 ");
-//        suggest3Button.setBounds(750,65,90,90);
-//        suggestionPanel.add(suggest3Button);
-//
-//
-//        JLabel priceLabel3 = new JLabel("Prix:"+ suggestProduct3.getPrix() +"€ ");
-//        priceLabel3.setBounds(810,210,300,50);
-//        suggestionPanel.add(priceLabel3);
-//
-//        JLabel IconScoreP3 = setlabelIconScore(suggestProduct3.getScore());
-//        IconScoreP3.setBounds(820,240,80,80);
-//        suggestionPanel.add(IconScoreP3);
-
 
         mainPanel.add(suggestionPanel);
 
