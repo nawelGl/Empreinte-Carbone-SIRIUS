@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front.UC3;
 
+import edu.ezip.ing1.pds.front.AdminMenu;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
@@ -105,7 +106,7 @@ public class LoginFrame implements ActionListener {
         if(e.getSource()==loginBtt) {
             if (id.equals(idTxt.getText()) && pwd.equals(pwTxt.getText())){
             loginFrame.dispose();
-            AccueilUC3 accueilUC3 = new AccueilUC3();
+            AdminMenu adminMenu=new AdminMenu();
         }else {
             JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe inconnue");
             }
