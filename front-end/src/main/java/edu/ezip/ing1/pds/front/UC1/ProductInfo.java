@@ -72,6 +72,8 @@ public class ProductInfo implements ActionListener {
 
         //----------panel header--------------
         String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
+        Font fontHeader= new Font(Template.POLICE,Font.CENTER_BASELINE,25);
+
 
         MethodesFront.header(productInfoFrame, titreHeader, 540);
 
@@ -133,26 +135,31 @@ public class ProductInfo implements ActionListener {
         }
 
         //-------panel item chosen---------
+        Font font2=new Font(Template.POLICE,Font.CENTER_BASELINE,15);
         JPanel productPanel = new JPanel();
         productPanel.setLayout(null);
         productPanel.setBounds(180,40,1030,300);
         productPanel.setBackground(Color.WHITE);
 
         JLabel label1 = new JLabel("Votre produit ");
+        label1.setFont(Template.FONT_ECRITURE);
         label1.setBounds(450,5,100,50);
         productPanel.add(label1);
 
 
         JLabel priceLabel = new JLabel("Prix: "+productPrice +" € ");
+        priceLabel.setFont(Template.FONT_ECRITURE);
         priceLabel.setBounds(600,70,300,50);
         productPanel.add(priceLabel);
 
         JLabel empreinteLabel = new JLabel("Empreinte Carbone : "+  carbonFootPrint +" gCO2e ");
+        empreinteLabel.setFont(Template.FONT_ECRITURE);
         empreinteLabel.setBounds(600,120,300,50);
         productPanel.add(empreinteLabel);
 
 
         JLabel scoreLabel = new JLabel("Carbon score: " );
+        scoreLabel.setFont(Template.FONT_ECRITURE);
         scoreLabel.setBounds(600,160,200,50);
         productPanel.add(scoreLabel);
 
@@ -179,6 +186,7 @@ public class ProductInfo implements ActionListener {
 
         JLabel label2 = new JLabel("Suggestions ");
         label2.setBounds(450,5,100,50);
+        label2.setFont(Template.FONT_ECRITURE);
         suggestionPanel.add(label2);
 
         Produits suggestions= null;
@@ -186,114 +194,120 @@ public class ProductInfo implements ActionListener {
 
         try {
             suggestions = Select3Suggestions.launchSelect3Suggestions(idCategorie + "," + idSousCatA + "," + idSousCatB + "," + carbonFootPrint + "," + colorProduct);
-            List<Produit> suggestList = new ArrayList<>(suggestions.getProduits());
 
-            // Vérifier le nombre de suggestions
-            int numberOfSuggestions = suggestList.size();
-            if (numberOfSuggestions == 0) {
-                JLabel NoSuggestionMessage= new JLabel("Oupss...Malheureusement pour cet article il n'y pas d'alternative plus durable... Bon shopping");
+            if (suggestions==null) {
+                JLabel NoSuggestionMessage= new JLabel("Pour cet article il n'y pas de suggestion plus durable... Bon shopping!");
+                NoSuggestionMessage.setBounds(200,80,900,200);
+                Font font = new Font(Template.POLICE, Font.BOLD, 20);
+                NoSuggestionMessage.setForeground(Color.decode(Template.COULEUR_SECONDAIRE));
+                NoSuggestionMessage.setFont(font);
                 suggestionPanel.add(NoSuggestionMessage);
 
-            } else if (numberOfSuggestions == 1) {
-                // Afficher la seule suggestion disponible
-                suggestProduct1 = suggestList.get(0);
-                //----------Product suggested 1
-                JButton suggest1Button = new JButton("PRODUIT 1");
-                suggest1Button.setBounds(420,65,150,150);
-                suggestionPanel.add(suggest1Button);
+            } else {
+                List<Produit> suggestList = new ArrayList<>(suggestions.getProduits());
+                int numberOfSuggestions = suggestList.size();
+                 if (numberOfSuggestions == 1) {
+                    // Afficher la seule suggestion disponible
+                    suggestProduct1 = suggestList.get(0);
+                    //----------Product suggested 1
+                    JButton suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button.setBounds(420,65,150,150);
+                    suggestionPanel.add(suggest1Button);
 
-                JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                priceLabel1.setBounds(460,210,300,50);
-                suggestionPanel.add(priceLabel1);
+                    JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
+                    priceLabel1.setBounds(460,210,300,50);
+                    suggestionPanel.add(priceLabel1);
 
-                JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                IconScoreP1.setBounds(470,240,80,80);
-                suggestionPanel.add(IconScoreP1);
+                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                    IconScoreP1.setBounds(470,240,80,80);
+                    suggestionPanel.add(IconScoreP1);
 
-            } else if (numberOfSuggestions == 2) {
-                suggestProduct1 = suggestList.get(0);
-                suggestProduct2 = suggestList.get(1);
+                } else if (numberOfSuggestions == 2) {
+                    suggestProduct1 = suggestList.get(0);
+                    suggestProduct2 = suggestList.get(1);
 
-                //----------Product suggested 1
-                JButton suggest1Button = new JButton("PRODUIT 1");
-                suggest1Button.setBounds(80,65,150,150);
-                suggestionPanel.add(suggest1Button);
+                    //----------Product suggested 1
+                    JButton suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button.setBounds(80,65,150,150);
+                    suggestionPanel.add(suggest1Button);
 
-                JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                priceLabel1.setBounds(140,210,300,50);
-                suggestionPanel.add(priceLabel1);
+                    JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
+                    priceLabel1.setBounds(140,210,300,50);
+                    suggestionPanel.add(priceLabel1);
 
-                JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                IconScoreP1.setBounds(150,240,80,80);
-                suggestionPanel.add(IconScoreP1);
+                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                    IconScoreP1.setBounds(150,240,80,80);
+                    suggestionPanel.add(IconScoreP1);
 
-                // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
-
-
-
-                //----------Product suggested 2----------------------------------------
-                JButton suggest2Button = new JButton("PRODUIT 2");
-                suggest2Button.setBounds(420,65,150,150);
-                suggestionPanel.add(suggest2Button);
-
-                JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
-                priceLabel2.setBounds(460,210,300,50);
-                suggestionPanel.add(priceLabel2);
-
-                JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
-                IconScoreP2.setBounds(470,240,80,80);
-                suggestionPanel.add(IconScoreP2);
-
-            } else if (numberOfSuggestions >= 3) {
-                suggestProduct1 = suggestList.get(0);
-                suggestProduct2 = suggestList.get(1);
-                suggestProduct3 = suggestList.get(2);
-
-                //----------Product suggested 1
-                JButton suggest1Button = new JButton("PRODUIT 1");
-                suggest1Button.setBounds(80,65,150,150);
-                suggestionPanel.add(suggest1Button);
-
-                JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                priceLabel1.setBounds(140,210,300,50);
-                suggestionPanel.add(priceLabel1);
-
-                JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                IconScoreP1.setBounds(150,240,80,80);
-                suggestionPanel.add(IconScoreP1);
-
-                // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
+                    // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
 
 
 
-                //----------Product suggested 2----------------------------------------
-                JButton suggest2Button = new JButton("PRODUIT 2");
-                suggest2Button.setBounds(420,65,150,150);
-                suggestionPanel.add(suggest2Button);
+                    //----------Product suggested 2----------------------------------------
+                    JButton suggest2Button = new JButton("PRODUIT 2");
+                    suggest2Button.setBounds(420,65,150,150);
+                    suggestionPanel.add(suggest2Button);
 
-                JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
-                priceLabel2.setBounds(460,210,300,50);
-                suggestionPanel.add(priceLabel2);
+                    JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
+                    priceLabel2.setBounds(460,210,300,50);
+                    suggestionPanel.add(priceLabel2);
 
-                JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
-                IconScoreP2.setBounds(470,240,80,80);
-                suggestionPanel.add(IconScoreP2);
+                    JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
+                    IconScoreP2.setBounds(470,240,80,80);
+                    suggestionPanel.add(IconScoreP2);
 
-                //----------Product suggested 3----------------------------------------
-                JButton suggest3Button = new JButton("PRODUIT 3 ");
-                suggest3Button.setBounds(750,65,90,90);
-                suggestionPanel.add(suggest3Button);
+                } else if (numberOfSuggestions >= 3) {
+                    suggestProduct1 = suggestList.get(0);
+                    suggestProduct2 = suggestList.get(1);
+                    suggestProduct3 = suggestList.get(2);
+
+                    //----------Product suggested 1
+                    JButton suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button.setBounds(80,65,150,150);
+                    suggestionPanel.add(suggest1Button);
+
+                    JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
+                    priceLabel1.setBounds(140,210,300,50);
+                    suggestionPanel.add(priceLabel1);
+
+                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                    IconScoreP1.setBounds(150,240,80,80);
+                    suggestionPanel.add(IconScoreP1);
+
+                    // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
 
 
-                JLabel priceLabel3 = new JLabel("Prix:"+ suggestProduct3.getPrix() +"€ ");
-                priceLabel3.setBounds(810,210,300,50);
-                suggestionPanel.add(priceLabel3);
 
-                JLabel IconScoreP3 = setlabelIconScore(suggestProduct3.getScore());
-                IconScoreP3.setBounds(820,240,80,80);
-                suggestionPanel.add(IconScoreP3);
+                    //----------Product suggested 2----------------------------------------
+                    JButton suggest2Button = new JButton("PRODUIT 2");
+                    suggest2Button.setBounds(420,65,150,150);
+                    suggestionPanel.add(suggest2Button);
 
+                    JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
+                    priceLabel2.setBounds(460,210,300,50);
+                    suggestionPanel.add(priceLabel2);
+
+                    JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
+                    IconScoreP2.setBounds(470,240,80,80);
+                    suggestionPanel.add(IconScoreP2);
+
+                    //----------Product suggested 3----------------------------------------
+                    JButton suggest3Button = new JButton("PRODUIT 3 ");
+                    suggest3Button.setBounds(750,65,90,90);
+                    suggestionPanel.add(suggest3Button);
+
+
+                    JLabel priceLabel3 = new JLabel("Prix:"+ suggestProduct3.getPrix() +"€ ");
+                    priceLabel3.setBounds(810,210,300,50);
+                    suggestionPanel.add(priceLabel3);
+
+                    JLabel IconScoreP3 = setlabelIconScore(suggestProduct3.getScore());
+                    IconScoreP3.setBounds(820,240,80,80);
+                    suggestionPanel.add(IconScoreP3);
+
+                }
             }
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
