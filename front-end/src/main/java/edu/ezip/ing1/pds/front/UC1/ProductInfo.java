@@ -316,6 +316,10 @@ public class ProductInfo implements ActionListener {
             e.printStackTrace();
         }
 
+        suggest1Button.addActionListener(this);
+        suggest2Button.addActionListener(this);
+        suggest3Button.addActionListener(this);
+
         mainPanel.add(suggestionPanel);
 
 

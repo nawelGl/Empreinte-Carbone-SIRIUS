@@ -1,5 +1,7 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.front.UC3.AccueilUC3;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,14 +32,15 @@ public class AdminMenu implements ActionListener {
         panelCentre = new JPanel(null);
         panelCentre.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
-        boutonArriere1=new JButton();
-        boutonArriere1.setBounds(280, 250, 300, 230);
-        boutonArriere1.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
-       // boutonArriere1.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
-        boutonArriere1.setForeground(Color.BLACK);
-        boutonArriere1.setFocusPainted(false);
-        boutonArriere1.setEnabled(false);
-        panelCentre.add(boutonArriere1);
+        //Pas encore au point niveau esthetique a voir 
+//        boutonArriere1=new JButton();
+//        boutonArriere1.setBounds(280, 250, 300, 230);
+//        boutonArriere1.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+//       // boutonArriere1.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
+//        boutonArriere1.setForeground(Color.BLACK);
+//        boutonArriere1.setFocusPainted(false);
+//        boutonArriere1.setEnabled(false);
+//        panelCentre.add(boutonArriere1);
 
         configButton = new JButton("<html><center><br><img src='" +
                 getClass().getResource("/configGRANDE.png") +
@@ -48,9 +51,12 @@ public class AdminMenu implements ActionListener {
                 "'><br><br><font size='5' face='Avenir'>Statistique du magasin</font></center></html>");
 
         UC3button.setBounds(800, 250, 300, 230);
+        configButton.addActionListener(this);
+        UC3button.addActionListener(this);
         panelCentre.add(configButton);
         panelCentre.add(UC3button);
         frame.add(panelCentre);
+
 
 
 
@@ -61,6 +67,10 @@ public class AdminMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==UC3button){
+            frame.dispose();
+            AccueilUC3 accueilUC3=new AccueilUC3();
+        }
 
     }
 }
