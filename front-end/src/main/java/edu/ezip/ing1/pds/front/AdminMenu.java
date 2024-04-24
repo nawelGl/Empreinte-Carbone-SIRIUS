@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class AdminMenu implements ActionListener {
     JFrame frame;
@@ -12,8 +13,8 @@ public class AdminMenu implements ActionListener {
     String titreHeader= "Menu Administrateur";
     int x= 550;
     JPanel panelCentre;
-    ImageIcon configIcon;
-    ImageIcon STATicon;
+   JButton boutonArriere1;
+
 
 
     public AdminMenu(){
@@ -29,12 +30,24 @@ public class AdminMenu implements ActionListener {
         panelCentre = new JPanel(null);
         panelCentre.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
+        boutonArriere1=new JButton();
+        boutonArriere1.setBounds(280, 250, 300, 230);
+        boutonArriere1.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+       // boutonArriere1.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
+        boutonArriere1.setForeground(Color.BLACK);
+        boutonArriere1.setFocusPainted(false);
+        boutonArriere1.setEnabled(false);
+        panelCentre.add(boutonArriere1);
 
+        configButton = new JButton("<html><center><br><img src='" +
+                getClass().getResource("/configGRANDE.png") +
+                "'><br><br><font size='5' face='Avenir'>Configuration</font></center></html>");
+        configButton.setBounds(300, 250, 300, 230);
+        UC3button= new JButton("<html><center><br><img src='" +
+                getClass().getResource("/statBisGrande.png") +
+                "'><br><br><font size='5' face='Avenir'>Statistique du magasin</font></center></html>");
 
-        configButton=new JButton("Configuration");
-        configButton.setBounds(300, 300, 300, 200);
-        UC3button= new JButton("Statistiques du magasin");
-        UC3button.setBounds(700, 300, 300, 200);
+        UC3button.setBounds(800, 250, 300, 230);
         panelCentre.add(configButton);
         panelCentre.add(UC3button);
         frame.add(panelCentre);
