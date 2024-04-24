@@ -158,7 +158,7 @@ public class ProductInfo implements ActionListener {
         productPanel.add(empreinteLabel);
 
 
-        JLabel scoreLabel = new JLabel("Carbon score: " );
+        JLabel scoreLabel = new JLabel("Score carbone : " );
         scoreLabel.setFont(Template.FONT_ECRITURE);
         scoreLabel.setBounds(600,160,200,50);
         productPanel.add(scoreLabel);
