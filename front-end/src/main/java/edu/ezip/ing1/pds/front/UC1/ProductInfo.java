@@ -21,6 +21,7 @@ import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RechercheReference;
+import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
@@ -177,7 +178,14 @@ public class ProductInfo implements ActionListener {
         UC2button.setBounds(730,270,300,30);
         productPanel.add(UC2button);
         UC2button.setOpaque(false);
+
+
+        RoundedPanel roundedPanel= new RoundedPanel(40,40);
+        roundedPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+        roundedPanel.setBounds(70,900,300,200);
+        productPanel.add(roundedPanel);
         mainPanel.add(productPanel);
+
 
         //-------panel suggestion---------
 
@@ -216,6 +224,7 @@ public class ProductInfo implements ActionListener {
                     //----------Product suggested 1
                     suggest1Button = new JButton("PRODUIT 1");
                     suggest1Button.setBounds(420,65,150,150);
+                     suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
 
                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
@@ -233,6 +242,7 @@ public class ProductInfo implements ActionListener {
                     //----------Product suggested 1
                     suggest1Button = new JButton("PRODUIT 1");
                     suggest1Button.setBounds(80,65,150,150);
+                     suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
 
                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
@@ -250,6 +260,7 @@ public class ProductInfo implements ActionListener {
                     //----------Product suggested 2----------------------------------------
                     suggest2Button = new JButton("PRODUIT 2");
                     suggest2Button.setBounds(420,65,150,150);
+                     suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
 
                     JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
@@ -268,6 +279,7 @@ public class ProductInfo implements ActionListener {
                     //----------Product suggested 1
                     suggest1Button = new JButton("PRODUIT 1");
                     suggest1Button.setBounds(80,65,150,150);
+                     suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
 
                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
@@ -285,6 +297,7 @@ public class ProductInfo implements ActionListener {
                     //----------Product suggested 2----------------------------------------
                     suggest2Button = new JButton("PRODUIT 2");
                     suggest2Button.setBounds(420,65,150,150);
+                     suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
 
                     JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
@@ -298,6 +311,7 @@ public class ProductInfo implements ActionListener {
                     //----------Product suggested 3----------------------------------------
                     suggest3Button = new JButton("PRODUIT 3 ");
                     suggest3Button.setBounds(750,65,90,90);
+                     suggest3Button.addActionListener(this);
                     suggestionPanel.add(suggest3Button);
 
 
@@ -316,11 +330,13 @@ public class ProductInfo implements ActionListener {
             e.printStackTrace();
         }
 
-        suggest1Button.addActionListener(this);
-        suggest2Button.addActionListener(this);
-        suggest3Button.addActionListener(this);
+
+
+
 
         mainPanel.add(suggestionPanel);
+
+
 
 
 
