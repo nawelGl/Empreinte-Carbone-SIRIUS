@@ -187,21 +187,22 @@ public class ProductMapping implements ActionListener{
         JLabel mapLabel = new JLabel(map);
         mainPanel.add(mapLabel);
 
-        mapPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
+        if (path.getPath() != null) {
+            mapPanel = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
 
-                Graphics2D g2d = (Graphics2D) g;
-                // Épaisseur de la ligne (chemin)
-                g2d.setStroke(new BasicStroke(5));
+                    Graphics2D g2d = (Graphics2D) g;
+                    // Épaisseur de la ligne (chemin)
+                    g2d.setStroke(new BasicStroke(5));
 
-                // Dessiner l'image de fond
-                if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                }
-                // Dessiner le chemin
-                if (!path.getPath().isEmpty()) {
+                    // Dessiner l'image de fond
+                    if (backgroundImage != null) {
+                        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                    }
+                    // Dessiner le chemin
+
                     g.setColor(Color.RED);
                     for (int i = 0; i < path.getPath().size() - 1; i++) {
                         PointChemin p1 = path.getPath().get(i);
@@ -209,8 +210,11 @@ public class ProductMapping implements ActionListener{
                         g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
                     }
                 }
-            }
-        };
+            };
+        } else {
+            mapPanel = new JPanel();
+            mapPanel.add(mapLabel);
+        }
 
         mapPanel.setLayout(null);
         mapPanel.setBounds(60, 60,770, 580);
