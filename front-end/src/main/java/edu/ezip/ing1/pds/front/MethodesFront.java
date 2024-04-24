@@ -28,8 +28,7 @@ public class MethodesFront {
         headerPanel.setLayout(null);
         JLabel titreLabel = new JLabel(titre);
         titreLabel.setBounds(x, 13, 600, 50);
-        Font font = new Font(Template.POLICE, Font.BOLD, 20);
-        titreLabel.setFont(font);
+        titreLabel.setFont(Template.FONT_TITRES);
 
         ImageIcon logo = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/logo.png")));
 
@@ -59,7 +58,7 @@ public class MethodesFront {
         headerPanel.add(nomAppPanel);
 
         JLabel nomAppLabel = new JLabel("EPIGREEN-SHOP");
-        nomAppLabel.setFont(font);
+        nomAppLabel.setFont(Template.FONT_TITRES);
         nomAppLabel.setForeground(Color.WHITE);
         nomAppPanel.add(nomAppLabel);
 
