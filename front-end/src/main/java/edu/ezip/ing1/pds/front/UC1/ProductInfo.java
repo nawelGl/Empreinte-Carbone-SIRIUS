@@ -57,6 +57,10 @@ public class ProductInfo implements ActionListener {
     private Produit suggestProduct1;
     private Produit suggestProduct2;
     private Produit suggestProduct3;
+    private JButton UC2button;
+    private JButton suggest2Button;
+    private JButton suggest1Button;
+    private JButton suggest3Button;
 
 
 
@@ -168,7 +172,7 @@ public class ProductInfo implements ActionListener {
         IconScore.setBounds(760,160,80,80);
         productPanel.add(IconScore);
 
-        JButton UC2button= new JButton("Trouver l'article dans le magasin >> ");
+        UC2button= new JButton("Trouver l'article dans le magasin >> ");
         UC2button.addActionListener(this);
         UC2button.setBounds(730,270,300,30);
         productPanel.add(UC2button);
@@ -210,7 +214,7 @@ public class ProductInfo implements ActionListener {
                     // Afficher la seule suggestion disponible
                     suggestProduct1 = suggestList.get(0);
                     //----------Product suggested 1
-                    JButton suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button = new JButton("PRODUIT 1");
                     suggest1Button.setBounds(420,65,150,150);
                     suggestionPanel.add(suggest1Button);
 
@@ -227,7 +231,7 @@ public class ProductInfo implements ActionListener {
                     suggestProduct2 = suggestList.get(1);
 
                     //----------Product suggested 1
-                    JButton suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button = new JButton("PRODUIT 1");
                     suggest1Button.setBounds(80,65,150,150);
                     suggestionPanel.add(suggest1Button);
 
@@ -244,7 +248,7 @@ public class ProductInfo implements ActionListener {
 
 
                     //----------Product suggested 2----------------------------------------
-                    JButton suggest2Button = new JButton("PRODUIT 2");
+                    suggest2Button = new JButton("PRODUIT 2");
                     suggest2Button.setBounds(420,65,150,150);
                     suggestionPanel.add(suggest2Button);
 
@@ -262,7 +266,7 @@ public class ProductInfo implements ActionListener {
                     suggestProduct3 = suggestList.get(2);
 
                     //----------Product suggested 1
-                    JButton suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button = new JButton("PRODUIT 1");
                     suggest1Button.setBounds(80,65,150,150);
                     suggestionPanel.add(suggest1Button);
 
@@ -274,12 +278,12 @@ public class ProductInfo implements ActionListener {
                     IconScoreP1.setBounds(150,240,80,80);
                     suggestionPanel.add(IconScoreP1);
 
-                    // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
+                    
 
 
 
                     //----------Product suggested 2----------------------------------------
-                    JButton suggest2Button = new JButton("PRODUIT 2");
+                    suggest2Button = new JButton("PRODUIT 2");
                     suggest2Button.setBounds(420,65,150,150);
                     suggestionPanel.add(suggest2Button);
 
@@ -292,7 +296,7 @@ public class ProductInfo implements ActionListener {
                     suggestionPanel.add(IconScoreP2);
 
                     //----------Product suggested 3----------------------------------------
-                    JButton suggest3Button = new JButton("PRODUIT 3 ");
+                    suggest3Button = new JButton("PRODUIT 3 ");
                     suggest3Button.setBounds(750,65,90,90);
                     suggestionPanel.add(suggest3Button);
 
@@ -312,6 +316,10 @@ public class ProductInfo implements ActionListener {
             e.printStackTrace();
         }
 
+        suggest1Button.addActionListener(this);
+        suggest2Button.addActionListener(this);
+        suggest3Button.addActionListener(this);
+
         mainPanel.add(suggestionPanel);
 
 
@@ -323,7 +331,15 @@ public class ProductInfo implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ProductMapping productMapping=new ProductMapping();
-        productInfoFrame.dispose();
+        if (e.getSource() == UC2button) {
+            ProductMapping productMapping = new ProductMapping();
+            productInfoFrame.dispose();
+        } else if (e.getSource()==suggest1Button) {
+            
+        } else if (e.getSource()==suggest2Button) {
+            
+        } else if (e.getSource()==suggest3Button) {
+            
+        }
     }
 }
