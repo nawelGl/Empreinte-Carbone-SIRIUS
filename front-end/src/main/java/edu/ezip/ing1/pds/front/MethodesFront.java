@@ -1,5 +1,9 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.Score;
+import edu.ezip.ing1.pds.business.dto.Scores;
+import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
+import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 
 import javax.swing.*;
@@ -7,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -16,12 +21,14 @@ import java.util.Objects;
 
 public class MethodesFront {
     // Header for frames
+
     public static void header(JFrame frame, String titre, int x) {
         // ----------panel header : Logo + label titre--------------
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(null);
         JLabel titreLabel = new JLabel(titre);
         titreLabel.setBounds(x, 13, 600, 50);
+        titreLabel.setFont(Template.FONT_TITRES);
 
         ImageIcon logo = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/logo.png")));
 
@@ -51,8 +58,7 @@ public class MethodesFront {
         headerPanel.add(nomAppPanel);
 
         JLabel nomAppLabel = new JLabel("EPIGREEN-SHOP");
-        Font font = new Font(Template.POLICE, Font.BOLD, 20);
-        nomAppLabel.setFont(font);
+        nomAppLabel.setFont(Template.FONT_TITRES);
         nomAppLabel.setForeground(Color.WHITE);
         nomAppPanel.add(nomAppLabel);
 
@@ -102,34 +108,31 @@ public class MethodesFront {
 
     }
 
-    public static String attributeLetterScore(double carbonFootPrint){
-        //TODO METTRE EN BASE
-        double borneAInf = 0.0E8;
-        double borneASup = 1200;
-        double borneBInf = 1200;
-        double borneBSup = 1500;
-        double borneCInf = 1500;
-        double borneCSup = 1600;
-        double borneDInf = 1600;
-        double borneDSup = 1700;
-        double borneEInf = 1700;
-        double borneESup = 1900;
+    public static String attributeLetterScore(double carbonFootPrint) {
 
-        if (carbonFootPrint >= borneAInf && carbonFootPrint < borneASup) {
-            return "A";
-        } else if (carbonFootPrint >= borneBInf && carbonFootPrint < borneBSup) {
-            return "B";
-        } else if (carbonFootPrint >= borneCInf && carbonFootPrint < borneCSup) {
-            return "C";
-        } else if (carbonFootPrint >= borneDInf && carbonFootPrint < borneDSup) {
-            return "D";
-        } else if (carbonFootPrint > borneEInf) {
-            return "E";
-        } else {
-            return "Erreur hors borne";
+        Scores scores = null;
+        try {
+            scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
+
+        if (scores != null) {
+
+            for (Score score : scores.getScores()) { //parcours de la liste et pour chaque score on compare l'empreinte aux bornes du score
+                if (carbonFootPrint >= score.getborneInf() && carbonFootPrint < score.getborneSup()) {
+                    return score.getlettreScore();
+
+                }
+            }
+        }
+
+        //TODO : FAIRE UN LOGGER
+        System.out.println("FAIL SCORE");
+        return "Erreur hors borne";
     }
+
 
     public static JLabel setlabelIconScore(String scoreLetter) {
         JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône

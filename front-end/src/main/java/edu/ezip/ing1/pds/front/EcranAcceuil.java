@@ -30,7 +30,7 @@ public class EcranAcceuil implements ActionListener {
 
     String titreBoutonUC1= "Faites-vous un achat responsable ? ";
     String titreBoutonUC2="Stat UC2";
-    String titreBoutonUC3="Statistiques pour business >>";
+    String titreBoutonUC3="Se connecter en tant qu'admin";
 
     public EcranAcceuil() {
         //Paramétrages de base :
