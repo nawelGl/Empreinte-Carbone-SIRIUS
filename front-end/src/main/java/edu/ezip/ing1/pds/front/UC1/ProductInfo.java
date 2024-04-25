@@ -209,6 +209,11 @@ public class ProductInfo implements ActionListener {
                 suggestionPanel.add(NoSuggestionMessage);
 
             } else {
+                JPanel gridPanel= new JPanel();
+                gridPanel.setLayout(new GridBagLayout());
+                gridPanel.setBackground(Color.BLACK);
+                suggestionPanel.add(gridPanel,BorderLayout.CENTER);
+
                 List<Produit> suggestList = new ArrayList<>(suggestions.getProduits());
                 int numberOfSuggestions = suggestList.size();
                  if (numberOfSuggestions == 1) {
@@ -283,7 +288,7 @@ public class ProductInfo implements ActionListener {
                     IconScoreP1.setBounds(150,240,80,80);
                     suggestionPanel.add(IconScoreP1);
 
-                    
+
 
 
 

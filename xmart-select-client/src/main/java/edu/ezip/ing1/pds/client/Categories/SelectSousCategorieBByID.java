@@ -44,7 +44,7 @@ public class SelectSousCategorieBByID extends ClientRequest<Object, SousCategori
      }
  
  
-     public static SousCategorieB launchSelectEmplacementById(Request request) throws IOException, InterruptedException{
+     public static SousCategorieB launchSelectEmplacementBById(Request request) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
  
