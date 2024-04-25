@@ -107,8 +107,6 @@ public class ProductInfo implements ActionListener {
             }
 
             try {
-                //Request request = new Request();
-                //request.setRequestContent(valueOf(idVilleDepart));
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
             } catch (Exception e) {
                 System.out.println("Erreur sur l'idVilleDepart");
@@ -185,7 +183,6 @@ public class ProductInfo implements ActionListener {
 
         //-------panel suggestion---------
 
-
         JPanel suggestionPanel = new JPanel();
         suggestionPanel.setLayout(null);
         suggestionPanel.setBounds(180,350,1030,330);
@@ -218,7 +215,7 @@ public class ProductInfo implements ActionListener {
                     // Afficher la seule suggestion disponible
                     suggestProduct1 = suggestList.get(0);
                     //----------Product suggested 1
-                    suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
                     suggest1Button.setBounds(420,65,150,150);
                      suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
@@ -236,7 +233,7 @@ public class ProductInfo implements ActionListener {
                     suggestProduct2 = suggestList.get(1);
 
                     //----------Product suggested 1
-                    suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
                     suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
@@ -254,7 +251,7 @@ public class ProductInfo implements ActionListener {
 
 
                     //----------Product suggested 2----------------------------------------
-                    suggest2Button = new JButton("PRODUIT 2");
+                    suggest2Button = new JButton(suggestProduct2.getNomProduit());
                     suggest2Button.setBounds(420,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
@@ -273,7 +270,7 @@ public class ProductInfo implements ActionListener {
                     suggestProduct3 = suggestList.get(2);
 
                     //----------Product suggested 1
-                    suggest1Button = new JButton("PRODUIT 1");
+                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
                     suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
@@ -291,7 +288,7 @@ public class ProductInfo implements ActionListener {
 
 
                     //----------Product suggested 2----------------------------------------
-                    suggest2Button = new JButton("PRODUIT 2");
+                    suggest2Button = new JButton(suggestProduct2.getNomProduit());
                     suggest2Button.setBounds(420,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
@@ -305,7 +302,7 @@ public class ProductInfo implements ActionListener {
                     suggestionPanel.add(IconScoreP2);
 
                     //----------Product suggested 3----------------------------------------
-                    suggest3Button = new JButton("PRODUIT 3 ");
+                    suggest3Button = new JButton(suggestProduct3.getNomProduit());
                     suggest3Button.setBounds(750,65,90,90);
                      suggest3Button.addActionListener(this);
                     suggestionPanel.add(suggest3Button);
