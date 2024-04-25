@@ -61,6 +61,8 @@ public class StatProduct {
         //titlePanel
         RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
         JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
+        infoTitle.setFont(Template.FONT_ECRITURE);
+        infoTitle.setForeground(Color.WHITE);
         infoTitlePanel.add(infoTitle);
         infoTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
@@ -137,6 +139,8 @@ public class StatProduct {
         // --ajout de title panel
         RoundedPanel chartTitlePanel = new RoundedPanel(30,30);
         JLabel charTitle = new JLabel("Statistiques des ventes");
+        charTitle.setFont(Template.FONT_ECRITURE);
+        charTitle.setForeground(Color.WHITE);
         chartTitlePanel.add(charTitle);
         chartTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         chartTitlePanel.setBorder(new EmptyBorder(20,20,20,20));

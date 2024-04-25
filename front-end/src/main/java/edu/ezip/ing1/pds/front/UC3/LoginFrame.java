@@ -46,36 +46,36 @@ public class LoginFrame implements ActionListener {
         //secondPanel.setSize(new Dimension(30, 100));
         secondPanel.setBounds(300, 200, 800, 350);
         //Ajout du JLabel :
-        JLabel titrePanelSecondaire = new JLabel("Veuillez saisir votre identifiant et mot de passe");
+        JLabel titrePanelSecondaire = new JLabel("Veuillez saisir votre identifiant et mot de passe :");
         titrePanelSecondaire.setForeground(Color.WHITE);
-        titrePanelSecondaire.setFont(new Font("Avenir", Font.BOLD, 22));
-        titrePanelSecondaire.setBounds(40, 25, 760, 80);
+        titrePanelSecondaire.setFont(Template.FONT_TITRES);
+        titrePanelSecondaire.setBounds(38, 23, 760, 80);
         secondPanel.add(titrePanelSecondaire);
 
         //------------panel de ID------------
-        JLabel idLabel = new JLabel("Identifaint:");
+        JLabel idLabel = new JLabel("Identifiant:");
         idLabel.setForeground(Color.WHITE);
-        idLabel.setFont(new Font("Avenir", Font.BOLD, 15));
+        idLabel.setFont(Template.FONT_ECRITURE);
 
         idTxt= new JTextField(20);
-        idLabel.setBounds(250, 150, 120, 20); // 위치와 크기 설정
-        idTxt.setBounds(360, 150, 120, 20);
+        idLabel.setBounds(250, 165, 120, 20); // 위치와 크기 설정
+        idTxt.setBounds(360, 165, 120, 20);
 
         //------------panel de mot de passe------------
         JLabel pwLabel = new JLabel("Mot de passe:");
         pwLabel.setForeground(Color.WHITE);
-        pwLabel.setFont(new Font("Avenir", Font.BOLD, 15));
+        pwLabel.setFont(Template.FONT_ECRITURE);
 
         pwTxt= new JPasswordField(20);
-        pwLabel.setBounds(250, 170, 120, 20);
-        pwTxt.setBounds(360, 170, 120, 20);
+        pwLabel.setBounds(250, 190, 120, 20);
+        pwTxt.setBounds(360, 190, 120, 20);
 
 
 
         //bouton login
-        loginBtt = new JButton("Login");
+        loginBtt = new JButton("Connexion");
         loginBtt.addActionListener(this);
-        loginBtt.setBounds(360, 210, 100, 30);
+        loginBtt.setBounds(360, 290, 100, 30);
 
 
 
@@ -108,7 +108,7 @@ public class LoginFrame implements ActionListener {
             loginFrame.dispose();
             AdminMenu adminMenu=new AdminMenu();
         }else {
-            JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe inconnue");
+            JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe inconnu");
             }
         }
 

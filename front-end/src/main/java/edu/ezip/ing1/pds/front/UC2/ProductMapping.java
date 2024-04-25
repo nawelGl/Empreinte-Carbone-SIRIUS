@@ -12,6 +12,8 @@ import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
+
 import static java.lang.String.valueOf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -187,7 +189,7 @@ public class ProductMapping implements ActionListener{
         JLabel mapLabel = new JLabel(map);
         mainPanel.add(mapLabel);
 
-        if (path.getPath() != null) {
+        if (path != null) {
             mapPanel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -213,7 +215,10 @@ public class ProductMapping implements ActionListener{
             };
         } else {
             mapPanel = new JPanel();
-            mapPanel.add(mapLabel);
+            JLabel mapSiPasDeChemin = new JLabel();
+            mapSiPasDeChemin.setIcon(new ImageIcon(Objects.requireNonNull(ProductMapping.class.getResource("/mapV1.png"))));
+            mapSiPasDeChemin.setBounds(0, 0,770, 580);
+            mapPanel.add(mapSiPasDeChemin);
         }
 
         mapPanel.setLayout(null);
