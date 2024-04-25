@@ -20,6 +20,8 @@ public class StatProduct {
     String[] labels = {"Avant", "Après"};
     String photoName;
 
+    JButton exportBtt;
+
     private int reference = RechercheReferenceUC3.venteBefore.getReference();
     private String score = RechercheReferenceUC3.venteBefore.getScore();
     private Vente vente;
