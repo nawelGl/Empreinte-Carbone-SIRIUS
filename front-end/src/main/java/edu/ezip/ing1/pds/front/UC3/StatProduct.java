@@ -9,20 +9,19 @@ import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 import static java.lang.String.valueOf;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class StatProduct implements ActionListener {
@@ -189,34 +188,49 @@ public class StatProduct implements ActionListener {
 
     }
     private void exportData(){
-        Workbook workbook = new HSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Statistique par produit");
 
-        Object[][] data={
-                {"Produit","Vente avant installation","Vente après installation"},
-                {reference,salesBefore,salesAfter}
-        };
+        //creation de file selector
+        JFileChooser fileChosser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File (*.xls)", "xls");
+        fileChosser.setFileFilter(filter);
 
-        int rowNum=0;
-        for(Object[] rowData : data){
-            Row row = sheet.createRow(rowNum++);
-            int colNum=0;
-            for(Object field:rowData){
-                Cell cell =row.createCell(colNum++);
-                if (field instanceof String){
-                    cell.setCellValue((String) field);
-                }else if(field instanceof Integer){
-                    cell.setCellValue((Integer) field);
+        //on attend jusqu'a utilisateur puisse choisir confirmer
+
+        int result = fileChosser.showSaveDialog(null);
+
+        if(result== JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChosser.getSelectedFile();
+            String filePath=selectedFile.getAbsolutePath();
+
+            Workbook workbook = new HSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Statistique par produit");
+
+            Object[][] data = {
+                    {"Produit", "Vente avant installation", "Vente après installation"},
+                    {reference, salesBefore, salesAfter}
+            };
+
+            int rowNum = 0;
+            for (Object[] rowData : data) {
+                Row row = sheet.createRow(rowNum++);
+                int colNum = 0;
+                for (Object field : rowData) {
+                    Cell cell = row.createCell(colNum++);
+                    if (field instanceof String) {
+                        cell.setCellValue((String) field);
+                    } else if (field instanceof Integer) {
+                        cell.setCellValue((Integer) field);
+                    }
                 }
             }
-        }
-        try(FileOutputStream outputStream = new FileOutputStream("StatisgiqueParProduit.xls")) {
-            workbook.write(outputStream);
-            System.out.println("Votre fichier est bien enregistré.");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                workbook.write(outputStream);
+                System.out.println("Votre fichier est bien enregistré.");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
