@@ -9,6 +9,7 @@ import edu.ezip.ing1.pds.business.dto.PathPointChemin;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
+import edu.ezip.ing1.pds.client.UC2.SelectHighestFloor;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
@@ -27,13 +28,13 @@ public class ProductMapping implements ActionListener{
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
     private String productColor = RechercheReference.getProduct().getCouleur();
-    private JButton setPath;
     private JButton flecheGauche;
     private JButton flecheDroite;
     private JLabel etageTitre;
     private Emplacement emplacement;
     private Etage etage;
     private PathPointChemin path;
+    private PathPointChemin pathEscalators;
     private JPanel mainPanel;
     private JPanel mapPanel;
     private JPanel panelPlan;
@@ -43,6 +44,9 @@ public class ProductMapping implements ActionListener{
     //private String productAisle = RechercheReference.product.getIdEmplacement();
     private int textSize = 20;
     private int borderTop = 20;
+    private boolean noPathFound = false;
+    private int highestFloor = 0;
+    private boolean cheangementEtage = true;
 
     public ProductMapping(){
         //=============Selection de l'emplacement via l'idEmplacement du produit===============
@@ -61,6 +65,7 @@ public class ProductMapping implements ActionListener{
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
+            productMappingFrame.dispose();
         }
         //======================================================================================
 
@@ -79,6 +84,7 @@ public class ProductMapping implements ActionListener{
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            productMappingFrame.dispose();
         }
         //======================================================================================
 
@@ -97,8 +103,63 @@ public class ProductMapping implements ActionListener{
             System.out.println(exc.getMessage());
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            productMappingFrame.dispose();
         }
         //======================================================================================
+
+        //============Selection des points du chemin vers le rayon 15 : escalators============
+        try {
+            pathEscalators = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(15));
+        } catch(Exception e){
+            System.out.println("Erreur sur la récupération des points vers l'escalator : " + e.getMessage());
+        }
+
+        try{
+            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            productMappingFrame.dispose();
+        }
+        //======================================================================================
+
+        //=====================Selection de l'étage le plus haut du magasin=====================
+//        try {
+//            highestFloor = SelectHighestFloor.launchSelectHighestFloor();
+//        } catch(Exception e){
+//            System.out.println("Erreur sur la récupération du plus haut étage : " + e.getMessage());
+//        }
+//        try{
+//            if(highestFloor == 0){
+//                throw new Exception();
+//            }
+//        } catch(Exception exc){
+//            System.out.println(exc.getMessage());
+//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+//            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 408] Attention, problème de récupération d'informations...", "[ERROR 408] - Problème de récupération d'informations !", JOptionPane.ERROR_MESSAGE);
+//           // productMappingFrame.dispose();
+//        }
+        //======================================================================================
+
+        // @@@@@@@@@@@ TESTS @@@@@@@@@@@
+        System.out.println("CONTENU DE L'ARRAYLIST PATH APRES REQUETE :");
+        if(path != null){
+            for (PointChemin point : path.getPath()){
+                System.out.println(point);
+            }
+        } else System.out.println("PATH EST NULL");
+
+
+        System.out.println("CONTENU DE L'ARRAYLIST PATH-ESCALATROS APRES REQUETE :");
+        if(pathEscalators != null){
+            for (PointChemin point : pathEscalators.getPath()){
+                System.out.println(point);
+            }
+        }else System.out.println("PATH ESCALATORS EST NULL");
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         productMappingFrame  = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
@@ -188,55 +249,21 @@ public class ProductMapping implements ActionListener{
         JLabel mapLabel = new JLabel(map);
         mainPanel.add(mapLabel);
 
-        if (path != null) {
-            mapPanel = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-
-                    Graphics2D g2d = (Graphics2D) g;
-                    // Épaisseur de la ligne (chemin)
-                    g2d.setStroke(new BasicStroke(5));
-
-                    // Dessiner l'image de fond
-                    if (backgroundImage != null) {
-                        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                    }
-                    // Dessiner le chemin
-
-                    g.setColor(Color.RED);
-                    for (int i = 0; i < path.getPath().size() - 1; i++) {
-                        PointChemin p1 = path.getPath().get(i);
-                        PointChemin p2 = path.getPath().get(i + 1);
-                        g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
-                    }
-                }
-            };
-        } else {
-            mapPanel = new JPanel();
-            JLabel mapSiPasDeChemin = new JLabel();
-            mapSiPasDeChemin.setIcon(new ImageIcon(Objects.requireNonNull(ProductMapping.class.getResource("/mapV1.png"))));
-            mapSiPasDeChemin.setBounds(0, 0,770, 580);
-            mapPanel.add(mapSiPasDeChemin);
-        }
-
-        mapPanel.setLayout(null);
-        mapPanel.setBounds(60, 60,770, 580);
-        mainPanel.add(mapPanel);
+        checkPath();
 
         panelPlan = new JPanel();
         panelPlan.setLayout(null);
         panelPlan.setBounds(840, 60,500,580);
         panelPlan.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+        if(noPathFound){
+            JLabel messageErreurPasDeChemin = new JLabel();
+            messageErreurPasDeChemin.setText("<html>Oups, problème d'affichage sur ce chemin, l'administrateur a été mis au courant et le problème sera réglé bientôt ! Vous pouvez vous aider des indications ci dessus pour trouver votre produit.</html>");
+            messageErreurPasDeChemin.setFont(Template.FONT_ECRITURE);
+            messageErreurPasDeChemin.setForeground(Color.WHITE);
+            messageErreurPasDeChemin.setBounds(40, 450, 400, 100);
+            panelPlan.add(messageErreurPasDeChemin);
+        }
         mainPanel.add(panelPlan);
-
-        //==============================================
-            //Bouton config :
-            setPath = new JButton();
-            setPath.setText("Configurer les chemins");
-            setPath.addActionListener(this);
-            setPath.setBounds(1145, 650, 200, 40);
-            mainPanel.add(setPath);
 
         //Titre : numero d'étage du plan
         etageTitre = new JLabel();
@@ -267,26 +294,112 @@ public class ProductMapping implements ActionListener{
         mainPanel.add(etageTitre);
     }
 
+    public void checkPath(){
+        // Supprime le mapPanel s'il existe déjà
+        if (mapPanel != null) {
+            mainPanel.remove(mapPanel);
+        }
+        if(cheangementEtage){
+            if (path != null) {
+                //Si on est au bon étage par rapport au produit :
+                if(etageActuel == etage.getNumeroEtage()){
+                    mapPanel = new JPanel() {
+                        @Override
+                        protected void paintComponent(Graphics g) {
+                            super.paintComponent(g);
+                            Graphics2D g2d = (Graphics2D) g;
+                            // Épaisseur de la ligne (chemin)
+                            g2d.setStroke(new BasicStroke(5));
+
+                            // Dessiner l'image de fond
+                            if (backgroundImage != null) {
+                                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                            }
+                            // Dessiner le chemin
+                            g.setColor(Color.RED);
+                            for (int i = 0; i < path.getPath().size() - 1; i++) {
+                                PointChemin p1 = path.getPath().get(i);
+                                PointChemin p2 = path.getPath().get(i + 1);
+                                g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
+                            }
+                        }
+                    };
+                    cheangementEtage = false;
+                    mapPanel.setLayout(null);
+                    mapPanel.setBounds(60, 60,770, 580);
+                    mainPanel.add(mapPanel);
+                } else { //Sinon, si on est a un autre étage que celui du produit, afficher chemin jusqu'aux escalators (rayon 15)
+                    mapPanel = new JPanel() {
+                        @Override
+                        protected void paintComponent(Graphics g) {
+                            super.paintComponent(g);
+
+                            Graphics2D g2d = (Graphics2D) g;
+                            // Épaisseur de la ligne (chemin)
+                            g2d.setStroke(new BasicStroke(5));
+
+                            // Dessiner l'image de fond
+                            if (backgroundImage != null) {
+                                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                            }
+                            // Dessiner le chemin
+
+                            g.setColor(Color.RED);
+                            for (int i = 0; i < pathEscalators.getPath().size() - 1; i++) {
+                                PointChemin p1 = pathEscalators.getPath().get(i);
+                                PointChemin p2 = pathEscalators.getPath().get(i + 1);
+                                g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
+                            }
+                        }
+                    };
+                    cheangementEtage = false;
+                    mapPanel.setLayout(null);
+                    mapPanel.setBounds(60, 60,770, 580);
+                    mainPanel.add(mapPanel);
+                }
+            } else {
+                noPathFound = true;
+                mapPanel = new JPanel();
+                JLabel mapSiPasDeChemin = new JLabel();
+                mapSiPasDeChemin.setIcon(new ImageIcon(Objects.requireNonNull(ProductMapping.class.getResource("/mapV1.png"))));
+                mapSiPasDeChemin.setBounds(0, 0,770, 580);
+                mapPanel.add(mapSiPasDeChemin);
+                mapPanel.setLayout(null);
+                mapPanel.setBounds(60, 60,770, 580);
+                mainPanel.add(mapPanel);
+                cheangementEtage = false;
+            }
+            cheangementEtage = false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getSource() == setPath){
-            PathManagement pathManagement = new PathManagement();
-            productMappingFrame.dispose();
-       } else if(e.getSource() == flecheGauche){
+      if(e.getSource() == flecheGauche){
            //Pas possible d'avoir un étage négatif
            if(etageActuel > 1){
+               cheangementEtage = true;
                etageActuel --;
                afficherEtageTitre();
-               mainPanel.repaint();
-               mainPanel.revalidate();
+               if (mapPanel != null) {
+                   mainPanel.remove(mapPanel);
+                   mainPanel.repaint();
+                   mainPanel.revalidate();
+               }
+               checkPath();
            }
        } else if(e.getSource() == flecheDroite){
            //Pas possible que l'etage actuel soit supérieur à l'étage effectif
            if(etageActuel < etage.getNumeroEtage()){
+               cheangementEtage = true;
                etageActuel++;
                afficherEtageTitre();
-               mainPanel.repaint();
-               mainPanel.revalidate();
+               if (mapPanel != null) {
+                   mainPanel.remove(mapPanel);
+                   mainPanel.repaint();
+                   mainPanel.revalidate();
+               }
+               checkPath();
            }
        }
     }

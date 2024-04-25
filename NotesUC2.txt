@@ -1,2 +1,10 @@
 Notes nawel UC2 :
-==> remettre le insert pour les points qui provient de la branche de base mais ne pas refaire l'arraylist.
+TODO : gérer les étages
+    - Si l'étage n'est pas le même que l'étage du rayon, mettre chemin jusqu'au rayon 15 soit les esacliers : check si existant sinon map uniquement
+    - Si l'étage est celui du produit, montrer le cheminn jusqu'au produit.
+
+TODO plus tard après le reste :
+    - Récupérer étage le plus haut du magasin.
+
+
+Pour l'instant, ne pas faire le random pour l'étage car pas encore de requete fonctionnelle pour le plus haut étage.

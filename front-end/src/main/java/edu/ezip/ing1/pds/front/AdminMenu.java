@@ -21,7 +21,7 @@ public class AdminMenu implements ActionListener {
 
     public AdminMenu(){
         frame= new JFrame();
-        frame.setTitle("Admin Menu");
+        frame.setTitle("Menu administrateur");
         frame.setSize(Template.LONGUEUR,Template.LARGEUR);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -68,9 +68,11 @@ public class AdminMenu implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==UC3button){
-            frame.dispose();
             AccueilUC3 accueilUC3=new AccueilUC3();
+            frame.dispose();
+        } else if(e.getSource() == configButton){
+            ConfigurationFrame configurationFrame = new ConfigurationFrame();
+            frame.dispose();
         }
-
     }
 }
