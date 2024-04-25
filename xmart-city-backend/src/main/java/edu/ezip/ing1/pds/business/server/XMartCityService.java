@@ -644,52 +644,40 @@ public class XMartCityService {
                     }
                     break;
 
-                case "SELECT_BESTSELLER_BEFORE": // requête SELECT with date
+                case "SELECT_BESTSELLER_BEFORE": // requête SELECT
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_BEFORE.query);
                         ResultSet resultSet = selectStatement.executeQuery();
-
-                        Ventes ventes = new Ventes();
-
+                        BestSeller bestSeller = new BestSeller();
                         while (resultSet.next()) {
-                            Vente vente = new Vente();
-                            vente.build(resultSet);
-                            ventes.add(vente);
+                            bestSeller.build(resultSet);
                         }
-                        System.out.println("Ventes to String:");
-
-
                         ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(ventes);
+                        String responseBody = objectMapper.writeValueAsString(bestSeller);
 
                         response = new Response(request.getRequestId(), responseBody);
+
                     }catch (SQLException | JsonProcessingException e){
-                        response = new Response(request.getRequestId(), "Error executing SELECT_BEFORE_VENTE_BY_REF query");
+                        response = new Response(request.getRequestId(), "Error executing SELECT_BESTSELLER_BEFORE query");
                         logger.error("Error executing SELECT_BEFORE_VENTE_BY_REF query: {}", e.getMessage());
                     }catch (NoSuchFieldException e){
                         throw  new RuntimeException(e);
                     }
                     break;
-                case "SELECT_BESTSELLER_AFTER": // requête SELECT with date
+                case "SELECT_BESTSELLER_AFTER": // requête SELECT
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_AFTER.query);
                         ResultSet resultSet = selectStatement.executeQuery();
-                        Ventes ventes = new Ventes();
-
+                        BestSeller bestSeller = new BestSeller();
                         while (resultSet.next()) {
-                            Vente vente = new Vente();
-                            vente.build(resultSet);
-                            ventes.add(vente);
+                            bestSeller.build(resultSet);
                         }
-                        System.out.println("Ventes to String:");
-
-
                         ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(ventes);
+                        String responseBody = objectMapper.writeValueAsString(bestSeller);
 
                         response = new Response(request.getRequestId(), responseBody);
                     }catch (SQLException | JsonProcessingException e){
-                        response = new Response(request.getRequestId(), "Error executing SELECT_BEFORE_VENTE_BY_REF query");
+                        response = new Response(request.getRequestId(), "Error executing SELECT_BESTSELLER_AFTER query");
                         logger.error("Error executing SELECT_BEFORE_VENTE_BY_REF query: {}", e.getMessage());
                     }catch (NoSuchFieldException e){
                         throw  new RuntimeException(e);
