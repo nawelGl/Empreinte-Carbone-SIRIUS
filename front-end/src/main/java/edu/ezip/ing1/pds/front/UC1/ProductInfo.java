@@ -19,10 +19,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
-import edu.ezip.ing1.pds.front.MethodesFront;
-import edu.ezip.ing1.pds.front.RechercheReference;
-import edu.ezip.ing1.pds.front.RoundedPanel;
-import edu.ezip.ing1.pds.front.Template;
+import edu.ezip.ing1.pds.front.*;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
 import static edu.ezip.ing1.pds.commons.Methodes.*;
@@ -351,10 +348,13 @@ public class ProductInfo implements ActionListener {
             ProductMapping productMapping = new ProductMapping();
             productInfoFrame.dispose();
         } else if (e.getSource()==suggest1Button) {
+            DetailsProduct detailsProduct= new DetailsProduct(suggestProduct1);
             
         } else if (e.getSource()==suggest2Button) {
+            DetailsProduct detailsProduct= new DetailsProduct(suggestProduct2);
             
         } else if (e.getSource()==suggest3Button) {
+            DetailsProduct detailsProduct= new DetailsProduct(suggestProduct3);
             
         }
     }
