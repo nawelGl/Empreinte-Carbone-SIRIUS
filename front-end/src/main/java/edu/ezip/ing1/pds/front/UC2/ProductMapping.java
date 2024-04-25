@@ -251,77 +251,7 @@ public class ProductMapping implements ActionListener{
         JLabel mapLabel = new JLabel(map);
         mainPanel.add(mapLabel);
 
-        if(cheangementEtage){
-            if (path != null) {
-                //Si on est au bon étage par rapport au produit :
-                if(etageActuel == etage.getNumeroEtage()){
-                    mapPanel = new JPanel() {
-                        @Override
-                        protected void paintComponent(Graphics g) {
-                            super.paintComponent(g);
-
-                            Graphics2D g2d = (Graphics2D) g;
-                            // Épaisseur de la ligne (chemin)
-                            g2d.setStroke(new BasicStroke(5));
-
-                            // Dessiner l'image de fond
-                            if (backgroundImage != null) {
-                                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                            }
-                            // Dessiner le chemin
-
-                            g.setColor(Color.RED);
-                            for (int i = 0; i < path.getPath().size() - 1; i++) {
-                                PointChemin p1 = path.getPath().get(i);
-                                PointChemin p2 = path.getPath().get(i + 1);
-                                g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
-                            }
-                        }
-                    };
-                    mapPanel.repaint();
-                    mapPanel.revalidate();
-                } else { //Sinon, si on est a un autre étage que celui du produit, afficher chemin jusqu'aux escalators (rayon 15)
-                    mapPanel = new JPanel() {
-                        @Override
-                        protected void paintComponent(Graphics g) {
-                            super.paintComponent(g);
-
-                            Graphics2D g2d = (Graphics2D) g;
-                            // Épaisseur de la ligne (chemin)
-                            g2d.setStroke(new BasicStroke(5));
-
-                            // Dessiner l'image de fond
-                            if (backgroundImage != null) {
-                                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                            }
-                            // Dessiner le chemin
-
-                            g.setColor(Color.RED);
-                            for (int i = 0; i < pathEscalators.getPath().size() - 1; i++) {
-                                PointChemin p1 = pathEscalators.getPath().get(i);
-                                PointChemin p2 = pathEscalators.getPath().get(i + 1);
-                                g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
-                            }
-                        }
-                    };
-                    mapPanel.repaint();
-                    mapPanel.revalidate();
-                }
-
-            } else {
-                noPathFound = true;
-                mapPanel = new JPanel();
-                JLabel mapSiPasDeChemin = new JLabel();
-                mapSiPasDeChemin.setIcon(new ImageIcon(Objects.requireNonNull(ProductMapping.class.getResource("/mapV1.png"))));
-                mapSiPasDeChemin.setBounds(0, 0,770, 580);
-                mapPanel.add(mapSiPasDeChemin);
-            }
-            cheangementEtage = false;
-        }
-
-        mapPanel.setLayout(null);
-        mapPanel.setBounds(60, 60,770, 580);
-        mainPanel.add(mapPanel);
+        checkPath();
 
         panelPlan = new JPanel();
         panelPlan.setLayout(null);
@@ -374,6 +304,88 @@ public class ProductMapping implements ActionListener{
         mainPanel.add(etageTitre);
     }
 
+    public void checkPath(){
+        // Supprime le mapPanel s'il existe déjà
+        if (mapPanel != null) {
+            mainPanel.remove(mapPanel);
+        }
+        if(cheangementEtage){
+            System.out.println("DANS LE CHANGEMENT D'ETAGE DE LA FONCTION CHECK");
+            if (path != null) {
+                //Si on est au bon étage par rapport au produit :
+                if(etageActuel == etage.getNumeroEtage()){
+                    System.out.println("DANS L'ETAGE ACTUEL == NUMERO DE L'ETAGE'");
+                    mapPanel = new JPanel() {
+                        @Override
+                        protected void paintComponent(Graphics g) {
+                            super.paintComponent(g);
+                            System.out.println("DANS L'OVERRIDE DU PANEL DANS PAINT COMPONENT");
+                            Graphics2D g2d = (Graphics2D) g;
+                            // Épaisseur de la ligne (chemin)
+                            g2d.setStroke(new BasicStroke(5));
+
+                            // Dessiner l'image de fond
+                            if (backgroundImage != null) {
+                                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                            }
+                            // Dessiner le chemin
+                            g.setColor(Color.RED);
+                            for (int i = 0; i < path.getPath().size() - 1; i++) {
+                                PointChemin p1 = path.getPath().get(i);
+                                PointChemin p2 = path.getPath().get(i + 1);
+                                g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
+                            }
+                        }
+                    };
+                    cheangementEtage = false;
+                    mapPanel.setLayout(null);
+                    mapPanel.setBounds(60, 60,770, 580);
+                    mainPanel.add(mapPanel);
+                } else { //Sinon, si on est a un autre étage que celui du produit, afficher chemin jusqu'aux escalators (rayon 15)
+                    mapPanel = new JPanel() {
+                        @Override
+                        protected void paintComponent(Graphics g) {
+                            super.paintComponent(g);
+
+                            Graphics2D g2d = (Graphics2D) g;
+                            // Épaisseur de la ligne (chemin)
+                            g2d.setStroke(new BasicStroke(5));
+
+                            // Dessiner l'image de fond
+                            if (backgroundImage != null) {
+                                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                            }
+                            // Dessiner le chemin
+
+                            g.setColor(Color.RED);
+                            for (int i = 0; i < pathEscalators.getPath().size() - 1; i++) {
+                                PointChemin p1 = pathEscalators.getPath().get(i);
+                                PointChemin p2 = pathEscalators.getPath().get(i + 1);
+                                g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
+                            }
+                        }
+                    };
+                    cheangementEtage = false;
+                    mapPanel.setLayout(null);
+                    mapPanel.setBounds(60, 60,770, 580);
+                    mainPanel.add(mapPanel);
+                }
+            } else {
+                noPathFound = true;
+                mapPanel = new JPanel();
+                JLabel mapSiPasDeChemin = new JLabel();
+                mapSiPasDeChemin.setIcon(new ImageIcon(Objects.requireNonNull(ProductMapping.class.getResource("/mapV1.png"))));
+                mapSiPasDeChemin.setBounds(0, 0,770, 580);
+                mapPanel.add(mapSiPasDeChemin);
+                mapPanel.setLayout(null);
+                mapPanel.setBounds(60, 60,770, 580);
+                mainPanel.add(mapPanel);
+                cheangementEtage = false;
+            }
+            cheangementEtage = false;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
        if(e.getSource() == setPath){
@@ -385,8 +397,12 @@ public class ProductMapping implements ActionListener{
                cheangementEtage = true;
                etageActuel --;
                afficherEtageTitre();
-               mainPanel.repaint();
-               mainPanel.revalidate();
+               if (mapPanel != null) {
+                   mainPanel.remove(mapPanel);
+                   mainPanel.repaint();
+                   mainPanel.revalidate();
+               }
+               checkPath();
            }
        } else if(e.getSource() == flecheDroite){
            //Pas possible que l'etage actuel soit supérieur à l'étage effectif
@@ -394,8 +410,12 @@ public class ProductMapping implements ActionListener{
                cheangementEtage = true;
                etageActuel++;
                afficherEtageTitre();
-               mainPanel.repaint();
-               mainPanel.revalidate();
+               if (mapPanel != null) {
+                   mainPanel.remove(mapPanel);
+                   mainPanel.repaint();
+                   mainPanel.revalidate();
+               }
+               checkPath();
            }
        }
     }

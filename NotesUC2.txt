@@ -8,6 +8,3 @@ TODO plus tard après le reste :
 
 
 Pour l'instant, ne pas faire le random pour l'étage car pas encore de requete fonctionnelle pour le plus haut étage.
-
-Erreurs fonctionnelles :
-Pas de changement du path entre les escalators et le bon étage...
