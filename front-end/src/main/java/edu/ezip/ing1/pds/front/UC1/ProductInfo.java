@@ -99,17 +99,17 @@ public class ProductInfo implements ActionListener {
             }
 
             try {
-                Request request = new Request();
-                request.setRequestContent(valueOf(idVilleArrive));
-                villeArrive = SelectVilleById.launchSelectVilleById(request);
+                //Request request = new Request();
+                //request.setRequestContent(valueOf(idVilleArrive));
+                villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
             } catch (Exception e) {
                 System.out.println("Erreur sur l'idVilleArrivée");
             }
 
             try {
-                Request request = new Request();
-                request.setRequestContent(valueOf(idVilleDepart));
-                villeDepart = SelectVilleById.launchSelectVilleById(request);
+                //Request request = new Request();
+                //request.setRequestContent(valueOf(idVilleDepart));
+                villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
             } catch (Exception e) {
                 System.out.println("Erreur sur l'idVilleDepart");
 
@@ -137,7 +137,6 @@ public class ProductInfo implements ActionListener {
         }
 
         //-------panel item chosen---------
-        Font font2=new Font(Template.POLICE,Font.CENTER_BASELINE,15);
         JPanel productPanel = new JPanel();
         productPanel.setLayout(null);
         productPanel.setBounds(180,40,1030,300);
@@ -348,14 +347,15 @@ public class ProductInfo implements ActionListener {
             ProductMapping productMapping = new ProductMapping();
             productInfoFrame.dispose();
         } else if (e.getSource()==suggest1Button) {
+
             DetailsProduct detailsProduct= new DetailsProduct(suggestProduct1);
-            
+            productInfoFrame.dispose();
         } else if (e.getSource()==suggest2Button) {
             DetailsProduct detailsProduct= new DetailsProduct(suggestProduct2);
-            
+            productInfoFrame.dispose();
         } else if (e.getSource()==suggest3Button) {
             DetailsProduct detailsProduct= new DetailsProduct(suggestProduct3);
-            
+            productInfoFrame.dispose();
         }
     }
 }

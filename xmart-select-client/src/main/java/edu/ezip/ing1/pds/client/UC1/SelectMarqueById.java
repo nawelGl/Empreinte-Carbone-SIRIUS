@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
 
+import edu.ezip.ing1.pds.business.dto.Marque;
 import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
@@ -19,32 +20,32 @@ import java.util.Deque;
 import java.util.UUID;
 
 
-public class SelectVilleById extends ClientRequest<Object, Ville>{
+public class SelectMarqueById extends ClientRequest<Object, Marque>{
 
     //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - T R A S P O R T M O D E - B y - I D";
+    private final static String LoggingLabel = "S e l e c t - M A R Q U E  - B y - I D";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String networkConfigFile = "network.yaml";
-    private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_VILLE_BY_ID";
+    private static final String threadName = "SELECTER-client";
+    private static final String requestOrder = "SELECT_MARQUE_BY_ID";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
-    public SelectVilleById(
+    public SelectMarqueById(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
             throws IOException {
         super(networkConfig, myBirthDate, request, info, bytes);
     }
 
     @Override
-    public Ville readResult(String body) throws IOException {
+    public Marque readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final Ville ville = mapper.readValue(body, Ville.class);
-        return ville;
+        final Marque marque = mapper.readValue(body, Marque.class);
+        return marque;
     }
 
 
-    public static Ville launchSelectVilleById(String id) throws IOException, InterruptedException{
+    public static Marque launchSelectMarqueById(String id) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -58,7 +59,7 @@ public class SelectVilleById extends ClientRequest<Object, Ville>{
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectVilleById clientRequest = new SelectVilleById(
+        final SelectMarqueById clientRequest = new SelectMarqueById(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -68,13 +69,13 @@ public class SelectVilleById extends ClientRequest<Object, Ville>{
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Ville ville = (Ville) joinedClientRequest.getResult();
+                final Marque marque = (Marque) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
                 asciiTable.addRule();
-                asciiTable.addRow(ville.getIdVille(), ville.getNomPays(), ville.getCoordLatitude(), ville.getCoordLongitude());
+                asciiTable.addRow(marque.getIdMarque(),marque.getNomMarque(),marque.getCo2parAn(),marque.getRse());
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return ville;
+                return marque;
             }
         } catch(Exception e){
             System.out.println("Erreur : id inexistant");
