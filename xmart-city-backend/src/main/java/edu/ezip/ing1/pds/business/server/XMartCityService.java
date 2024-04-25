@@ -29,7 +29,7 @@ public class XMartCityService {
         SELECT_PRODUCT_BY_REFERENCE("SELECT * FROM \"ezip-ing1\".produit WHERE reference=?"),
         SELECT_EMPLACEMENT_BY_ID("SELECT * FROM  \"ezip-ing1\".emplacement WHERE \"idEmplacement\" = ?"),
         SELECT_ETAGE_BY_ID("SELECT * FROM  \"ezip-ing1\".etage WHERE \"idEtage\" = ?"),
-        SELECT_HIGHER_FLOOR("SELECT \"numeroEtage\" FROM \"ezip-ing1\".\"etage\" ORDER BY \"numeroEtage\" DESC LIMIT 1"),
+        SELECT_HIGHEST_FLOOR("SELECT \"numeroEtage\" FROM \"ezip-ing1\".\"etage\" ORDER BY \"numeroEtage\" DESC LIMIT 1"),
         SELECT_POINTS_BY_ID_RAYON("SELECT * FROM  \"ezip-ing1\".point WHERE \"idRayon\" = ?"),
         SELECT_SOUS_CATEGORIE_B_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieB\" WHERE \"idSousCategorieB\" = ?"),
         SELECT_CATEGORIE_BY_ID("SELECT * FROM \"ezip-ing1\".\"categorie\" WHERE \"idCategorie\" = ?"),
@@ -392,14 +392,32 @@ public class XMartCityService {
                     }
                     break;
 
-                case "SELECT_HIGHER_FLOOR":
-                    try{
-                        //TODO : completer la requete pour récupérer l'étage le plus haut.
-                    } catch(Exception e){
-
-                    }
-                    break;
-
+//                case "SELECT_HIGHEST_FLOOR":
+//                    try{
+//                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_HIGHEST_FLOOR.query);
+//                        String id = request.getRequestBody().replaceAll("\"", "");
+//
+//                        // mapper produits en Json
+//                        ObjectMapper objectMapper = new ObjectMapper();
+//                        ResultSet resultSet = selectStatement.executeQuery();
+//                        //Etage etage = new Etage();
+//                        int highestFloor;
+//
+//                        while (resultSet.next()) {
+//                            highestFloor = resultSet.getInt("numeroEtage");
+//                            //etage.build(resultSet);
+//                        }
+//
+//                        String responseBody = objectMapper.writeValueAsString(etage);
+//
+//                        response = new Response(request.getRequestId(), responseBody);
+//                    } catch (SQLException | JsonProcessingException e) {
+//                        response = new Response(request.getRequestId(), "Error executing SELECT_HIGHEST_FLOOR query");
+//                        logger.error("Error executing SELECT_HIGHEST_FLOOR query: {}", e.getMessage());
+//                    } catch (NoSuchFieldException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    break;
 
                 case "SELECT_SOUS_CATEGORIE_B_BY_ID":
                     try{
