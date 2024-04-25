@@ -310,16 +310,13 @@ public class ProductMapping implements ActionListener{
             mainPanel.remove(mapPanel);
         }
         if(cheangementEtage){
-            System.out.println("DANS LE CHANGEMENT D'ETAGE DE LA FONCTION CHECK");
             if (path != null) {
                 //Si on est au bon étage par rapport au produit :
                 if(etageActuel == etage.getNumeroEtage()){
-                    System.out.println("DANS L'ETAGE ACTUEL == NUMERO DE L'ETAGE'");
                     mapPanel = new JPanel() {
                         @Override
                         protected void paintComponent(Graphics g) {
                             super.paintComponent(g);
-                            System.out.println("DANS L'OVERRIDE DU PANEL DANS PAINT COMPONENT");
                             Graphics2D g2d = (Graphics2D) g;
                             // Épaisseur de la ligne (chemin)
                             g2d.setStroke(new BasicStroke(5));
