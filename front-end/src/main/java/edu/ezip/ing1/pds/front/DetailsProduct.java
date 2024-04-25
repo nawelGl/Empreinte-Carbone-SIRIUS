@@ -77,13 +77,6 @@ public class DetailsProduct {
 
         priceProduct=new JLabel("Prix : "+String.valueOf(produit.getPrix())+ " €");
 
-        //TODO:
-//        try{
-//        marque=SelectMarqueById.launchSelectMarquByRef(valueOf(produit.getReference());
-////    } catch(Exception e){
-////        System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-////    }
-
                 try{
         villeProduit= SelectVilleById.launchSelectVilleById(String.valueOf(produit.getIdVilleDepart()));
 
@@ -96,20 +89,22 @@ public class DetailsProduct {
 
         try{
             categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(produit.getIdCategorie()));
+            marqueProduit= SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdMarque()));
+
         } catch (Exception e) {
-            System.out.println("Erreur sur la récupération du nom de la categorie  : " + e.getMessage());
+            System.out.println("Erreur sur la récupération du nom de la categorie ou de la marque  : " + e.getMessage());
         }
         categorieProduct= new JLabel("Categorie : "+ categorie.getNomCategorie());
 
 
-        try{
-            marqueProduit= SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdCategorie()));
-        } catch (Exception e) {
-            System.out.println("Erreur sur la récupération du nom de la categorie  : " + e.getMessage());
-        }
+//        try{
+//            marqueProduit= SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdCategorie()));
+//        } catch (Exception e) {
+//            System.out.println("Erreur sur la récupération du nom de la categorie  : " + e.getMessage());
+//        }
         brandProdcut= new JLabel("Marque : "+ marqueProduit.getNomMarque() + "   ( Enseigne "+marqueProduit.getRse()+" )");
 
-        //Positionnement des element------
+        //------------Positionnement des element------
 
         nameProduct.setBounds(200,250,100,40);
         nameProduct.setFont(Template.FONT_ECRITURE2);
@@ -117,7 +112,6 @@ public class DetailsProduct {
         panelProduct.add(nameProduct);
 
         scoreProduct.setBounds(35,340,50,50);
-       // scoreProduct.setForeground(Color.decode(Template.COULEUR_SECONDAIRE));
         scoreProduct.setOpaque(false);
         panelProduct.add(scoreProduct);
 
@@ -147,15 +141,6 @@ public class DetailsProduct {
         brandProdcut.setFont(Template.FONT_ECRITURE);
         brandProdcut.setForeground(Color.WHITE);
         panelProduct.add(brandProdcut);
-
-
-
-
-
-
-
-
-
 
         frame.setVisible(true);
     }

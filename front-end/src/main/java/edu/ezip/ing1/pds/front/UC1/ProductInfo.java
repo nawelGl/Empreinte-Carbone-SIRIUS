@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.front.UC1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.*;
+import edu.ezip.ing1.pds.client.Categories.SelectCategorieByID;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
 import edu.ezip.ing1.pds.client.UC1.*;
 import edu.ezip.ing1.pds.client.UpdateInfoProduct;
@@ -41,12 +42,14 @@ public class ProductInfo implements ActionListener {
     private Integer idSousCatB=RechercheReference.getProduct().getIdsouscatB();
     private String colorProduct= RechercheReference.getProduct().getCouleur();
     private int reference = RechercheReference.getProduct().getReference();
+
     private String score;
 
     private Ville villeArrive;
     private Ville villeDepart;
     private TransportMode transportMode;
     private Marque marque;
+    private Categorie categorie;
 
     private Produit suggestProduct1;
     private Produit suggestProduct2;
@@ -93,6 +96,7 @@ public class ProductInfo implements ActionListener {
                 transportMode = SelectTransportModeByID.launchSelectTransportModeById(String.valueOf(idTransportMode));
                 villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
+                categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(idCategorie));
 //            } catch (Exception e) {
 //                System.out.println("Erreur sur l'idTransportMode ou idMarque");
 //            }
@@ -146,28 +150,35 @@ public class ProductInfo implements ActionListener {
 
         JLabel priceLabel = new JLabel("Prix: "+productPrice +" € ");
         priceLabel.setFont(Template.FONT_ECRITURE);
-        priceLabel.setBounds(600,70,300,50);
+        priceLabel.setBounds(600,66,300,50);
         productPanel.add(priceLabel);
 
-        JLabel brandLabel = new JLabel("Marque: "+ marque.getNomMarque() +" ( Enseigne : "+marque.getRse()+" )");
+        JLabel brandLabel = new JLabel("Marque : "+ marque.getNomMarque() +"    ( Enseigne "+marque.getRse()+" )");
         brandLabel.setFont(Template.FONT_ECRITURE);
-        brandLabel.setBounds(600,100,300,50);
+        brandLabel.setBounds(600,93,300,50);
         productPanel.add(brandLabel);
+
+        JLabel categorieLabel = new JLabel("Categorie : "+ categorie.getNomCategorie());
+        categorieLabel.setFont(Template.FONT_ECRITURE);
+        categorieLabel.setBounds(600,120,300,50);
+        productPanel.add(categorieLabel);
+
+
 
         JLabel empreinteLabel = new JLabel("Empreinte Carbone : "+  carbonFootPrint +" gCO2e ");
         empreinteLabel.setFont(Template.FONT_ECRITURE);
-        empreinteLabel.setBounds(600,135,300,50);
+        empreinteLabel.setBounds(600,147,300,50);
         productPanel.add(empreinteLabel);
 
 
         JLabel scoreLabel = new JLabel("Score carbone : " );
         scoreLabel.setFont(Template.FONT_ECRITURE);
-        scoreLabel.setBounds(600,170,200,50);
+        scoreLabel.setBounds(600,175,200,50);
         productPanel.add(scoreLabel);
 
 
         JLabel IconScore = setlabelIconScore(score);
-        IconScore.setBounds(730,172,80,80);
+        IconScore.setBounds(730,177,80,80);
         productPanel.add(IconScore);
 
         UC2button= new JButton("Trouver l'article dans le magasin >> ");
@@ -311,8 +322,8 @@ public class ProductInfo implements ActionListener {
 
                     //----------Product suggested 3----------------------------------------
                     suggest3Button = new JButton(suggestProduct3.getNomProduit());
-                    suggest3Button.setBounds(750,65,90,90);
-                     suggest3Button.addActionListener(this);
+                    suggest3Button.setBounds(755,65,150,150);
+                    suggest3Button.addActionListener(this);
                     suggestionPanel.add(suggest3Button);
 
 
