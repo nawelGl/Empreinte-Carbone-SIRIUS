@@ -28,7 +28,6 @@ public class ProductMapping implements ActionListener{
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
     private String productColor = RechercheReference.getProduct().getCouleur();
-    private JButton setPath;
     private JButton flecheGauche;
     private JButton flecheDroite;
     private JLabel etageTitre;
@@ -267,14 +266,6 @@ public class ProductMapping implements ActionListener{
         }
         mainPanel.add(panelPlan);
 
-        //==============================================
-            //Bouton config :
-            setPath = new JButton();
-            setPath.setText("Configurer les chemins");
-            setPath.addActionListener(this);
-            setPath.setBounds(1145, 650, 200, 40);
-            mainPanel.add(setPath);
-
         //Titre : numero d'étage du plan
         etageTitre = new JLabel();
         afficherEtageTitre();
@@ -385,10 +376,7 @@ public class ProductMapping implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getSource() == setPath){
-            PathManagement pathManagement = new PathManagement();
-            productMappingFrame.dispose();
-       } else if(e.getSource() == flecheGauche){
+      if(e.getSource() == flecheGauche){
            //Pas possible d'avoir un étage négatif
            if(etageActuel > 1){
                cheangementEtage = true;
