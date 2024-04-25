@@ -1,13 +1,9 @@
 package edu.ezip.ing1.pds.front.UC1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ezip.ing1.pds.business.dto.Produit;
-import edu.ezip.ing1.pds.business.dto.Produits;
-import edu.ezip.ing1.pds.business.dto.TransportMode;
+import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
-import edu.ezip.ing1.pds.client.UC1.Select3Suggestions;
-import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
-import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
+import edu.ezip.ing1.pds.client.UC1.*;
 import edu.ezip.ing1.pds.client.UpdateInfoProduct;
 import edu.ezip.ing1.pds.commons.Request;
 
@@ -17,8 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
-import edu.ezip.ing1.pds.business.dto.Ville;
-import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
+
 import edu.ezip.ing1.pds.front.*;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
@@ -51,6 +46,7 @@ public class ProductInfo implements ActionListener {
     private Ville villeArrive;
     private Ville villeDepart;
     private TransportMode transportMode;
+    private Marque marque;
 
     private Produit suggestProduct1;
     private Produit suggestProduct2;
@@ -59,6 +55,7 @@ public class ProductInfo implements ActionListener {
     private JButton suggest2Button;
     private JButton suggest1Button;
     private JButton suggest3Button;
+//    private  RoundedPanel roundedPanel;
 
 
 
@@ -90,29 +87,30 @@ public class ProductInfo implements ActionListener {
 
 
         try {
-            try {
-                Request request = new Request();
-                request.setRequestContent(valueOf(idTransportMode));
-                transportMode = SelectTransportModeByID.launchSelectTransportModeById(request);
-            } catch (Exception e) {
-                System.out.println("Erreur sur l'idTransportMode");
-            }
+//            try {
+                marque= SelectMarqueById.launchSelectMarqueById(valueOf(RechercheReference.getProduct().getIdMarque()));
 
-            try {
-                //Request request = new Request();
-                //request.setRequestContent(valueOf(idVilleArrive));
+                transportMode = SelectTransportModeByID.launchSelectTransportModeById(String.valueOf(idTransportMode));
                 villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
-            } catch (Exception e) {
-                System.out.println("Erreur sur l'idVilleArrivée");
-            }
-
-            try {
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
-            } catch (Exception e) {
-                System.out.println("Erreur sur l'idVilleDepart");
+//            } catch (Exception e) {
+//                System.out.println("Erreur sur l'idTransportMode ou idMarque");
+//            }
+
+//            try {
+//
+//                villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
+//            } catch (Exception e) {
+//                System.out.println("Erreur sur l'idVilleArrivée");
+//            }
+
+//            try {
+//                villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
+//            } catch (Exception e) {
+//                System.out.println("Erreur sur l'idVilleDepart");
 
 
-            }
+//            }
 
             carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
            
@@ -151,20 +149,25 @@ public class ProductInfo implements ActionListener {
         priceLabel.setBounds(600,70,300,50);
         productPanel.add(priceLabel);
 
+        JLabel brandLabel = new JLabel("Marque: "+ marque.getNomMarque() +" ( Enseigne : "+marque.getRse()+" )");
+        brandLabel.setFont(Template.FONT_ECRITURE);
+        brandLabel.setBounds(600,100,300,50);
+        productPanel.add(brandLabel);
+
         JLabel empreinteLabel = new JLabel("Empreinte Carbone : "+  carbonFootPrint +" gCO2e ");
         empreinteLabel.setFont(Template.FONT_ECRITURE);
-        empreinteLabel.setBounds(600,120,300,50);
+        empreinteLabel.setBounds(600,135,300,50);
         productPanel.add(empreinteLabel);
 
 
         JLabel scoreLabel = new JLabel("Score carbone : " );
         scoreLabel.setFont(Template.FONT_ECRITURE);
-        scoreLabel.setBounds(600,160,200,50);
+        scoreLabel.setBounds(600,170,200,50);
         productPanel.add(scoreLabel);
 
 
         JLabel IconScore = setlabelIconScore(score);
-        IconScore.setBounds(760,160,80,80);
+        IconScore.setBounds(730,172,80,80);
         productPanel.add(IconScore);
 
         UC2button= new JButton("Trouver l'article dans le magasin >> ");
@@ -176,7 +179,7 @@ public class ProductInfo implements ActionListener {
 
         RoundedPanel roundedPanel= new RoundedPanel(40,40);
         roundedPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
-        roundedPanel.setBounds(70,900,300,200);
+        roundedPanel.setBounds(100,70,300,200);
         productPanel.add(roundedPanel);
         mainPanel.add(productPanel);
 
