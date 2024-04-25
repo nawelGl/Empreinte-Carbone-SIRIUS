@@ -55,7 +55,7 @@ public class LoginFrame implements ActionListener {
         //------------panel de ID------------
         JLabel idLabel = new JLabel("Identifaint:");
         idLabel.setForeground(Color.WHITE);
-        idLabel.setFont(new Font("Avenir", Font.BOLD, 15));
+        idLabel.setFont(new Font("Avenir", Font.BOLD, 17));
 
         idTxt= new JTextField(20);
         idLabel.setBounds(250, 150, 120, 20); // 위치와 크기 설정
@@ -64,7 +64,7 @@ public class LoginFrame implements ActionListener {
         //------------panel de mot de passe------------
         JLabel pwLabel = new JLabel("Mot de passe:");
         pwLabel.setForeground(Color.WHITE);
-        pwLabel.setFont(new Font("Avenir", Font.BOLD, 15));
+        pwLabel.setFont(new Font("Avenir", Font.BOLD, 17));
 
         pwTxt= new JPasswordField(20);
         pwLabel.setBounds(250, 170, 120, 20);
