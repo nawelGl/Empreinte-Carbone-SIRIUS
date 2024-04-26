@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.lang.Integer;
+import java.util.ArrayList;
 
 public class XMartCityService {
 
@@ -51,8 +52,8 @@ public class XMartCityService {
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
-        UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?");
-
+        UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
+        SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit ");
 
 
 
@@ -234,6 +235,29 @@ public class XMartCityService {
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
 
+                    }
+                    break;
+
+                case "SELECT_ALL_REFERENCES":
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_REFERENCES.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        ArrayList<Integer> referencesList = new ArrayList<>();
+
+                        while (resultSet.next()) {
+                            Integer reference = resultSet.getInt("reference");
+                            referencesList.add(reference);
+                        }
+
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(referencesList);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_REFERENCE query");
+                        logger.error("Error executing SELECT_ALL_REFERENCE query: {}", e.getMessage());
                     }
                     break;
 

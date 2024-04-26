@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.front.UC1.RecalculFrame;
 import edu.ezip.ing1.pds.front.UC2.PathManagement;
 
 import javax.swing.*;
@@ -47,6 +48,9 @@ public class ConfigurationFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfigurationChemins){
             PathManagement pathManagement = new PathManagement();
+            configurationFrame.dispose();
+        } else if(e.getSource() == boutonSuggestions){
+            RecalculFrame recalculFrame=new RecalculFrame();
             configurationFrame.dispose();
         }
     }
