@@ -142,6 +142,16 @@ public class DetailsProduct {
         brandProdcut.setForeground(Color.WHITE);
         panelProduct.add(brandProdcut);
 
+
+    //Code Nawel :
+        JPanel infosMap = new JPanel();
+        infosMap.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+        infosMap.setLayout(null);
+        infosMap.setBounds(530, 450, 830, 180);
+        mainPanel.add(infosMap);
+
+
+
         frame.setVisible(true);
     }
 
