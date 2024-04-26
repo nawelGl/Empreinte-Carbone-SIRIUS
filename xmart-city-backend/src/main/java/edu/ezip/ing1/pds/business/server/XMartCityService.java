@@ -51,7 +51,7 @@ public class XMartCityService {
         SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".transportmode WHERE \"idTransportMode\" = ?"),
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
 
-        SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? ORDER BY \"empreinte\" ASC LIMIT 3"),
+        SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
 
@@ -691,6 +691,9 @@ public class XMartCityService {
                         selectStatement.setInt(3, Integer.valueOf(tabParametres[2]));
                         selectStatement.setDouble(4, Double.valueOf(tabParametres[3]));
                         selectStatement.setString(5, tabParametres[4]);
+                        selectStatement.setInt(6,Integer.valueOf(tabParametres[5]));
+
+                        System.out.println("ref : "+tabParametres[5]);
 
 
 
