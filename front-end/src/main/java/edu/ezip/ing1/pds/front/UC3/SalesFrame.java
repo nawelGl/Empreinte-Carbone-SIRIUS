@@ -15,7 +15,7 @@ public class SalesFrame extends JFrame {
     private JLabel text;
     public void createSalesFrame() {
         // installation de frame
-        salesFrame = new JFrame("Vos meilleures ventes");
+        salesFrame = new JFrame("Statisque - best seller");
         salesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         salesFrame.setResizable(false);
         salesFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
@@ -23,7 +23,7 @@ public class SalesFrame extends JFrame {
 
 
         //-------------------panel header-------------
-        MethodesFront.header(salesFrame,"Vos statistiques par produit",525);
+        MethodesFront.header(salesFrame,"Vos meilleures ventes",525);
 
 
         // main panel
@@ -33,12 +33,20 @@ public class SalesFrame extends JFrame {
 
 
 
+        //beforPanel setting
+        JPanel beforePanel = new JPanel(null);
+        beforePanel.setBackground(Color.white);
+        beforePanel.setBounds(50,50,600,600);
 
-        JPanel beforePanel = new JPanel();
+        //afterPanel setting
+        JPanel afterPanel = new JPanel(null);
+        afterPanel.setBackground(Color.white);
+        afterPanel.setBounds(750,50,600,600);
 
 
         //--------------ajout-----------------
         mainPanel.add(beforePanel);
+        mainPanel.add(afterPanel);
         salesFrame.add(mainPanel);
 
         salesFrame.setVisible(true);

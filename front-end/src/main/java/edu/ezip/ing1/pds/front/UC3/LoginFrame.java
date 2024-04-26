@@ -53,7 +53,7 @@ public class LoginFrame implements ActionListener {
         secondPanel.add(titrePanelSecondaire);
 
         //------------panel de ID------------
-        JLabel idLabel = new JLabel("Identifaint:");
+        JLabel idLabel = new JLabel("Identifiant:");
         idLabel.setForeground(Color.WHITE);
         idLabel.setFont(new Font("Avenir", Font.BOLD, 17));
 
