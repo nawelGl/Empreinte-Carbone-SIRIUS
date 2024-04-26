@@ -35,10 +35,7 @@ public class ProductInfo implements ActionListener {
     private double carbonFootPrint=RechercheReference.getProduct().getEmpreinte();
 
     private double productPrice= RechercheReference.getProduct().getPrix();
-    private double prodcutWeight= RechercheReference.getProduct().getPoids();
-    private Integer idTransportMode= RechercheReference.getProduct().getIdTransportMode();
     private Integer idVilleDepart= RechercheReference.getProduct().getIdVilleDepart();
-    private  Integer idVilleArrive= RechercheReference.getProduct().getIdVilleArrive();
     private Integer idCategorie= RechercheReference.getProduct().getIdCategorie();
     private Integer idSousCatA=RechercheReference.getProduct().getIdSousCatA();
     private Integer idSousCatB=RechercheReference.getProduct().getIdsouscatB();
@@ -47,9 +44,8 @@ public class ProductInfo implements ActionListener {
 
     private String score=RechercheReference.getProduct().getScore();
 
-    //private Ville villeArrive;
     private Ville villeDepart;
-   // private TransportMode transportMode;
+
     private Marque marque;
     private Categorie categorie;
 
@@ -60,7 +56,6 @@ public class ProductInfo implements ActionListener {
     private JButton suggest2Button;
     private JButton suggest1Button;
     private JButton suggest3Button;
-//    private  RoundedPanel roundedPanel;
 
 
 
@@ -75,7 +70,7 @@ public class ProductInfo implements ActionListener {
 
 
         //----------panel header--------------
-        String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
+        String titreHeader =  productName +" "+ productColor + "   ( "+reference+" )";
         Font fontHeader= new Font(Template.POLICE,Font.CENTER_BASELINE,25);
 
 
@@ -217,18 +212,18 @@ public class ProductInfo implements ActionListener {
                     suggestProduct2 = suggestList.get(1);
 
                     //----------Product suggested 1
-                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
-                    suggest1Button.setBounds(80,65,150,150);
+                     suggest1Button = new JButton(suggestProduct1.getNomProduit());
+                     suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
-                    suggestionPanel.add(suggest1Button);
+                     suggestionPanel.add(suggest1Button);
 
-                    JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                    priceLabel1.setBounds(140,210,300,50);
-                    suggestionPanel.add(priceLabel1);
+                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
+                     priceLabel1.setBounds(140,210,300,50);
+                     suggestionPanel.add(priceLabel1);
 
-                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                    IconScoreP1.setBounds(150,240,80,80);
-                    suggestionPanel.add(IconScoreP1);
+                     JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                     IconScoreP1.setBounds(150,240,80,80);
+                     suggestionPanel.add(IconScoreP1);
 
                     // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
 
@@ -236,16 +231,16 @@ public class ProductInfo implements ActionListener {
 
                     //----------Product suggested 2----------------------------------------
                     suggest2Button = new JButton(suggestProduct2.getNomProduit());
-                    suggest2Button.setBounds(420,65,150,150);
+                     suggest2Button.setBounds(755,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
 
                     JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
-                    priceLabel2.setBounds(460,210,300,50);
+                     priceLabel2.setBounds(810,210,300,50);
                     suggestionPanel.add(priceLabel2);
 
                     JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
-                    IconScoreP2.setBounds(470,240,80,80);
+                    IconScoreP2.setBounds(820,240,80,80);
                     suggestionPanel.add(IconScoreP2);
 
                 } else if (numberOfSuggestions >= 3) {
