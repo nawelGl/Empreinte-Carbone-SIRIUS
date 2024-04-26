@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -30,7 +32,7 @@ public class ProductInfo implements ActionListener {
     private String productName = RechercheReference.getProduct().getNomProduit();
 
     private String productColor = RechercheReference.getProduct().getCouleur();
-    private double carbonFootPrint;
+    private double carbonFootPrint=RechercheReference.getProduct().getEmpreinte();
 
     private double productPrice= RechercheReference.getProduct().getPrix();
     private double prodcutWeight= RechercheReference.getProduct().getPoids();
@@ -43,11 +45,11 @@ public class ProductInfo implements ActionListener {
     private String colorProduct= RechercheReference.getProduct().getCouleur();
     private int reference = RechercheReference.getProduct().getReference();
 
-    private String score;
+    private String score=RechercheReference.getProduct().getScore();
 
-    private Ville villeArrive;
+    //private Ville villeArrive;
     private Ville villeDepart;
-    private TransportMode transportMode;
+   // private TransportMode transportMode;
     private Marque marque;
     private Categorie categorie;
 
@@ -88,53 +90,16 @@ public class ProductInfo implements ActionListener {
 
 
 
+        carbonFootPrint= new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP).doubleValue();
 
         try {
-//            try {
-                marque= SelectMarqueById.launchSelectMarqueById(valueOf(RechercheReference.getProduct().getIdMarque()));
 
-                transportMode = SelectTransportModeByID.launchSelectTransportModeById(String.valueOf(idTransportMode));
-                villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
+                marque= SelectMarqueById.launchSelectMarqueById(valueOf(RechercheReference.getProduct().getIdMarque()));
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
                 categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(idCategorie));
-//            } catch (Exception e) {
-//                System.out.println("Erreur sur l'idTransportMode ou idMarque");
-//            }
 
-//            try {
-//
-//                villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
-//            } catch (Exception e) {
-//                System.out.println("Erreur sur l'idVilleArrivée");
-//            }
+        }catch (Exception e){System.out.println(" pb avec les requetes");}
 
-//            try {
-//                villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
-//            } catch (Exception e) {
-//                System.out.println("Erreur sur l'idVilleDepart");
-
-
-//            }
-
-            carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
-           
-        }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
-
-        score=attributeLetterScore(carbonFootPrint);
-
-        //Faire UPDATE BASE ---------------------------
-        ObjectMapper objectMapper = new ObjectMapper();
-        Produit produit= new Produit();
-        produit.setEmpreinte(carbonFootPrint);
-        produit.setScore(score);
-        produit.setReference(reference);
-        try {
-            String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
-            UpdateInfoProduct.launchUpdateProduit(responseBody);
-
-        } catch (IOException | InterruptedException ex) {
-
-        }
 
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
