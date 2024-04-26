@@ -59,6 +59,14 @@ public class ProductInfo implements ActionListener {
     private JButton suggest1Button;
     private JButton suggest3Button;
 //    private  RoundedPanel roundedPanel;
+    private GridBagConstraints gbc;
+    private JPanel gridPanel ;
+
+    private JPanel suggestPanel1;
+    private JPanel suggestPanel2;
+    private JPanel suggestPanel3;
+
+
 
 
 
@@ -203,12 +211,27 @@ public class ProductInfo implements ActionListener {
         suggestionPanel.setBackground(Color.WHITE);
 
 
+        suggestPanel1=new JPanel(new BoxLayout(suggestPanel1, BoxLayout.Y_AXIS));
+        suggestPanel2=new JPanel(new BoxLayout(suggestPanel2, BoxLayout.Y_AXIS));
+        suggestPanel3=new JPanel(new BoxLayout(suggestPanel3, BoxLayout.Y_AXIS));
+
+
+
+
+
         JLabel label2 = new JLabel("Suggestions ");
         label2.setBounds(450,5,100,50);
         label2.setFont(Template.FONT_ECRITURE);
         suggestionPanel.add(label2);
 
+
+//
+
+
+
         Produits suggestions= null;
+
+
 
 
         try {
@@ -223,10 +246,19 @@ public class ProductInfo implements ActionListener {
                 suggestionPanel.add(NoSuggestionMessage);
 
             } else {
-                JPanel gridPanel= new JPanel();
-                gridPanel.setLayout(new GridBagLayout());
-                gridPanel.setBackground(Color.BLACK);
-                suggestionPanel.add(gridPanel,BorderLayout.CENTER);
+
+                gridPanel=new JPanel(new GridBagLayout());
+                gridPanel.setBounds(0,50,1030,330);
+                gridPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+                suggestionPanel.add(gridPanel);
+
+                // Définition des contraintes pour chaque case
+                GridBagConstraints constraints = new GridBagConstraints();
+                constraints.fill = GridBagConstraints.BOTH;
+                constraints.weightx = 1.0; // Poids horizontal égal pour chaque case
+                constraints.weighty = 1.0; // Poids vertical égal pour chaque case
+
+
 
                 List<Produit> suggestList = new ArrayList<>(suggestions.getProduits());
                 int numberOfSuggestions = suggestList.size();
@@ -234,54 +266,69 @@ public class ProductInfo implements ActionListener {
                     // Afficher la seule suggestion disponible
                     suggestProduct1 = suggestList.get(0);
                     //----------Product suggested 1
+                     constraints.gridx = 1;
+                     constraints.gridy = 0;
                     suggest1Button = new JButton(suggestProduct1.getNomProduit());
-                    suggest1Button.setBounds(420,65,150,150);
-                     suggest1Button.addActionListener(this);
-                    suggestionPanel.add(suggest1Button);
+                    suggest1Button.setSize(150,150);
+                    suggest1Button.addActionListener(this);
+                    gridPanel.add(suggest1Button);
 
+                    constraints.gridy++;
                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                    priceLabel1.setBounds(460,210,300,50);
-                    suggestionPanel.add(priceLabel1);
+                    priceLabel1.setSize(300,50);
+                     gridPanel.add(priceLabel1);
 
+                     constraints.gridy++;
                     JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                    IconScoreP1.setBounds(470,240,80,80);
-                    suggestionPanel.add(IconScoreP1);
+                    IconScoreP1.setSize(80,80);
+                     gridPanel.add(IconScoreP1);
 
                 } else if (numberOfSuggestions == 2) {
                     suggestProduct1 = suggestList.get(0);
                     suggestProduct2 = suggestList.get(1);
 
                     //----------Product suggested 1
-                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
-                    suggest1Button.setBounds(80,65,150,150);
+                     suggestProduct1 = suggestList.get(0);
+                     //----------Product suggested 1
+                     constraints.gridx = 0;
+                     constraints.gridy = 0;
+                     suggest1Button = new JButton(suggestProduct1.getNomProduit());
+                     suggest1Button.setSize(150,150);
                      suggest1Button.addActionListener(this);
-                    suggestionPanel.add(suggest1Button);
+                     gridPanel.add(suggest1Button);
 
-                    JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                    priceLabel1.setBounds(140,210,300,50);
-                    suggestionPanel.add(priceLabel1);
+                     constraints.gridy++;
+                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
+                     priceLabel1.setSize(300,50);
+                     gridPanel.add(priceLabel1);
 
-                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                    IconScoreP1.setBounds(150,240,80,80);
-                    suggestionPanel.add(IconScoreP1);
+                     constraints.gridy++;
+                     JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                     IconScoreP1.setSize(80,80);
+                     gridPanel.add(IconScoreP1);
 
                     // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
 
 
 
                     //----------Product suggested 2----------------------------------------
-                    suggest2Button = new JButton(suggestProduct2.getNomProduit());
+
+                     constraints.gridx = 2;
+                     constraints.gridy = 0;
+                     suggest2Button = new JButton(suggestProduct2.getNomProduit());
                     suggest2Button.setBounds(420,65,150,150);
                      suggest2Button.addActionListener(this);
-                    suggestionPanel.add(suggest2Button);
+                     gridPanel.add(suggest2Button);
 
+                     constraints.gridy++;
                     JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
                     priceLabel2.setBounds(460,210,300,50);
-                    suggestionPanel.add(priceLabel2);
+                     gridPanel.add(priceLabel2);
 
+                     constraints.gridy++;
                     JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
                     IconScoreP2.setBounds(470,240,80,80);
-                    suggestionPanel.add(IconScoreP2);
+                     gridPanel.add(IconScoreP2);
 
                 } else if (numberOfSuggestions >= 3) {
                     suggestProduct1 = suggestList.get(0);
@@ -289,51 +336,65 @@ public class ProductInfo implements ActionListener {
                     suggestProduct3 = suggestList.get(2);
 
                     //----------Product suggested 1
+                     constraints.gridx = 0;
+                     constraints.gridy = 0;
                     suggest1Button = new JButton(suggestProduct1.getNomProduit());
                     suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
-                    suggestionPanel.add(suggest1Button);
+                   gridPanel.add(suggest1Button);
 
+                   constraints.gridy++;
                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
                     priceLabel1.setBounds(140,210,300,50);
-                    suggestionPanel.add(priceLabel1);
+                   gridPanel.add(priceLabel1);
 
-                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                     constraints.gridy++;
+                     JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
                     IconScoreP1.setBounds(150,240,80,80);
-                    suggestionPanel.add(IconScoreP1);
+                    gridPanel.add(IconScoreP1);
 
 
 
 
 
                     //----------Product suggested 2----------------------------------------
-                    suggest2Button = new JButton(suggestProduct2.getNomProduit());
+
+                     constraints.gridx = 1;
+                     constraints.gridy = 0;
+                     suggest2Button = new JButton(suggestProduct2.getNomProduit());
                     suggest2Button.setBounds(420,65,150,150);
                      suggest2Button.addActionListener(this);
-                    suggestionPanel.add(suggest2Button);
+                    gridPanel.add(suggest2Button);
 
+                    constraints.gridy++;
                     JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
                     priceLabel2.setBounds(460,210,300,50);
-                    suggestionPanel.add(priceLabel2);
+                    gridPanel.add(priceLabel2);
 
+                    constraints.gridy++;
                     JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
                     IconScoreP2.setBounds(470,240,80,80);
-                    suggestionPanel.add(IconScoreP2);
+                    gridPanel.add(IconScoreP2);
 
                     //----------Product suggested 3----------------------------------------
-                    suggest3Button = new JButton(suggestProduct3.getNomProduit());
+
+                     constraints.gridx = 1;
+                     constraints.gridy = 0;
+                     suggest3Button = new JButton(suggestProduct3.getNomProduit());
                     suggest3Button.setBounds(755,65,150,150);
                     suggest3Button.addActionListener(this);
-                    suggestionPanel.add(suggest3Button);
+                    gridPanel.add(suggest3Button);
 
-
+                    constraints.gridy++;
                     JLabel priceLabel3 = new JLabel("Prix:"+ suggestProduct3.getPrix() +"€ ");
                     priceLabel3.setBounds(810,210,300,50);
-                    suggestionPanel.add(priceLabel3);
+                    gridPanel.add(priceLabel3);
 
+
+                    constraints.gridy++;
                     JLabel IconScoreP3 = setlabelIconScore(suggestProduct3.getScore());
                     IconScoreP3.setBounds(820,240,80,80);
-                    suggestionPanel.add(IconScoreP3);
+                    gridPanel.add(IconScoreP3);
 
                 }
             }
