@@ -13,7 +13,7 @@ public class AdminMenu implements ActionListener {
     JButton configButton;
     JButton UC3button;
     String titreHeader= "Menu Administrateur";
-    int x= 550;
+    int x= 580;
     JPanel panelCentre;
    JButton boutonArriere1;
 
@@ -21,7 +21,7 @@ public class AdminMenu implements ActionListener {
 
     public AdminMenu(){
         frame= new JFrame();
-        frame.setTitle("Admin Menu");
+        frame.setTitle("Menu administrateur");
         frame.setSize(Template.LONGUEUR,Template.LARGEUR);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -45,12 +45,12 @@ public class AdminMenu implements ActionListener {
         configButton = new JButton("<html><center><br><img src='" +
                 getClass().getResource("/configGRANDE.png") +
                 "'><br><br><font size='5' face='Avenir'>Configuration</font></center></html>");
-        configButton.setBounds(300, 250, 300, 230);
+        configButton.setBounds(300, 230, 300, 230);
         UC3button= new JButton("<html><center><br><img src='" +
                 getClass().getResource("/statBisGrande.png") +
                 "'><br><br><font size='5' face='Avenir'>Statistique du magasin</font></center></html>");
 
-        UC3button.setBounds(800, 250, 300, 230);
+        UC3button.setBounds(800, 230, 300, 230);
         configButton.addActionListener(this);
         UC3button.addActionListener(this);
         panelCentre.add(configButton);
@@ -68,9 +68,11 @@ public class AdminMenu implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==UC3button){
-            frame.dispose();
             AccueilUC3 accueilUC3=new AccueilUC3();
+            frame.dispose();
+        } else if(e.getSource() == configButton){
+            ConfigurationFrame configurationFrame = new ConfigurationFrame();
+            frame.dispose();
         }
-
     }
 }

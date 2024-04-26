@@ -43,10 +43,10 @@ public class SelectEmplacementById extends ClientRequest<Object, Emplacement>{
      }
  
  
-     public static Emplacement launchSelectEmplacementById(Request request) throws IOException, InterruptedException{
+     public static Emplacement launchSelectEmplacementById(int id) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
- 
+ Request request=new Request();
          int birthdate = 0;
          final ObjectMapper objectMapper = new ObjectMapper();
          final String requestId = UUID.randomUUID().toString();

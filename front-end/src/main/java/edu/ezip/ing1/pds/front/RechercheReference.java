@@ -117,6 +117,8 @@ public class RechercheReference implements ActionListener {
                     if(product != null){
                         ProductInfo productInfo=new ProductInfo();
                         menuEmpreinteCarbone.dispose();
+
+
                     }else {
                         JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 406] Attention, cette référence produit n'existe pas. Veuillez réessayer.", "[ERREUR 406] - Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                         searchBar.setText("");
@@ -127,6 +129,7 @@ public class RechercheReference implements ActionListener {
         } else if (e.getSource() == boutonCategories) {
             MainCategorie mainCategorie = new MainCategorie();
             menuEmpreinteCarbone.dispose();
+
         }
     }
 

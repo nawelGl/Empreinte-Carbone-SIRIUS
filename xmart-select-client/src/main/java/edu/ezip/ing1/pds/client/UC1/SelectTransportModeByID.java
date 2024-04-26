@@ -45,13 +45,15 @@ public class SelectTransportModeByID extends ClientRequest<Object, TransportMode
     }
 
 
-    public static TransportMode launchSelectTransportModeById(Request request) throws IOException, InterruptedException{
+    public static TransportMode launchSelectTransportModeById(String id) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
+        Request request=new Request();
+        request.setRequestContent(id);
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);

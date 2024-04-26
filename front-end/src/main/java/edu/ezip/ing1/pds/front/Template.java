@@ -13,4 +13,10 @@ public interface Template {
     String COULEUR_HEADER = "#FFFFFF";
     String POLICE = "Avenir";
     Font FONT_ECRITURE= new Font(Template.POLICE, Font.BOLD, 15);
+    Font FONT_ECRITURE2= new Font(Template.POLICE, Font.BOLD, 18);
+
+
+
+
+    Font FONT_TITRES= new Font(Template.POLICE, Font.BOLD, 20);
 }

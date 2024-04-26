@@ -83,6 +83,7 @@ public class StatProduct implements ActionListener {
         //ajoute de EmptyBorder pour le placement de title
         EmptyBorder emptyBorder1 = new EmptyBorder(11, 0, 0, 0);
         infoTitlePanel.setBorder(emptyBorder1);
+
         infoTitlePanel.add(infoTitle);
         infoTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infoTitlePanel.setBounds(0,0,500,60);
@@ -155,6 +156,7 @@ public class StatProduct implements ActionListener {
         // --ajout de title panel
         RoundedPanel chartTitlePanel = new RoundedPanel(30,30);
         JLabel charTitle = new JLabel("Statistiques des ventes");
+
         charTitle.setFont(new Font("Avenir",Font.BOLD,17));
         charTitle.setForeground(Color.white);
 
@@ -162,6 +164,7 @@ public class StatProduct implements ActionListener {
 
         EmptyBorder emptyBorder2 = new EmptyBorder(11, 0, 0, 0);
         chartTitlePanel.setBorder(emptyBorder2);
+
         chartTitlePanel.add(charTitle);
         chartTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         chartTitlePanel.setBounds(0,0,500,60);
