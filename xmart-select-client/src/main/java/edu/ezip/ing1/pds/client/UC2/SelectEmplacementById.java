@@ -17,6 +17,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
+import static java.lang.String.valueOf;
+
 
 public class SelectEmplacementById extends ClientRequest<Object, Emplacement>{
 
@@ -46,11 +48,12 @@ public class SelectEmplacementById extends ClientRequest<Object, Emplacement>{
      public static Emplacement launchSelectEmplacementById(int id) throws IOException, InterruptedException{
          final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
          logger.debug("Load Network config file : {}", networkConfig.toString());
- Request request=new Request();
+         Request request = new Request();
          int birthdate = 0;
          final ObjectMapper objectMapper = new ObjectMapper();
          final String requestId = UUID.randomUUID().toString();
          request.setRequestId(requestId);
+         request.setRequestContent(valueOf(id));
          request.setRequestOrder(requestOrder);
          objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
          final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);

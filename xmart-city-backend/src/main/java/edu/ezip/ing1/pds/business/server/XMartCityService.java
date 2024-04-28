@@ -79,9 +79,6 @@ public class XMartCityService {
 
 
 
-
-
-
         private final String query;
 
         private Queries(final String query) {
@@ -97,7 +94,6 @@ public class XMartCityService {
         }
         return inst;
     }
-
 
     private XMartCityService() {
 
@@ -351,6 +347,8 @@ public class XMartCityService {
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
                         String id = request.getRequestBody().replaceAll("\"", "");
+
+                        System.out.println("@@@@@@@@@@@@@@@@ ID DU REQUEST BODY : " + id);
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
