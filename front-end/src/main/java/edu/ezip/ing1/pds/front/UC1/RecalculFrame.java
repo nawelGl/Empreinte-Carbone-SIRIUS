@@ -11,6 +11,7 @@ import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
 import edu.ezip.ing1.pds.client.UpdateInfoProduct;
 import edu.ezip.ing1.pds.front.MethodesFront;
+import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
@@ -20,8 +21,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static edu.ezip.ing1.pds.front.MethodesFront.attributeLetterScore;
-import static edu.ezip.ing1.pds.front.MethodesFront.carbonFootPrintCalcul;
+import static edu.ezip.ing1.pds.front.MethodesFront.*;
 
 public class RecalculFrame implements ActionListener {
 
@@ -65,9 +65,52 @@ public class RecalculFrame implements ActionListener {
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         calculButton=new JButton("reCalculer les empreinte");
-        calculButton.setBounds(300, 500, 100, 100);
+        calculButton.setBounds(100, 100, 100, 100);
         calculButton.addActionListener(this);
-        frame.add(calculButton);
+        mainPanel.add(calculButton);
+
+
+        //----------panel Recalcule bouton
+        RoundedPanel calculPanel=new RoundedPanel(40,40);
+        calculPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+        calculPanel.setBounds(35, 60,400,600);
+        calculPanel.add(calculButton);
+        mainPanel.add(calculPanel);
+
+        //---------panel SCORE
+        JPanel scorePanel= new JPanel();
+        scorePanel.setLayout(null);
+        scorePanel.setBounds(438,60,932,600);
+        scorePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+
+
+        JLabel modifScoreLabel= new JLabel("Modifier les bornes des scores carbone");
+        modifScoreLabel.setBounds(300,20,400,50);
+        modifScoreLabel.setFont(Template.FONT_TITRES);
+        modifScoreLabel.setForeground(Color.WHITE);
+
+        JLabel scoreA= setlabelIconScore("A");
+        scoreA.setOpaque(false);
+        scoreA.setLocation(100,100);
+        scorePanel.add(scoreA);
+
+        JLabel borneInf= new JLabel("Borne inf: ");
+        borneInf.setFont(Template.FONT_ECRITURE2);
+       // borneInf.setBounds(5,);
+        JLabel borneSup= new JLabel("Borne sup: ");
+        borneSup.setFont(Template.FONT_ECRITURE2);
+
+
+
+
+        scorePanel.add(modifScoreLabel);
+
+
+        mainPanel.add(scorePanel);
+
+
+
+
 
         frame.setVisible(true);
 
@@ -85,7 +128,6 @@ public class RecalculFrame implements ActionListener {
                     transportMode = SelectTransportModeByID.launchSelectTransportModeById(String.valueOf(product.getIdTransportMode()));
                     villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(product.getIdVilleArrive()));
                     villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(product.getIdVilleDepart()));
-
                     carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), product.getPoids());
                     score = attributeLetterScore(carbonFootPrint);
 
@@ -107,14 +149,6 @@ public class RecalculFrame implements ActionListener {
                 }catch (Exception exe){
                     System.out.println("erreur sur une des requete "+ exe.getMessage());
                 }
-
-                JLabel reussiteLabel=new JLabel("REUSSITE update");
-                reussiteLabel.setBounds(200,200,600,100);
-                frame.add(reussiteLabel);
-
-
-
-
 
             }
 
