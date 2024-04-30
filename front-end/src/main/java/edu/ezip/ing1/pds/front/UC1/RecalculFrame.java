@@ -96,9 +96,25 @@ public class RecalculFrame implements ActionListener {
 
         JLabel borneInf= new JLabel("Borne inf: ");
         borneInf.setFont(Template.FONT_ECRITURE2);
-       // borneInf.setBounds(5,);
+        borneInf.setForeground(Color.WHITE);
+        borneInf.setBounds(7,250,200,50);
         JLabel borneSup= new JLabel("Borne sup: ");
         borneSup.setFont(Template.FONT_ECRITURE2);
+        borneSup.setForeground(Color.WHITE);
+        borneSup.setBounds(7,350,200,50);
+        scorePanel.add(borneInf);
+        scorePanel.add(borneSup);
+
+        JLabel unityInf= new JLabel("gCO2e ");
+        unityInf.setFont(Template.FONT_ECRITURE2);
+        unityInf.setForeground(Color.WHITE);
+        unityInf.setBounds(830,250,200,50);
+        JLabel unitySup= new JLabel("gCO2e ");
+        unitySup.setFont(Template.FONT_ECRITURE2);
+        unitySup.setForeground(Color.WHITE  );
+        unitySup.setBounds(830,350,200,50);
+        scorePanel.add(unityInf);
+        scorePanel.add(unitySup);
 
 
 
