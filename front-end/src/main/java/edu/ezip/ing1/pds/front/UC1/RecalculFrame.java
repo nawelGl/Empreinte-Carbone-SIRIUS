@@ -1,12 +1,10 @@
 package edu.ezip.ing1.pds.front.UC1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ezip.ing1.pds.business.dto.Marque;
-import edu.ezip.ing1.pds.business.dto.Produit;
-import edu.ezip.ing1.pds.business.dto.TransportMode;
-import edu.ezip.ing1.pds.business.dto.Ville;
+import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.client.UC1.SelectAllReferences;
+import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
 import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
 import edu.ezip.ing1.pds.client.UpdateInfoProduct;
@@ -89,10 +87,10 @@ public class RecalculFrame implements ActionListener {
         modifScoreLabel.setFont(Template.FONT_TITRES);
         modifScoreLabel.setForeground(Color.WHITE);
 
-        JLabel scoreA= setlabelIconScore("A");
-        scoreA.setOpaque(false);
-        scoreA.setLocation(100,100);
-        scorePanel.add(scoreA);
+//        JLabel scoreA= setlabelIconScore("A");
+//        scoreA.setOpaque(false);
+//        scoreA.setLocation(100,100);
+//        scorePanel.add(scoreA);
 
         JLabel borneInf= new JLabel("Borne inf: ");
         borneInf.setFont(Template.FONT_ECRITURE2);
@@ -115,6 +113,32 @@ public class RecalculFrame implements ActionListener {
         unitySup.setBounds(830,350,200,50);
         scorePanel.add(unityInf);
         scorePanel.add(unitySup);
+
+        //recuperation des scores------
+        Score scoreA = null;
+        Score scoreB = null;
+        Score scoreC = null;
+        Score scoreD = null;
+        Score scoreE = null;
+
+        Scores scores = null;
+        try {
+            scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
+           ArrayList<Score> scoreList = (ArrayList<Score>) scores.getScores();
+            if (scoreList != null && scoreList.size() >= 5) {
+
+                scoreA = scoreList.get(0);
+                scoreB = scoreList.get(1);
+                scoreC = scoreList.get(2);
+                scoreD = scoreList.get(3);
+                scoreE = scoreList.get(4);
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
 
 
 
