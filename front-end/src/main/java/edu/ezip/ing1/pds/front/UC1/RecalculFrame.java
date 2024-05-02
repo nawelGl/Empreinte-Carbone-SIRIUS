@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Set;
 
 import static edu.ezip.ing1.pds.front.MethodesFront.*;
 
@@ -62,17 +64,29 @@ public class RecalculFrame implements ActionListener {
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-        calculButton=new JButton("reCalculer les empreinte");
-        calculButton.setBounds(100, 100, 100, 100);
-        calculButton.addActionListener(this);
-        mainPanel.add(calculButton);
 
 
         //----------panel Recalcule bouton
-        RoundedPanel calculPanel=new RoundedPanel(40,40);
+        JPanel calculPanel=new JPanel();
+        calculPanel.setLayout(null);
         calculPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         calculPanel.setBounds(35, 60,400,600);
+
+
+        JLabel empreinteLabel= new JLabel("Re-calcul des empreintes");
+        empreinteLabel.setFont(Template.FONT_TITRES);
+        empreinteLabel.setForeground(Color.WHITE);
+        empreinteLabel.setBounds(100,20,300,50);
+        calculPanel.add(empreinteLabel);
+
+        calculButton=new JButton("<html><center><br><img src='" +
+                getClass().getResource("/refresh.png") +
+                "'><br><font size='5' face='Avenir'>Mettre à jour</font></center></html>");
+                //new JButton(new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/refresh.png"))));
+        calculButton.setBounds(100, 200, 180, 180);
+        calculButton.addActionListener(this);
         calculPanel.add(calculButton);
+
         mainPanel.add(calculPanel);
 
         //---------panel SCORE
@@ -87,15 +101,11 @@ public class RecalculFrame implements ActionListener {
         modifScoreLabel.setFont(Template.FONT_TITRES);
         modifScoreLabel.setForeground(Color.WHITE);
 
-//        JLabel scoreA= setlabelIconScore("A");
-//        scoreA.setOpaque(false);
-//        scoreA.setLocation(100,100);
-//        scorePanel.add(scoreA);
 
         JLabel borneInf= new JLabel("Borne inf: ");
         borneInf.setFont(Template.FONT_ECRITURE2);
         borneInf.setForeground(Color.WHITE);
-        borneInf.setBounds(7,250,200,50);
+        borneInf.setBounds(7,280,200,50);
         JLabel borneSup= new JLabel("Borne sup: ");
         borneSup.setFont(Template.FONT_ECRITURE2);
         borneSup.setForeground(Color.WHITE);
@@ -106,7 +116,7 @@ public class RecalculFrame implements ActionListener {
         JLabel unityInf= new JLabel("gCO2e ");
         unityInf.setFont(Template.FONT_ECRITURE2);
         unityInf.setForeground(Color.WHITE);
-        unityInf.setBounds(830,250,200,50);
+        unityInf.setBounds(830,280,200,50);
         JLabel unitySup= new JLabel("gCO2e ");
         unitySup.setFont(Template.FONT_ECRITURE2);
         unitySup.setForeground(Color.WHITE  );
@@ -124,18 +134,161 @@ public class RecalculFrame implements ActionListener {
         Scores scores = null;
         try {
             scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
-           ArrayList<Score> scoreList = (ArrayList<Score>) scores.getScores();
-            if (scoreList != null && scoreList.size() >= 5) {
+            Set<Score> scoreSet = scores.getScores();
 
-                scoreA = scoreList.get(0);
-                scoreB = scoreList.get(1);
-                scoreC = scoreList.get(2);
-                scoreD = scoreList.get(3);
-                scoreE = scoreList.get(4);
+            if (scoreSet != null) {
+
+                for (Score score : scoreSet) {
+                    String lettreScore = score.getlettreScore();
+                    if (lettreScore.equals("A")) {
+                        scoreA = score;
+                    } else if (lettreScore.equals("B")) {
+                        scoreB = score;
+                    } else if (lettreScore.equals("C")) {
+                        scoreC = score;
+                    } else if (lettreScore.equals("D")) {
+                        scoreD = score;
+                    } else if (lettreScore.equals("E")) {
+                        scoreE = score;
+                    }
+                }
             }
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+
+        JLabel A=setlabelIconScore(scoreA.getlettreScore());
+        JLabel B=setlabelIconScore(scoreB.getlettreScore());
+        JLabel C=setlabelIconScore(scoreC.getlettreScore());
+        JLabel D=setlabelIconScore(scoreD.getlettreScore());
+        JLabel E=setlabelIconScore(scoreE.getlettreScore());
+
+        JLabel bornesInfValues= new JLabel(scoreA.getborneInf()+ "                  "+ scoreB.getborneInf()+"                 "+scoreC.getborneInf()+"                 "+scoreD.getborneInf()+"                 "+scoreE.getborneInf());
+        bornesInfValues.setBounds(170,290,600,30);
+        bornesInfValues.setFont(Template.FONT_ECRITURE2);
+        bornesInfValues.setForeground(Color.WHITE);
+        scorePanel.add(bornesInfValues);
+
+        JLabel bornesSupValues= new JLabel(scoreA.getborneSup()+ "               "+ scoreB.getborneSup()+"               "+scoreC.getborneSup()+"                "+scoreD.getborneSup()+"                "+scoreE.getborneSup());
+        bornesSupValues.setBounds(170,360,600,30);
+        bornesSupValues.setFont(Template.FONT_ECRITURE2);
+        bornesSupValues.setForeground(Color.WHITE);
+        scorePanel.add(bornesSupValues);
+
+        A.setBounds(170,150,100,100);
+        A.setOpaque(false);
+        scorePanel.add(A);
+
+        B.setBounds(300,150,100,100);
+        B.setOpaque(false);
+        scorePanel.add(B);
+
+        C.setBounds(430,150,100,100);
+        C.setOpaque(false);
+        scorePanel.add(C);
+
+        D.setBounds(560,150,100,100);
+        D.setOpaque(false);
+        scorePanel.add(D);
+
+        E.setBounds(690,150,100,100);
+        E.setOpaque(false);
+        scorePanel.add(E);
+
+
+
+        RoundedPanel roundedPanelChoice= new RoundedPanel(40,40);
+        roundedPanelChoice.setLayout(null);
+        roundedPanelChoice.setBackground(Color.WHITE);
+        roundedPanelChoice.setBounds(120,470,700,80);
+
+        JLabel selection= new JLabel("Selectionner le score à modifier : ");
+        selection.setFont(Template.FONT_ECRITURE2);
+        selection.setBounds(150,15,300,50);
+        roundedPanelChoice.add(selection);
+
+        String [] scoresLettreList= {scoreA.getlettreScore(),scoreB.getlettreScore(),scoreC.getlettreScore(),scoreD.getlettreScore(),scoreE.getlettreScore()};
+        JComboBox<String> scoreBox= new JComboBox<>(scoresLettreList);
+        scoreBox.setBounds(430,13,60,60);
+
+
+        Score finalScoreA = scoreA;
+        Score finalScoreB = scoreB;
+        Score finalScoreC = scoreC;
+        Score finalScoreD = scoreD;
+        Score finalScoreE = scoreE;
+        scoreBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedScore = (String) scoreBox.getSelectedItem();
+
+                JPanel panel = new JPanel();
+                panel.setLayout(new GridLayout(2, 2));
+
+
+                JTextField borneInfField;
+                JTextField borneSupField ;
+
+                if(scoreBox.getSelectedItem().equals("A")){
+                    borneInfField=new JTextField(String.valueOf(finalScoreA.getborneInf()));
+                    borneSupField=new JTextField(String.valueOf(finalScoreA.getborneSup()));
+
+                } else if (scoreBox.getSelectedItem().equals("B")) {
+                    borneInfField=new JTextField(String.valueOf(finalScoreB.getborneInf()));
+                    borneSupField=new JTextField(String.valueOf(finalScoreB.getborneSup()));
+
+                } else if (scoreBox.getSelectedItem().equals("C")) {
+                    borneInfField=new JTextField(String.valueOf(finalScoreC.getborneInf()));
+                    borneSupField=new JTextField(String.valueOf(finalScoreC.getborneSup()));
+
+
+                } else if (scoreBox.getSelectedItem().equals("D")) {
+                    borneInfField=new JTextField(String.valueOf(finalScoreD.getborneInf()));
+                    borneSupField=new JTextField(String.valueOf(finalScoreD.getborneSup()));
+
+
+                } else if (scoreBox.getSelectedItem().equals("E")) {
+                    borneInfField=new JTextField(String.valueOf(finalScoreE.getborneInf()));
+                    borneSupField=new JTextField(String.valueOf(finalScoreE.getborneSup()));
+
+
+                } else{
+                    borneInfField=new JTextField();
+                    borneSupField=new JTextField();}
+
+
+                // Vous pouvez initialiser les valeurs des champs de texte avec les bornes actuelles
+                // par exemple, si vous avez des objets Score pour chaque score sélectionné,
+                // vous pouvez utiliser score.getborneInf() et score.getborneSup() pour cela
+
+                panel.add(new JLabel("Borne inférieure: "));
+                panel.add(borneInfField);
+                panel.add(new JLabel("Borne supérieure: "));
+                panel.add(borneSupField);
+
+                int result = JOptionPane.showConfirmDialog(null, panel, "Modifier les bornes du score " + selectedScore,JOptionPane.OK_CANCEL_OPTION);
+                        //new ImageIcon(Objects.requireNonNull(RecalculFrame.class.getResource("/icon_"+selectedScore+".png"))));
+                if (result == JOptionPane.OK_OPTION) {
+
+
+                    String borneInfText = borneInfField.getText();
+                    String borneSupText = borneSupField.getText();
+
+                    //TODO: Faire la requete update des bornes where scoreLettre='lettre'
+                    //TODO: recharger la page une fois que la borne est update
+
+                }
+            }
+        });
+
+        roundedPanelChoice.add(scoreBox);
+
+
+        scorePanel.add(roundedPanelChoice);
+
+
 
 
 
