@@ -11,15 +11,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
@@ -38,7 +35,7 @@ public class PathManagement implements ActionListener{
     private Point startPoint = null;
     private Point endPoint = null;
     private JButton addPath;
-    private JButton modifyPath;
+    private JButton newPath;
     private JButton deletePath;
     private JButton calculatePath = new JButton();
     private JButton validate = new JButton();
@@ -50,6 +47,7 @@ public class PathManagement implements ActionListener{
     //si pas de startPoint ET de endPoint : on ne peut pas valider
 
     private JButton backMenu = new JButton("Retour au menu");
+    private JLabel nouvelleImage;
 
     public PathManagement(){
 
@@ -135,19 +133,32 @@ public class PathManagement implements ActionListener{
         addPath.addActionListener(this);
         actionButtonsPanel.add(addPath);
 
-        modifyPath = new JButton();
-        modifyPath.setText("Supprimer un chemin");
-        modifyPath.setBounds(100, 260, 300, 70);
-        modifyPath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
-        modifyPath.addActionListener(this);
-        actionButtonsPanel.add(modifyPath);
-
         deletePath = new JButton();
-        deletePath.setText("Charger une map");
-        deletePath.setBounds(100, 360, 300, 70);
+        deletePath.setText("Supprimer un chemin");
+        deletePath.setBounds(100, 260, 300, 70);
         deletePath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
         deletePath.addActionListener(this);
         actionButtonsPanel.add(deletePath);
+
+        nouvelleImage = new JLabel();
+        newPath = new JButton();
+        newPath.setText("Charger une map");
+        newPath.setBounds(100, 360, 300, 70);
+        newPath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
+        newPath.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    // Ici, vous pouvez charger l'image sélectionnée dans l'interface
+                    // Par exemple :
+                    ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+                    nouvelleImage.setIcon(imageIcon);
+                }
+            }
+        });
+        actionButtonsPanel.add(newPath);
 
         mainPanel.add(mapPanel);
         mainPanel.add(actionButtonsPanel);
@@ -230,7 +241,7 @@ public class PathManagement implements ActionListener{
 
             //Modifier la configuration du panel actions :
             actionButtonsPanel.remove(addPath);
-            actionButtonsPanel.remove(modifyPath);
+            actionButtonsPanel.remove(newPath);
             actionButtonsPanel.remove(deletePath);
             actionButtonsPanel.repaint();
             actionButtonsPanel.revalidate();
