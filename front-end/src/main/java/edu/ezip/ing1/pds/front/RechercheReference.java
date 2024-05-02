@@ -5,7 +5,6 @@ import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.front.Categories.MainCategorie;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
-import org.apache.logging.log4j.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,7 +37,7 @@ public class RechercheReference implements ActionListener {
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
         loggerRechercheReference = LogManager.getLogger(RechercheReference.class);
-        loggerRechercheReference.info("Dans Recherche Reference (test pour le logger).");
+
         //Paramétrages de base :
         menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -99,7 +98,7 @@ public class RechercheReference implements ActionListener {
             try{
                 Integer refEnInt = Integer.parseInt(refEnString);
             } catch (Exception ex){
-                loggerRechercheReference.info("La référence entrée n'est pas un String : " + ex.getMessage());
+                loggerRechercheReference.warn("La référence entrée n'est pas un String : " + ex.getMessage());
                 referenceIsNotAnInt = true;
             }
 
@@ -107,11 +106,11 @@ public class RechercheReference implements ActionListener {
 
                 product = SelectProductByReference.launchSelectProductByReference(refEnString);
             } catch(Exception exception){
-                loggerRechercheReference.info(exception.getMessage());
+                loggerRechercheReference.warn(exception.getMessage());
             }
 
             if(ClientRequest.isConnectionRefused() == true){
-                loggerRechercheReference.info("Problème de connexion");
+                loggerRechercheReference.warn("Problème de connexion");
                 searchBar.setText("");
                 JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
                 referenceIsNotAnInt = false;

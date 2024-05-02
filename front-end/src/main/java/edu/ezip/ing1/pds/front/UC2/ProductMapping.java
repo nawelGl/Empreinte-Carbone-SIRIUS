@@ -9,12 +9,10 @@ import edu.ezip.ing1.pds.business.dto.PathPointChemin;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
-import edu.ezip.ing1.pds.client.UC2.SelectHighestFloor;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
-import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
-import edu.ezip.ing1.pds.front.UC1.ProductInfo;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import static java.lang.String.valueOf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +23,7 @@ import java.util.Objects;
 
 public class ProductMapping implements ActionListener{
 
+    protected static Logger loggerProductMapping;
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
     private String productColor = RechercheReference.getProduct().getCouleur();
@@ -51,6 +50,9 @@ public class ProductMapping implements ActionListener{
 
     public ProductMapping(){
 
+        loggerProductMapping = LogManager.getLogger(ProductMapping.class);
+        loggerProductMapping.info("Dans ProductMapping (test pour le logger).");
+
         productMappingFrame = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
         productMappingFrame.setTitle("Trouvez votre produit.");
@@ -73,7 +75,6 @@ public class ProductMapping implements ActionListener{
 //            }
 //        } catch(Exception exc){
 //            requestHaveFailed = true;
-//            System.out.println(exc.getMessage());
 //            EcranAcceuil ecranAcceuil = new EcranAcceuil();
 //            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 407] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
 //            productMappingFrame.dispose();
@@ -97,7 +98,6 @@ public class ProductMapping implements ActionListener{
 //                }
 //            } catch (Exception exc) {
 //                requestHaveFailed = true;
-//                System.out.println(exc.getMessage());
 //                EcranAcceuil ecranAcceuil = new EcranAcceuil();
 //                JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
 //                productMappingFrame.dispose();
@@ -111,7 +111,7 @@ public class ProductMapping implements ActionListener{
                 path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
             } catch(Exception e){
                 requestHaveFailed = true;
-                System.out.println("Erreur sur la récupération des points : " + e.getMessage());
+                loggerProductMapping.warn("Erreur sur la récupération des points : " + e.getMessage());
                 EcranAcceuil ecranAcceuil = new EcranAcceuil();
                 JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 productMappingFrame.dispose();
@@ -123,7 +123,6 @@ public class ProductMapping implements ActionListener{
 //                }
 //            } catch(Exception exc){
 //                requestHaveFailed = true;
-//                System.out.println(exc.getMessage());
 //                EcranAcceuil ecranAcceuil = new EcranAcceuil();
 //                JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
 //                productMappingFrame.dispose();
@@ -137,7 +136,7 @@ public class ProductMapping implements ActionListener{
                 pathEscalators = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(15));
             } catch(Exception e){
                 requestHaveFailed = true;
-                System.out.println("Erreur sur la récupération des points vers l'escalator : " + e.getMessage());
+                loggerProductMapping.warn("Erreur sur la récupération des points vers l'escalator : " + e.getMessage());
                 EcranAcceuil ecranAcceuil = new EcranAcceuil();
                 JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 productMappingFrame.dispose();
@@ -149,7 +148,6 @@ public class ProductMapping implements ActionListener{
 //                }
 //            } catch(Exception exc){
 //                requestHaveFailed = true;
-//                System.out.println(exc.getMessage());
 //                EcranAcceuil ecranAcceuil = new EcranAcceuil();
 //                JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
 //                productMappingFrame.dispose();
@@ -159,20 +157,16 @@ public class ProductMapping implements ActionListener{
 
 
         // @@@@@@@@@@@ TESTS @@@@@@@@@@@
-//        System.out.println("CONTENU DE L'ARRAYLIST PATH APRES REQUETE :");
 //        if(path != null){
 //            for (PointChemin point : path.getPath()){
-//                System.out.println(point);
 //            }
-//        } else System.out.println("PATH EST NULL");
+//        }
 //
-//
-//        System.out.println("CONTENU DE L'ARRAYLIST PATH-ESCALATROS APRES REQUETE :");
 //        if(pathEscalators != null){
 //            for (PointChemin point : pathEscalators.getPath()){
 //                System.out.println(point);
 //            }
-//        }else System.out.println("PATH ESCALATORS EST NULL");
+//        }
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         //----------panel header--------------
