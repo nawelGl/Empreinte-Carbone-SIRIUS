@@ -29,7 +29,6 @@ public class SelectBestSellerBefore extends ClientRequest<Object, BestSeller> {
     private static final String requestOrder = "SELECT_BESTSELLER_BEFORE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
-    protected static int totalQuantite;
 
 
 
@@ -47,10 +46,6 @@ public class SelectBestSellerBefore extends ClientRequest<Object, BestSeller> {
         return bestSeller;
     }
 
-
-    public static int getTotalQuantite(){
-        return totalQuantite;
-    }
 
     public static BestSeller launchSelectBestSellerBefore(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);

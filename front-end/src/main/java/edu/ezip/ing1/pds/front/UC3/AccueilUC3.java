@@ -92,7 +92,6 @@ public class AccueilUC3 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == salesBtt) {
             SalesFrame salesFrame = new SalesFrame();
-            salesFrame.createSalesFrame();
             accueilUC3.dispose();
         }
         if(e.getSource() == productBtt) {
