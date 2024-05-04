@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ezip.ing1.pds.business.dto.*;
+
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.commons.Response;
 import org.slf4j.Logger;
@@ -727,12 +728,15 @@ public class XMartCityService {
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_BEFORE.query);
                         ResultSet resultSet = selectStatement.executeQuery();
-                        BestSeller bestSeller = new BestSeller();
+                        BestSellers bestSellers = new BestSellers();
+
                         while (resultSet.next()) {
+                            BestSeller bestSeller = new BestSeller();
                             bestSeller.build(resultSet);
+                            //bestSellers.add(bestSeller);
                         }
                         ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(bestSeller);
+                        String responseBody = objectMapper.writeValueAsString(bestSellers);
 
                         response = new Response(request.getRequestId(), responseBody);
 
@@ -747,12 +751,15 @@ public class XMartCityService {
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_AFTER.query);
                         ResultSet resultSet = selectStatement.executeQuery();
-                        BestSeller bestSeller = new BestSeller();
+                        BestSellers bestSellers = new BestSellers();
+
                         while (resultSet.next()) {
+                            BestSeller bestSeller = new BestSeller();
                             bestSeller.build(resultSet);
+                            //bestSellers.add(bestSeller);
                         }
                         ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(bestSeller);
+                        String responseBody = objectMapper.writeValueAsString(bestSellers);
 
                         response = new Response(request.getRequestId(), responseBody);
                     }catch (SQLException | JsonProcessingException e){
