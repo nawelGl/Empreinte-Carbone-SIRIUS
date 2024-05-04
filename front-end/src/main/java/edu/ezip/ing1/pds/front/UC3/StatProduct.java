@@ -9,25 +9,41 @@ import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.Objects;
 import static java.lang.String.valueOf;
 
-public class StatProduct {
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+
+import java.io.IOException;
+
+public class StatProduct implements ActionListener {
 
     JFrame statUC3;
     String[] labels = {"Avant", "Après"};
     String photoName;
 
+    JButton exportBtt;
+
     private int reference = RechercheReferenceUC3.venteBefore.getReference();
     private String score = RechercheReferenceUC3.venteBefore.getScore();
     private Vente vente;
     private  int textSize=20;
+    private int salesBefore;
+    private int salesAfter;
 
 
 
     public StatProduct(int salesBefore, int salesAfter ){
+        this.salesBefore=salesBefore;
+        this.salesAfter=salesAfter;
 
         // recherche de information vente pour dessiner les charts et afficher
 
@@ -49,23 +65,28 @@ public class StatProduct {
         MethodesFront.header(statUC3,"Vos statistiques par produit",525);
 
         //mainPanel(principal)
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(null);
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
         //infoPanel
-        JPanel infoPanel = new JPanel(new BorderLayout());
+        JPanel infoPanel = new JPanel(null);
         infoPanel.setBackground(Color.white);
-        infoPanel.setBounds(150,100,500,550);
+        infoPanel.setBounds(150,80,500,550);
 
         //titlePanel
         RoundedPanel infoTitlePanel = new RoundedPanel(30,30);
         JLabel infoTitle = new JLabel("Information de votre produit "+vente.getReference());
-        infoTitle.setFont(Template.FONT_ECRITURE);
-        infoTitle.setForeground(Color.WHITE);
+        infoTitle.setFont(new Font("Avenir",Font.BOLD,17));
+        infoTitle.setForeground(Color.white);
+
+        //ajoute de EmptyBorder pour le placement de title
+        EmptyBorder emptyBorder1 = new EmptyBorder(11, 0, 0, 0);
+        infoTitlePanel.setBorder(emptyBorder1);
+
         infoTitlePanel.add(infoTitle);
         infoTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
-        infoTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
+        infoTitlePanel.setBounds(0,0,500,60);
 
         // recuperer l'image de produit par reference
         photoName = "/"+Integer.toString(reference)+".png";
@@ -87,9 +108,7 @@ public class StatProduct {
 
 
         // textLabel
-        JLabel textLabel = new JLabel("le score de votre produit est ");
-
-
+        JLabel textLabel = new JLabel("Le score de votre produit est ");
 
 
         // scoreLabel
@@ -115,11 +134,11 @@ public class StatProduct {
         }
 
         photoLabel.setBounds(150,100,200,205);
-        textLabel.setBounds(30,380,200,20);
-        scoreLabel.setBounds(400,380,50,50);
+        textLabel.setBounds(30,400,200,20);
+        scoreLabel.setBounds(350,380,50,50);
 
         //-------ajout de labels----------
-        infoPanel.add(BorderLayout.NORTH,infoTitlePanel);
+        infoPanel.add(infoTitlePanel);
 
 
 
@@ -130,33 +149,46 @@ public class StatProduct {
 
 
 
-
-
-
         //chartPanel
-        JPanel chartPanel = new JPanel(new BorderLayout());
+        JPanel chartPanel = new JPanel(null);
+
 
         // --ajout de title panel
         RoundedPanel chartTitlePanel = new RoundedPanel(30,30);
         JLabel charTitle = new JLabel("Statistiques des ventes");
-        charTitle.setFont(Template.FONT_ECRITURE);
-        charTitle.setForeground(Color.WHITE);
+
+        charTitle.setFont(new Font("Avenir",Font.BOLD,17));
+        charTitle.setForeground(Color.white);
+
+        //ajoute de EmptyBorder pour le placement de title
+
+        EmptyBorder emptyBorder2 = new EmptyBorder(11, 0, 0, 0);
+        chartTitlePanel.setBorder(emptyBorder2);
+
         chartTitlePanel.add(charTitle);
         chartTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
-        chartTitlePanel.setBorder(new EmptyBorder(20,20,20,20));
+        chartTitlePanel.setBounds(0,0,500,60);
 
 
         double[] values = {salesBefore, salesAfter};
         DrawBarChart barChart = new DrawBarChart(labels, values);
-        chartPanel.add(BorderLayout.NORTH,chartTitlePanel);
-        chartPanel.add(BorderLayout.CENTER, barChart);
+        barChart.setBounds(0,63,500,490);
+        chartPanel.add(chartTitlePanel);
+        chartPanel.add(barChart);
+
+        chartPanel.setBounds(780,80,500,550);
 
 
+        //-------------------ajout de bouton export
+        exportBtt=new JButton("Exporter les data");
+        exportBtt.setBackground(Color.white);
+        exportBtt.addActionListener( this);
+        exportBtt.setBounds(1250,30,140,30);
 
-        chartPanel.setBounds(780,100,500,550);
-
+        //----------------------------------------------
         mainPanel.add(infoPanel);
         mainPanel.add(chartPanel);
+        mainPanel.add(exportBtt);
         statUC3.getContentPane().add(mainPanel);
 
         //-----------------------------------------------
@@ -164,6 +196,70 @@ public class StatProduct {
 
 
     }
+    private void exportData(){
+
+        //creation de file selector
+        JFileChooser fileChosser = new JFileChooser();
+
+        //préciser type de dossier
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File (*.xls)", "xls");
+        fileChosser.setFileFilter(filter);
+
+        //on attend jusqu'a utilisateur puisse choisir confirmer
+
+        int result = fileChosser.showSaveDialog(null);
+
+        if(result== JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChosser.getSelectedFile();
+            String filePath=selectedFile.getAbsolutePath();
 
 
+            Workbook workbook = new HSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Statistique par produit");
+
+            Object[][] data = {
+                    {"Produit", "Vente avant installation", "Vente après installation"},
+                    {reference, salesBefore, salesAfter}
+            };
+
+            int rowNum = 0;
+            for (Object[] rowData : data) {
+                Row row = sheet.createRow(rowNum++);
+                int colNum = 0;
+                for (Object field : rowData) {
+                    Cell cell = row.createCell(colNum++);
+                    if (field instanceof String) {
+                        cell.setCellValue((String) field);
+                    } else if (field instanceof Integer) {
+                        cell.setCellValue((Integer) field);
+                    }
+                }
+            }
+
+            //Vérifier si l'extension est bonne
+            if(!filePath.toLowerCase().endsWith(".xls")){
+                filePath+=".xls";
+            }
+            try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                workbook.write(outputStream);
+                System.out.println("Le fichier excel est bien enregistré.");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==exportBtt){
+            exportData();
+            JOptionPane jOptionPane = new JOptionPane();
+            jOptionPane.showMessageDialog(statUC3,"votre fichier est bien enregistré","information",JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }
 }

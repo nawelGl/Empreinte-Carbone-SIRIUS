@@ -38,14 +38,16 @@ public class XMartCityService {
 
         SELECT_SOUS_CATEGORIE_A_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieA\" WHERE \"idSousCategorieA\" = ?"),
         SELECT_SOUS_CATEGORIE("SELECT * FROM \"ezip-ing1\".Categorie;"),
-        SELECT_BEFORE_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
-                "INNER JOIN \"ezip-ing1\".produit\n" +
-                "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
-                "WHERE \"reference\"=? AND \"date\"<'2024-01-01';"),
-        SELECT_AFTER_VENTE_BY_REFERENCE("SELECT \"reference\",\"quantite\", \"score\",\"empreinte\" FROM \"ezip-ing1\".vend\n" +
-                "INNER JOIN \"ezip-ing1\".produit\n" +
-                "ON produit.\"idProduit\" =vend.\"idProduit\"\n" +
-                "WHERE \"reference\"=? AND \"date\">'2024-01-01';"),
+        SELECT_BEFORE_VENTE_BY_REFERENCE("SELECT reference, quantite, score, empreinte\n" +
+                "FROM \"ezip-ing1\".vend\n" +
+                "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
+                "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
+                "WHERE \"reference\"=? AND vend.\"date\" < magasin.\"dateInstallation\";"),
+        SELECT_AFTER_VENTE_BY_REFERENCE("SELECT reference, quantite, score, empreinte\n" +
+                "FROM \"ezip-ing1\".vend\n" +
+                "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
+                "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
+                "WHERE \"reference\"=? AND vend.\"date\" > magasin.\"dateInstallation\";"),
 
         SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".transportmode WHERE \"idTransportMode\" = ?"),
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
@@ -53,7 +55,29 @@ public class XMartCityService {
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
+        UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
+
+
+        SELECT_BESTSELLER_BEFORE("SELECT reference, score, SUM(vend.quantite)\n" +
+                "FROM \"ezip-ing1\".vend\n" +
+                "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
+                "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
+                "WHERE vend.\"date\" < magasin.\"dateInstallation\"\n" +
+                "GROUP BY reference, score\n" +
+                "ORDER BY SUM(vend.quantite) ASC\n" +
+                "LIMIT 3;"),
+        SELECT_BESTSELLER_AFTER("SELECT reference, score, SUM(vend.quantite)\n" +
+                "FROM \"ezip-ing1\".vend\n" +
+                "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
+                "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
+                "WHERE vend.\"date\" > magasin.\"dateInstallation\"\n" +
+                "GROUP BY reference, score\n" +
+                "ORDER BY SUM(vend.quantite) ASC\n" +
+                "LIMIT 3;"),
+
+
         SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit ");
+
 
 
 
@@ -201,6 +225,29 @@ public class XMartCityService {
 
                         response = new Response(request.getRequestId(), "Error executing UPDATE_INFO_PRODUCT query");
                         logger.error("Error executing UPDATE_INFO_PRODUCT query: {}", e.getMessage());
+                    }
+                    break;
+
+                case "UPDATE_BORNES_SCORE":
+                    try {
+                        PreparedStatement updateStatement = connection.prepareStatement(Queries.UPDATE_BORNES_SCORE.query);
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                       Score score = objectMapper.readValue(requestBody, Score.class);
+
+                        updateStatement.setDouble(1,score.getborneInf());
+                        updateStatement.setDouble(2,score.getborneSup());
+                        updateStatement.setString(3, score.getlettreScore());
+
+                        updateStatement.executeUpdate();
+                        return new Response(request.getRequestId(),score.toString());
+
+                    } catch (/*SQLException | IOException e*/ Exception e) {
+
+
+                        response = new Response(request.getRequestId(), "Error executing  UPDATE_BORNES_SCORE query");
+                        logger.error("Error executing UPDATE_BORNES_SCORE query: {}", e.getMessage());
                     }
                     break;
 
@@ -726,6 +773,46 @@ public class XMartCityService {
                         logger.error("Error executing SELECT_3_SUGGESTIONS query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_BESTSELLER_BEFORE": // requête SELECT
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_BEFORE.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+                        BestSeller bestSeller = new BestSeller();
+                        while (resultSet.next()) {
+                            bestSeller.build(resultSet);
+                        }
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(bestSeller);
+
+                        response = new Response(request.getRequestId(), responseBody);
+
+                    }catch (SQLException | JsonProcessingException e){
+                        response = new Response(request.getRequestId(), "Error executing SELECT_BESTSELLER_BEFORE query");
+                        logger.error("Error executing SELECT_BEFORE_VENTE_BY_REF query: {}", e.getMessage());
+                    }catch (NoSuchFieldException e){
+                        throw  new RuntimeException(e);
+                    }
+                    break;
+                case "SELECT_BESTSELLER_AFTER": // requête SELECT
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_AFTER.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+                        BestSeller bestSeller = new BestSeller();
+                        while (resultSet.next()) {
+                            bestSeller.build(resultSet);
+                        }
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(bestSeller);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    }catch (SQLException | JsonProcessingException e){
+                        response = new Response(request.getRequestId(), "Error executing SELECT_BESTSELLER_AFTER query");
+                        logger.error("Error executing SELECT_BEFORE_VENTE_BY_REF query: {}", e.getMessage());
+                    }catch (NoSuchFieldException e){
+                        throw  new RuntimeException(e);
                     }
                     break;
 

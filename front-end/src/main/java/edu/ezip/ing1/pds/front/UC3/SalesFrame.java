@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front.UC3;
 
+import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
@@ -8,38 +9,47 @@ import java.awt.*;
 
 public class SalesFrame extends JFrame {
 
+    JFrame salesFrame;
+
 
     private JLabel text;
     public void createSalesFrame() {
         // installation de frame
-        JFrame frame = new JFrame("Vos meilleures ventes");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(Template.LONGUEUR, Template.LARGEUR);
-        frame.getContentPane().setBackground(new Color(0xE7EBE4));
+        salesFrame = new JFrame("Statisque - best seller");
+        salesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        salesFrame.setResizable(false);
+        salesFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
+        salesFrame.setLocationRelativeTo(null);
+
+
+        //-------------------panel header-------------
+        MethodesFront.header(salesFrame,"Vos meilleures ventes",525);
+
 
         // main panel
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBackground(new Color(0xE7EBE4));
+        mainPanel.setLayout(null);
+        mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
-        // panel pour le header
-        JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(Color.white);
-        headerPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
-        JLabel headerLabel = new JLabel("Vos meilleures ventes");
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        headerPanel.add(headerLabel);
 
-        JPanel contentPanel = new JPanel();
-        text = new JLabel("work in progress...");
-        contentPanel.add(text);
 
-        //ajoute
-        mainPanel.add(headerPanel, BorderLayout.NORTH);
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
-        frame.add(mainPanel);
+        //beforPanel setting
+        JPanel beforePanel = new JPanel(null);
+        beforePanel.setBackground(Color.white);
+        beforePanel.setBounds(50,50,600,600);
 
-        frame.setVisible(true);
+        //afterPanel setting
+        JPanel afterPanel = new JPanel(null);
+        afterPanel.setBackground(Color.white);
+        afterPanel.setBounds(750,50,600,600);
+
+
+        //--------------ajout-----------------
+        mainPanel.add(beforePanel);
+        mainPanel.add(afterPanel);
+        salesFrame.add(mainPanel);
+
+        salesFrame.setVisible(true);
 
 
 
