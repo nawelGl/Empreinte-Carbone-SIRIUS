@@ -7,6 +7,8 @@ import edu.ezip.ing1.pds.business.dto.Ville;
 import edu.ezip.ing1.pds.client.Categories.SelectCategorieByID;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,25 +17,27 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class DetailsProduct {
+    private final static String LoggingLabel = "F r o n t - D e t a i l - P r o d u c t";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
-    JFrame frame;
-    JPanel mainPanel;
-    JPanel panelProduct;
-    RoundedPanel panelPicture;
-    Produit produit;
-    Ville villeProduit;
-    Marque marqueProduit;
+    private JFrame frame;
+    private JPanel mainPanel;
+    private JPanel panelProduct;
+    private RoundedPanel panelPicture;
+    private Produit produit;
+    private Ville villeProduit;
+    private Marque marqueProduit;
 
-    Categorie categorie;
+    private Categorie categorie;
 
 
-    JLabel nameProduct;
-    JLabel footprintProduct;
-    JLabel priceProduct;
-    JLabel scoreProduct;
-    JLabel countryProduct;
-    JLabel categorieProduct;
-    JLabel brandProdcut;
+    private JLabel nameProduct;
+    private JLabel footprintProduct;
+    private JLabel priceProduct;
+    private JLabel scoreProduct;
+    private JLabel countryProduct;
+    private JLabel categorieProduct;
+    private JLabel brandProdcut;
 
 
     public DetailsProduct(Produit produit){
@@ -81,7 +85,7 @@ public class DetailsProduct {
         villeProduit= SelectVilleById.launchSelectVilleById(String.valueOf(produit.getIdVilleDepart()));
 
     } catch(Exception e){
-        System.out.println("Erreur sur la récupération des de la ville de depart  : " + e.getMessage());
+                    logger.error("ERROR on 'SelectVilleById' for departure city  : " + e.getMessage());
     }
         countryProduct=new JLabel("Pays d'origine : "+villeProduit.getNomPays());
 
@@ -92,16 +96,9 @@ public class DetailsProduct {
             marqueProduit= SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdMarque()));
 
         } catch (Exception e) {
-            System.out.println("Erreur sur la récupération du nom de la categorie ou de la marque  : " + e.getMessage());
+            logger.error("Error on request 'SelectCategorieByID' or 'SelectMarqueById' : " + e.getMessage());
         }
         categorieProduct= new JLabel("Categorie : "+ categorie.getNomCategorie());
-
-
-//        try{
-//            marqueProduit= SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdCategorie()));
-//        } catch (Exception e) {
-//            System.out.println("Erreur sur la récupération du nom de la categorie  : " + e.getMessage());
-//        }
         brandProdcut= new JLabel("Marque : "+ marqueProduit.getNomMarque() + "   ( Enseigne "+marqueProduit.getRse()+" )");
 
         //------------Positionnement des element------
@@ -143,7 +140,7 @@ public class DetailsProduct {
         panelProduct.add(brandProdcut);
 
 
-    //Code Nawel :
+    // About UC2---------------
         JPanel infosMap = new JPanel();
         infosMap.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infosMap.setLayout(null);

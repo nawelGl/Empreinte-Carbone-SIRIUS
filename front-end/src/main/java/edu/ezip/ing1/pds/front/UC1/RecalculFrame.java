@@ -12,6 +12,8 @@ import edu.ezip.ing1.pds.client.UpdateInfoProduct;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,18 +28,22 @@ import static edu.ezip.ing1.pds.front.MethodesFront.*;
 
 public class RecalculFrame implements ActionListener {
 
-    JFrame frame;
-    JButton calculButton;
 
-    ArrayList<Integer> referencesList;
-    Produit product;
-    Marque marque;
-    Ville villeArrive;
-    Ville villeDepart;
-    TransportMode transportMode;
+private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l - F r a m e";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
-    Double carbonFootPrint;
-    String score;
+   private JFrame frame;
+    private JButton calculButton;
+
+    private ArrayList<Integer> referencesList;
+    private Produit product;
+    private Marque marque;
+    private Ville villeArrive;
+    private Ville villeDepart;
+    private TransportMode transportMode;
+
+    private Double carbonFootPrint;
+    private String score;
 
 
 
@@ -83,7 +89,6 @@ public class RecalculFrame implements ActionListener {
         calculButton=new JButton("<html><center><br><img src='" +
                 getClass().getResource("/refresh.png") +
                 "'><br><font size='5' face='Avenir'>Mettre à jour</font></center></html>");
-                //new JButton(new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/refresh.png"))));
         calculButton.setBounds(100, 200, 180, 180);
         calculButton.addActionListener(this);
         calculPanel.add(calculButton);
@@ -156,7 +161,7 @@ public class RecalculFrame implements ActionListener {
             }
 
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+           logger.error("Error Request ' select_all_Score' , message error : "+e.getMessage());
         }
 
 
@@ -260,10 +265,6 @@ public class RecalculFrame implements ActionListener {
                     borneSupField=new JTextField();}
 
 
-                // Vous pouvez initialiser les valeurs des champs de texte avec les bornes actuelles
-                // par exemple, si vous avez des objets Score pour chaque score sélectionné,
-                // vous pouvez utiliser score.getborneInf() et score.getborneSup() pour cela
-
                 panel.add(new JLabel("Borne inférieure: "));
                 panel.add(borneInfField);
                 panel.add(new JLabel("Borne supérieure: "));
@@ -276,32 +277,43 @@ public class RecalculFrame implements ActionListener {
 
                     String borneInfText = borneInfField.getText();
                     String borneSupText = borneSupField.getText();
-                    String scoreLettre= (String) scoreBox.getSelectedItem();
 
-                    //----Faire l'update a la BD
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    Score score= new Score();
-                    score.setborneInf(Double.parseDouble(borneInfText));
-                    score.setborneSup(Double.parseDouble(borneSupText));
-                    score.setlettreScore(scoreLettre);
-
-                    try {
-                        String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(score);
-                        UpdateBornesScore.launchUpdateBornesScore(responseBody);
-                        System.out.println("SUCCESS DE L'UPDATE");
-                         JOptionPane.showMessageDialog(null, "Mise à jour réussie", "Succès", JOptionPane.INFORMATION_MESSAGE);
-
-                         RecalculFrame recalculFrame=new RecalculFrame();
-                        frame.dispose();
+                    if (isDouble(borneInfText) && isDouble(borneSupText)) {
+                        double borneInf = Double.parseDouble(borneInfText);
+                        double borneSup = Double.parseDouble(borneSupText);
 
 
-                    } catch (IOException | InterruptedException ex) {
-                        System.out.println("Erreur de l'update pour le score  " + scoreLettre);
-                        JOptionPane.showMessageDialog(null, "Échec de la mise à jour", "Échec", JOptionPane.ERROR_MESSAGE);
 
+
+                        String scoreLettre = (String) scoreBox.getSelectedItem();
+
+                        //----Faire l'update a la BD
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        Score score = new Score();
+                        score.setborneInf(borneInf);
+                        score.setborneSup(borneSup);
+                        score.setlettreScore(scoreLettre);
+
+                        try {
+                            String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(score);
+                            UpdateBornesScore.launchUpdateBornesScore(responseBody);
+                            System.out.println("SUCCESS DE L'UPDATE");
+                            JOptionPane.showMessageDialog(null, "Mise à jour réussie", "Succès", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Objects.requireNonNull(RecalculFrame.class.getResource("/check2.png"))));
+
+                            RecalculFrame recalculFrame = new RecalculFrame();
+                            frame.dispose();
+
+
+                        } catch (IOException | InterruptedException ex) {
+                            logger.error("Erreur de l'update pour le score  " + scoreLettre);
+                            JOptionPane.showMessageDialog(null, "Échec de la mise à jour", "Échec", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    }else {
+
+                        JOptionPane.showMessageDialog(null, "Les valeurs entrées ne sont pas des nombres décimaux valides.", "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
-
-
 
                 }
             }
@@ -359,18 +371,17 @@ public class RecalculFrame implements ActionListener {
                         UpdateInfoProduct.launchUpdateProduit(responseBody);
 
                     } catch (IOException | InterruptedException ex) {
-                        System.out.println("Eerreur de l'update pour le produit de referebce " + reference);
+                        logger.error("Eerreur de l'update pour le produit de referebce " + reference);
                     }
 
 
                 }catch (Exception exe){
-                    System.out.println("erreur sur une des requete "+ exe.getMessage());
-                }
+                    logger.error("Error on one of the request "+ exe.getMessage());}
 
             }
 
         } catch (Exception ex) {
-            System.out.println("Erreur dans la ");
+            logger.error("Error on the request 'SelectAllReferences' , message error :"+ex.getMessage());
         }
     }
 

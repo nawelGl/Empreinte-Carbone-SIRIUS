@@ -5,12 +5,18 @@ import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.front.Categories.MainCategorie;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RechercheReference implements ActionListener {
+
+    private final static String LoggingLabel = "F r o n t -R e c h e r c h e - R e f e r e n c e";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     static Produit product;
     static Vente vente;
@@ -92,7 +98,7 @@ public class RechercheReference implements ActionListener {
             try{
                 Integer refEnInt = Integer.parseInt(refEnString);
             } catch (Exception ex){
-                System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
+                logger.error("La référence entrée n'est pas un String : " + ex.getMessage());
                 referenceIsNotAnInt = true;
             }
 
@@ -100,7 +106,7 @@ public class RechercheReference implements ActionListener {
 
                 product = SelectProductByReference.launchSelectProductByReference(refEnString);
             } catch(Exception exception){
-                System.out.println(exception.getMessage());
+                logger.error(exception.getMessage());
             }
 
             if(ClientRequest.isConnectionRefused() == true){

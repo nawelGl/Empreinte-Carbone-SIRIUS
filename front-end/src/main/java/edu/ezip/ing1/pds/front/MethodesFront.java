@@ -164,6 +164,15 @@ public class MethodesFront {
         return label;
     }
 
+    public static boolean isDouble(String str) {
+        try {
+            double d = Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 
 
 }

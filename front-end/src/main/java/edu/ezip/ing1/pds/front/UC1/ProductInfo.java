@@ -19,6 +19,8 @@ import javax.swing.*;
 
 import edu.ezip.ing1.pds.front.*;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static edu.ezip.ing1.pds.commons.Methodes.*;
 import static edu.ezip.ing1.pds.front.MethodesFront.*;
@@ -28,7 +30,10 @@ import java.util.List;
 
 public class ProductInfo implements ActionListener {
 
-    JFrame productInfoFrame;
+    private final static String LoggingLabel = "F r o n t - U C 1 - P r o d u c t - I n f o";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+
+    private JFrame productInfoFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
 
     private String productColor = RechercheReference.getProduct().getCouleur();
@@ -93,7 +98,7 @@ public class ProductInfo implements ActionListener {
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
                 categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(idCategorie));
 
-        }catch (Exception e){System.out.println(" pb avec les requetes");}
+        }catch (Exception e){logger.error(" pb avec les requetes");}
 
 
         //-------panel item chosen---------
@@ -225,7 +230,6 @@ public class ProductInfo implements ActionListener {
                      IconScoreP1.setBounds(150,240,80,80);
                      suggestionPanel.add(IconScoreP1);
 
-                    // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
 
 
 
@@ -299,7 +303,7 @@ public class ProductInfo implements ActionListener {
             }
 
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error("ERROR QUERY SUGGESTIONS : "+e.getMessage());
         }
 
 
