@@ -289,7 +289,11 @@ public class RecalculFrame implements ActionListener {
                         String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(score);
                         UpdateBornesScore.launchUpdateBornesScore(responseBody);
                         System.out.println("SUCCESS DE L'UPDATE");
-                        JOptionPane.showMessageDialog(null, "Mise à jour réussie", "Succès", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "Mise à jour réussie", "Succès", JOptionPane.INFORMATION_MESSAGE);
+
+                         RecalculFrame recalculFrame=new RecalculFrame();
+                        frame.dispose();
+
 
                     } catch (IOException | InterruptedException ex) {
                         System.out.println("Erreur de l'update pour le score  " + scoreLettre);
