@@ -7,6 +7,7 @@ import edu.ezip.ing1.pds.client.UC1.SelectAllReferences;
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
 import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
+import edu.ezip.ing1.pds.client.UpdateBornesScore;
 import edu.ezip.ing1.pds.client.UpdateInfoProduct;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
@@ -275,9 +276,28 @@ public class RecalculFrame implements ActionListener {
 
                     String borneInfText = borneInfField.getText();
                     String borneSupText = borneSupField.getText();
+                    String scoreLettre= (String) scoreBox.getSelectedItem();
 
-                    //TODO: Faire la requete update des bornes where scoreLettre='lettre'
-                    //TODO: recharger la page une fois que la borne est update
+                    //----Faire l'update a la BD
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    Score score= new Score();
+                    score.setborneInf(Double.parseDouble(borneInfText));
+                    score.setborneSup(Double.parseDouble(borneSupText));
+                    score.setlettreScore(scoreLettre);
+
+                    try {
+                        String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(score);
+                        UpdateBornesScore.launchUpdateBornesScore(responseBody);
+                        System.out.println("SUCCESS DE L'UPDATE");
+                        JOptionPane.showMessageDialog(null, "Mise à jour réussie", "Succès", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (IOException | InterruptedException ex) {
+                        System.out.println("Erreur de l'update pour le score  " + scoreLettre);
+                        JOptionPane.showMessageDialog(null, "Échec de la mise à jour", "Échec", JOptionPane.ERROR_MESSAGE);
+
+                    }
+
+
 
                 }
             }
@@ -338,7 +358,7 @@ public class RecalculFrame implements ActionListener {
                         System.out.println("Eerreur de l'update pour le produit de referebce " + reference);
                     }
 
-                    System.out.println("SUCCES DE L'UPDATE");
+
                 }catch (Exception exe){
                     System.out.println("erreur sur une des requete "+ exe.getMessage());
                 }

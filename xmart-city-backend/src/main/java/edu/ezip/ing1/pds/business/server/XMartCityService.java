@@ -55,6 +55,7 @@ public class XMartCityService {
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
+        UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
 
 
         SELECT_BESTSELLER_BEFORE("SELECT reference, score, SUM(vend.quantite)\n" +
@@ -224,6 +225,29 @@ public class XMartCityService {
 
                         response = new Response(request.getRequestId(), "Error executing UPDATE_INFO_PRODUCT query");
                         logger.error("Error executing UPDATE_INFO_PRODUCT query: {}", e.getMessage());
+                    }
+                    break;
+
+                case "UPDATE_BORNES_SCORE":
+                    try {
+                        PreparedStatement updateStatement = connection.prepareStatement(Queries.UPDATE_BORNES_SCORE.query);
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                       Score score = objectMapper.readValue(requestBody, Score.class);
+
+                        updateStatement.setDouble(1,score.getborneInf());
+                        updateStatement.setDouble(2,score.getborneSup());
+                        updateStatement.setString(3, score.getlettreScore());
+
+                        updateStatement.executeUpdate();
+                        return new Response(request.getRequestId(),score.toString());
+
+                    } catch (/*SQLException | IOException e*/ Exception e) {
+
+
+                        response = new Response(request.getRequestId(), "Error executing  UPDATE_BORNES_SCORE query");
+                        logger.error("Error executing UPDATE_BORNES_SCORE query: {}", e.getMessage());
                     }
                     break;
 
