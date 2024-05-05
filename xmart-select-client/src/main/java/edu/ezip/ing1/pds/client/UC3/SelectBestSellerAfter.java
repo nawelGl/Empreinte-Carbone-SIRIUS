@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
 import edu.ezip.ing1.pds.business.dto.BestSeller;
+import edu.ezip.ing1.pds.business.dto.BestSellers;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -74,15 +75,20 @@ public class SelectBestSellerAfter extends ClientRequest<Object, BestSeller> {
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final BestSeller bestSeller = (BestSeller) joinedClientRequest.getResult();
+                final BestSellers bestSellers = (BestSellers) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
-                asciiTable.addRule();
-                asciiTable.addRow(bestSeller.getReference1(), bestSeller.getScore1(),bestSeller.getSum1(),
-                        bestSeller.getReference2(), bestSeller.getScore2(),bestSeller.getSum2(),
-                        bestSeller.getReference3(), bestSeller.getScore3(),bestSeller.getSum3());
+                BestSeller dernierSales = null;
+
+                for (final BestSeller bestSeller : bestSellers.getBestSellers()){
+                    asciiTable.addRule();
+                    dernierSales=bestSeller;
+                    System.out.println("===============================================");
+                    System.out.println("vente dans selectAllVentes : " + bestSeller.toString());
+                    System.out.println("===============================================");
+                }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return bestSeller;
+                return dernierSales;
             }
         } catch(Exception e){
             System.out.println("Erreur : référence inexistante");

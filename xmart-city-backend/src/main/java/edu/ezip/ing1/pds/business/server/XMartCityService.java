@@ -56,7 +56,7 @@ public class XMartCityService {
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
 
-        SELECT_BESTSELLER_BEFORE("SELECT reference, score, SUM(vend.quantite)\n" +
+        SELECT_BESTSELLER_BEFORE("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
@@ -64,7 +64,7 @@ public class XMartCityService {
                 "GROUP BY reference, score\n" +
                 "ORDER BY SUM(vend.quantite) ASC\n" +
                 "LIMIT 3;"),
-        SELECT_BESTSELLER_AFTER("SELECT reference, score, SUM(vend.quantite)\n" +
+        SELECT_BESTSELLER_AFTER("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
@@ -733,7 +733,7 @@ public class XMartCityService {
                         while (resultSet.next()) {
                             BestSeller bestSeller = new BestSeller();
                             bestSeller.build(resultSet);
-                            //bestSellers.add(bestSeller);
+                            bestSellers.add(bestSeller);
                         }
                         ObjectMapper objectMapper = new ObjectMapper();
                         String responseBody = objectMapper.writeValueAsString(bestSellers);
@@ -756,7 +756,7 @@ public class XMartCityService {
                         while (resultSet.next()) {
                             BestSeller bestSeller = new BestSeller();
                             bestSeller.build(resultSet);
-                            //bestSellers.add(bestSeller);
+                            bestSellers.add(bestSeller);
                         }
                         ObjectMapper objectMapper = new ObjectMapper();
                         String responseBody = objectMapper.writeValueAsString(bestSellers);

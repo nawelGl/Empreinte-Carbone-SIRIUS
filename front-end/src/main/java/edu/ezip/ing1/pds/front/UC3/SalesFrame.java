@@ -1,6 +1,7 @@
 package edu.ezip.ing1.pds.front.UC3;
 
 import edu.ezip.ing1.pds.business.dto.BestSeller;
+import edu.ezip.ing1.pds.business.dto.BestSellers;
 import edu.ezip.ing1.pds.client.UC3.SelectBestSellerAfter;
 import edu.ezip.ing1.pds.client.UC3.SelectBestSellerBefore;
 import edu.ezip.ing1.pds.commons.Request;
@@ -15,16 +16,15 @@ import java.io.IOException;
 public class SalesFrame extends JFrame {
 
     JFrame salesFrame;
-    private static BestSeller bestSellerBefore;
-    private static BestSeller bestSellerAfter;
+    static BestSeller bestSellerBefore;
+    static BestSeller bestSellerAfter;
 
 
     private JLabel text;
     public SalesFrame() {
 
-        Request request = new Request();
-
         try {
+            Request request = new Request();
             bestSellerBefore = SelectBestSellerBefore.launchSelectBestSellerBefore(request);
             bestSellerAfter = SelectBestSellerAfter.launchSelectBestSellerBefore(request);
             System.out.println(bestSellerBefore.toString());

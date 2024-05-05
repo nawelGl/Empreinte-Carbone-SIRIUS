@@ -169,7 +169,6 @@ public class StatProduct implements ActionListener {
         chartTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         chartTitlePanel.setBounds(0,0,500,60);
 
-
         double[] values = {salesBefore, salesAfter};
         DrawBarChart barChart = new DrawBarChart(labels, values);
         barChart.setBounds(0,63,500,490);
