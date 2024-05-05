@@ -49,11 +49,6 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
 
 
 
-
-
-
-
-
     public RecalculFrame() {
         //-----setting de base--------
 
@@ -369,19 +364,32 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
                     try {
                         String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
                         UpdateInfoProduct.launchUpdateProduit(responseBody);
+                        JOptionPane.showMessageDialog(null, "Calculs des nouvelles empreintes carbones réussis !", "Succès", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Objects.requireNonNull(RecalculFrame.class.getResource("/check2.png"))));
+
+
+
 
                     } catch (IOException | InterruptedException ex) {
                         logger.error("Eerreur de l'update pour le produit de referebce " + reference);
+                        JOptionPane.showMessageDialog(null, "ERROR 404: Échec de l'operation, correspondance avec le server échouée", "Échec", JOptionPane.ERROR_MESSAGE);
+
+
                     }
 
 
                 }catch (Exception exe){
-                    logger.error("Error on one of the request "+ exe.getMessage());}
+                    logger.error("Error on one of the request "+ exe.getMessage());
+                    JOptionPane.showMessageDialog(null, "ERROR 404: Échec de l'operation, correspondance avec le server échouée", "Échec", JOptionPane.ERROR_MESSAGE);
+
+
+                }
 
             }
 
         } catch (Exception ex) {
             logger.error("Error on the request 'SelectAllReferences' , message error :"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR 404: Échec de l'operation, correspondance avec le server échouée", "Échec", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
