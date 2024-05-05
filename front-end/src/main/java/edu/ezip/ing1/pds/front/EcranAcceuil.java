@@ -117,10 +117,7 @@ public class EcranAcceuil implements ActionListener {
             RechercheReference rechercheReference = new RechercheReference(titre, titreHeader, titreLabelSecondaire, x);
             acceuilApp.dispose();
         }
-        //frame avec les deux boutons
-//        if(e.getSource()==boutonUC3) {
-//            AccueilUC2 accueilUC2=new AccueilUC2();
-//        }
+
         if(e.getSource()==boutonUC3) {
 
             acceuilApp.dispose();

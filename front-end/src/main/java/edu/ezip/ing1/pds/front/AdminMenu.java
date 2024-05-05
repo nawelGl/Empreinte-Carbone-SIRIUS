@@ -1,6 +1,8 @@
 package edu.ezip.ing1.pds.front;
 
 import edu.ezip.ing1.pds.front.UC3.AccueilUC3;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +11,16 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class AdminMenu implements ActionListener {
-    JFrame frame;
-    JButton configButton;
-    JButton UC3button;
-    String titreHeader= "Menu Administrateur";
-    int x= 580;
-    JPanel panelCentre;
-   JButton boutonArriere1;
+
+    private final static String LoggingLabel = "F r o n t - A d m i n - M e n u";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+    private JFrame frame;
+    private JButton configButton;
+    private JButton UC3button;
+    private String titreHeader= "Menu Administrateur";
+    private int x= 580;
+    private JPanel panelCentre;
+   private JButton boutonArriere1;
 
 
 
