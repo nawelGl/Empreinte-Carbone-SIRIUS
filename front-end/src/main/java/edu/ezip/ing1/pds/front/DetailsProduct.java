@@ -209,7 +209,7 @@ public class DetailsProduct {
         infosMap.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infosMap.setLayout(null);
         infosMap.setBounds(530, 460, 800, 170);
-       // mainPanel.add(infosMap);
+        //mainPanel.add(infosMap);
 
         //-------charger l'image de fond------
         try {
