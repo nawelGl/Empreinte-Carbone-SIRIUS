@@ -128,6 +128,8 @@ public class MethodesFront {
             }
         }
 
+
+
         //TODO : FAIRE UN LOGGER
         System.out.println("FAIL SCORE");
         return "Erreur hors borne";
@@ -160,6 +162,15 @@ public class MethodesFront {
         label.setOpaque(true);
 
         return label;
+    }
+
+    public static boolean isDouble(String str) {
+        try {
+            double d = Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 
