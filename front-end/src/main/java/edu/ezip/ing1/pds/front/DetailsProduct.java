@@ -41,7 +41,7 @@ public class DetailsProduct {
     JLabel brandProdcut;
 
     private BufferedImage backgroundImage;
-//    private JPanel mapPanel;
+    private JPanel mapPanel;
 //    private PathPointChemin path;
 //    private Emplacement emplacement;
 //    private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
@@ -208,8 +208,8 @@ public class DetailsProduct {
         JPanel infosMap = new JPanel();
         infosMap.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infosMap.setLayout(null);
-        infosMap.setBounds(530, 460, 830, 180);
-        mainPanel.add(infosMap);
+        infosMap.setBounds(530, 460, 800, 170);
+       // mainPanel.add(infosMap);
 
         //-------charger l'image de fond------
         try {
@@ -219,7 +219,20 @@ public class DetailsProduct {
         }
         //-----------------------------------
 
-        System.out.println("HERE");
+        mapPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                System.out.println("DANS LE PAINT COMPONENT");
+                if (backgroundImage != null) {
+                    System.out.println("DANS LE IF BGIMAGE NOT NULL");
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+        mapPanel.setLayout(null);
+        mapPanel.setBounds(530, 60, 770, 580);
+        mainPanel.add(mapPanel);
 
 //        System.out.println("Arraylist path :");
 //        for (PointChemin point : path.getPath()){
