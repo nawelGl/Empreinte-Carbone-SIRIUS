@@ -75,7 +75,9 @@ public class XMartCityService {
                 "LIMIT 3;"),
 
 
-        SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit ");
+        SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit "),
+
+        DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;");
 
 
 
@@ -720,8 +722,6 @@ public class XMartCityService {
                         System.out.println("ref : "+tabParametres[5]);
 
 
-
-
                         ResultSet resultSet = selectStatement.executeQuery();
 
                         Produits produits= new Produits();
@@ -770,6 +770,7 @@ public class XMartCityService {
                         throw  new RuntimeException(e);
                     }
                     break;
+
                 case "SELECT_BESTSELLER_AFTER": // requête SELECT
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_AFTER.query);
@@ -787,6 +788,28 @@ public class XMartCityService {
                         logger.error("Error executing SELECT_BEFORE_VENTE_BY_REF query: {}", e.getMessage());
                     }catch (NoSuchFieldException e){
                         throw  new RuntimeException(e);
+                    }
+                    break;
+
+                case "DELETE_PATH" :
+                    try{
+                        PreparedStatement deleteStatement = connection.prepareStatement(Queries.DELETE_PATH.query);
+                        String id = request.getRequestBody();
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        System.out.println("ID : " + id);
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        //ID d'affiche mais pas ce qu'il y a en dessous
+                        deleteStatement.setInt(1, Integer.valueOf(id));
+                        //Test ne s'affiche pas...
+                        System.out.println("TEST");
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        System.out.println("DELETE STATEMENT : " + deleteStatement.toString());
+                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        deleteStatement.executeUpdate();
+                        response = new Response(request.getRequestId(), "Deleted successfully");
+                    } catch(Exception exception){
+                        response = new Response(request.getRequestId(), "Error executing DELETE_PATH query");
+                        logger.error("Error executing DELETE_PATH query: {}", exception.getMessage());
                     }
                     break;
 

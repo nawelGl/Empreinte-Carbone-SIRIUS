@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
+import edu.ezip.ing1.pds.client.UC2.DeletePath;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
@@ -41,6 +42,7 @@ public class PathManagement implements ActionListener{
     private JButton validate = new JButton();
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
+    private JComboBox<Integer> comboBoxSuppression;
     private int numeroRayon;
     private boolean canValidate = false;
     //Boolean qui permet ed gerer l'appui sur le bouton valider :
@@ -48,6 +50,8 @@ public class PathManagement implements ActionListener{
 
     private JButton backMenu = new JButton("Retour au menu");
     private JLabel nouvelleImage;
+    private int numeroRayonASupprimer;
+    private JButton validerSuppression;
 
     public PathManagement(){
 
@@ -134,6 +138,7 @@ public class PathManagement implements ActionListener{
         actionButtonsPanel.add(addPath);
 
         deletePath = new JButton();
+        deletePath.addActionListener(this);
         deletePath.setText("Supprimer un chemin");
         deletePath.setBounds(100, 260, 300, 70);
         deletePath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
@@ -200,29 +205,29 @@ public class PathManagement implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == addPath){
+        if (e.getSource() == addPath) {
             mapPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                Point point = e.getPoint();
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    path.getPoints().add(point);
-                } else if (SwingUtilities.isRightMouseButton(e)) {
-                    if (startPoint == null) {
-                        startPoint = point;
-                        path.getPoints().add(startPoint);
-                    } else if (endPoint == null) {
-                        endPoint = point;
-                        path.getPoints().add(endPoint);
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    Point point = e.getPoint();
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        path.getPoints().add(point);
+                    } else if (SwingUtilities.isRightMouseButton(e)) {
+                        if (startPoint == null) {
+                            startPoint = point;
+                            path.getPoints().add(startPoint);
+                        } else if (endPoint == null) {
+                            endPoint = point;
+                            path.getPoints().add(endPoint);
+                        }
+                        if (startPoint != null && endPoint != null) {
+                            canValidate = true;
+                        }
                     }
-                    if(startPoint != null && endPoint != null){
-                        canValidate = true;
-                    }
+                    mapPanel.repaint();
                 }
-                mapPanel.repaint();
-            }
-        });
+            });
             //Pas besoin pour l'instant car chemin déjà tracé
             calculatePath.setText("Tracer le chemin");
             calculatePath.setBounds(910, 650, 180, 40);
@@ -258,27 +263,27 @@ public class PathManagement implements ActionListener{
             actionButtonsPanel.add(explications);
 
             Integer[] options = new Integer[15];
-            for(int i = 1; i <= 15; i++){
-                options[i-1] = i;
+            for (int i = 1; i <= 15; i++) {
+                options[i - 1] = i;
             }
-            
+
             comboBox = new JComboBox<>(options);
             comboBox.setBounds(200, 270, 100, 80);
             actionButtonsPanel.add(comboBox);
 
-        } else if (e.getSource() == calculatePath){
-            if(firstPath){
+        } else if (e.getSource() == calculatePath) {
+            if (firstPath) {
                 firstPath = false;
                 calculatePath();
                 mapPanel.repaint();
             }
-        } else if(e.getSource() == validate){
-            if(canValidate){
+        } else if (e.getSource() == validate) {
+            if (canValidate) {
 
-                numeroRayon = (int)comboBox.getSelectedItem();
+                numeroRayon = (int) comboBox.getSelectedItem();
                 String responseBody = "";
                 ObjectMapper objectMapper = new ObjectMapper();
-                for (int i = 0; i < path.getPoints().size(); i++){
+                for (int i = 0; i < path.getPoints().size(); i++) {
                     PointChemin pointChemin = new PointChemin();
                     pointChemin.setCoordX(path.getPoints().get(i).x);
                     pointChemin.setCoordY(path.getPoints().get(i).y);
@@ -314,9 +319,42 @@ public class PathManagement implements ActionListener{
                 endPoint = null;
                 mapPanel.repaint();
             }
-        } else if(e.getSource() == backMenu){
+        } else if(e.getSource() == deletePath){
+            actionButtonsPanel.removeAll();
+            actionButtonsPanel.revalidate();
+            actionButtonsPanel.repaint();
+            JLabel labelSuppression = new JLabel("<html>Quel est le rayon pour lequel vous souhaitez supprimer votre chemin ?</html>");
+            labelSuppression.setFont(Template.FONT_ECRITURE2);
+            labelSuppression.setForeground(Color.WHITE);
+            labelSuppression.setBounds(20, 180, 450, 100);
+            actionButtonsPanel.add(labelSuppression);
+            Integer[] options = new Integer[14];
+            for (int i = 1; i <= 14; i++) {
+                options[i - 1] = i;
+            }
+            comboBoxSuppression = new JComboBox<>(options);
+            comboBoxSuppression.setBounds(200, 270, 100, 80);
+            actionButtonsPanel.add(comboBoxSuppression);
+            validerSuppression = new JButton("Supprimer le chemin");
+            validerSuppression.setBounds(160, 370, 175, 40);
+            validerSuppression.addActionListener(this);
+            actionButtonsPanel.add(validerSuppression);
+            //TODO : Requete de suppression d'un chemin :
+        }else if (e.getSource() == backMenu){
             PathManagement pathManagement = new PathManagement();
             pathManagementFrame.dispose();
+        }
+        if(e.getSource() == validerSuppression){
+            numeroRayonASupprimer = (int) comboBoxSuppression.getSelectedItem();
+
+            try{
+                DeletePath.launchDeletePath(numeroRayonASupprimer);
+                //TODO : une fois la supression terminée, mettre un message de succès dans la frame et un retour au menu
+            }catch(Exception exception){
+                //message erreur de la réalisation de la requete
+                System.out.println("Erreur lors de la suppression du rayon, veuillez réessayer.");
+            }
+
         }
     }
 }
