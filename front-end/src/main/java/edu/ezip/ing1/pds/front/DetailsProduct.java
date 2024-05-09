@@ -42,9 +42,9 @@ public class DetailsProduct {
 
     private BufferedImage backgroundImage;
     private JPanel mapPanel;
-//    private PathPointChemin path;
-//    private Emplacement emplacement;
-//    private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
+    private PathPointChemin path;
+    private Emplacement emplacement;
+    private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
 
 
     public DetailsProduct(Produit produit) {
@@ -166,43 +166,41 @@ public class DetailsProduct {
         //Code Nawel :
 
         //=============Selection de l'emplacement via l'idEmplacement du produit===============
-//        try {
-//            Request request = new Request();
-//            request.setRequestContent(valueOf(idEmplacement));
-//            emplacement = SelectEmplacementById.launchSelectEmplacementById(request);
-//        } catch(Exception e){
-//            System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
-//        }
-//
-//        try{
-//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                throw new Exception();
-//            }
-//        } catch(Exception exc){
-//            System.out.println(exc.getMessage());
-//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
-//            frame.dispose();
-//        }
-//        //======================================================================================
-//
-//        //============Selection des points du chemin vers un rayon via l'id du rayon============
-//        try {
-//            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
-//        } catch(Exception e){
-//            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-//        }
-//
-//        try{
-//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                throw new Exception();
-//            }
-//        } catch(Exception exc){
-//            System.out.println(exc.getMessage());
-//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-//            frame.dispose();
-//        }
+        try {
+            emplacement = SelectEmplacementById.launchSelectEmplacementById(idEmplacement);
+        } catch(Exception e){
+            System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
+        }
+
+        try{
+            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
+            frame.dispose();
+        }
+        //======================================================================================
+
+        //============Selection des points du chemin vers un rayon via l'id du rayon============
+        try {
+            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+        } catch(Exception e){
+            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
+        }
+
+        try{
+            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
+                throw new Exception();
+            }
+        } catch(Exception exc){
+            System.out.println(exc.getMessage());
+            EcranAcceuil ecranAcceuil = new EcranAcceuil();
+            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
+            frame.dispose();
+        }
         //=====================================================================================
 
         JPanel infosMap = new JPanel();
