@@ -16,8 +16,9 @@ import java.io.IOException;
 public class SalesFrame extends JFrame {
 
     JFrame salesFrame;
-    static BestSeller bestSellerBefore;
-    static BestSeller bestSellerAfter;
+    static BestSellers bestSellersBefore;
+    static BestSellers bestSellersAfter;
+    static BestSeller bestSeller;
 
 
     private JLabel text;
@@ -25,16 +26,14 @@ public class SalesFrame extends JFrame {
 
         try {
             Request request = new Request();
-            bestSellerBefore = SelectBestSellerBefore.launchSelectBestSellerBefore(request);
-            bestSellerAfter = SelectBestSellerAfter.launchSelectBestSellerBefore(request);
-            System.out.println(bestSellerBefore.toString());
-            System.out.println(bestSellerAfter.toString());
+            bestSellersBefore = SelectBestSellerBefore.launchSelectBestSellerBefore(request);
+            bestSellersAfter = SelectBestSellerAfter.launchSelectBestSellerAfter(request);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
 
 
         // installation de frame

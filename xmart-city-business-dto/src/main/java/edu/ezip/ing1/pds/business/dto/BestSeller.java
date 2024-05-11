@@ -49,7 +49,7 @@ public class BestSeller {
 
 
 
-    public long getSum() {
+    public int getSum() {
         return sum;
     }
 
@@ -78,8 +78,8 @@ public class BestSeller {
     @Override
     public String toString() {
         return "BestSeller{" +
-                "reference1='" + reference + '\'' +','+
-                "score1='" + score + '\'' +','+
+                "reference='" + reference + '\'' +','+
+                "score='" + score + '\'' +','+
                 "sum1='" + sum+ '\''+
 
                 '}';

@@ -19,7 +19,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
-public class SelectBestSellerAfter extends ClientRequest<Object, BestSeller> {
+public class SelectBestSellerAfter extends ClientRequest<Object, BestSellers> {
 
     //Attributs pour lancer la requête.
     private final static String LoggingLabel = "S e l e c t - B e s t S e l l e r - B e f o r e";
@@ -30,7 +30,6 @@ public class SelectBestSellerAfter extends ClientRequest<Object, BestSeller> {
     private static final String requestOrder = "SELECT_BESTSELLER_BEFORE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
-    protected static int totalQuantite;
 
 
 
@@ -42,18 +41,14 @@ public class SelectBestSellerAfter extends ClientRequest<Object, BestSeller> {
     }
 
     @Override
-    public BestSeller readResult(String body) throws IOException {
+    public BestSellers readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final BestSeller bestSeller = mapper.readValue(body, BestSeller.class);
-        return bestSeller;
+        final BestSellers bestSellers = mapper.readValue(body, BestSellers.class);
+        return bestSellers;
     }
 
 
-    public static int getTotalQuantite(){
-        return totalQuantite;
-    }
-
-    public static BestSeller launchSelectBestSellerBefore(Request request) throws IOException, InterruptedException{
+    public static BestSellers launchSelectBestSellerAfter(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -65,36 +60,27 @@ public class SelectBestSellerAfter extends ClientRequest<Object, BestSeller> {
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectBestSellerBefore clientRequest = new SelectBestSellerBefore(
+        final SelectBestSellerAfter clientRequest = new SelectBestSellerAfter(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-        try {
-            while (!clientRequests.isEmpty()) {
-                final ClientRequest joinedClientRequest = clientRequests.pop();
-                joinedClientRequest.join();
-                logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final BestSellers bestSellers = (BestSellers) joinedClientRequest.getResult();
-                final AsciiTable asciiTable = new AsciiTable();
-                BestSeller dernierSales = null;
 
-                for (final BestSeller bestSeller : bestSellers.getBestSellers()){
-                    asciiTable.addRule();
-                    dernierSales=bestSeller;
-                    System.out.println("===============================================");
-                    System.out.println("vente dans selectAllVentes : " + bestSeller.toString());
-                    System.out.println("===============================================");
-                }
+        while (!clientRequests.isEmpty()) {
+            final ClientRequest joinedClientRequest = clientRequests.pop();
+            joinedClientRequest.join();
+            logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
+            final BestSellers bestSellers = (BestSellers) joinedClientRequest.getResult();
+            final AsciiTable asciiTable = new AsciiTable();
+
+            for (final BestSeller bestSeller : bestSellers.getBestSellers()){
                 asciiTable.addRule();
-                logger.debug("\n{}\n", asciiTable.render());
-                return dernierSales;
+                asciiTable.addRow(bestSeller.getReference(), bestSeller.getScore(), bestSeller.getSum());
             }
-        } catch(Exception e){
-            System.out.println("Erreur : référence inexistante");
-            return null;
+            asciiTable.addRule();
+            logger.debug("\n{}\n", asciiTable.render());
+            return bestSellers;
         }
-
         return null;
     }
 
