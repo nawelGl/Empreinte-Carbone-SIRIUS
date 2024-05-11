@@ -1,10 +1,14 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.Marque;
 import edu.ezip.ing1.pds.business.dto.Score;
 import edu.ezip.ing1.pds.business.dto.Scores;
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
+import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,10 +20,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
+import static java.lang.String.valueOf;
+
 //Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
 
 
 public class MethodesFront {
+
+
+    private final static String LoggingLabel = "F r o n t - M e t h o d e s ";
+    private static final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     // Header for frames
 
     public static void header(JFrame frame, String titre, int x) {
@@ -108,13 +118,47 @@ public class MethodesFront {
 
     }
 
+    public static double malusOUbonusEmpreinte(double empreinte, int idMarque) {
+        Marque marque;
+        double bonusMalus = 0.0;
+        try {
+            marque = SelectMarqueById.launchSelectMarqueById(String.valueOf(idMarque));
+            String rse = marque.getRse();
+
+            switch (rse) {
+                case "Durable":
+                    bonusMalus = -300;
+                    break;
+                case "Ethique":
+                    bonusMalus = -200;
+                    break;
+                case "Responsable":
+                    bonusMalus = -100;
+                    break;
+                case "Transparente":
+                    bonusMalus = empreinte;
+                    break;
+                case "Polluante":
+                    bonusMalus = 200;
+                    break;
+                default:
+
+                    break;
+            }
+        } catch (IOException | InterruptedException e) {
+            logger.warn(e.getMessage());
+        }
+        return empreinte + bonusMalus;
+    }
+
+
     public static String attributeLetterScore(double carbonFootPrint) {
 
         Scores scores = null;
         try {
-            scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
+            scores = SelectAllScore.launchSelectAllScore();
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
 
@@ -130,8 +174,7 @@ public class MethodesFront {
 
 
 
-        //TODO : FAIRE UN LOGGER
-        System.out.println("FAIL SCORE");
+        logger.warn("ATRIBUATEZ SCORE FAILED");
         return "Erreur hors borne";
     }
 

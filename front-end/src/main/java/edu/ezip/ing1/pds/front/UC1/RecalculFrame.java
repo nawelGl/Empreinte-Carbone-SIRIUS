@@ -134,7 +134,8 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
 
         Scores scores = null;
         try {
-            scores = SelectAllScore.launchSelectAllScore(); //fait la requete qui renvoit une liste de score
+            scores = SelectAllScore.launchSelectAllScore();
+            assert scores != null;
             Set<Score> scoreSet = scores.getScores();
 
             if (scoreSet != null) {
@@ -346,6 +347,8 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
 
         try {
             referencesList = SelectAllReferences.launchSelectAllReferences();
+            int empreintesMisesAJour = 0;
+//            int nombreTotalEmpreintes = referencesList.size();
             for (final int reference : referencesList) {
                 try {
                     product = SelectProductByReference.launchSelectProductByReference(String.valueOf(reference));
@@ -353,7 +356,7 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
                     villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(product.getIdVilleArrive()));
                     villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(product.getIdVilleDepart()));
                     carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), product.getPoids());
-                    score = attributeLetterScore(carbonFootPrint);
+                    score = attributeLetterScore(malusOUbonusEmpreinte(carbonFootPrint,product.getIdMarque()));
 
                     //Faire UPDATE BASE ---------------------------
                     ObjectMapper objectMapper = new ObjectMapper();
@@ -364,7 +367,7 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
                     try {
                         String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
                         UpdateInfoProduct.launchUpdateProduit(responseBody);
-                        JOptionPane.showMessageDialog(null, "Calculs des nouvelles empreintes carbones réussis !", "Succès", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Objects.requireNonNull(RecalculFrame.class.getResource("/check2.png"))));
+                        empreintesMisesAJour++;
 
 
 
@@ -385,6 +388,8 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
                 }
 
             }
+            JOptionPane.showMessageDialog(null, "Les empreintes de "+empreintesMisesAJour+" produits ont été mises à jour.", "Succès", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Objects.requireNonNull(RecalculFrame.class.getResource("/check2.png"))));
+
 
         } catch (Exception ex) {
             logger.error("Error on the request 'SelectAllReferences' , message error :"+ex.getMessage());
