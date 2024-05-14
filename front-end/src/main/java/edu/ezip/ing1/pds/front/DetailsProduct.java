@@ -5,6 +5,7 @@ import edu.ezip.ing1.pds.client.Categories.SelectCategorieByID;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
 import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
+import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
@@ -44,6 +45,7 @@ public class DetailsProduct {
     private JPanel mapPanel;
     private PathPointChemin path;
     private Emplacement emplacement;
+    private Etage etage;
     private boolean requestHaveFailed = false;
 
 
@@ -131,7 +133,6 @@ public class DetailsProduct {
 
 
         scoreProduct.setBounds(35, 340, 50, 50);
-        // scoreProduct.setForeground(Color.decode(Template.COULEUR_SECONDAIRE));
         scoreProduct.setOpaque(false);
         panelProduct.add(scoreProduct);
 
@@ -163,8 +164,7 @@ public class DetailsProduct {
         panelProduct.add(brandProdcut);
 
 
-        //Code Nawel :
-
+        //----- Code Nawel -----
 
         System.out.println("REFERENCE : " + produit.getReference());
 
@@ -189,6 +189,16 @@ public class DetailsProduct {
             }
         }
         //=====================================================================================
+
+        //=================Selection de l'étage via l'idEtage de l'emplacement==================
+        if(!requestHaveFailed){
+            try {
+                etage = SelectEtageById.lauchSelectEtageById(valueOf(emplacement.getIdEtage()));
+            } catch (Exception e) {
+                requestHaveFailed = true;
+                System.out.println("Erreur sur la récupération de l'étage : " + e.getMessage());
+            }
+        }
 
         JPanel infosMap = new JPanel();
         infosMap.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
@@ -245,64 +255,24 @@ public class DetailsProduct {
         mainPanel.add(mapPanel);
                 }
 
-//        System.out.println("Arraylist path :");
-//        for (PointChemin point : path.getPath()){
-//            System.out.println(point);
-//        }
+        //Ajout des informmations de l'emplacement sur le panel du produit
+        RoundedPanel panelEtage = new RoundedPanel(35, 35);
+                JLabel labelEtage = new JLabel("Étage n°" + etage.getNumeroEtage());
+                labelEtage.setFont(Template.FONT_ECRITURE2);
+                panelEtage.add(labelEtage);
+        panelEtage.setBounds(60, 515, 150, 37);
+        panelEtage.setBackground(Color.WHITE);
+        panelProduct.add(panelEtage);
 
+        RoundedPanel panelRayon = new RoundedPanel(35, 35);
+        JLabel labelRayon = new JLabel("Rayon n°" + emplacement.getIdRayon());
+        labelRayon.setFont(Template.FONT_ECRITURE2);
+        panelRayon.add(labelRayon);
+        panelRayon.setBounds(280, 515, 150, 37);
+        panelRayon.setBackground(Color.WHITE);
+        panelProduct.add(panelRayon);
 
         frame.setVisible(true);
-
     }
 
 }
-
-//        if (path != null) {
-//            mapPanel = new JPanel() {
-//                @Override
-//                protected void paintComponent(Graphics g) {
-//                    System.out.println("Dans override si path est pas null.");
-//                    super.paintComponent(g);
-//                    Graphics2D g2d = (Graphics2D) g;
-//                    // Épaisseur de la ligne (chemin)
-//                    g2d.setStroke(new BasicStroke(5));
-//
-//                    // Dessiner l'image de fond
-//                    if (backgroundImage != null) {
-//                        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-//                    }
-//                    // Dessiner le chemin
-//                    g.setColor(Color.RED);
-//                    for (int i = 0; i < path.getPath().size() - 1; i++) {
-//                        PointChemin p1 = path.getPath().get(i);
-//                        PointChemin p2 = path.getPath().get(i + 1);
-//                        g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
-//                    }
-//                }
-//            };
-//            mapPanel.setLayout(null);
-//            mapPanel.setBounds(530, 60, 770, 580);
-//            mainPanel.add(mapPanel);
-//        } else {
-//            mapPanel = new JPanel() {
-//                @Override
-//                protected void paintComponent(Graphics g) {
-//                    System.out.println("Dans override si path est null.");
-//                    super.paintComponent(g);
-//                    Graphics2D g2d = (Graphics2D) g;
-//                    // Épaisseur de la ligne (chemin)
-//                    g2d.setStroke(new BasicStroke(5));
-//
-//                    // Dessiner l'image de fond
-//                    if (backgroundImage != null) {
-//                        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-//                    }
-//                }
-//            };
-//
-//            mapPanel.setLayout(null);
-//            mapPanel.setBounds(530, 60, 770, 580);
-//            mainPanel.add(mapPanel);
-//
-//            frame.setVisible(true);
-//        }
