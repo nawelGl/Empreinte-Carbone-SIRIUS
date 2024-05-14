@@ -45,7 +45,7 @@ public class ProductMapping implements ActionListener{
     private int borderTop = 20;
     private boolean noPathFound = false;
     private int highestFloor = 0;
-    private boolean cheangementEtage = true;
+    private boolean changementEtage = true;
     private boolean requestHaveFailed = false;
 
     public ProductMapping(){
@@ -68,17 +68,6 @@ public class ProductMapping implements ActionListener{
             EcranAcceuil ecranAcceuil = new EcranAcceuil();
             productMappingFrame.dispose();
         }
-
-//        try{
-//            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                throw new Exception();
-//            }
-//        } catch(Exception exc){
-//            requestHaveFailed = true;
-//            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//            JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 407] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
-//            productMappingFrame.dispose();
-//        }
         //======================================================================================
 
         if(!requestHaveFailed){
@@ -91,18 +80,6 @@ public class ProductMapping implements ActionListener{
                 JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 productMappingFrame.dispose();
             }
-
-//            try {
-//                if (etage.getIdEtage() == 0 || etage.getNumeroEtage() == 0) {
-//                    throw new Exception();
-//                }
-//            } catch (Exception exc) {
-//                requestHaveFailed = true;
-//                EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//                JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-//                productMappingFrame.dispose();
-//            }
-            //======================================================================================
         }
 
         if(!requestHaveFailed){
@@ -117,17 +94,6 @@ public class ProductMapping implements ActionListener{
                 productMappingFrame.dispose();
             }
 
-//            try{
-//                if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                    throw new Exception();
-//                }
-//            } catch(Exception exc){
-//                requestHaveFailed = true;
-//                EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//                JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-//                productMappingFrame.dispose();
-//            }
-            //======================================================================================
         }
 
         if(!requestHaveFailed){
@@ -142,32 +108,8 @@ public class ProductMapping implements ActionListener{
                 productMappingFrame.dispose();
             }
 
-//            try{
-//                if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-//                    throw new Exception();
-//                }
-//            } catch(Exception exc){
-//                requestHaveFailed = true;
-//                EcranAcceuil ecranAcceuil = new EcranAcceuil();
-//                JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-//                productMappingFrame.dispose();
-//            }
             //======================================================================================
         }
-
-
-        // @@@@@@@@@@@ TESTS @@@@@@@@@@@
-//        if(path != null){
-//            for (PointChemin point : path.getPath()){
-//            }
-//        }
-//
-//        if(pathEscalators != null){
-//            for (PointChemin point : pathEscalators.getPath()){
-//                System.out.println(point);
-//            }
-//        }
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         //----------panel header--------------
         String titreHeader = "Se rendre au produit \"" + productName + " " + productColor + "\"";
@@ -300,7 +242,7 @@ public class ProductMapping implements ActionListener{
         if (mapPanel != null) {
             mainPanel.remove(mapPanel);
         }
-        if(cheangementEtage){
+        if(changementEtage){
             if (path != null) {
                 //Si on est au bon étage par rapport au produit :
                 if(etageActuel == etage.getNumeroEtage()){
@@ -325,7 +267,7 @@ public class ProductMapping implements ActionListener{
                             }
                         }
                     };
-                    cheangementEtage = false;
+                    changementEtage = false;
                     mapPanel.setLayout(null);
                     mapPanel.setBounds(60, 60,770, 580);
                     mainPanel.add(mapPanel);
@@ -353,7 +295,7 @@ public class ProductMapping implements ActionListener{
                             }
                         }
                     };
-                    cheangementEtage = false;
+                    changementEtage = false;
                     mapPanel.setLayout(null);
                     mapPanel.setBounds(60, 60,770, 580);
                     mainPanel.add(mapPanel);
@@ -368,18 +310,17 @@ public class ProductMapping implements ActionListener{
                 mapPanel.setLayout(null);
                 mapPanel.setBounds(60, 60,770, 580);
                 mainPanel.add(mapPanel);
-                cheangementEtage = false;
+                changementEtage = false;
             }
-            cheangementEtage = false;
+            changementEtage = false;
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
       if(e.getSource() == flecheGauche){
-           //Pas possible d'avoir un étage négatif
            if(etageActuel > 1){
-               cheangementEtage = true;
+               changementEtage = true;
                etageActuel --;
                afficherEtageTitre();
                if (mapPanel != null) {
@@ -390,9 +331,8 @@ public class ProductMapping implements ActionListener{
                checkPath();
            }
        } else if(e.getSource() == flecheDroite){
-           //Pas possible que l'etage actuel soit supérieur à l'étage effectif
            if(etageActuel < etage.getNumeroEtage()){
-               cheangementEtage = true;
+               changementEtage = true;
                etageActuel++;
                afficherEtageTitre();
                if (mapPanel != null) {
