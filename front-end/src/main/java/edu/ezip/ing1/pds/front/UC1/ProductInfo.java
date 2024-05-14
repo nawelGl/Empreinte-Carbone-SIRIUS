@@ -327,7 +327,6 @@ public class ProductInfo implements ActionListener {
             ProductMapping productMapping = new ProductMapping();
             productInfoFrame.dispose();
         } else if (e.getSource()==suggest1Button) {
-
             DetailsProduct detailsProduct= new DetailsProduct(suggestProduct1);
             productInfoFrame.dispose();
         } else if (e.getSource()==suggest2Button) {

@@ -44,7 +44,7 @@ public class DetailsProduct {
     private JPanel mapPanel;
     private PathPointChemin path;
     private Emplacement emplacement;
-    private int idEmplacement = RechercheReference.getProduct().getIdEmplacement();
+    private boolean requestHaveFailed = false;
 
 
     public DetailsProduct(Produit produit) {
@@ -104,9 +104,9 @@ public class DetailsProduct {
         countryProduct = new JLabel("Pays d'origine : " + villeProduit.getNomPays());
 
 
-        try{
-            categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(produit.getIdCategorie()));
-            marqueProduit= SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdMarque()));
+        try {
+            categorie = SelectCategorieByID.launchSelectCategorieById(String.valueOf(produit.getIdCategorie()));
+            marqueProduit = SelectMarqueById.launchSelectMarqueById(String.valueOf(produit.getIdMarque()));
 
 
         } catch (Exception e) {
@@ -165,41 +165,28 @@ public class DetailsProduct {
 
         //Code Nawel :
 
+
+        System.out.println("REFERENCE : " + produit.getReference());
+
         //=============Selection de l'emplacement via l'idEmplacement du produit===============
         try {
-            emplacement = SelectEmplacementById.launchSelectEmplacementById(idEmplacement);
-        } catch(Exception e){
-            System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
-        }
+            emplacement = SelectEmplacementById.launchSelectEmplacementById(produit.getIdEmplacement());
+        } catch (Exception e) {
+            requestHaveFailed = true;
+            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été toruvée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
 
-        try{
-            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-                throw new Exception();
-            }
-        } catch(Exception exc){
-            System.out.println(exc.getMessage());
-            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, une des valeurs que vous avez demandé n'a pas été renseignée.", "[ERROR 407] -Valeur nulle !", JOptionPane.ERROR_MESSAGE);
-            frame.dispose();
+            System.out.println("Erreur sur l'idEmplacement : " + e.getMessage());
         }
         //======================================================================================
 
         //============Selection des points du chemin vers un rayon via l'id du rayon============
-        try {
-            path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
-        } catch(Exception e){
-            System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-        }
-
-        try{
-            if(emplacement.getIdEtage() == 0 || emplacement.getAllee() == null || emplacement.getIdRayon() == 0){
-                throw new Exception();
+        if(!requestHaveFailed){
+            try {
+                path = SelectPointsByIdRayon.launchSelectPointsByIdRayon(valueOf(emplacement.getIdRayon()));
+            } catch (Exception e) {
+                requestHaveFailed = true;
+                System.out.println("Erreur sur la récupération des points : " + e.getMessage());
             }
-        } catch(Exception exc){
-            System.out.println(exc.getMessage());
-            EcranAcceuil ecranAcceuil = new EcranAcceuil();
-            JOptionPane.showMessageDialog(frame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
-            frame.dispose();
         }
         //=====================================================================================
 
@@ -217,13 +204,38 @@ public class DetailsProduct {
         }
         //-----------------------------------
 
+                if (path != null) {
+            mapPanel = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    System.out.println("Dans override si path est pas null.");
+                    super.paintComponent(g);
+                    Graphics2D g2d = (Graphics2D) g;
+                    // Épaisseur de la ligne (chemin)
+                    g2d.setStroke(new BasicStroke(5));
+
+                    // Dessiner l'image de fond
+                    if (backgroundImage != null) {
+                        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                    }
+                    // Dessiner le chemin
+                    g.setColor(Color.RED);
+                    for (int i = 0; i < path.getPath().size() - 1; i++) {
+                        PointChemin p1 = path.getPath().get(i);
+                        PointChemin p2 = path.getPath().get(i + 1);
+                        g.drawLine(p1.getCoordX(), p1.getCoordY(), p2.getCoordX(), p2.getCoordY());
+                    }
+                }
+            };
+            mapPanel.setLayout(null);
+            mapPanel.setBounds(530, 60, 770, 580);
+            mainPanel.add(mapPanel);
+        } else {
         mapPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                System.out.println("DANS LE PAINT COMPONENT");
                 if (backgroundImage != null) {
-                    System.out.println("DANS LE IF BGIMAGE NOT NULL");
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
             }
@@ -231,6 +243,7 @@ public class DetailsProduct {
         mapPanel.setLayout(null);
         mapPanel.setBounds(530, 60, 770, 580);
         mainPanel.add(mapPanel);
+                }
 
 //        System.out.println("Arraylist path :");
 //        for (PointChemin point : path.getPath()){
@@ -239,6 +252,10 @@ public class DetailsProduct {
 
 
         frame.setVisible(true);
+
+    }
+
+}
 
 //        if (path != null) {
 //            mapPanel = new JPanel() {
@@ -264,7 +281,7 @@ public class DetailsProduct {
 //                }
 //            };
 //            mapPanel.setLayout(null);
-//            mapPanel.setBounds(60, 60, 770, 580);
+//            mapPanel.setBounds(530, 60, 770, 580);
 //            mainPanel.add(mapPanel);
 //        } else {
 //            mapPanel = new JPanel() {
@@ -289,7 +306,3 @@ public class DetailsProduct {
 //
 //            frame.setVisible(true);
 //        }
-
-    }
-
-}
