@@ -818,19 +818,13 @@ public class XMartCityService {
                 case "DELETE_PATH" :
                     try{
                         PreparedStatement deleteStatement = connection.prepareStatement(Queries.DELETE_PATH.query);
-                        String id = request.getRequestBody();
-                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        System.out.println("ID : " + id);
-                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        String id = request.getRequestBody().replaceAll("\"", "");;
                         //ID d'affiche mais pas ce qu'il y a en dessous
                         deleteStatement.setInt(1, Integer.valueOf(id));
-                        //Test ne s'affiche pas...
-                        System.out.println("TEST");
-                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        System.out.println("DELETE STATEMENT : " + deleteStatement.toString());
-                        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        deleteStatement.executeUpdate();
-                        response = new Response(request.getRequestId(), "Deleted successfully");
+                        int affectedRows = deleteStatement.executeUpdate();
+                        if(affectedRows > 0){
+                            response = new Response(request.getRequestId(), "Deleted successfully");
+                        } else response = new Response(request.getRequestId(), "Nothing to delete !");
                     } catch(Exception exception){
                         response = new Response(request.getRequestId(), "Error executing DELETE_PATH query");
                         logger.error("Error executing DELETE_PATH query: {}", exception.getMessage());

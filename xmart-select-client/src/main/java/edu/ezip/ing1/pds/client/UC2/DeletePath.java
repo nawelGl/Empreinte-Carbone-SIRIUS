@@ -57,19 +57,16 @@ public class DeletePath extends ClientRequest<Object, Object>{
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-        final SelectEmplacementById clientRequest = new SelectEmplacementById(
+        final DeletePath clientRequest = new DeletePath(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
         try {
-            System.out.println("BBBBBBBBBBBBBBBBBBBBBBBB");
             while (!clientRequests.isEmpty()) {
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             }
-            System.out.println("CCCCCCCCCCCCCCCCC");
         }catch(Exception exception){
             logger.error(exception.getMessage());
             return "Erreur lors de l'execution de la requête";
