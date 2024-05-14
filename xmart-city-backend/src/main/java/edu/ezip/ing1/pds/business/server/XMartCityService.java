@@ -76,6 +76,7 @@ public class XMartCityService {
                 "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
 
+
         SELECT_VENTE_BY_SCORE("SELECT TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM') AS month, produit.score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
@@ -83,7 +84,11 @@ public class XMartCityService {
                 "WHERE produit.score = ?\n" +
                 "GROUP BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM'), produit.score\n" +
                 "ORDER BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM');"),
-        SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit ");
+        SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit "),
+
+
+        DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;");
+
 
 
 
@@ -751,8 +756,6 @@ public class XMartCityService {
                         System.out.println("ref : "+tabParametres[5]);
 
 
-
-
                         ResultSet resultSet = selectStatement.executeQuery();
 
                         Produits produits= new Produits();
@@ -804,6 +807,7 @@ public class XMartCityService {
                         throw  new RuntimeException(e);
                     }
                     break;
+
                 case "SELECT_BESTSELLER_AFTER": // requête SELECT
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_AFTER.query);
@@ -852,8 +856,23 @@ public class XMartCityService {
                     }catch (SQLException | JsonProcessingException e){
                         response = new Response(request.getRequestId(), "Error executing SELECT_VENTE_PAR_SCORE query");
                         logger.error("Error executing SELECT_VENTE_PAR_SCORE query: {}", e.getMessage());
-                    }catch (NoSuchFieldException e){
-                        throw  new RuntimeException(e);
+                    }catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                case "DELETE_PATH" :
+                    try{
+                        PreparedStatement deleteStatement = connection.prepareStatement(Queries.DELETE_PATH.query);
+                        String id = request.getRequestBody().replaceAll("\"", "");;
+                        //ID d'affiche mais pas ce qu'il y a en dessous
+                        deleteStatement.setInt(1, Integer.valueOf(id));
+                        int affectedRows = deleteStatement.executeUpdate();
+                        if(affectedRows > 0){
+                            response = new Response(request.getRequestId(), "Deleted successfully");
+                        } else response = new Response(request.getRequestId(), "Nothing to delete !");
+                    } catch(Exception exception){
+                        response = new Response(request.getRequestId(), "Error executing DELETE_PATH query");
+                        logger.error("Error executing DELETE_PATH query: {}", exception.getMessage());
                     }
                     break;
 

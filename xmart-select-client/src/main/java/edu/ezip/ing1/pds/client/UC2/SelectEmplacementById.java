@@ -17,6 +17,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
+
 import static java.lang.String.valueOf;
 
 
@@ -29,7 +30,7 @@ public class SelectEmplacementById extends ClientRequest<Object, Emplacement>{
      private static final String threadName = "inserter-client";
      private static final String requestOrder = "SELECT_EMPLACEMENT_BY_ID";
      private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
- 
+
  
      public SelectEmplacementById(
              NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
