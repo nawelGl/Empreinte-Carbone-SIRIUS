@@ -55,6 +55,9 @@ public class XMartCityService {
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
+
+        SELECT_ALL_CATEGORIE("SELECT * FROM \"ezip-ing1\".categorie"),
+
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
         UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
 
@@ -616,36 +619,6 @@ public class XMartCityService {
                     }
                     break;
 
-                case "SELECT_ALL_CATEGORIE":
-                    try{
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
-                        String id = request.getRequestBody().replaceAll("\"", "");
-
-                        selectStatement.setInt(1, Integer.valueOf(id));
-
-                        // mapper produits en Json
-                        ObjectMapper objectMapper = new ObjectMapper();
-
-                        ResultSet resultSet = selectStatement.executeQuery();
-
-                        Categorie categorie = new Categorie();
-
-                        while (resultSet.next()) {
-                            categorie.build(resultSet);
-                        }
-
-                        String responseBody = objectMapper.writeValueAsString(categorie);
-
-                        response = new Response(request.getRequestId(), responseBody);
-                    } catch (SQLException | JsonProcessingException e) {
-                        response = new Response(request.getRequestId(), "Error executing SELECT_EMPLACEMENT_BY_ID query");
-                        logger.error("Error executing SELECT_ALL_CATEGORIE query: {}", e.getMessage());
-                    } catch (NoSuchFieldException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
 
                 case "SELECT_TRANSPORTMODE_BY_ID":
                     try{
@@ -733,6 +706,37 @@ public class XMartCityService {
                     } catch (SQLException | JsonProcessingException e) {
                         response = new Response(request.getRequestId(), "Error executing SELECT_ALL_SCORE query");
                         logger.error("Error executing SELECT_ALL_SCORE query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_ALL_CATEGORIE":
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_CATEGORIE.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Categories categories= new Categories();
+
+                        while (resultSet.next()) {
+                            Categorie categorie= new Categorie();
+                            categorie.build(resultSet);
+                            System.out.println("categorie to string :");
+                            System.out.println(categories.toString());
+                            categories.add(categorie);
+                        }
+
+                        System.out.println("categories to string :");
+                        System.out.println(categories.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(categories);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_CATEGORIE query");
+                        logger.error("Error executing SELECT_ALL_CATEGORIE query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }

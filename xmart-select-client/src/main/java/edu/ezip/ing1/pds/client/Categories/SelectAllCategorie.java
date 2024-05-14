@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import de.vandermeer.asciitable.AsciiTable;
 import edu.ezip.commons.LoggingUtils;
 import edu.ezip.ing1.pds.business.dto.Categorie;
+import edu.ezip.ing1.pds.business.dto.Categories;
+
+
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.client.commons.ConfigLoader;
 import edu.ezip.ing1.pds.client.commons.NetworkConfig;
@@ -19,14 +22,14 @@ import java.util.Deque;
 import java.util.UUID;
 
 
-public class SelectAllCategorie extends ClientRequest<Object, Categorie>{
+public class SelectAllCategorie extends ClientRequest<Object, Categories>{
 
-    //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - A l l - C a t e g o r i e";
+
+    private final static String LoggingLabel = "S e l e c t - A L L  - C a t e g o r i e ";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String networkConfigFile = "network.yaml";
-    private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_All_CATEGORIE";
+    private static final String threadName = "selecter-client";
+    private static final String requestOrder = "SELECT_ALL_CATEGORIE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 
@@ -37,27 +40,27 @@ public class SelectAllCategorie extends ClientRequest<Object, Categorie>{
     }
 
     @Override
-    public Categorie readResult(String body) throws IOException {
+    public Categories readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final Categorie categorie = mapper.readValue(body, Categorie.class);
-        return categorie;
+        final Categories categories = mapper.readValue(body, Categories.class);
+        return categories;
     }
 
 
-    public static Categorie launchSelectEmplacementById(String ref) throws IOException, InterruptedException{
+    public static Categories launchSelectAllCategorie() throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
-        Request request=new Request();
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
-        final SelectSousCategorieAByID clientRequest = new SelectSousCategorieAByID(
+        final SelectAllCategorie clientRequest = new SelectAllCategorie(
                 networkConfig,
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
@@ -68,16 +71,18 @@ public class SelectAllCategorie extends ClientRequest<Object, Categorie>{
                 final ClientRequest joinedClientRequest = clientRequests.pop();
                 joinedClientRequest.join();
                 logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-                final Categorie categorie = (Categorie) joinedClientRequest.getResult();
+                final Categories categories = (Categories) joinedClientRequest.getResult();
                 final AsciiTable asciiTable = new AsciiTable();
-                asciiTable.addRule();
-                asciiTable.addRow(categorie.getIdCategorie(), categorie.getNomCategorie());
+                for (final Categorie categorie : categories.getCategories()) {
+                    asciiTable.addRule();
+                    asciiTable.addRow(categorie.getIdCategorie(),categorie.getNomCategorie());
+                }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return categorie;
+                return categories;
             }
         } catch(Exception e){
-            System.out.println("Erreur : id inexistant");
+            logger.error(e.getMessage());
             return null;
         }
 

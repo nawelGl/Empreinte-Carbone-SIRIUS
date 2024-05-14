@@ -81,8 +81,8 @@ public class SelectAllScore extends ClientRequest<Object, Scores>{
                 return scores;
             }
         } catch(Exception e){
-            System.out.println("Erreur : id inexistant");
-            return null;
+                logger.error(e.getMessage());
+                return null;
         }
 
         return null;
