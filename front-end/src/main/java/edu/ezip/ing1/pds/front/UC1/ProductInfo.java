@@ -12,11 +12,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import javax.swing.*;
 
 import edu.ezip.ing1.pds.front.*;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static edu.ezip.ing1.pds.commons.Methodes.*;
 import static edu.ezip.ing1.pds.front.MethodesFront.*;
@@ -26,28 +30,27 @@ import java.util.List;
 
 public class ProductInfo implements ActionListener {
 
-    JFrame productInfoFrame;
+    private final static String LoggingLabel = "F r o n t - U C 1 - P r o d u c t - I n f o";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+
+    private JFrame productInfoFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
 
     private String productColor = RechercheReference.getProduct().getCouleur();
-    private double carbonFootPrint;
+    private double carbonFootPrint=RechercheReference.getProduct().getEmpreinte();
 
     private double productPrice= RechercheReference.getProduct().getPrix();
-    private double prodcutWeight= RechercheReference.getProduct().getPoids();
-    private Integer idTransportMode= RechercheReference.getProduct().getIdTransportMode();
     private Integer idVilleDepart= RechercheReference.getProduct().getIdVilleDepart();
-    private  Integer idVilleArrive= RechercheReference.getProduct().getIdVilleArrive();
     private Integer idCategorie= RechercheReference.getProduct().getIdCategorie();
     private Integer idSousCatA=RechercheReference.getProduct().getIdSousCatA();
     private Integer idSousCatB=RechercheReference.getProduct().getIdsouscatB();
     private String colorProduct= RechercheReference.getProduct().getCouleur();
     private int reference = RechercheReference.getProduct().getReference();
 
-    private String score;
+    private String score=RechercheReference.getProduct().getScore();
 
-    private Ville villeArrive;
     private Ville villeDepart;
-    private TransportMode transportMode;
+
     private Marque marque;
     private Categorie categorie;
 
@@ -58,7 +61,6 @@ public class ProductInfo implements ActionListener {
     private JButton suggest2Button;
     private JButton suggest1Button;
     private JButton suggest3Button;
-//    private  RoundedPanel roundedPanel;
 
 
 
@@ -73,7 +75,7 @@ public class ProductInfo implements ActionListener {
 
 
         //----------panel header--------------
-        String titreHeader = "Produit :  \"" + productName + " " + productColor + "\"";
+        String titreHeader =  productName +" "+ productColor + "   ( "+reference+" )";
         Font fontHeader= new Font(Template.POLICE,Font.CENTER_BASELINE,25);
 
 
@@ -88,53 +90,16 @@ public class ProductInfo implements ActionListener {
 
 
 
+        carbonFootPrint= new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP).doubleValue();
 
         try {
-//            try {
-                marque= SelectMarqueById.launchSelectMarqueById(valueOf(RechercheReference.getProduct().getIdMarque()));
 
-                transportMode = SelectTransportModeByID.launchSelectTransportModeById(String.valueOf(idTransportMode));
-                villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
+                marque= SelectMarqueById.launchSelectMarqueById(valueOf(RechercheReference.getProduct().getIdMarque()));
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
                 categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(idCategorie));
-//            } catch (Exception e) {
-//                System.out.println("Erreur sur l'idTransportMode ou idMarque");
-//            }
 
-//            try {
-//
-//                villeArrive = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleArrive));
-//            } catch (Exception e) {
-//                System.out.println("Erreur sur l'idVilleArrivée");
-//            }
+        }catch (Exception e){logger.error(" pb avec les requetes");}
 
-//            try {
-//                villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
-//            } catch (Exception e) {
-//                System.out.println("Erreur sur l'idVilleDepart");
-
-
-//            }
-
-            carbonFootPrint = carbonFootPrintCalcul(villeDepart.getCoordLatitude(), villeDepart.getCoordLongitude(), villeArrive.getCoordLatitude(), villeArrive.getCoordLongitude(), transportMode.getCoeffEmission(), prodcutWeight);
-           
-        }catch (Exception e){System.out.println("Impossible de calculer empreinte carbon car pb avec les requetes");}
-
-        score=attributeLetterScore(carbonFootPrint);
-
-        //Faire UPDATE BASE ---------------------------
-        ObjectMapper objectMapper = new ObjectMapper();
-        Produit produit= new Produit();
-        produit.setEmpreinte(carbonFootPrint);
-        produit.setScore(score);
-        produit.setReference(reference);
-        try {
-            String responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(produit);
-            UpdateInfoProduct.launchUpdateProduit(responseBody);
-
-        } catch (IOException | InterruptedException ex) {
-
-        }
 
         //-------panel item chosen---------
         JPanel productPanel = new JPanel();
@@ -212,7 +177,7 @@ public class ProductInfo implements ActionListener {
 
 
         try {
-            suggestions = Select3Suggestions.launchSelect3Suggestions(idCategorie + "," + idSousCatA + "," + idSousCatB + "," + carbonFootPrint + "," + colorProduct);
+            suggestions = Select3Suggestions.launchSelect3Suggestions(idCategorie + "," + idSousCatA + "," + idSousCatB + "," + carbonFootPrint + "," + colorProduct+ ","+reference);
 
             if (suggestions==null) {
                 JLabel NoSuggestionMessage= new JLabel("Pour cet article il n'y pas de suggestion plus durable... Bon shopping!");
@@ -252,35 +217,34 @@ public class ProductInfo implements ActionListener {
                     suggestProduct2 = suggestList.get(1);
 
                     //----------Product suggested 1
-                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
-                    suggest1Button.setBounds(80,65,150,150);
+                     suggest1Button = new JButton(suggestProduct1.getNomProduit());
+                     suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
-                    suggestionPanel.add(suggest1Button);
+                     suggestionPanel.add(suggest1Button);
 
-                    JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
-                    priceLabel1.setBounds(140,210,300,50);
-                    suggestionPanel.add(priceLabel1);
+                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
+                     priceLabel1.setBounds(140,210,300,50);
+                     suggestionPanel.add(priceLabel1);
 
-                    JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
-                    IconScoreP1.setBounds(150,240,80,80);
-                    suggestionPanel.add(IconScoreP1);
+                     JLabel IconScoreP1 = setlabelIconScore(suggestProduct1.getScore());
+                     IconScoreP1.setBounds(150,240,80,80);
+                     suggestionPanel.add(IconScoreP1);
 
-                    // JLabel carbonFootPrintP1= new JLabel(suggestProduct1.getEmpreinte()+" gCO2e");
 
 
 
                     //----------Product suggested 2----------------------------------------
                     suggest2Button = new JButton(suggestProduct2.getNomProduit());
-                    suggest2Button.setBounds(420,65,150,150);
+                     suggest2Button.setBounds(755,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
 
                     JLabel priceLabel2 = new JLabel("Prix:"+ suggestProduct2.getPrix() +"€ ");
-                    priceLabel2.setBounds(460,210,300,50);
+                     priceLabel2.setBounds(810,210,300,50);
                     suggestionPanel.add(priceLabel2);
 
                     JLabel IconScoreP2 = setlabelIconScore(suggestProduct2.getScore());
-                    IconScoreP2.setBounds(470,240,80,80);
+                    IconScoreP2.setBounds(820,240,80,80);
                     suggestionPanel.add(IconScoreP2);
 
                 } else if (numberOfSuggestions >= 3) {
@@ -339,7 +303,7 @@ public class ProductInfo implements ActionListener {
             }
 
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error("ERROR QUERY SUGGESTIONS : "+e.getMessage());
         }
 
 

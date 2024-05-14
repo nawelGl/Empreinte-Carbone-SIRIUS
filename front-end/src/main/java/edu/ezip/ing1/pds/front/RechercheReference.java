@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class RechercheReference implements ActionListener {
 
@@ -22,6 +25,7 @@ public class RechercheReference implements ActionListener {
     String titreLabelSecondaire ;
     String titreHeader;
     int x;
+    protected static Logger loggerRechercheReference;
 
     public static Produit getProduct() {
         return product;
@@ -32,6 +36,8 @@ public class RechercheReference implements ActionListener {
 
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
+        loggerRechercheReference = LogManager.getLogger(RechercheReference.class);
+
         //Paramétrages de base :
         menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -92,7 +98,7 @@ public class RechercheReference implements ActionListener {
             try{
                 Integer refEnInt = Integer.parseInt(refEnString);
             } catch (Exception ex){
-                System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
+                loggerRechercheReference.warn("La référence entrée n'est pas un String : " + ex.getMessage());
                 referenceIsNotAnInt = true;
             }
 
@@ -100,11 +106,11 @@ public class RechercheReference implements ActionListener {
 
                 product = SelectProductByReference.launchSelectProductByReference(refEnString);
             } catch(Exception exception){
-                System.out.println(exception.getMessage());
+                loggerRechercheReference.warn(exception.getMessage());
             }
 
             if(ClientRequest.isConnectionRefused() == true){
-                System.out.println("Problème de connexion");
+                loggerRechercheReference.warn("Problème de connexion");
                 searchBar.setText("");
                 JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
                 referenceIsNotAnInt = false;

@@ -1,5 +1,6 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.front.UC1.RecalculFrame;
 import edu.ezip.ing1.pds.front.UC2.PathManagement;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 public class ConfigurationFrame implements ActionListener {
     JFrame configurationFrame;
     String titreHeader = "Options de configuration";
-    JButton boutonSuggestions;
+    JButton boutonCalcul;
     JButton boutonConfigurationChemins;
 
     public ConfigurationFrame(){
@@ -30,12 +31,17 @@ public class ConfigurationFrame implements ActionListener {
         mainPanel.setLayout(null);
         configurationFrame.getContentPane().add(mainPanel);
 
-        boutonSuggestions = new JButton("Charger les empreintes carbone");
-        boutonSuggestions.addActionListener(this);
-        boutonSuggestions.setBounds(300, 230, 300, 230);
-        mainPanel.add(boutonSuggestions);
+        boutonCalcul =new JButton("<html><center><br><img src='" +
+                getClass().getResource("/carbon2.png") +
+                "'><br><font size='5' face='Avenir'>Configurer les scores et empreintes</font></center></html>");
+        boutonCalcul.addActionListener(this);
+        boutonCalcul.setBounds(300, 230, 300, 230);
+        mainPanel.add(boutonCalcul);
 
-        boutonConfigurationChemins =  new JButton("Configurez les chemins de votre magasin");
+        boutonConfigurationChemins = new JButton("<html><center><br><img src='" +
+                getClass().getResource("/path.png") +
+                "'><br><br><font size='5' face='Avenir'>Configurez les chemins de votre magasin</font></center></html>");
+
         boutonConfigurationChemins.addActionListener(this);
         boutonConfigurationChemins.setBounds(800, 230, 300, 230);
         mainPanel.add(boutonConfigurationChemins);
@@ -47,6 +53,9 @@ public class ConfigurationFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == boutonConfigurationChemins){
             PathManagement pathManagement = new PathManagement();
+            configurationFrame.dispose();
+        } else if(e.getSource() == boutonCalcul){
+            RecalculFrame recalculFrame=new RecalculFrame();
             configurationFrame.dispose();
         }
     }

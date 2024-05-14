@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.lang.Integer;
+import java.util.ArrayList;
 
 public class XMartCityService {
 
@@ -52,9 +53,11 @@ public class XMartCityService {
         SELECT_TRANSPORTMODE_BY_ID("SELECT * FROM  \"ezip-ing1\".transportmode WHERE \"idTransportMode\" = ?"),
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
 
-        SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? ORDER BY \"empreinte\" ASC LIMIT 3"),
+        SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
+        UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
+
 
         SELECT_BESTSELLER_BEFORE("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
@@ -79,12 +82,8 @@ public class XMartCityService {
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE produit.score = ?\n" +
                 "GROUP BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM'), produit.score\n" +
-                "ORDER BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM');")
-
-        ;
-
-
-
+                "ORDER BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM');"),
+        SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit ");
 
 
 
@@ -103,7 +102,6 @@ public class XMartCityService {
         }
         return inst;
     }
-
 
     private XMartCityService() {
 
@@ -233,6 +231,29 @@ public class XMartCityService {
                     }
                     break;
 
+                case "UPDATE_BORNES_SCORE":
+                    try {
+                        PreparedStatement updateStatement = connection.prepareStatement(Queries.UPDATE_BORNES_SCORE.query);
+                        String requestBody = request.getRequestBody();
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                       Score score = objectMapper.readValue(requestBody, Score.class);
+
+                        updateStatement.setDouble(1,score.getborneInf());
+                        updateStatement.setDouble(2,score.getborneSup());
+                        updateStatement.setString(3, score.getlettreScore());
+
+                        updateStatement.executeUpdate();
+                        return new Response(request.getRequestId(),score.toString());
+
+                    } catch (/*SQLException | IOException e*/ Exception e) {
+
+
+                        response = new Response(request.getRequestId(), "Error executing  UPDATE_BORNES_SCORE query");
+                        logger.error("Error executing UPDATE_BORNES_SCORE query: {}", e.getMessage());
+                    }
+                    break;
+
 
                 case "SELECT_PRODUCT_BY_REFERENCE":
 
@@ -264,6 +285,29 @@ public class XMartCityService {
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
 
+                    }
+                    break;
+
+                case "SELECT_ALL_REFERENCES":
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_REFERENCES.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        ArrayList<Integer> referencesList = new ArrayList<>();
+
+                        while (resultSet.next()) {
+                            Integer reference = resultSet.getInt("reference");
+                            referencesList.add(reference);
+                        }
+
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(referencesList);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_REFERENCE query");
+                        logger.error("Error executing SELECT_ALL_REFERENCE query: {}", e.getMessage());
                     }
                     break;
 
@@ -334,6 +378,8 @@ public class XMartCityService {
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
                         String id = request.getRequestBody().replaceAll("\"", "");
+
+                        System.out.println("@@@@@@@@@@@@@@@@ ID DU REQUEST BODY : " + id);
 
                         selectStatement.setInt(1, Integer.valueOf(id));
 
@@ -700,6 +746,9 @@ public class XMartCityService {
                         selectStatement.setInt(3, Integer.valueOf(tabParametres[2]));
                         selectStatement.setDouble(4, Double.valueOf(tabParametres[3]));
                         selectStatement.setString(5, tabParametres[4]);
+                        selectStatement.setInt(6,Integer.valueOf(tabParametres[5]));
+
+                        System.out.println("ref : "+tabParametres[5]);
 
 
 
