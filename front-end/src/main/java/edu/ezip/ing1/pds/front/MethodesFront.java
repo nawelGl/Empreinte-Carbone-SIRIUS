@@ -118,6 +118,7 @@ public class MethodesFront {
 
     }
 
+    // Faire test Technique
     public static double malusOUbonusEmpreinte(double empreinte, int idMarque) {
         Marque marque;
         double bonusMalus = 0.0;
