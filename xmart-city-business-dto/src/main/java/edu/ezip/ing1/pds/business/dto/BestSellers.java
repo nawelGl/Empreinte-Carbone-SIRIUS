@@ -1,20 +1,22 @@
 package edu.ezip.ing1.pds.business.dto;
 
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
 public class BestSellers {
 
 
-    private Set<BestSeller> bestSellers = new LinkedHashSet<>();
+    private List<BestSeller> bestSellers = new ArrayList<>();
 
-    public Set<BestSeller> getBestSellers() {
+    public List<BestSeller> getBestSellers() {
         return bestSellers;
     }
 
-    public void setBestSellers(Set<BestSeller> bestSellers) {
+    public void setBestSellers(List<BestSeller> bestSellers) {
         this.bestSellers = bestSellers;
     }
 

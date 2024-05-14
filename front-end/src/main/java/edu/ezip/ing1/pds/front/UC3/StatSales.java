@@ -11,13 +11,20 @@ import edu.ezip.ing1.pds.front.Template;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class StatSales extends JFrame {
 
     JFrame salesFrame;
     static BestSellers bestSellersBefore;
     static BestSellers bestSellersAfter;
-    static BestSeller bestSeller;
+    static BestSeller bestProductBefore1;
+    static BestSeller bestProductBefore2;
+    static BestSeller bestProductBefore3;
+    static BestSeller bestProductAfter1;
+    static BestSeller bestProductAfter2;
+    static BestSeller bestProductAfter3;
+
 
 
     private JLabel text;
@@ -28,14 +35,27 @@ public class StatSales extends JFrame {
             bestSellersBefore = SelectBestSellerBefore.launchSelectBestSellerBefore(request);
             bestSellersAfter = SelectBestSellerAfter.launchSelectBestSellerAfter(request);
 
-            //TODO recuperer
+            List<BestSeller> bestSellerList1 = (List<BestSeller>) bestSellersBefore.getBestSellers();
+            bestProductBefore1= bestSellerList1.get(0);
+            bestProductBefore2= bestSellerList1.get(1);
+            bestProductBefore3= bestSellerList1.get(2);
+
+            List<BestSeller> bestSellerList2 = (List<BestSeller>) bestSellersAfter.getBestSellers();
+            bestProductBefore1= bestSellerList2.get(0);
+            bestProductBefore2= bestSellerList2.get(1);
+            bestProductBefore3= bestSellerList2.get(2);
 
 
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-
+        //----------------------------------------------------
+        System.out.println("============================================================");
+        System.out.println(bestProductBefore1.getReference());
+        System.out.println(bestProductBefore1.getScore());
+        System.out.println(bestProductBefore1.getSum());
+        System.out.println("============================================================");
 
         // installation de frame
         salesFrame = new JFrame("Statisque - best seller");

@@ -17,7 +17,7 @@ import static java.lang.String.valueOf;
 public class StatScore extends JFrame {
 
     JFrame salesFrame;
-    static VenteScores VenteA;
+    static VenteScores VentesA;
 
 
 
@@ -29,7 +29,8 @@ public class StatScore extends JFrame {
             String score ="A";
             Request request = new Request();
             request.setRequestContent(score);
-            VenteA= SelectVenteByScore.launchSelectVenteByScore(request);
+            VentesA= SelectVenteByScore.launchSelectVenteByScore(request);
+
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
