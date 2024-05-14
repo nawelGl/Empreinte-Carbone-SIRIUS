@@ -57,14 +57,6 @@ public class MethodesFront {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EcranAcceuil ecranAcceuil=new EcranAcceuil();
-                Categories categories;
-                try {
-                    categories= SelectAllCategorie.launchSelectAllCategorie();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
                 frame.dispose();
 
             }
