@@ -62,7 +62,7 @@ public class XMartCityService {
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE vend.\"date\" < magasin.\"dateInstallation\"\n" +
                 "GROUP BY reference, score\n" +
-                "ORDER BY SUM(vend.quantite) ASC\n" +
+                "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
         SELECT_BESTSELLER_AFTER("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
@@ -70,7 +70,7 @@ public class XMartCityService {
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE vend.\"date\" > magasin.\"dateInstallation\"\n" +
                 "GROUP BY reference, score\n" +
-                "ORDER BY SUM(vend.quantite) ASC\n" +
+                "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;")
 
         ;
