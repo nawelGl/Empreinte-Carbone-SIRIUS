@@ -336,6 +336,18 @@ public class PathManagement implements ActionListener{
             try{
                 DeletePath.launchDeletePath(aisleToDelete);
                 //TODO : une fois la supression terminée, mettre un message de succès dans la frame et un retour au menu
+                actionButtonsPanel.removeAll();
+                actionButtonsPanel.revalidate();
+                actionButtonsPanel.repaint();
+                JLabel succes = new JLabel("Votre chemin a bien été supprimé !");
+                succes.setForeground(Color.WHITE);
+                succes.setBounds(85, 270, 500, 70);
+                succes.setFont(new Font(Template.POLICE, Font.BOLD, 20));
+                actionButtonsPanel.add(succes);
+                mainPanel.revalidate();
+                mainPanel.repaint();
+                backMenu.setBounds(1110, 650, 180, 40);
+                mainPanel.add(backMenu);
             }catch(Exception exception){
                 //message erreur de la réalisation de la requete
                 System.out.println("Erreur lors de la suppression du rayon, veuillez réessayer.");
