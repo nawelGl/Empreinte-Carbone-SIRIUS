@@ -42,16 +42,13 @@ public class PathManagement implements ActionListener{
     private JButton validate = new JButton();
     private boolean firstPath = true;
     private JComboBox<Integer> comboBox;
-    private JComboBox<Integer> comboBoxSuppression;
-    private int numeroRayon;
+    private JComboBox<Integer> comboBoxToDelete;
+    private int aisleNumber;
     private boolean canValidate = false;
-    //Boolean qui permet ed gerer l'appui sur le bouton valider :
-    //si pas de startPoint ET de endPoint : on ne peut pas valider
-
     private JButton backMenu = new JButton("Retour au menu");
-    private JLabel nouvelleImage;
-    private int numeroRayonASupprimer;
-    private JButton validerSuppression;
+    private JLabel newImage;
+    private int aisleToDelete;
+    private JButton validateDeletion;
 
     public PathManagement(){
 
@@ -63,8 +60,8 @@ public class PathManagement implements ActionListener{
         pathManagementFrame.setResizable(false);
 
         //----------panel header--------------
-        String titreHeader = "Configurez les emplacements de votre magasin";
-        MethodesFront.header(pathManagementFrame, titreHeader, 450);
+        String headerTitle = "Configurez les emplacements de votre magasin";
+        MethodesFront.header(pathManagementFrame, headerTitle, 450);
         //------------------------------------
 
         // Charger l'image de fond
@@ -73,27 +70,23 @@ public class PathManagement implements ActionListener{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        
         mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
-        // Créer un JPanel pour superposer l'image de fond et le panneau pour les points
         mapPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-
+                
                 Graphics2D g2d = (Graphics2D) g;
-                // Épaisseur de la ligne (chemin)
                 g2d.setStroke(new BasicStroke(5));
-
-                // Dessiner l'image de fond
+                
                 if (backgroundImage != null) {
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
-                // Dessiner les points et le chemin
+
                 if(firstPath){
                     for (Point point : path.getPoints()) {
                         g.setColor(Color.BLACK);
@@ -123,13 +116,11 @@ public class PathManagement implements ActionListener{
         mapPanel.setLayout(null);
         mapPanel.setBounds(60, 50,770, 580);
 
-        //Panel boutons d'actions
         actionButtonsPanel = new JPanel();
         actionButtonsPanel.setLayout(null);
         actionButtonsPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         actionButtonsPanel.setBounds(840, 50,500,580);
 
-        //Boutons d'acions :
         addPath = new JButton();
         addPath.setText("Ajouter un chemin");
         addPath.setBounds(100, 160, 300, 70);
@@ -145,7 +136,8 @@ public class PathManagement implements ActionListener{
         deletePath.addActionListener(this);
         actionButtonsPanel.add(deletePath);
 
-        nouvelleImage = new JLabel();
+        //TODO : à régler ou a enlever
+        newImage = new JLabel();
         newPath = new JButton();
         newPath.setText("Charger une map");
         newPath.setBounds(100, 360, 300, 70);
@@ -156,10 +148,8 @@ public class PathManagement implements ActionListener{
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
-                    // Ici, vous pouvez charger l'image sélectionnée dans l'interface
-                    // Par exemple :
                     ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
-                    nouvelleImage.setIcon(imageIcon);
+                    newImage.setIcon(imageIcon);
                 }
             }
         });
@@ -228,11 +218,10 @@ public class PathManagement implements ActionListener{
                     mapPanel.repaint();
                 }
             });
-            //Pas besoin pour l'instant car chemin déjà tracé
+            
             calculatePath.setText("Tracer le chemin");
             calculatePath.setBounds(910, 650, 180, 40);
             calculatePath.addActionListener(this);
-            //mainPanel.add(calculatePath);
             validate.setText("Valider");
             validate.setBounds(1110, 650, 180, 40);
             validate.addActionListener(this);
@@ -244,23 +233,22 @@ public class PathManagement implements ActionListener{
             mainPanel.revalidate();
             mainPanel.repaint();
 
-            //Modifier la configuration du panel actions :
             actionButtonsPanel.remove(addPath);
             actionButtonsPanel.remove(newPath);
             actionButtonsPanel.remove(deletePath);
             actionButtonsPanel.repaint();
             actionButtonsPanel.revalidate();
-            JLabel labelRayon = new JLabel("Pour quel rayon voulez vous ajouter un chemin ?");
-            labelRayon.setForeground(Color.WHITE);
-            labelRayon.setBounds(35, 170, 500, 70);
-            labelRayon.setFont(new Font(Template.POLICE, Font.BOLD, 20));
-            actionButtonsPanel.add(labelRayon);
-            JLabel explications = new JLabel();
-            explications.setText("<html>Pour ajouter le point de départ et le point d'arrivée, faites un clic droit. Pour ajouter un point intermediaire, faites un clic gauche. Attention, si vous n'indiquez pas un point de départ et un point d'arrivée, vous devrez recommencer. Pour les escalators : rayon 15.</html>");
-            explications.setBounds(35, 440, 440, 115);
-            explications.setForeground(Color.WHITE);
-            explications.setFont(new Font(Template.POLICE, Font.BOLD, 17));
-            actionButtonsPanel.add(explications);
+            JLabel aisleLabel = new JLabel("Pour quel rayon voulez vous ajouter un chemin ?");
+            aisleLabel.setForeground(Color.WHITE);
+            aisleLabel.setBounds(35, 170, 500, 70);
+            aisleLabel.setFont(new Font(Template.POLICE, Font.BOLD, 20));
+            actionButtonsPanel.add(aisleLabel);
+            JLabel explainations = new JLabel();
+            explainations.setText("<html>Pour ajouter le point de départ et le point d'arrivée, faites un clic droit. Pour ajouter un point intermediaire, faites un clic gauche. Attention, si vous n'indiquez pas un point de départ et un point d'arrivée, vous devrez recommencer. Pour les escalators : rayon 15.</html>");
+            explainations.setBounds(35, 440, 440, 115);
+            explainations.setForeground(Color.WHITE);
+            explainations.setFont(new Font(Template.POLICE, Font.BOLD, 17));
+            actionButtonsPanel.add(explainations);
 
             Integer[] options = new Integer[15];
             for (int i = 1; i <= 15; i++) {
@@ -280,14 +268,14 @@ public class PathManagement implements ActionListener{
         } else if (e.getSource() == validate) {
             if (canValidate) {
 
-                numeroRayon = (int) comboBox.getSelectedItem();
+                aisleNumber = (int) comboBox.getSelectedItem();
                 String responseBody = "";
                 ObjectMapper objectMapper = new ObjectMapper();
                 for (int i = 0; i < path.getPoints().size(); i++) {
                     PointChemin pointChemin = new PointChemin();
                     pointChemin.setCoordX(path.getPoints().get(i).x);
                     pointChemin.setCoordY(path.getPoints().get(i).y);
-                    pointChemin.setIdRayon(numeroRayon);
+                    pointChemin.setIdRayon(aisleNumber);
                     try {
                         responseBody = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(pointChemin);
                         InsertPointsRequest.insertPoints(responseBody);
@@ -296,7 +284,6 @@ public class PathManagement implements ActionListener{
                     }
                 }
 
-                //Si validation finie sans catch :
                 mainPanel.remove(validate);
                 backMenu.setBounds(1110, 650, 180, 40);
                 mainPanel.add(backMenu);
@@ -306,14 +293,13 @@ public class PathManagement implements ActionListener{
                 actionButtonsPanel.removeAll();
                 actionButtonsPanel.revalidate();
                 actionButtonsPanel.repaint();
-                JLabel reussite = new JLabel("Votre chemin a bien été enregistré !");
-                reussite.setForeground(Color.WHITE);
-                reussite.setBounds(85, 270, 500, 70);
-                reussite.setFont(new Font(Template.POLICE, Font.BOLD, 20));
-                actionButtonsPanel.add(reussite);
+                JLabel succes = new JLabel("Votre chemin a bien été enregistré !");
+                succes.setForeground(Color.WHITE);
+                succes.setBounds(85, 270, 500, 70);
+                succes.setFont(new Font(Template.POLICE, Font.BOLD, 20));
+                actionButtonsPanel.add(succes);
 
             } else {
-                //On ne fait rien niveau enregistrement et on réinitialise tout si validation non ok
                 path.getPoints().clear();
                 startPoint = null;
                 endPoint = null;
@@ -323,32 +309,32 @@ public class PathManagement implements ActionListener{
             actionButtonsPanel.removeAll();
             actionButtonsPanel.revalidate();
             actionButtonsPanel.repaint();
-            JLabel labelSuppression = new JLabel("<html>Quel est le rayon pour lequel vous souhaitez supprimer votre chemin ?</html>");
-            labelSuppression.setFont(Template.FONT_ECRITURE2);
-            labelSuppression.setForeground(Color.WHITE);
-            labelSuppression.setBounds(20, 180, 450, 100);
-            actionButtonsPanel.add(labelSuppression);
+            JLabel deleteLabel = new JLabel("<html>Quel est le rayon pour lequel vous souhaitez supprimer votre chemin ?</html>");
+            deleteLabel.setFont(Template.FONT_ECRITURE2);
+            deleteLabel.setForeground(Color.WHITE);
+            deleteLabel.setBounds(20, 180, 450, 100);
+            actionButtonsPanel.add(deleteLabel);
             Integer[] options = new Integer[14];
             for (int i = 1; i <= 14; i++) {
                 options[i - 1] = i;
             }
-            comboBoxSuppression = new JComboBox<>(options);
-            comboBoxSuppression.setBounds(200, 270, 100, 80);
-            actionButtonsPanel.add(comboBoxSuppression);
-            validerSuppression = new JButton("Supprimer le chemin");
-            validerSuppression.setBounds(160, 370, 175, 40);
-            validerSuppression.addActionListener(this);
-            actionButtonsPanel.add(validerSuppression);
+            comboBoxToDelete = new JComboBox<>(options);
+            comboBoxToDelete.setBounds(200, 270, 100, 80);
+            actionButtonsPanel.add(comboBoxToDelete);
+            validateDeletion = new JButton("Supprimer le chemin");
+            validateDeletion.setBounds(160, 370, 175, 40);
+            validateDeletion.addActionListener(this);
+            actionButtonsPanel.add(validateDeletion);
             //TODO : Requete de suppression d'un chemin :
         }else if (e.getSource() == backMenu){
             PathManagement pathManagement = new PathManagement();
             pathManagementFrame.dispose();
         }
-        if(e.getSource() == validerSuppression){
-            numeroRayonASupprimer = (int) comboBoxSuppression.getSelectedItem();
+        if(e.getSource() == validateDeletion){
+            aisleToDelete = (int) comboBoxToDelete.getSelectedItem();
 
             try{
-                DeletePath.launchDeletePath(numeroRayonASupprimer);
+                DeletePath.launchDeletePath(aisleToDelete);
                 //TODO : une fois la supression terminée, mettre un message de succès dans la frame et un retour au menu
             }catch(Exception exception){
                 //message erreur de la réalisation de la requete
