@@ -74,12 +74,12 @@ public class StatSales extends JFrame {
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
-
-
-        //beforPanel setting
+        //beforePanel setting
         JPanel beforePanel = new JPanel(null);
         beforePanel.setBackground(Color.white);
         beforePanel.setBounds(50,50,600,600);
+
+
 
         //afterPanel setting
         JPanel afterPanel = new JPanel(null);
