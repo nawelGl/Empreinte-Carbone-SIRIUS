@@ -29,6 +29,8 @@ public class SalesFrame extends JFrame {
             bestSellersBefore = SelectBestSellerBefore.launchSelectBestSellerBefore(request);
             bestSellersAfter = SelectBestSellerAfter.launchSelectBestSellerAfter(request);
 
+            //TODO recuperer
+
 
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
