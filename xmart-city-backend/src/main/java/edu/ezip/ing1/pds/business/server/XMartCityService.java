@@ -73,13 +73,13 @@ public class XMartCityService {
                 "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
 
-        SELECT_VENTE_PAR_SCORE("SELECT TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM') AS month,produit.score,COUNT(vend.*) AS vente_count\n" +
+        SELECT_VENTE_BY_SCORE("SELECT TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM') AS month, produit.score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE produit.score = ?\n" +
                 "GROUP BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM'), produit.score\n" +
-                "ORDER BY month;")
+                "ORDER BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM');")
 
         ;
 
@@ -778,26 +778,26 @@ public class XMartCityService {
                     }
                     break;
 
-                case "SELECT_VENTE_PAR_SCORE": // requête SELECT avec score
+                case "SELECT_VENTE_BY_SCORE": // requête SELECT avec score
                     try {
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_AFTER_VENTE_BY_REFERENCE.query);
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_VENTE_BY_SCORE.query);
                         String score = request.getRequestBody().replaceAll("\"", "");
 
-                        selectStatement.setInt(1, Integer.valueOf(score));
+                        selectStatement.setString(1, score);
                         ResultSet resultSet = selectStatement.executeQuery();
 
-                        Ventes ventes = new Ventes();  //a changer
+                        VenteScores venteScores = new VenteScores();  //a changer
 
                         while (resultSet.next()) {
-                            Vente vente = new Vente();
-                            vente.build(resultSet);
-                            ventes.add(vente);
+                            VenteScore venteScore = new VenteScore();
+                            venteScore.build(resultSet);
+                            venteScores.add(venteScore);
                         }
                         System.out.println("Ventes to String:");
 
 
                         ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(ventes);
+                        String responseBody = objectMapper.writeValueAsString(venteScores);
 
                         response = new Response(request.getRequestId(), responseBody);
                     }catch (SQLException | JsonProcessingException e){

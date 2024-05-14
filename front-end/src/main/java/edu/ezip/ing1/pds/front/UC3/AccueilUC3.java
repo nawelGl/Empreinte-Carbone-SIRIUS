@@ -91,7 +91,7 @@ public class AccueilUC3 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == salesBtt) {
-            SalesFrame salesFrame = new SalesFrame();
+            StatSales salesFrame = new StatSales();
             accueilUC3.dispose();
         }
         if(e.getSource() == productBtt) {
@@ -100,7 +100,8 @@ public class AccueilUC3 extends JFrame implements ActionListener {
 
         }
         if(e.getSource() == categoryBtt) {
-            //accueilUC3.dispose();
+            StatScore statScore = new StatScore();
+            accueilUC3.dispose();
         }
         if(e.getSource() == backButton){
             EcranAcceuil ecranAcceuil = new EcranAcceuil();

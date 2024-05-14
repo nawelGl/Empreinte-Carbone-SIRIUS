@@ -19,15 +19,15 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.UUID;
 
-public class SelectVenteByScore extends ClientRequest<Object, Ventes> {
+public class SelectVenteByScore extends ClientRequest<Object, VenteScores> {
 
     //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - A f t e r -  V e n t e - B y - R e f e r e n c e";
+    private final static String LoggingLabel = "S e l e c t -  V e n t e - B y - S c o r e";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     private final static String networkConfigFile = "network.yaml";
 
-    private static final String requestOrder = "SELECT_AFTER_VENTE_BY_REFERENCE";
+    private static final String requestOrder = "SELECT_VENTE_BY_SCORE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
     protected static int totalQuantite;
@@ -42,18 +42,13 @@ public class SelectVenteByScore extends ClientRequest<Object, Ventes> {
     }
 
     @Override
-    public Ventes readResult(String body) throws IOException {
+    public VenteScores readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final Ventes produits = mapper.readValue(body, Ventes.class);
-        return produits;
+        final VenteScores venteScores = mapper.readValue(body, VenteScores.class);
+        return venteScores;
     }
 
-    public static int getTotalQuantite(){
-        return totalQuantite;
-    }
-
-
-    public static Vente launchSelectVenteByScore(Request request) throws IOException, InterruptedException{
+    public static VenteScores launchSelectVenteByScore(Request request) throws IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
@@ -87,7 +82,7 @@ public class SelectVenteByScore extends ClientRequest<Object, Ventes> {
                 }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());
-                return null;
+                return venteScores;
             }
         } catch(Exception e){
             System.out.println("Erreur : référence inexistante");

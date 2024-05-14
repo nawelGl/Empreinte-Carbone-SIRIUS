@@ -9,11 +9,10 @@ import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 
-public class SalesFrame extends JFrame {
+public class StatSales extends JFrame {
 
     JFrame salesFrame;
     static BestSellers bestSellersBefore;
@@ -22,7 +21,7 @@ public class SalesFrame extends JFrame {
 
 
     private JLabel text;
-    public SalesFrame() {
+    public StatSales() {
 
         try {
             Request request = new Request();
