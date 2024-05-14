@@ -23,10 +23,15 @@ import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
 import edu.ezip.ing1.pds.client.UC2.DeletePath;
 import edu.ezip.ing1.pds.front.MethodesFront;
+import edu.ezip.ing1.pds.front.RechercheReference;
 import edu.ezip.ing1.pds.front.Template;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PathManagement implements ActionListener{
 
+    protected static Logger loggerPathManagement;
     JFrame pathManagementFrame = new JFrame();
     private JPanel mainPanel;
     private JPanel mapPanel;
@@ -52,6 +57,7 @@ public class PathManagement implements ActionListener{
 
     public PathManagement(){
 
+        loggerPathManagement = LogManager.getLogger(PathManagement.class);
         pathManagementFrame  = new JFrame();
         pathManagementFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
         pathManagementFrame.setTitle("Configurez vos chemins.");
@@ -348,7 +354,7 @@ public class PathManagement implements ActionListener{
                 backMenu.setBounds(1110, 650, 180, 40);
                 mainPanel.add(backMenu);
             }catch(Exception exception){
-                System.out.println("Erreur lors de la suppression du rayon, veuillez réessayer.");
+                loggerPathManagement.error("Erreur lors de la suppression du rayon, veuillez réessayer.");
                 actionButtonsPanel.removeAll();
                 actionButtonsPanel.revalidate();
                 actionButtonsPanel.repaint();
@@ -362,7 +368,6 @@ public class PathManagement implements ActionListener{
                 backMenu.setBounds(1110, 650, 180, 40);
                 mainPanel.add(backMenu);
             }
-
         }
     }
 }
