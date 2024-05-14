@@ -373,7 +373,7 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
 
 
                     } catch (IOException | InterruptedException ex) {
-                        logger.error("Eerreur de l'update pour le produit de referebce " + reference);
+                        logger.error("Erreur de l'update pour le produit de referebce " + reference);
                         JOptionPane.showMessageDialog(null, "ERROR 404: Échec de l'operation, correspondance avec le server échouée", "Échec", JOptionPane.ERROR_MESSAGE);
 
 

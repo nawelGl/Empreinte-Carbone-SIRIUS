@@ -136,14 +136,14 @@ public class PathManagement implements ActionListener{
         actionButtonsPanel.add(addPath);
 
         modifyPath = new JButton();
-        modifyPath.setText("Modifier un chemin");
+        modifyPath.setText("Supprimer un chemin");
         modifyPath.setBounds(100, 260, 300, 70);
         modifyPath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
         modifyPath.addActionListener(this);
         actionButtonsPanel.add(modifyPath);
 
         deletePath = new JButton();
-        deletePath.setText("Supprimer un chemin");
+        deletePath.setText("Charger une map");
         deletePath.setBounds(100, 360, 300, 70);
         deletePath.setFont(new Font(Template.POLICE, Font.BOLD, 18));
         deletePath.addActionListener(this);

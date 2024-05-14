@@ -5,18 +5,15 @@ import edu.ezip.ing1.pds.client.SelectProductByReference;
 import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.front.Categories.MainCategorie;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class RechercheReference implements ActionListener {
-
-    private final static String LoggingLabel = "F r o n t -R e c h e r c h e - R e f e r e n c e";
-    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     static Produit product;
     static Vente vente;
@@ -28,6 +25,7 @@ public class RechercheReference implements ActionListener {
     String titreLabelSecondaire ;
     String titreHeader;
     int x;
+    protected static Logger loggerRechercheReference;
 
     public static Produit getProduct() {
         return product;
@@ -38,6 +36,8 @@ public class RechercheReference implements ActionListener {
 
     //Constructeur :
     public RechercheReference(String titreFrame, String titreHeader,String titreLabelSecondaire,int x){
+        loggerRechercheReference = LogManager.getLogger(RechercheReference.class);
+
         //Paramétrages de base :
         menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -98,7 +98,7 @@ public class RechercheReference implements ActionListener {
             try{
                 Integer refEnInt = Integer.parseInt(refEnString);
             } catch (Exception ex){
-                logger.error("La référence entrée n'est pas un String : " + ex.getMessage());
+                loggerRechercheReference.warn("La référence entrée n'est pas un String : " + ex.getMessage());
                 referenceIsNotAnInt = true;
             }
 
@@ -106,11 +106,11 @@ public class RechercheReference implements ActionListener {
 
                 product = SelectProductByReference.launchSelectProductByReference(refEnString);
             } catch(Exception exception){
-                logger.error(exception.getMessage());
+                loggerRechercheReference.warn(exception.getMessage());
             }
 
             if(ClientRequest.isConnectionRefused() == true){
-                System.out.println("Problème de connexion");
+                loggerRechercheReference.warn("Problème de connexion");
                 searchBar.setText("");
                 JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
                 referenceIsNotAnInt = false;
