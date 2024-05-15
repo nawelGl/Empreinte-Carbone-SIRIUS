@@ -1,6 +1,8 @@
 package edu.ezip.ing1.pds.front.UC3;
 
 
+import edu.ezip.ing1.pds.business.dto.BestSeller;
+import edu.ezip.ing1.pds.business.dto.VenteScore;
 import edu.ezip.ing1.pds.business.dto.VenteScores;
 import edu.ezip.ing1.pds.client.UC3.SelectVenteByScore;
 import edu.ezip.ing1.pds.commons.Request;
@@ -11,6 +13,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.String.valueOf;
 
@@ -18,6 +22,10 @@ public class StatScore extends JFrame {
 
     JFrame salesFrame;
     static VenteScores VentesA;
+    static VenteScores VentesB;
+    static VenteScores VentesC;
+    static VenteScores VentesD;
+    static VenteScores VentesE;
 
 
 
@@ -26,14 +34,27 @@ public class StatScore extends JFrame {
     public StatScore() {
 
         try {
-            String score ="A";
             Request request = new Request();
-            request.setRequestContent(score);
+            request.setRequestContent("A");
             VentesA= SelectVenteByScore.launchSelectVenteByScore(request);
+            List<VenteScore> saleslisteA = VentesA.getVenteScores();
+            System.out.println(saleslisteA.toString());
 
+            request.setRequestContent("B");
+            VentesB= SelectVenteByScore.launchSelectVenteByScore(request);
+            request.setRequestContent("C");
+            VentesC= SelectVenteByScore.launchSelectVenteByScore(request);
+            request.setRequestContent("D");
+            VentesD= SelectVenteByScore.launchSelectVenteByScore(request);
+            request.setRequestContent("E");
+            VentesE= SelectVenteByScore.launchSelectVenteByScore(request);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        List<String> dateList = new ArrayList<>();
+        dateList.add("2023-04");
+
 
 
 
@@ -56,20 +77,17 @@ public class StatScore extends JFrame {
 
 
 
-        //beforPanel setting
-        JPanel beforePanel = new JPanel(null);
-        beforePanel.setBackground(Color.white);
-        beforePanel.setBounds(50,50,600,600);
 
-        //afterPanel setting
-        JPanel afterPanel = new JPanel(null);
-        afterPanel.setBackground(Color.white);
-        afterPanel.setBounds(750,50,600,600);
+
+
+        //chartPanel setting
+        JPanel chartPanel = new JPanel(null);
+        chartPanel.setBackground(Color.white);
+        chartPanel.setBounds(350,50,800,600);
 
 
         //--------------ajout-----------------
-        mainPanel.add(beforePanel);
-        mainPanel.add(afterPanel);
+        mainPanel.add(chartPanel);
         salesFrame.add(mainPanel);
 
         salesFrame.setVisible(true);
@@ -77,4 +95,29 @@ public class StatScore extends JFrame {
 
 
     }
+    private ImageIcon selectScoreImage(String score) {
+        ImageIcon icon;
+        switch (score) {
+            case "A":
+                icon = new ImageIcon(getClass().getResource("/icon_A.png"));
+                break;
+            case "B":
+                icon = new ImageIcon(getClass().getResource("/icon_B.png"));
+                break;
+            case "C":
+                icon = new ImageIcon(getClass().getResource("/icon_C.png"));
+                break;
+            case "D":
+                icon = new ImageIcon(getClass().getResource("/icon_D.png"));
+                break;
+            case "E":
+                icon = new ImageIcon(getClass().getResource("/icon_E.png"));
+                break;
+            default:
+                icon = null;
+                break;
+        }
+        return icon;
+    }
+
 }

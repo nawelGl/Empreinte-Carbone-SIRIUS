@@ -36,12 +36,12 @@ public class StatSales extends JFrame {
             bestSellersBefore = SelectBestSellerBefore.launchSelectBestSellerBefore(request);
             bestSellersAfter = SelectBestSellerAfter.launchSelectBestSellerAfter(request);
 
-            List<BestSeller> bestSellerList1 = (List<BestSeller>) bestSellersBefore.getBestSellers();
+            List<BestSeller> bestSellerList1 = bestSellersBefore.getBestSellers();
             bestProductBefore1= bestSellerList1.get(0);
             bestProductBefore2= bestSellerList1.get(1);
             bestProductBefore3= bestSellerList1.get(2);
 
-            List<BestSeller> bestSellerList2 = (List<BestSeller>) bestSellersAfter.getBestSellers();
+            List<BestSeller> bestSellerList2 = bestSellersAfter.getBestSellers();
             bestProductAfter1= bestSellerList2.get(0);
             bestProductAfter2= bestSellerList2.get(1);
             bestProductAfter3= bestSellerList2.get(2);
