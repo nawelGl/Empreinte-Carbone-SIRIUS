@@ -14,24 +14,27 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.String.valueOf;
 
 public class StatScore extends JFrame {
 
-    JFrame salesFrame;
+    JFrame scoreFrame;
     static VenteScores VentesA;
     static VenteScores VentesB;
     static VenteScores VentesC;
     static VenteScores VentesD;
     static VenteScores VentesE;
+    static  VenteScores venteScores;
+
 
 
 
 
     private JLabel text;
-    public StatScore() {
+    public <SwingWithJavaFXGraph> StatScore() {
 
         try {
             Request request = new Request();
@@ -52,22 +55,56 @@ public class StatScore extends JFrame {
             throw new RuntimeException(e);
         }
 
-        List<String> dateList = new ArrayList<>();
-        dateList.add("2023-04");
+        List<String> dateList = new ArrayList<>(Arrays.asList("2023-05", "2023-06","2023-07","2023-08",
+                "2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04"));
+
+        private ArrayList<Integer> generateSalesList(VenteScores venteScores, List<String> dateList) {
+            ArrayList<Integer> salesList = new ArrayList<>();
+            for (String date : dateList) {
+                boolean found = false;
+                for (VenteScore venteScore : venteScores.getVenteScores()) {
+                    if (venteScore.getMonth().equals(date)) {
+                        salesList.add(venteScore.getSum());
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    salesList.add(0);
+                }
+            }
+            return salesList;
+        }
+
+
+        ArrayList<Integer> listA = generateSalesList(VentesA, dateList);
+        ArrayList<Integer> listB = generateSalesList(VentesB, dateList);
+        ArrayList<Integer> listC = generateSalesList(VentesC, dateList);
+        ArrayList<Integer> listD = generateSalesList(VentesD, dateList);
+        ArrayList<Integer> listE = generateSalesList(VentesE, dateList);
+
+
+        System.out.println("~~~~~~~~~confirm list ~~~~~~~~~~~");
+        System.out.println(listA);
+        System.out.println(listB);
+        System.out.println(listC);
+        System.out.println(listD);
+        System.out.println(listE);
+
 
 
 
 
         // installation de frame
-        salesFrame = new JFrame("Statisque - Stat par score");
-        salesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        salesFrame.setResizable(false);
-        salesFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
-        salesFrame.setLocationRelativeTo(null);
+        scoreFrame = new JFrame("Statisque - Stat par score");
+        scoreFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        scoreFrame.setResizable(false);
+        scoreFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
+        scoreFrame.setLocationRelativeTo(null);
 
 
         //-------------------panel header-------------
-        MethodesFront.header(salesFrame,"Ventes par score des produits",525);
+        MethodesFront.header(scoreFrame,"Ventes par score des produits",525);
 
 
         // main panel
@@ -81,16 +118,16 @@ public class StatScore extends JFrame {
 
 
         //chartPanel setting
-        JPanel chartPanel = new JPanel(null);
-        chartPanel.setBackground(Color.white);
-        chartPanel.setBounds(350,50,800,600);
+        //DrawSalesGraph chartPanel = new DrawSalesGraph();
+        //chartPanel.setBackground(Color.white);
+       // chartPanel.setBounds(350,50,800,600);
 
 
         //--------------ajout-----------------
-        mainPanel.add(chartPanel);
-        salesFrame.add(mainPanel);
+        //mainPanel.add(chartPanel);
+        scoreFrame.add(mainPanel);
 
-        salesFrame.setVisible(true);
+        scoreFrame.setVisible(true);
 
 
 
@@ -119,5 +156,9 @@ public class StatScore extends JFrame {
         }
         return icon;
     }
+
+
+
+
 
 }
