@@ -1,6 +1,7 @@
 package edu.ezip.ing1.pds.front;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class CategoriesFrame {
@@ -13,11 +14,34 @@ public class CategoriesFrame {
         categorieFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         categorieFrame.setLocationRelativeTo(null);
 
+        //---------- header panel --------------
+        String titreHeader = "Choix de la catégorie de votre produit";
+        MethodesFront.header(categorieFrame, titreHeader, 490);
+        //------------------------------------
+
         //-------- title panel ---------
-        JPanel titlePanel = new JPanel();
+        JPanel mainTitre = new JPanel();
+        mainTitre.setLayout(null);
+        mainTitre.setPreferredSize(new Dimension(Template.LONGUEUR, 100));
+        mainTitre.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
+        RoundedPanel titlePanel = new RoundedPanel(40, 40);
         titlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
-        titlePanel.setPreferredSize(new Dimension(Template.LONGUEUR, 100));
-        categorieFrame.add(BorderLayout.CENTER, titlePanel);
+        JLabel titleLabel = new JLabel();
+        titleLabel.setText("Produits correspondants à [completer categories] :");
+        titleLabel.setFont(Template.FONT_TITRES);
+        titleLabel.setForeground(Color.WHITE);
+        titlePanel.add(titleLabel);
+        titlePanel.setBounds(430, 30, 580, 40);
+        mainTitre.add(titlePanel);
+
+        //------- main panel that contains products -------
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
+        mainPanel.setLayout(new BorderLayout());
+        categorieFrame.getContentPane().add(BorderLayout.CENTER, mainPanel);
+        mainPanel.add(BorderLayout.NORTH, mainTitre);
+
+        //-------- faire un foreach pour faire un panel pour chaque produit avec ses infos
 
         categorieFrame.setVisible(true);
     }
