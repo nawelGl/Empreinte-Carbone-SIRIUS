@@ -1,10 +1,9 @@
 package edu.ezip.ing1.pds.front;
 
-import edu.ezip.ing1.pds.business.dto.Categories;
-import edu.ezip.ing1.pds.business.dto.Marque;
-import edu.ezip.ing1.pds.business.dto.Score;
-import edu.ezip.ing1.pds.business.dto.Scores;
+import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.client.Categories.SelectAllCategorie;
+import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
+import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
 import edu.ezip.ing1.pds.commons.Request;
@@ -124,7 +123,7 @@ public class MethodesFront {
         Marque marque;
         double bonusMalus = 0.0;
         try {
-            marque = SelectMarqueById.launchSelectMarqueById(String.valueOf(idMarque));
+            marque = SelectMarqueById.launchSelectMarqueById(valueOf(idMarque));
             String rse = marque.getRse();
 
             switch (rse) {

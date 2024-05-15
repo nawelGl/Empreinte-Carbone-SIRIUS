@@ -69,7 +69,7 @@ public class SelectSousCategorieBByID extends ClientRequest<Object, SousCategori
                  final SousCategorieB sousCategorieB = (SousCategorieB) joinedClientRequest.getResult();
                  final AsciiTable asciiTable = new AsciiTable();
                  asciiTable.addRule();
-                 asciiTable.addRow(sousCategorieB.getIdSousCategorieB(), sousCategorieB.getNom(), sousCategorieB.getIdSousCategorieA());
+                 asciiTable.addRow(sousCategorieB.getIdSousCategorieB(), sousCategorieB.getNomSouscatB(), sousCategorieB.getcodeGenre());
                  asciiTable.addRule();
                  logger.debug("\n{}\n", asciiTable.render());
                  return sousCategorieB;
