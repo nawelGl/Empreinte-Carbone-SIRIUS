@@ -53,7 +53,7 @@ public class DetailsProduct {
         this.produit = produit;
         frame = new JFrame();
         frame.setSize(Template.LONGUEUR, Template.LARGEUR);
-        frame.setTitle("Details Produit ");
+        frame.setTitle("Détails Produit ");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
