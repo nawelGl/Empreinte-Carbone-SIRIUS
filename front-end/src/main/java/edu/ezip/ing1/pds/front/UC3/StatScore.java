@@ -27,7 +27,6 @@ public class StatScore extends JFrame {
     static VenteScores VentesC;
     static VenteScores VentesD;
     static VenteScores VentesE;
-    static  VenteScores venteScores;
 
 
 
@@ -58,30 +57,81 @@ public class StatScore extends JFrame {
         List<String> dateList = new ArrayList<>(Arrays.asList("2023-05", "2023-06","2023-07","2023-08",
                 "2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04"));
 
-        private ArrayList<Integer> generateSalesList(VenteScores venteScores, List<String> dateList) {
-            ArrayList<Integer> salesList = new ArrayList<>();
-            for (String date : dateList) {
-                boolean found = false;
-                for (VenteScore venteScore : venteScores.getVenteScores()) {
-                    if (venteScore.getMonth().equals(date)) {
-                        salesList.add(venteScore.getSum());
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    salesList.add(0);
+        ArrayList<Integer> listA = new ArrayList<>();
+
+        for (String date : dateList) {
+            boolean found = false;
+            for (VenteScore venteScore : VentesA.getVenteScores()) {
+                if (venteScore.getMonth().equals(date)) {
+                    listA.add(venteScore.getSum());
+                    found = true;
+                    break;
                 }
             }
-            return salesList;
+            if (!found) {
+                listA.add(0);
+            }
         }
+        ArrayList<Integer> listB = new ArrayList<>();
 
+        for (String date : dateList) {
+            boolean found = false;
+            for (VenteScore venteScore : VentesB.getVenteScores()) {
+                if (venteScore.getMonth().equals(date)) {
+                    listB.add(venteScore.getSum());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                listB.add(0);
+            }
+        }
+        ArrayList<Integer> listC = new ArrayList<>();
 
-        ArrayList<Integer> listA = generateSalesList(VentesA, dateList);
-        ArrayList<Integer> listB = generateSalesList(VentesB, dateList);
-        ArrayList<Integer> listC = generateSalesList(VentesC, dateList);
-        ArrayList<Integer> listD = generateSalesList(VentesD, dateList);
-        ArrayList<Integer> listE = generateSalesList(VentesE, dateList);
+        for (String date : dateList) {
+            boolean found = false;
+            for (VenteScore venteScore : VentesC.getVenteScores()) {
+                if (venteScore.getMonth().equals(date)) {
+                    listC.add(venteScore.getSum());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                listC.add(0);
+            }
+        }
+        ArrayList<Integer> listD = new ArrayList<>();
+
+        for (String date : dateList) {
+            boolean found = false;
+            for (VenteScore venteScore : VentesD.getVenteScores()) {
+                if (venteScore.getMonth().equals(date)) {
+                    listD.add(venteScore.getSum());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                listD.add(0);
+            }
+        }
+        ArrayList<Integer> listE = new ArrayList<>();
+
+        for (String date : dateList) {
+            boolean found = false;
+            for (VenteScore venteScore : VentesE.getVenteScores()) {
+                if (venteScore.getMonth().equals(date)) {
+                    listE.add(venteScore.getSum());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                listE.add(0);
+            }
+        }
 
 
         System.out.println("~~~~~~~~~confirm list ~~~~~~~~~~~");
@@ -157,7 +207,23 @@ public class StatScore extends JFrame {
         return icon;
     }
 
-
+    private ArrayList<Integer> generateSalesList(VenteScores venteScores, List<String> dateList) {
+        ArrayList<Integer> salesList = new ArrayList<>();
+        for (String date : dateList) {
+            boolean found = false;
+            for (VenteScore venteScore : venteScores.getVenteScores()) {
+                if (venteScore.getMonth().equals(date)) {
+                    salesList.add(venteScore.getSum());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                salesList.add(0);
+            }
+        }
+        return salesList;
+    }
 
 
 
