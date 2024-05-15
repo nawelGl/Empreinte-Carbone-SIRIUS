@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 public class SousCategorieA {
     private int idSousCategorieA;
     private String nom;
-    private int idCategorie;
+    private int codeGenre;
 
 
     public SousCategorieA(){
@@ -19,13 +19,13 @@ public class SousCategorieA {
 
     public final SousCategorieA build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet,  "idsouscata","nomSousCatA","idcategorie");
+        setFieldsFromResultSet(resultSet,  "idSousCategorieA","nom","codeGenre");
         return this;
     }
 
     public  final PreparedStatement build(PreparedStatement preparedStatement)
             throws  SQLException, NoSuchFieldException, IllegalAccessException{
-        return buildPreparedStatement(preparedStatement,idSousCategorieA,nom,idCategorie);
+        return buildPreparedStatement(preparedStatement,idSousCategorieA,nom,codeGenre);
     }
 
     public int getIdSouscatA() {
@@ -44,12 +44,12 @@ public class SousCategorieA {
         this.nom = nomSouscatA;
     }
 
-    public int getIdCategorie() {
-        return idCategorie;
+    public int getcodeGenre() {
+        return codeGenre;
     }
 
-    public void setIdCategorie(int idCategorie) {
-        this.idCategorie = idCategorie;
+    public void setcodeGenre(int codeGenre) {
+        this.codeGenre = codeGenre;
     }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
@@ -75,7 +75,7 @@ public class SousCategorieA {
         return "SousCategorieA{" +
                 "idSouscatA='" + idSousCategorieA + '\'' +','+
                 "nomSouscatA='" + nom+ '\'' +','+
-                "idCategorie='" + idCategorie + '\'' +','+
+                "codeGenre='" + codeGenre + '\'' +','+
                 '}';
     }
 

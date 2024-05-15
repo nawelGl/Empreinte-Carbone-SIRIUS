@@ -1,58 +1,55 @@
 package edu.ezip.ing1.pds.business.dto;
 
-import java.lang.reflect.Field;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.lang.reflect.Field;
+import java.sql.PreparedStatement;
+
 
 public class SousCategorieB {
     private int idSousCategorieB;
     private String nom;
-    private int idSousCategorieA;
+    private int codeGenre;
+
 
     public SousCategorieB(){
 
+
     }
 
-    public SousCategorieB(int idSousCategorieB, String nom, int idSousCategorieA){
-        this.idSousCategorieB = idSousCategorieB;
-        this.nom = nom;
-        this.idSousCategorieA = idSousCategorieA;
+    public final SousCategorieB build(final ResultSet resultSet)
+            throws SQLException, NoSuchFieldException, IllegalAccessException {
+        setFieldsFromResultSet(resultSet,  "idSousCategorieB","nom","codeGenre");
+        return this;
+    }
+
+    public  final PreparedStatement build(PreparedStatement preparedStatement)
+            throws  SQLException, NoSuchFieldException, IllegalAccessException{
+        return buildPreparedStatement(preparedStatement,idSousCategorieB,nom,codeGenre);
     }
 
     public int getIdSousCategorieB() {
         return idSousCategorieB;
     }
 
-    public void setIdSousCategorieB(int idSousCategorieB) {
-        this.idSousCategorieB = idSousCategorieB;
+    public void setIdSousCategorieB(int idSouscatB) {
+        this.idSousCategorieB = idSouscatB;
     }
 
-    public String getNom() {
+    public String getNomSouscatB() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomSouscatB(String nomSouscatB) {
+        this.nom = nomSouscatB;
     }
 
-    public int getIdSousCategorieA() {
-        return idSousCategorieA;
+    public int getcodeGenre() {
+        return codeGenre;
     }
 
-    public void setIdSousCategorieA(int idSousCategorieA) {
-        this.idSousCategorieA = idSousCategorieA;
-    }
-
-    public final SousCategorieB build(final ResultSet resultSet)
-            throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet, "idSousCategorieB", "nom", "idSousCategorieA");
-        return this;
-    }
-
-    public final PreparedStatement build(PreparedStatement preparedStatement)
-            throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, idSousCategorieB, nom, idSousCategorieA);
+    public void setcodeGenre(int codeGenre) {
+        this.codeGenre = codeGenre;
     }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
@@ -76,9 +73,11 @@ public class SousCategorieB {
     @Override
     public String toString() {
         return "SousCategorieB{" +
-                "idSousCategorieB = " + idSousCategorieB +
-                ", nom = " + nom +
-                ", idSousCategorieA='" + idSousCategorieA + '\'' +
+                "idSouscatA='" + idSousCategorieB + '\'' +','+
+                "nomSouscatB='" + nom+ '\'' +','+
+                "codeGenre='" + codeGenre + '\'' +','+
                 '}';
     }
+
+
 }
