@@ -23,7 +23,6 @@ public class XMartCityService {
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     private enum Queries {
-        INSERT_STUDENT("INSERT into \"ezip-ing1\".students (\"name\", \"firstname\", \"group\") values (?, ?, ?)"),
         INSERT_PRODUCT("INSERT into \"ezip-ing1\".produit (\"idEmplacement\", \"idVilleDepart\", \"idVilleArrive\", \"couleur\", \"taille\", \"reference\", \"score\", \"genre\", \"empreinte\", \"idMagasin\", \"idMarque\", \"nomProduit\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
         INSERT_POINT("INSERT into \"ezip-ing1\".point (\"coordX\", \"coordY\", \"idRayon\") values (?, ?, ?)"),
         
@@ -55,6 +54,12 @@ public class XMartCityService {
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
+
+        SELECT_ALL_CATEGORIE("SELECT * FROM \"ezip-ing1\".categorie"),
+        SELECT_ALL_SOUS_CAT_A("SELECT * FROM  \"ezip-ing1\".\"sousCategorieA\" WHERE \"codeGenre\" = ? OR \"codeGenre\"= ?"),
+        SELECT_ALL_SOUS_CAT_B("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"codeGenre\" = ? OR \"codeGenre\"= ?"),
+
+
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
         UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
 
@@ -616,36 +621,6 @@ public class XMartCityService {
                     }
                     break;
 
-                case "SELECT_ALL_CATEGORIE":
-                    try{
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_EMPLACEMENT_BY_ID.query);
-                        String id = request.getRequestBody().replaceAll("\"", "");
-
-                        selectStatement.setInt(1, Integer.valueOf(id));
-
-                        // mapper produits en Json
-                        ObjectMapper objectMapper = new ObjectMapper();
-
-                        ResultSet resultSet = selectStatement.executeQuery();
-
-                        Categorie categorie = new Categorie();
-
-                        while (resultSet.next()) {
-                            categorie.build(resultSet);
-                        }
-
-                        String responseBody = objectMapper.writeValueAsString(categorie);
-
-                        response = new Response(request.getRequestId(), responseBody);
-                    } catch (SQLException | JsonProcessingException e) {
-                        response = new Response(request.getRequestId(), "Error executing SELECT_EMPLACEMENT_BY_ID query");
-                        logger.error("Error executing SELECT_ALL_CATEGORIE query: {}", e.getMessage());
-                    } catch (NoSuchFieldException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
 
                 case "SELECT_TRANSPORTMODE_BY_ID":
                     try{
@@ -738,6 +713,116 @@ public class XMartCityService {
                     }
                     break;
 
+                case "SELECT_ALL_CATEGORIE":
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_CATEGORIE.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Categories categories= new Categories();
+
+                        while (resultSet.next()) {
+                            Categorie categorie= new Categorie();
+                            categorie.build(resultSet);
+                            System.out.println("categorie to string :");
+                            System.out.println(categories.toString());
+                            categories.add(categorie);
+                        }
+
+                        System.out.println("categories to string :");
+                        System.out.println(categories.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(categories);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_CATEGORIE query");
+                        logger.error("Error executing SELECT_ALL_CATEGORIE query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+
+                case "SELECT_ALL_SOUS_CAT_A":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_SOUS_CAT_A.query);
+
+                        String parametres= request.getRequestBody().replaceAll("\"", "");
+
+                        String[] tabParametres = parametres.split(",");
+
+                        selectStatement.setInt(1, Integer.valueOf(tabParametres[0]));
+                        selectStatement.setInt(2, Integer.valueOf(tabParametres[1]));
+
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        SousCategoriesA sousCategoriesA=new SousCategoriesA();
+
+                        while (resultSet.next()) {
+                            SousCategorieA sousCategorieA=new SousCategorieA();
+                            sousCategorieA.build(resultSet);
+
+                            sousCategoriesA.add(sousCategorieA);
+                        }
+
+                        System.out.println("sous categorie A to string  :");
+                        System.out.println(sousCategoriesA.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(sousCategoriesA);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_SOUS_CAT_A query");
+                        logger.error("Error executing SELECT_ALL_SOUS_CAT_A query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_ALL_SOUS_CAT_B":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_SOUS_CAT_B.query);
+
+                        String parametres= request.getRequestBody().replaceAll("\"", "");
+
+                        String[] tabParametres = parametres.split(",");
+
+                        selectStatement.setInt(1, Integer.valueOf(tabParametres[0]));
+                        selectStatement.setInt(2, Integer.valueOf(tabParametres[1]));
+
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        SousCategoriesB sousCategoriesB=new SousCategoriesB();
+
+                        while (resultSet.next()) {
+                            SousCategorieB sousCategorieB=new SousCategorieB();
+                            sousCategorieB.build(resultSet);
+
+                            sousCategoriesB.add(sousCategorieB);
+                        }
+
+                        System.out.println("sous categorie B to string  :");
+                        System.out.println(sousCategoriesB.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(sousCategoriesB);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_SOUS_CAT_B query");
+                        logger.error("Error executing SELECT_ALL_SOUS_CAT_B query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
                 case "SELECT_3_SUGGESTIONS":
                     try{
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_3_SUGGESTIONS.query);
@@ -753,7 +838,6 @@ public class XMartCityService {
                         selectStatement.setString(5, tabParametres[4]);
                         selectStatement.setInt(6,Integer.valueOf(tabParametres[5]));
 
-                        System.out.println("ref : "+tabParametres[5]);
 
 
                         ResultSet resultSet = selectStatement.executeQuery();
