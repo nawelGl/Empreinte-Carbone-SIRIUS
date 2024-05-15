@@ -129,13 +129,13 @@ public class ProductMapping implements ActionListener{
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
 
-        ImageIcon leftArrowImage= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/leftArrow.png")));
+        ImageIcon leftArrowImage= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheGauche.png")));
         leftArrow = new JButton(leftArrowImage);
         leftArrow.addActionListener(this);
         leftArrow.setBounds(355, 645, 50, 50);
         mainPanel.add(leftArrow);
 
-        ImageIcon rightArrowImage= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/rightArrow.png")));
+        ImageIcon rightArrowImage= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheDroite.png")));
         rightArrow = new JButton(rightArrowImage);
         rightArrow.addActionListener(this);
         rightArrow.setBounds(455, 645, 50, 50);
