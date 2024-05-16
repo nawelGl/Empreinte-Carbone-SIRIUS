@@ -155,7 +155,19 @@ public class ProductInfo implements ActionListener {
 
         RoundedPanel roundedPanel= new RoundedPanel(40,40);
         roundedPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+        roundedPanel.setLayout(new BorderLayout());
         roundedPanel.setBounds(100,70,300,200);
+
+        ImageIcon pictureProduct = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+reference+".png")));
+        Image image = pictureProduct.getImage();
+        Image nouvelleImage = image.getScaledInstance(150, 154, Image.SCALE_SMOOTH);
+
+        ImageIcon nouvelleIcon = new ImageIcon(nouvelleImage);
+
+        JLabel pictureProductLabel = new JLabel(nouvelleIcon);
+        //JLabel pictureProductLabel= new JLabel(pictureProduct);
+        roundedPanel.add (pictureProductLabel);
+
         productPanel.add(roundedPanel);
         mainPanel.add(productPanel);
 
@@ -199,7 +211,13 @@ public class ProductInfo implements ActionListener {
                     // Afficher la seule suggestion disponible
                     suggestProduct1 = suggestList.get(0);
                     //----------Product suggested 1
-                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
+                     ImageIcon pictureS1 = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+suggestProduct1.getReference()+".png")));
+                     Image imageS1 = pictureS1.getImage();
+                     Image nouvelleImageS1 = imageS1.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
+
+                     ImageIcon nouvelleIconS1 = new ImageIcon(nouvelleImageS1);
+
+                    suggest1Button = new JButton(nouvelleIconS1);
                     suggest1Button.setBounds(420,65,150,150);
                      suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
@@ -217,7 +235,14 @@ public class ProductInfo implements ActionListener {
                     suggestProduct2 = suggestList.get(1);
 
                     //----------Product suggested 1
-                     suggest1Button = new JButton(suggestProduct1.getNomProduit());
+                     ImageIcon pictureS1 = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+suggestProduct1.getReference()+".png")));
+                     Image imageS1 = pictureS1.getImage();
+                     Image nouvelleImageS1 = imageS1.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
+
+                     ImageIcon nouvelleIconS1 = new ImageIcon(nouvelleImageS1);
+
+                     suggest1Button = new JButton(nouvelleIconS1);
+
                      suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
                      suggestionPanel.add(suggest1Button);
@@ -234,7 +259,13 @@ public class ProductInfo implements ActionListener {
 
 
                     //----------Product suggested 2----------------------------------------
-                    suggest2Button = new JButton(suggestProduct2.getNomProduit());
+                     ImageIcon pictureS2 = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+suggestProduct2.getReference()+".png")));
+                     Image imageS2 = pictureS2.getImage();
+                     Image nouvelleImageS2 = imageS2.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
+
+                     ImageIcon nouvelleIconS2 = new ImageIcon(nouvelleImageS1);
+
+                     suggest2Button = new JButton(nouvelleIconS2);
                      suggest2Button.setBounds(755,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
@@ -253,7 +284,14 @@ public class ProductInfo implements ActionListener {
                     suggestProduct3 = suggestList.get(2);
 
                     //----------Product suggested 1
-                    suggest1Button = new JButton(suggestProduct1.getNomProduit());
+                     ImageIcon pictureS1 = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+suggestProduct1.getReference()+".png")));
+                     Image imageS1 = pictureS1.getImage();
+                     Image nouvelleImageS1 = imageS1.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
+
+                     ImageIcon nouvelleIconS1 = new ImageIcon(nouvelleImageS1);
+
+                     suggest1Button = new JButton(nouvelleIconS1);
+
                     suggest1Button.setBounds(80,65,150,150);
                      suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
@@ -271,7 +309,13 @@ public class ProductInfo implements ActionListener {
 
 
                     //----------Product suggested 2----------------------------------------
-                    suggest2Button = new JButton(suggestProduct2.getNomProduit());
+                     ImageIcon pictureS2 = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+suggestProduct2.getReference()+".png")));
+                     Image imageS2 = pictureS2.getImage();
+                     Image nouvelleImageS2 = imageS2.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
+
+                     ImageIcon nouvelleIconS2 = new ImageIcon(nouvelleImageS1);
+
+                     suggest2Button = new JButton(nouvelleIconS2);
                     suggest2Button.setBounds(420,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
@@ -285,7 +329,13 @@ public class ProductInfo implements ActionListener {
                     suggestionPanel.add(IconScoreP2);
 
                     //----------Product suggested 3----------------------------------------
-                    suggest3Button = new JButton(suggestProduct3.getNomProduit());
+                     ImageIcon pictureS3 = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+suggestProduct3.getReference()+".png")));
+                     Image imageS3 = pictureS3.getImage();
+                     Image nouvelleImageS3 = imageS3.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
+
+                     ImageIcon nouvelleIconS3 = new ImageIcon(nouvelleImageS3);
+
+                     suggest3Button = new JButton(nouvelleIconS3);
                     suggest3Button.setBounds(755,65,150,150);
                     suggest3Button.addActionListener(this);
                     suggestionPanel.add(suggest3Button);

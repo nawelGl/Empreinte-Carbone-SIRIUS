@@ -58,7 +58,6 @@ public class MethodesFront {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EcranAcceuil ecranAcceuil=new EcranAcceuil();
-                Produits produits=null;
                 frame.dispose();
 
             }
