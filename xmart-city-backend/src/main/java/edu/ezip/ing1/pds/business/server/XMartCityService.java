@@ -923,7 +923,7 @@ public class XMartCityService {
                         selectStatement.setString(1, score);
                         ResultSet resultSet = selectStatement.executeQuery();
 
-                        VenteScores venteScores = new VenteScores();  //a changer
+                        VenteScores venteScores = new VenteScores();
 
                         while (resultSet.next()) {
                             VenteScore venteScore = new VenteScore();

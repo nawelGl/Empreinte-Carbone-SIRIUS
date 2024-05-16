@@ -42,6 +42,7 @@ public class StatScore extends JFrame implements ActionListener {
     static ArrayList<Integer> listC;
     static ArrayList<Integer> listD;
     static ArrayList<Integer> listE;
+    static VenteScores venteScores;
 
 
     public StatScore() {
@@ -58,6 +59,8 @@ public class StatScore extends JFrame implements ActionListener {
             VentesD= SelectVenteByScore.launchSelectVenteByScore(request);
             request.setRequestContent("E");
             VentesE= SelectVenteByScore.launchSelectVenteByScore(request);
+
+            System.out.println("@@@@@@@@@@@@@@@@@@@"+VentesA.getVenteScores().toString());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
