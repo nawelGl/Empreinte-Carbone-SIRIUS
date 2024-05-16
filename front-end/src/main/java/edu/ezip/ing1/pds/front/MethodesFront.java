@@ -96,7 +96,6 @@ public class MethodesFront {
         int x = (panelWidth - labelWidth) / 2;
         int y = (panelHeight - labelHeight) / 2;
 
-        // Définir les coordonnées et la taille du label
         label.setBounds(x, y, labelWidth, labelHeight);
     }
 
@@ -117,7 +116,6 @@ public class MethodesFront {
         carbonFootPrint=distance*coeff*(poids/1000)/1000;
         BigDecimal bd = new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP);
         return bd.doubleValue();
-       // return carbonFootPrint;
 
     }
 
