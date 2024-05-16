@@ -1,17 +1,18 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class SousCategoriesB {
 
-    private Set<SousCategorieB> sousCategoriesB = new LinkedHashSet<>();
+    private ArrayList<SousCategorieB> sousCategoriesB = new ArrayList<>();
 
-    public Set<SousCategorieB> getSousCategoriesB() {
+    public ArrayList<SousCategorieB> getSousCategoriesB() {
         return sousCategoriesB;
     }
 
-    public void setSousCategoriesB(Set<SousCategorieB> sousCategoriesB) {
+    public void setSousCategoriesB(ArrayList<SousCategorieB> sousCategoriesB) {
         this.sousCategoriesB =sousCategoriesB;
     }
 
