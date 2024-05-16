@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class StatScore extends JFrame implements ActionListener {
@@ -115,10 +116,61 @@ public class StatScore extends JFrame implements ActionListener {
         exportBtt.addActionListener( this);
         exportBtt.setBounds(1250,30,140,30);
 
+        //------------back btt
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+
+        backButton.setBounds(1320,600,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccueilUC3 accueilUC3=new AccueilUC3();
+                scoreFrame.dispose();
+
+            }
+        });
+
+
+        // ajout de photos des scores
+        Icon iconA = new ImageIcon(getClass().getResource("/icon_A.png"));
+        JLabel photoLabelA = new JLabel(iconA);
+        photoLabelA.setBounds(250,120,50,50);
+
+        Icon iconB = new ImageIcon(getClass().getResource("/icon_B.png"));
+
+        JLabel photoLabelB = new JLabel(iconB);
+        photoLabelB.setBounds(250,210,50,50);
+
+        Icon iconC = new ImageIcon(getClass().getResource("/icon_C.png"));
+        JLabel photoLabelC = new JLabel(iconC);
+        photoLabelC.setBounds(250,300,50,50);
+
+        Icon iconD = new ImageIcon(getClass().getResource("/icon_D.png"));
+        JLabel photoLabelD = new JLabel(iconD);
+        photoLabelD.setBounds(250,390,50,50);
+
+        Icon iconE = new ImageIcon(getClass().getResource("/icon_E.png"));
+        JLabel photoLabelE = new JLabel(iconE);
+        photoLabelE.setBounds(250,480,50,50);
+
+
+
 
         //--------------ajout-----------------
         mainPanel.add(chartPanel);
+
+        mainPanel.add(photoLabelA);
+        mainPanel.add(photoLabelB);
+        mainPanel.add(photoLabelC);
+        mainPanel.add(photoLabelD);
+        mainPanel.add(photoLabelE);
+
+
+
+
         mainPanel.add(exportBtt);
+        mainPanel.add(backButton);
         scoreFrame.add(mainPanel);
 
         scoreFrame.setVisible(true);

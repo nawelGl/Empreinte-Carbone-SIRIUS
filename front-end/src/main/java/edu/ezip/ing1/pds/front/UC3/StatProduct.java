@@ -3,6 +3,7 @@ package edu.ezip.ing1.pds.front.UC3;
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.client.UC3.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.front.EcranAcceuil;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
@@ -167,10 +168,25 @@ public class StatProduct implements ActionListener {
         exportBtt.addActionListener( this);
         exportBtt.setBounds(1250,30,140,30);
 
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1320,600,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccueilUC3 accueilUC3=new AccueilUC3();
+                statUC3.dispose();
+
+            }
+        });
+
+
         //----------------------------------------------
         mainPanel.add(infoPanel);
         mainPanel.add(chartPanel);
         mainPanel.add(exportBtt);
+        mainPanel.add(backButton);
         statUC3.getContentPane().add(mainPanel);
 
         //-----------------------------------------------

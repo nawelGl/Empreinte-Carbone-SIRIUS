@@ -10,6 +10,8 @@ import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -186,9 +188,25 @@ public class StatSales extends JFrame {
         afterPanel.add(scoreLabelA3);
 
 
+        //---------ajout de back btt
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1320,600,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccueilUC3 accueilUC3=new AccueilUC3();
+                salesFrame.dispose();
+
+            }
+        });
+
         //--------------ajout-----------------
         mainPanel.add(beforePanel);
         mainPanel.add(afterPanel);
+        mainPanel.add(backButton);
         salesFrame.add(mainPanel);
 
         salesFrame.setVisible(true);

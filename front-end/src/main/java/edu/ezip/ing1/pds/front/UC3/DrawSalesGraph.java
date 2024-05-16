@@ -41,7 +41,7 @@ public class DrawSalesGraph extends JPanel {
         add(fxPanel);
 
         // JavaFX 작업을 Swing 이벤트 디스패치 스레드 외부에서 실행
-        Platform.runLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             initFX(fxPanel);
         });
     }
