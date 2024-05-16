@@ -26,7 +26,7 @@ public class DrawBarChart extends JPanel {
         this.values = values;
 //        this.colors = colors;
 
-        // JavaFX Panel 생성
+        // JavaFX Panel
         JFXPanel fxPanel = new JFXPanel();
         setLayout(new BorderLayout());
         add(fxPanel, BorderLayout.CENTER);
