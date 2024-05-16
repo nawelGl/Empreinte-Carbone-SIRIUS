@@ -1,17 +1,18 @@
 package edu.ezip.ing1.pds.business.dto;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Categories {
 
-    private Set<Categorie> categories = new LinkedHashSet<>();
+    private ArrayList<Categorie> categories = new ArrayList<>();
 
-    public Set<Categorie> getCategories() {
+    public ArrayList<Categorie> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Categorie> categories) {
+    public void setCategories(ArrayList<Categorie> categories) {
         this.categories =categories;
     }
 

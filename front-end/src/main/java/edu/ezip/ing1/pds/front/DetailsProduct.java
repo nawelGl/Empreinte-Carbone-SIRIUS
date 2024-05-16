@@ -53,7 +53,7 @@ public class DetailsProduct {
         this.produit = produit;
         frame = new JFrame();
         frame.setSize(Template.LONGUEUR, Template.LARGEUR);
-        frame.setTitle("Details Produit ");
+        frame.setTitle("Détails Produit ");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
@@ -80,6 +80,18 @@ public class DetailsProduct {
 
         panelPicture = new RoundedPanel(30, 30);
         panelPicture.setBounds(145, 45, 200, 200);
+        panelPicture.setLayout(new BorderLayout());
+
+
+        ImageIcon pictureProduct = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+produit.getReference()+".png")));
+        Image image = pictureProduct.getImage();
+        Image nouvelleImage = image.getScaledInstance(150, 154, Image.SCALE_SMOOTH);
+
+        ImageIcon nouvelleIcon = new ImageIcon(nouvelleImage);
+
+        JLabel pictureProductLabel = new JLabel(nouvelleIcon);
+        //JLabel pictureProductLabel= new JLabel(pictureProduct);
+        panelPicture.add (pictureProductLabel);
         panelProduct.add(panelPicture);
 
         // ---------Differents Label--------

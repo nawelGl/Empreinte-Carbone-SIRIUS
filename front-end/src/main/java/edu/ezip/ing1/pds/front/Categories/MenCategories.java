@@ -1,77 +1,79 @@
 package edu.ezip.ing1.pds.front.Categories;
 
+import edu.ezip.ing1.pds.business.dto.SousCategorieA;
+import edu.ezip.ing1.pds.business.dto.SousCategoriesA;
+import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 
 public class MenCategories extends CategoriesTemplate implements ActionListener{
 
-    JButton hauts;
-    JButton bas;
-    JButton costumes;
-    JButton sousVetements;
-    JButton sport;
-
-
+    private SousCategoriesA sous_categories_A;
+    private int x = 0;
+    private int y = 0;
 
     public MenCategories(){
         super();
 
-        hauts = new JButton("Hauts");
-        hauts.addActionListener(this);
-        setButtonStyle(hauts, width, height); 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        mainPanel.add(hauts, gbc);
+        try{
+            sous_categories_A = SelectAllSousCategorieA.launchSelectAllSousCatA("0,2");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        bas = new JButton("Bas");
-        bas.addActionListener(this);
-        setButtonStyle(bas, width, height); 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        mainPanel.add(bas, gbc);
-
-        costumes = new JButton("Costumes");
-        costumes.addActionListener(this);
-        setButtonStyle(costumes, width, height); 
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        mainPanel.add(costumes, gbc);
-
-        sousVetements = new JButton("Sous vêtements");
-        sousVetements.addActionListener(this);
-        setButtonStyle(sousVetements, width, height); 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        mainPanel.add(sousVetements, gbc);
-
-        sport = new JButton("Vêtements de sport");
-        sport.addActionListener(this);
-        setButtonStyle(sport, width, height); 
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        mainPanel.add(sport, gbc);
+        for(int i = 0; i < sous_categories_A.getSousCategoriesA().size(); i++){
+            JButton bouton = new JButton();
+            SousCategorieA categorie = sous_categories_A.getSousCategoriesA().get(i);
+            bouton.setText(categorie.getNomSouscatA());
+            bouton.addActionListener(this);
+            setButtonStyle(bouton, width, height);
+            gbc.gridx = x;
+            gbc.gridy = y;
+            mainPanel.add(bouton, gbc);
+            x++;
+            if(x==3){
+                x = 0;
+            }
+            if(i == 2 || i == 5){
+                y++;
+            }
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);
-        if(e.getSource() == hauts){
-            MenTops menTops = new MenTops();
-            categorieFrame.dispose();
-        } else if (e.getSource() == bas){
-            MenPants menPants = new MenPants();
-            categorieFrame.dispose();
-        } else if(e.getSource() == costumes){
-            MenSuits menSuits = new MenSuits();
-            categorieFrame.dispose();
-        } else if(e.getSource() == sousVetements){
-            MenUnderwears menUnderwears = new MenUnderwears();
-            categorieFrame.dispose();
-        } else if(e.getSource() == sport){
-            MenSportswear menSportswear = new MenSportswear();
-            categorieFrame.dispose();
+
+        if (e.getSource() instanceof JButton) {
+            JButton button = (JButton) e.getSource();
+            if(button.getText().equals("Vêtements de sport")){
+                MenSportswear menSportswear = new MenSportswear();
+                categorieFrame.dispose();
+            } else if(button.getText().equals("Sous vêtements")){
+                MenUnderwears menUnderwears = new MenUnderwears();
+                //categorieFrame.dispose();
+            } else if(button.getText().equals("Accessoire")){
+                //ChildrenCategories childrenCategories = new ChildrenCategories();
+                //categorieFrame.dispose();
+            } else if(button.getText().equals("Hauts")){
+                MenTops menTops = new MenTops();
+                categorieFrame.dispose();
+            } else if(button.getText().equals("Bas")){
+                MenPants menPants = new MenPants();
+                categorieFrame.dispose();
+            } else if(button.getText().equals("Costumes")){
+                MenSuits menSuits = new MenSuits();
+                categorieFrame.dispose();
+            } else if(button.getText().equals("Pyjamas")){
+                //WomenDresses womenDresses = new WomenDresses();
+                //categorieFrame.dispose();
+            }
         }
     }
 }

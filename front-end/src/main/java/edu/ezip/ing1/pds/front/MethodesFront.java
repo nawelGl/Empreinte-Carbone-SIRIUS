@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.front;
 
 import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.client.Categories.SelectAllCategorie;
+import edu.ezip.ing1.pds.client.Categories.SelectAllProductByCategorie;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
@@ -50,7 +51,6 @@ public class MethodesFront {
 
         ImageIcon homeIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/home.png")));
         JButton homeButton=new JButton(homeIcon);
-                //new JButton(homeIcon);
         homeButton.setBounds(1320,20,60,60);
         homeButton.addActionListener(new ActionListener() {
             @Override
