@@ -81,7 +81,8 @@ public class ConnectionPoolImpl {
     }
 
     private final Connection createConnection() throws SQLException {
-        //Driver Manager : The basic service for managing a set of JDBC drivers.
+        //Driver Manager : The basic service for managing a
+        // set of JDBC drivers.
         return DriverManager.getConnection(this.url);
     }
 
