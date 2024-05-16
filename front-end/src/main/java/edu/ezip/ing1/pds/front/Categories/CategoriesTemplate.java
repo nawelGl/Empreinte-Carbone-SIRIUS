@@ -4,7 +4,6 @@ import edu.ezip.ing1.pds.business.dto.Categories;
 import edu.ezip.ing1.pds.client.Categories.SelectAllCategorie;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

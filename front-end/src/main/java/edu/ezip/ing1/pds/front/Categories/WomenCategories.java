@@ -2,20 +2,37 @@ package edu.ezip.ing1.pds.front.Categories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
 import javax.swing.JButton;
 
-public class WomenCategories extends CategoriesTemplate implements ActionListener {
+import edu.ezip.ing1.pds.business.dto.SousCategorieA;
+import edu.ezip.ing1.pds.business.dto.SousCategoriesA;
+import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
 
+public class WomenCategories extends CategoriesTemplate implements ActionListener {
     //buttons for each sub category :
     JButton hauts;
     JButton bas;
     JButton robes;
     JButton vetementsMaternite;
     JButton lingerie;
+    private SousCategoriesA sous_categories_A;
+    private SousCategorieA sous_categorie_A;
 
     public WomenCategories(){
         super();
+
+        //Ajouter la requete pour récupérer toute sles catégories de femmes :
+        try{
+            sous_categories_A = SelectAllSousCategorieA.launchSelectAllSousCatA("0,1");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        //Test récupération des sous categories A :
+        System.out.println("TEST SOUS CATEGORIES A : " + sous_categories_A.toString());
 
         hauts = new JButton("Hauts");
         hauts.addActionListener(this);

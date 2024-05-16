@@ -11,7 +11,6 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
         super();
 
         for (int i = 0; i < categories.getCategories().size(); i++){
-            //Dans le acton liste,ner, differencier avec getText !
             JButton bouton = new JButton();
             Categorie categorie = categories.getCategories().get(i);
             bouton.setText(categorie.getNomCategorie());
