@@ -1,7 +1,7 @@
 package edu.ezip.ing1.pds.front.UC3;
 
 
-import edu.ezip.ing1.pds.business.dto.BestSeller;
+
 import edu.ezip.ing1.pds.business.dto.VenteScore;
 import edu.ezip.ing1.pds.business.dto.VenteScores;
 import edu.ezip.ing1.pds.client.UC3.SelectVenteByScore;
@@ -10,14 +10,12 @@ import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.String.valueOf;
 
 public class StatScore extends JFrame {
 
@@ -29,19 +27,12 @@ public class StatScore extends JFrame {
     static VenteScores VentesE;
 
 
-
-
-
-    private JLabel text;
-    public <SwingWithJavaFXGraph> StatScore() {
+    public StatScore() {
 
         try {
             Request request = new Request();
             request.setRequestContent("A");
             VentesA= SelectVenteByScore.launchSelectVenteByScore(request);
-            List<VenteScore> saleslisteA = VentesA.getVenteScores();
-            System.out.println(saleslisteA.toString());
-
             request.setRequestContent("B");
             VentesB= SelectVenteByScore.launchSelectVenteByScore(request);
             request.setRequestContent("C");
@@ -57,89 +48,22 @@ public class StatScore extends JFrame {
         List<String> dateList = new ArrayList<>(Arrays.asList("2023-05", "2023-06","2023-07","2023-08",
                 "2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04"));
 
-        ArrayList<Integer> listA = new ArrayList<>();
-
-        for (String date : dateList) {
-            boolean found = false;
-            for (VenteScore venteScore : VentesA.getVenteScores()) {
-                if (venteScore.getMonth().equals(date)) {
-                    listA.add(venteScore.getSum());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                listA.add(0);
-            }
-        }
-        ArrayList<Integer> listB = new ArrayList<>();
-
-        for (String date : dateList) {
-            boolean found = false;
-            for (VenteScore venteScore : VentesB.getVenteScores()) {
-                if (venteScore.getMonth().equals(date)) {
-                    listB.add(venteScore.getSum());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                listB.add(0);
-            }
-        }
-        ArrayList<Integer> listC = new ArrayList<>();
-
-        for (String date : dateList) {
-            boolean found = false;
-            for (VenteScore venteScore : VentesC.getVenteScores()) {
-                if (venteScore.getMonth().equals(date)) {
-                    listC.add(venteScore.getSum());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                listC.add(0);
-            }
-        }
-        ArrayList<Integer> listD = new ArrayList<>();
-
-        for (String date : dateList) {
-            boolean found = false;
-            for (VenteScore venteScore : VentesD.getVenteScores()) {
-                if (venteScore.getMonth().equals(date)) {
-                    listD.add(venteScore.getSum());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                listD.add(0);
-            }
-        }
-        ArrayList<Integer> listE = new ArrayList<>();
-
-        for (String date : dateList) {
-            boolean found = false;
-            for (VenteScore venteScore : VentesE.getVenteScores()) {
-                if (venteScore.getMonth().equals(date)) {
-                    listE.add(venteScore.getSum());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                listE.add(0);
-            }
-        }
 
 
-        System.out.println("~~~~~~~~~confirm list ~~~~~~~~~~~");
-        System.out.println(listA);
-        System.out.println(listB);
-        System.out.println(listC);
-        System.out.println(listD);
-        System.out.println(listE);
+        ArrayList<Integer> listA = generateSalesList(VentesA, dateList);
+        ArrayList<Integer> listB = generateSalesList(VentesB, dateList);
+        ArrayList<Integer> listC = generateSalesList(VentesC, dateList);
+        ArrayList<Integer> listD = generateSalesList(VentesD, dateList);
+        ArrayList<Integer> listE = generateSalesList(VentesE, dateList);
+
+
+//
+//        System.out.println("~~~~~~~~~confirm list ~~~~~~~~~~~");
+//        System.out.println(listA);
+//        System.out.println(listB);
+//        System.out.println(listC);
+//        System.out.println(listD);
+//        System.out.println(listE);
 
 
 
@@ -163,18 +87,14 @@ public class StatScore extends JFrame {
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
 
-
-
-
-
         //chartPanel setting
-        //DrawSalesGraph chartPanel = new DrawSalesGraph();
-        //chartPanel.setBackground(Color.white);
-       // chartPanel.setBounds(350,50,800,600);
+        DrawSalesGraph chartPanel = new DrawSalesGraph(listA,listB,listC,listD,listE);
+        chartPanel.setBackground(Color.white);
+        chartPanel.setBounds(350,50,800,600);
 
 
         //--------------ajout-----------------
-        //mainPanel.add(chartPanel);
+        mainPanel.add(chartPanel);
         scoreFrame.add(mainPanel);
 
         scoreFrame.setVisible(true);

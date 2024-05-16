@@ -31,7 +31,7 @@ public class DrawBarChart extends JPanel {
         setLayout(new BorderLayout());
         add(fxPanel, BorderLayout.CENTER);
 
-        Platform.runLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             initFX(fxPanel);
         });
     }
@@ -69,6 +69,7 @@ public class DrawBarChart extends JPanel {
 
         Scene scene = new Scene(barChart);
         fxPanel.setScene(scene);
+
     }
 
 }
