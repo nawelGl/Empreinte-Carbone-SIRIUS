@@ -284,4 +284,11 @@ public class StatProduct implements ActionListener {
 
         }
     }
+
+    public int getSalesBefore(){
+        return salesBefore;
+    }
+    public int getSalesAfter(){
+        return salesAfter;
+    }
 }

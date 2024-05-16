@@ -183,30 +183,6 @@ public class StatScore extends JFrame implements ActionListener {
 
 
     }
-    private ImageIcon selectScoreImage(String score) {
-        ImageIcon icon;
-        switch (score) {
-            case "A":
-                icon = new ImageIcon(getClass().getResource("/icon_A.png"));
-                break;
-            case "B":
-                icon = new ImageIcon(getClass().getResource("/icon_B.png"));
-                break;
-            case "C":
-                icon = new ImageIcon(getClass().getResource("/icon_C.png"));
-                break;
-            case "D":
-                icon = new ImageIcon(getClass().getResource("/icon_D.png"));
-                break;
-            case "E":
-                icon = new ImageIcon(getClass().getResource("/icon_E.png"));
-                break;
-            default:
-                icon = null;
-                break;
-        }
-        return icon;
-    }
 
     private ArrayList<Integer> generateSalesList(VenteScores venteScores, List<String> dateList) {
         ArrayList<Integer> salesList = new ArrayList<>();
@@ -225,7 +201,7 @@ public class StatScore extends JFrame implements ActionListener {
         }
         return salesList;
     }
-    private void exportData(){
+    protected void exportData(){
 
         //creation de file selector
         JFileChooser fileChosser = new JFileChooser();
