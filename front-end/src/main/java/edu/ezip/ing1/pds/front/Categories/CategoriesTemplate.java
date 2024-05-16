@@ -4,7 +4,6 @@ import edu.ezip.ing1.pds.business.dto.Categories;
 import edu.ezip.ing1.pds.client.Categories.SelectAllCategorie;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,22 +19,8 @@ public class CategoriesTemplate implements ActionListener{
     //Size for buttons :
     int width = 260;
     int height = 100;
-    public static Categories categories;
-
 
     public CategoriesTemplate(){
-
-        // ----- Récupértation des infos via des requetes -------
-            try {
-                categories = SelectAllCategorie.launchSelectAllCategorie();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-        //Test récupération catégories : OK retourne bien les catégories
-        System.out.println("TEST CATEGORIES : " + categories.toString());
 
         //--------- Front end ----------
         categorieFrame = new JFrame();
