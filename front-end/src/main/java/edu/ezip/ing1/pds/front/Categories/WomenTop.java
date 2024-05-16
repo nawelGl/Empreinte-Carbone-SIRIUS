@@ -6,6 +6,7 @@ import edu.ezip.ing1.pds.business.dto.SousCategoriesB;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
 import edu.ezip.ing1.pds.front.Categories.CategoriesTemplate;
+import edu.ezip.ing1.pds.front.CategoriesFrame;
 
 import static java.lang.String.valueOf;
 
@@ -18,21 +19,15 @@ import javax.swing.JButton;
 public class WomenTop extends CategoriesTemplate implements ActionListener{
 
     private SousCategoriesB sous_categories_B;
+    private SousCategorieB sous_categorie_B;
     private int x = 0;
     private int y = 0;
-    //buttons for each sub category :
-    JButton chemisiers;
-    JButton tshirts;
-    JButton blouses;
-    JButton pulls;
-    JButton vestes;
-    JButton gilets;
 
     public WomenTop(){
         super();
 
         try{
-            sous_categories_B = SelectAllSousCategorieB.launchSelectAllSousCatB("0,1");
+            sous_categories_B = SelectAllSousCategorieB.launchSelectAllSousCatB("0,2,1,2");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
@@ -41,8 +36,8 @@ public class WomenTop extends CategoriesTemplate implements ActionListener{
 
         for(int i = 0; i < sous_categories_B.getSousCategoriesB().size(); i++){
             JButton bouton = new JButton();
-            SousCategorieB categorie = sous_categories_B.getSousCategoriesB().get(i);
-            bouton.setText(categorie.getNomSouscatB());
+            sous_categorie_B = sous_categories_B.getSousCategoriesB().get(i);
+            bouton.setText(sous_categorie_B.getNomSouscatB());
             bouton.addActionListener(this);
             setButtonStyle(bouton, width, height);
             gbc.gridx = x;
@@ -56,47 +51,11 @@ public class WomenTop extends CategoriesTemplate implements ActionListener{
                 y++;
             }
         }
-
-//        chemisiers = new JButton("Chemisiers");
-//        setButtonStyle(chemisiers, width, height);
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        mainPanel.add(chemisiers, gbc);
-//
-//        tshirts = new JButton("T-shirts");
-//        setButtonStyle(tshirts, width, height);
-//        gbc.gridx = 1;
-//        gbc.gridy = 0;
-//        mainPanel.add(tshirts, gbc);
-//
-//        blouses = new JButton("Blouses");
-//        setButtonStyle(blouses, width, height);
-//        gbc.gridx = 2;
-//        gbc.gridy = 0;
-//        mainPanel.add(blouses, gbc);
-//
-//        pulls = new JButton("Pulls");
-//        setButtonStyle(pulls, width, height);
-//        gbc.gridx = 0;
-//        gbc.gridy = 1;
-//        mainPanel.add(pulls, gbc);
-//
-//        vestes = new JButton("Vestes");
-//        setButtonStyle(vestes, width, height);
-//        gbc.gridx = 1;
-//        gbc.gridy = 1;
-//        mainPanel.add((vestes), gbc);
-//
-//        gilets = new JButton("Gilets");
-//        setButtonStyle(gilets, width, height);
-//        gbc.gridx = 2;
-//        gbc.gridy = 1;
-//        mainPanel.add(gilets, gbc);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        //Besoin de passer en parametres que la categorie choisie par l'user pas toutes
+        CategoriesFrame categoriesFrame = new CategoriesFrame(sous_categorie_B);
     }
 }
