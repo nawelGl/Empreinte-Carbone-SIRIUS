@@ -973,7 +973,6 @@ public class XMartCityService {
                             venteScore.build(resultSet);
                             venteScores.add(venteScore);
                         }
-                        System.out.println("Ventes to String:");
 
 
                         ObjectMapper objectMapper = new ObjectMapper();
@@ -986,6 +985,7 @@ public class XMartCityService {
                     }catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
+                    break;
 
                 case "DELETE_PATH" :
                     try{
