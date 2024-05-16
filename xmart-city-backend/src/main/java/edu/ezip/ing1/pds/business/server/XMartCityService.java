@@ -67,20 +67,20 @@ public class XMartCityService {
         UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
 
 
-        SELECT_BESTSELLER_BEFORE("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
+        SELECT_BESTSELLER_BEFORE("SELECT reference, score, taille, genre, empreinte, prix ,CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE vend.\"date\" < magasin.\"dateInstallation\"\n" +
-                "GROUP BY reference, score\n" +
+                "GROUP BY reference, score , taille, genre, empreinte, prix\n" +
                 "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
-        SELECT_BESTSELLER_AFTER("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
+        SELECT_BESTSELLER_AFTER("SELECT reference, score, taille, genre, empreinte, prix ,CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE vend.\"date\" > magasin.\"dateInstallation\"\n" +
-                "GROUP BY reference, score\n" +
+                "GROUP BY reference, score , taille, genre, empreinte, prix\n" +
                 "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
 

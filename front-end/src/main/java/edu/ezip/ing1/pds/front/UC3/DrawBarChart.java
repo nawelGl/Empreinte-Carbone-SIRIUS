@@ -14,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-//TODO: resoudre le pb de couleur
+
 public class DrawBarChart extends JPanel {
 
     private final String[] labels;
@@ -24,23 +24,23 @@ public class DrawBarChart extends JPanel {
     public DrawBarChart(String[] labels, double[] values) {
         this.labels = labels;
         this.values = values;
-//        this.colors = colors;
+
 
         // JavaFX Panel
         JFXPanel fxPanel = new JFXPanel();
         setLayout(new BorderLayout());
         add(fxPanel, BorderLayout.CENTER);
 
-        SwingUtilities.invokeLater(() -> {
+        Platform.runLater(() -> {
             initFX(fxPanel);
         });
     }
 
     private void initFX(JFXPanel fxPanel) {
         CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Category");
+        xAxis.setLabel("Before/After of our service");
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Value");
+        yAxis.setLabel("Sales");
 
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
 
@@ -48,21 +48,6 @@ public class DrawBarChart extends JPanel {
         for (int i = 0; i < labels.length; i++) {
             XYChart.Data<String, Number> data = new XYChart.Data<>(labels[i], values[i]);
             series.getData().add(data);
-
-
-            //-----------------------------------------------
-
-            // initialisation des nodes
-            Node node = data.getNode();
-            if (node != null) {
-                if (i == 0) {
-                    // 첫 번째 막대를 하늘색으로 설정
-                    node.setStyle("-fx-background-color: #6CE5E8;");
-                } else if (i == 1) {
-                    // 두 번째 막대를 파란색으로 설정
-                    node.setStyle("-fx-background-color: #41B8D5;");
-                }
-            }
         }
 
         barChart.getData().add(series);
