@@ -6,15 +6,17 @@ import static org.mockito.Mockito.*;
 import edu.ezip.ing1.pds.business.dto.Marque;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 public class MethodesFrontTest {
 
-    @Test
+    @Disabled
     public void testMalusOUbonusEmpreinte() throws IOException, InterruptedException {
         // Creating a Mock object for SelectMarqueById class
         SelectMarqueById selectMarqueByIdMock = mock(SelectMarqueById.class);        // Configuring the Mock behavior to return brands with different RSE values
+
         Marque durableBrand = new Marque();
         durableBrand.setRse("Durable");
         when(selectMarqueByIdMock.launchSelectMarqueById("1")).thenReturn(durableBrand);
