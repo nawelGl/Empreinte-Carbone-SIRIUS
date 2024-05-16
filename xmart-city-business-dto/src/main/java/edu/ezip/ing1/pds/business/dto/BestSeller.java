@@ -12,6 +12,11 @@ public class BestSeller {
 
     private String score;
 
+    private String taille;
+    private String genre;
+    private double empreinte;
+    private double prix;
+
     private int sum;
 
 
@@ -21,14 +26,14 @@ public class BestSeller {
 
     public final BestSeller build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResultSet(resultSet,  "reference","score","sum");
+        setFieldsFromResultSet(resultSet,  "reference","score","taille","genre","empreinte","prix","sum");
         return this;
     }
 
 
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return buildPreparedStatement(preparedStatement, reference,score,sum);
+        return buildPreparedStatement(preparedStatement, reference,score,taille,genre,empreinte,prix,sum);
     }
 
     public int getReference() {
@@ -47,7 +52,37 @@ public class BestSeller {
         this.score = score;
     }
 
+    public String getTaille() {
+        return taille;
+    }
 
+    public void setTaille(String taille) {
+        this.taille = taille;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public double getEmpreinte() {
+        return empreinte;
+    }
+
+    public void setEmpreinte(double empreinte) {
+        this.empreinte = empreinte;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
 
     public int getSum() {
         return sum;
@@ -80,6 +115,10 @@ public class BestSeller {
         return "BestSeller{" +
                 "reference='" + reference + '\'' +','+
                 "score='" + score + '\'' +','+
+                "taille='" + taille + '\'' +','+
+                "genre='" + genre + '\'' +','+
+                "empreinte='" + empreinte + '\'' +','+
+                "prix='" + prix + '\'' +','+
                 "sum1='" + sum+ '\''+
 
                 '}';
