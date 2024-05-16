@@ -32,6 +32,8 @@ public class MethodesFront {
 
     private final static String LoggingLabel = "F r o n t - M e t h o d e s ";
     private static final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+
+
     // Header for frames
 
     public static void header(JFrame frame, String titre, int x) {
@@ -177,13 +179,13 @@ public class MethodesFront {
 
 
 
-        logger.warn("ATRIBUATEZ SCORE FAILED");
+        logger.warn("ATTRIBUTED SCORE FAILED");
         return "Erreur hors borne";
     }
 
 
     public static JLabel setlabelIconScore(String scoreLetter) {
-        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
+        JLabel label = new JLabel();
 
 
         switch (scoreLetter) {
