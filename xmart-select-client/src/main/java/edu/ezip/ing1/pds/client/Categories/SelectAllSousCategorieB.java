@@ -78,7 +78,7 @@ public class SelectAllSousCategorieB extends ClientRequest<Object, SousCategorie
                 final AsciiTable asciiTable = new AsciiTable();
                 for (final SousCategorieB sousCategorieB: SousCategoriesB.getSousCategoriesB()) {
                     asciiTable.addRule();
-                    asciiTable.addRow(sousCategorieB.getIdSousCategorieB(), sousCategorieB.getNomSouscatB(),sousCategorieB.getcodeGenre());
+                    asciiTable.addRow(sousCategorieB.getIdSousCategorieB(), sousCategorieB.getNomSouscatB(),sousCategorieB.getcodeGenre(),sousCategorieB.getIdSousCategorieA());
                 }
                 asciiTable.addRule();
                 logger.debug("\n{}\n", asciiTable.render());

@@ -80,6 +80,20 @@ public class DetailsProduct {
 
         panelPicture = new RoundedPanel(30, 30);
         panelPicture.setBounds(145, 45, 200, 200);
+//        panelPicture.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+
+        ImageIcon pictureProduct = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+produit.getReference()+".png")));
+        Image image = pictureProduct.getImage();
+        Image nouvelleImage = image.getScaledInstance(150, 154, Image.SCALE_SMOOTH);
+
+        // Créer un ImageIcon à partir de la nouvelle image redimensionnée
+        ImageIcon nouvelleIcon = new ImageIcon(nouvelleImage);
+
+        // Créer le JLabel avec le nouvel ImageIcon
+        JLabel pictureProductLabel = new JLabel(nouvelleIcon);
+        //JLabel pictureProductLabel= new JLabel(pictureProduct);
+        panelPicture.add (pictureProductLabel);
         panelProduct.add(panelPicture);
 
         // ---------Differents Label--------

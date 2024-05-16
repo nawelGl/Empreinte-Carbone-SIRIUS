@@ -37,15 +37,7 @@ public class AdminMenu implements ActionListener {
         panelCentre = new JPanel(null);
         panelCentre.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
 
-        //Pas encore au point niveau esthetique a voir 
-//        boutonArriere1=new JButton();
-//        boutonArriere1.setBounds(280, 250, 300, 230);
-//        boutonArriere1.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
-//       // boutonArriere1.setHorizontalAlignment(SwingConstants.CENTER); // Centre le texte horizontalement
-//        boutonArriere1.setForeground(Color.BLACK);
-//        boutonArriere1.setFocusPainted(false);
-//        boutonArriere1.setEnabled(false);
-//        panelCentre.add(boutonArriere1);
+
 
         configButton = new JButton("<html><center><br><img src='" +
                 getClass().getResource("/configGRANDE.png") +

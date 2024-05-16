@@ -60,7 +60,7 @@ public class XMartCityService {
 
         SELECT_ALL_CATEGORIE("SELECT * FROM \"ezip-ing1\".categorie"),
         SELECT_ALL_SOUS_CAT_A("SELECT * FROM  \"ezip-ing1\".\"sousCategorieA\" WHERE \"codeGenre\" = ? OR \"codeGenre\"= ?"),
-        SELECT_ALL_SOUS_CAT_B("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"codeGenre\" = ? OR \"codeGenre\"= ?"),
+        SELECT_ALL_SOUS_CAT_B("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"codeGenre\" = ? AND \"idSousCategorieA\"=? OR \"codeGenre\"= ? AND \"idSousCategorieA\"=?"),
 
 
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
@@ -797,6 +797,10 @@ public class XMartCityService {
 
                         selectStatement.setInt(1, Integer.valueOf(tabParametres[0]));
                         selectStatement.setInt(2, Integer.valueOf(tabParametres[1]));
+                        selectStatement.setInt(3, Integer.valueOf(tabParametres[2]));
+                        selectStatement.setInt(4, Integer.valueOf(tabParametres[3]));
+
+
 
 
                         ResultSet resultSet = selectStatement.executeQuery();
