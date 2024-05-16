@@ -18,7 +18,6 @@ public class LoginFrame implements ActionListener {
     final String id ="admin"; // à connecter avec la bd
     final String pwd ="1234";
 
-    //Todo creer le table user?
     public LoginFrame(){
 
         //-----setting de base--------
@@ -91,10 +90,6 @@ public class LoginFrame implements ActionListener {
         secondPanel.add(loginBtt);
 
         mainPanel.add(secondPanel);
-
-
-
-        //----ajout au frame
 
 
         loginFrame.setVisible(true);

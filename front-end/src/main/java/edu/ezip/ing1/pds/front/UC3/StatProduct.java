@@ -88,10 +88,10 @@ public class StatProduct implements ActionListener {
         infoTitlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         infoTitlePanel.setBounds(0,0,500,60);
 
-        // recuperer l'image de produit par reference
+        //get a image from refernce
         photoName = "/"+Integer.toString(reference)+".png";
 
-        // controle de dimension de l'image
+        // control an dimension of image
 
         ImageIcon imageIcon = new ImageIcon(getClass().getResource(photoName));
         Image image = imageIcon.getImage();
@@ -137,14 +137,14 @@ public class StatProduct implements ActionListener {
         JPanel chartPanel = new JPanel(null);
 
 
-        // --ajout de title panel
+        // --add title panel
         RoundedPanel chartTitlePanel = new RoundedPanel(30,30);
         JLabel charTitle = new JLabel("Statistiques des ventes");
 
         charTitle.setFont(new Font("Avenir",Font.BOLD,17));
         charTitle.setForeground(Color.white);
 
-        //ajoute de EmptyBorder pour le placement de title
+        //add an  EmptyBorder for place of title
 
         EmptyBorder emptyBorder2 = new EmptyBorder(11, 0, 0, 0);
         chartTitlePanel.setBorder(emptyBorder2);
@@ -162,7 +162,7 @@ public class StatProduct implements ActionListener {
         chartPanel.setBounds(780,80,500,550);
 
 
-        //-------------------ajout de bouton export
+        //-------------------add export btt
         exportBtt=new JButton("Exporter les data");
         exportBtt.setBackground(Color.white);
         exportBtt.addActionListener( this);
@@ -196,14 +196,14 @@ public class StatProduct implements ActionListener {
     }
     private void exportData(){
 
-        //creation de file selector
+        //creation of file selector
         JFileChooser fileChosser = new JFileChooser();
 
-        //préciser type de dossier
+        //choose type de dossier
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File (*.xls)", "xls");
         fileChosser.setFileFilter(filter);
 
-        //on attend jusqu'a utilisateur puisse choisir confirmer
+        // wait until user click button confimer
 
         int result = fileChosser.showSaveDialog(null);
 
@@ -234,7 +234,7 @@ public class StatProduct implements ActionListener {
                 }
             }
 
-            //Vérifier si l'extension est bonne
+            //Verify if the extension is ok
             if(!filePath.toLowerCase().endsWith(".xls")){
                 filePath+=".xls";
             }
