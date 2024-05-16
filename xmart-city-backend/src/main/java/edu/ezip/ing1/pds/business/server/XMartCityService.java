@@ -37,7 +37,7 @@ public class XMartCityService {
         SELECT_MARQUE_BY_ID("SELECT * FROM \"ezip-ing1\".\"marque\" WHERE \"idMarque\" = ?"),
 
         SELECT_SOUS_CATEGORIE_A_BY_ID("SELECT * FROM \"ezip-ing1\".\"sousCategorieA\" WHERE \"idSousCategorieA\" = ?"),
-        SELECT_SOUS_CATEGORIE("SELECT * FROM \"ezip-ing1\".Categorie;"),
+
         SELECT_BEFORE_VENTE_BY_REFERENCE("SELECT reference, quantite, score, empreinte\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
@@ -53,11 +53,14 @@ public class XMartCityService {
         SELECT_VILLE_BY_ID("SELECT * FROM  \"ezip-ing1\".ville WHERE \"idVille\" = ?"),
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
+
+    SELECT_ALL_PRODUCTS_BY_CATEGORIES("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? "),
+
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
 
         SELECT_ALL_CATEGORIE("SELECT * FROM \"ezip-ing1\".categorie"),
         SELECT_ALL_SOUS_CAT_A("SELECT * FROM  \"ezip-ing1\".\"sousCategorieA\" WHERE \"codeGenre\" = ? OR \"codeGenre\"= ?"),
-        SELECT_ALL_SOUS_CAT_B("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"codeGenre\" = ? OR \"codeGenre\"= ?"),
+        SELECT_ALL_SOUS_CAT_B("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"codeGenre\" = ? AND \"idSousCategorieA\"=? OR \"codeGenre\"= ? AND \"idSousCategorieA\"=?"),
 
 
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
@@ -794,6 +797,10 @@ public class XMartCityService {
 
                         selectStatement.setInt(1, Integer.valueOf(tabParametres[0]));
                         selectStatement.setInt(2, Integer.valueOf(tabParametres[1]));
+                        selectStatement.setInt(3, Integer.valueOf(tabParametres[2]));
+                        selectStatement.setInt(4, Integer.valueOf(tabParametres[3]));
+
+
 
 
                         ResultSet resultSet = selectStatement.executeQuery();
@@ -868,6 +875,46 @@ public class XMartCityService {
                     }
                     break;
 
+                case "SELECT_ALL_PRODUCTS_BY_CATEGORIES":
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_PRODUCTS_BY_CATEGORIES.query);
+
+                        String parametres= request.getRequestBody().replaceAll("\"", "");
+
+                        String[] tabParametres = parametres.split(",");
+
+                        selectStatement.setInt(1, Integer.valueOf(tabParametres[0]));
+                        selectStatement.setInt(2, Integer.valueOf(tabParametres[1]));
+                        selectStatement.setInt(3, Integer.valueOf(tabParametres[2]));
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Produits produits= new Produits();
+
+                        while (resultSet.next()) {
+                            Produit produit=new Produit();
+                            produit.build(resultSet);
+                            System.out.println("produit to string :");
+                            System.out.println(produit.toString());
+                            produits.add(produit);
+                        }
+
+                        System.out.println("produits to string :");
+                        System.out.println(produits.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(produits);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_PRODUCTS_BY_CATEGORIES query");
+                        logger.error("Error executing SELECT_ALL_PRODUCTS_BY_CATEGORIES query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
                 case "SELECT_BESTSELLER_BEFORE": // requête SELECT
                     try {
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_BESTSELLER_BEFORE.query);
@@ -923,14 +970,13 @@ public class XMartCityService {
                         selectStatement.setString(1, score);
                         ResultSet resultSet = selectStatement.executeQuery();
 
-                        VenteScores venteScores = new VenteScores();  //a changer
+                        VenteScores venteScores = new VenteScores();
 
                         while (resultSet.next()) {
                             VenteScore venteScore = new VenteScore();
                             venteScore.build(resultSet);
                             venteScores.add(venteScore);
                         }
-                        System.out.println("Ventes to String:");
 
 
                         ObjectMapper objectMapper = new ObjectMapper();
@@ -943,6 +989,7 @@ public class XMartCityService {
                     }catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
+                    break;
 
                 case "DELETE_PATH" :
                     try{

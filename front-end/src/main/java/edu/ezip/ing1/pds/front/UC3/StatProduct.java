@@ -35,7 +35,6 @@ public class StatProduct implements ActionListener {
     private int reference = RechercheReferenceUC3.venteBefore.getReference();
     private String score = RechercheReferenceUC3.venteBefore.getScore();
     private Vente vente;
-    private  int textSize=20;
     private int salesBefore;
     private int salesAfter;
 
@@ -113,25 +112,9 @@ public class StatProduct implements ActionListener {
 
         // scoreLabel
         JLabel scoreLabel = new JLabel();
-        // Switch case pour recuperer l'icone correspondqnt
+        ImageIcon scoreIcon = selectScoreImage(score);
+        scoreLabel.setIcon(scoreIcon);
 
-        switch (score) {
-            case "A":
-                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_A.png"))));
-                break;
-            case "B":
-                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_B.png"))));
-                break;
-            case "C":
-                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_C.png"))));
-                break;
-            case "D":
-                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_D.png"))));
-                break;
-            case "E":
-                scoreLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon_E.png"))));
-                break;
-        }
 
         photoLabel.setBounds(150,100,200,205);
         textLabel.setBounds(30,400,200,20);
@@ -249,6 +232,30 @@ public class StatProduct implements ActionListener {
             }
         }
 
+    }
+    private ImageIcon selectScoreImage(String score) {
+        ImageIcon icon;
+        switch (score) {
+            case "A":
+                icon = new ImageIcon(getClass().getResource("/icon_A.png"));
+                break;
+            case "B":
+                icon = new ImageIcon(getClass().getResource("/icon_B.png"));
+                break;
+            case "C":
+                icon = new ImageIcon(getClass().getResource("/icon_C.png"));
+                break;
+            case "D":
+                icon = new ImageIcon(getClass().getResource("/icon_D.png"));
+                break;
+            case "E":
+                icon = new ImageIcon(getClass().getResource("/icon_E.png"));
+                break;
+            default:
+                icon = null;
+                break;
+        }
+        return icon;
     }
 
 

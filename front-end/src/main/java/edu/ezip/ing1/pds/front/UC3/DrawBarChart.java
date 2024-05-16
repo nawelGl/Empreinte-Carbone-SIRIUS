@@ -26,12 +26,12 @@ public class DrawBarChart extends JPanel {
         this.values = values;
 //        this.colors = colors;
 
-        // JavaFX Panel 생성
+        // JavaFX Panel
         JFXPanel fxPanel = new JFXPanel();
         setLayout(new BorderLayout());
         add(fxPanel, BorderLayout.CENTER);
 
-        Platform.runLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             initFX(fxPanel);
         });
     }
@@ -52,7 +52,7 @@ public class DrawBarChart extends JPanel {
 
             //-----------------------------------------------
 
-            // 데이터 노드 초기화
+            // initialisation des nodes
             Node node = data.getNode();
             if (node != null) {
                 if (i == 0) {
@@ -69,6 +69,7 @@ public class DrawBarChart extends JPanel {
 
         Scene scene = new Scene(barChart);
         fxPanel.setScene(scene);
+
     }
 
 }

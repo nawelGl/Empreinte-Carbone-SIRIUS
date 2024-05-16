@@ -22,12 +22,12 @@ import java.util.UUID;
 public class SelectBestSellerAfter extends ClientRequest<Object, BestSellers> {
 
     //Attributs pour lancer la requête.
-    private final static String LoggingLabel = "S e l e c t - B e s t S e l l e r - B e f o r e";
+    private final static String LoggingLabel = "S e l e c t - B e s t S e l l e r - A f t e r";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     private final static String networkConfigFile = "network.yaml";
 
-    private static final String requestOrder = "SELECT_BESTSELLER_BEFORE";
+    private static final String requestOrder = "SELECT_BESTSELLER_AFTER";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
 

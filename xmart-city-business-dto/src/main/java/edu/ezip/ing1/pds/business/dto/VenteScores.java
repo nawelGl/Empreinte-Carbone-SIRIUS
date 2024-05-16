@@ -1,20 +1,22 @@
 package edu.ezip.ing1.pds.business.dto;
 
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
 public class VenteScores {
 
 
-    private Set<VenteScore> venteScores = new LinkedHashSet<>();
+    private List<VenteScore> venteScores = new ArrayList<>();
 
-    public Set<VenteScore> getVenteScores() {
+    public List<VenteScore> getVenteScores() {
         return venteScores;
     }
 
-    public void setVenteScores(Set<VenteScore> venteScores) {
+    public void setVenteScores(List<VenteScore> venteScores) {
         this.venteScores = venteScores;
     }
 
