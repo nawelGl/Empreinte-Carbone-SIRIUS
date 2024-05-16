@@ -8,6 +8,7 @@ import edu.ezip.ing1.pds.client.UC3.SelectVenteByScore;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.Template;
+import javafx.application.Platform;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -121,12 +122,16 @@ public class StatScore extends JFrame implements ActionListener {
         ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
         JButton backButton=new JButton(backIcon);
 
+
         backButton.setBounds(1320,600,60,60);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DrawSalesGraph drawSalesGraph = new DrawSalesGraph(listA, listB, listC, listD, listE);
+                drawSalesGraph.exitApplication();
                 AccueilUC3 accueilUC3=new AccueilUC3();
                 scoreFrame.dispose();
+
 
             }
         });
@@ -283,6 +288,7 @@ public class StatScore extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==exportBtt){
+
             exportData();
             JOptionPane jOptionPane = new JOptionPane();
             jOptionPane.showMessageDialog(scoreFrame,"votre fichier est bien enregistré","information",JOptionPane.INFORMATION_MESSAGE);

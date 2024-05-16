@@ -31,7 +31,7 @@ public class DrawBarChart extends JPanel {
         setLayout(new BorderLayout());
         add(fxPanel, BorderLayout.CENTER);
 
-        SwingUtilities.invokeLater(() -> {
+        Platform.runLater(() -> {
             initFX(fxPanel);
         });
     }
