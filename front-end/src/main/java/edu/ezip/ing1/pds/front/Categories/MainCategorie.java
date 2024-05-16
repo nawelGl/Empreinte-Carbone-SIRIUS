@@ -2,13 +2,30 @@ package edu.ezip.ing1.pds.front.Categories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import edu.ezip.ing1.pds.business.dto.Categorie;
+import edu.ezip.ing1.pds.business.dto.Categories;
+import edu.ezip.ing1.pds.client.Categories.SelectAllCategorie;
+
 import javax.swing.JButton;
 
 public class MainCategorie extends CategoriesTemplate implements ActionListener{
 
+    Categories categories;
+
     public MainCategorie(){
         super();
+
+        // ----- Récupértation des infos via des requetes -------
+        try {
+            categories = SelectAllCategorie.launchSelectAllCategorie();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
         for (int i = 0; i < categories.getCategories().size(); i++){
             JButton bouton = new JButton();
@@ -39,5 +56,4 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
             }
         } 
     }
-    
 }

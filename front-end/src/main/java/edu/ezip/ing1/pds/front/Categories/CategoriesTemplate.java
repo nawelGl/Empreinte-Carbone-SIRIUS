@@ -19,22 +19,8 @@ public class CategoriesTemplate implements ActionListener{
     //Size for buttons :
     int width = 260;
     int height = 100;
-    public static Categories categories;
-
 
     public CategoriesTemplate(){
-
-        // ----- Récupértation des infos via des requetes -------
-            try {
-                categories = SelectAllCategorie.launchSelectAllCategorie();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-        //Test récupération catégories : OK retourne bien les catégories
-        System.out.println("TEST CATEGORIES : " + categories.toString());
 
         //--------- Front end ----------
         categorieFrame = new JFrame();
