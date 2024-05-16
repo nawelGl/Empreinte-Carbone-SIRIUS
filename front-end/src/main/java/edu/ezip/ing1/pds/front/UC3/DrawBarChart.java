@@ -56,5 +56,8 @@ public class DrawBarChart extends JPanel {
         fxPanel.setScene(scene);
 
     }
+    public void exitApplication() {
+        Platform.exit();
+    }
 
 }

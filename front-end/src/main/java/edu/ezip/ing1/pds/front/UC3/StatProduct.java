@@ -175,8 +175,11 @@ public class StatProduct implements ActionListener {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DrawBarChart drawBarChart = new DrawBarChart(labels,values);
+                drawBarChart.exitApplication();
                 AccueilUC3 accueilUC3=new AccueilUC3();
                 statUC3.dispose();
+
 
             }
         });

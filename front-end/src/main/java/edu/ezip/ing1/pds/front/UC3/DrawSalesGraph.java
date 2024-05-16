@@ -36,7 +36,6 @@ public class DrawSalesGraph extends JPanel {
     }
 
     private void initUI() {
-        // JavaFX를 위한 JFXPanel 생성
         JFXPanel fxPanel = new JFXPanel();
         add(fxPanel);
 
