@@ -277,13 +277,8 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
                     if (isDouble(borneInfText) && isDouble(borneSupText)) {
                         double borneInf = Double.parseDouble(borneInfText);
                         double borneSup = Double.parseDouble(borneSupText);
-
-
-
-
                         String scoreLettre = (String) scoreBox.getSelectedItem();
 
-                        //----Faire l'update a la BD
                         ObjectMapper objectMapper = new ObjectMapper();
                         Score score = new Score();
                         score.setborneInf(borneInf);

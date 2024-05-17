@@ -102,12 +102,6 @@ public class DetailsProduct {
 
         priceProduct = new JLabel("Prix : " + String.valueOf(produit.getPrix()) + " €");
 
-        //TODO:
-//        try{
-//        marque=SelectMarqueById.launchSelectMarquByRef(valueOf(produit.getReference());
-////    } catch(Exception e){
-////        System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-////    }
 
         try {
             villeProduit = SelectVilleById.launchSelectVilleById(String.valueOf(produit.getIdVilleDepart()));
