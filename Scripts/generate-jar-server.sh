@@ -1,3 +1,4 @@
-cd ../"xmart-city-backend"
+cd ..
+cd /"xmart-city-backend"
 mvn clean install
 mvn clean package
