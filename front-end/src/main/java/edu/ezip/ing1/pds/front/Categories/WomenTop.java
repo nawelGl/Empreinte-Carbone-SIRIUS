@@ -1,13 +1,11 @@
 package edu.ezip.ing1.pds.front.Categories;
 
-import edu.ezip.ing1.pds.business.dto.SousCategorieA;
 import edu.ezip.ing1.pds.business.dto.SousCategorieB;
 import edu.ezip.ing1.pds.business.dto.SousCategoriesB;
-import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
 import edu.ezip.ing1.pds.client.Categories.SelectSousCategorieBByName;
-import edu.ezip.ing1.pds.front.Categories.CategoriesTemplate;
 import edu.ezip.ing1.pds.front.CategoriesFrame;
+import edu.ezip.ing1.pds.front.Categories.MainCategorie;
 
 import static java.lang.String.valueOf;
 
@@ -60,7 +58,7 @@ public class WomenTop extends CategoriesTemplate implements ActionListener{
             JButton button = (JButton) e.getSource();
             try {
                 sous_categorie_B = SelectSousCategorieBByName.launchSelectSousCatBByName(button.getText());
-                CategoriesFrame categoriesFrame = new CategoriesFrame(sous_categorie_B);
+                CategoriesFrame categoriesFrame = new CategoriesFrame(sous_categorie_B, WomenCategories.getIdCategorie(), 1);
                 categorieFrame.dispose();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

@@ -184,7 +184,6 @@ public class StatProduct implements ActionListener {
             }
         });
 
-
         //----------------------------------------------
         mainPanel.add(infoPanel);
         mainPanel.add(chartPanel);

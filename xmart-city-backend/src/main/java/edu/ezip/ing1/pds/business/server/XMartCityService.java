@@ -65,6 +65,7 @@ public class XMartCityService {
 
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
         UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
+        SELECT_ALL_USER("SELECT identifiant, password FROM \"ezip-ing1\".user;"),
 
 
         SELECT_BESTSELLER_BEFORE("SELECT reference, score, taille, genre, empreinte, prix ,CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
@@ -1075,6 +1076,33 @@ public class XMartCityService {
                     response = new Response(request.getRequestId(), "Unknown action");
 
 
+
+                case "SELECT_ALL_USER": // requête SELECT ALL USER
+                    try {
+
+                        System.out.println("@@@@@@@@@@@@@@@@@@verify@@@@@@@@@@@@@");
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_USER.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Users users = new Users();
+
+                        while (resultSet.next()) {
+                            User user = new User();
+                            user.build(resultSet);
+                            users.add(user);
+                        }
+                        System.out.println(users.toString());
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(users);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    }catch (SQLException | JsonProcessingException e){
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_USER query");
+                        logger.error("Error executing SELECT_All_USER query: {}", e.getMessage());
+                    }catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
 
                 }
             }
