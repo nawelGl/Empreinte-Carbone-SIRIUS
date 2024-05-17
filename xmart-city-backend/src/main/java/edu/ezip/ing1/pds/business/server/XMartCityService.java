@@ -1011,6 +1011,8 @@ public class XMartCityService {
 
                 case "SELECT_ALL_USER": // requête SELECT ALL USER
                     try {
+
+                        System.out.println("@@@@@@@@@@@@@@@@@@verify@@@@@@@@@@@@@");
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_USER.query);
                         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -1021,6 +1023,7 @@ public class XMartCityService {
                             user.build(resultSet);
                             users.add(user);
                         }
+                        System.out.println(users.toString());
                         ObjectMapper objectMapper = new ObjectMapper();
                         String responseBody = objectMapper.writeValueAsString(users);
 

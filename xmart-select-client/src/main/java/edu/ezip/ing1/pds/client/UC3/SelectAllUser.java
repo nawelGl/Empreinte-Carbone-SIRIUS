@@ -23,12 +23,12 @@ import java.util.UUID;
 public class SelectAllUser extends ClientRequest<Object, Users> {
     // Attributs pour les requêtes
 
-    private  final static String LoggingLabel ="S e l e c t - A l l - U  s e r ";
+    private  final static String LoggingLabel ="S e l e c t - A l l - U s e r ";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
     private final static String networkConfigFile = "network.yaml";
 
-    private static final String requestOrder = "SELECT_All_USER";
+    private static final String requestOrder = "SELECT_ALL_USER";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
     public SelectAllUser(
