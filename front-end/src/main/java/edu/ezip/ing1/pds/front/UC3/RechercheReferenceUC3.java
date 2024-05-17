@@ -4,7 +4,6 @@ package edu.ezip.ing1.pds.front.UC3;
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.client.UC3.SelectAfterVenteByReference;
 import edu.ezip.ing1.pds.client.UC3.SelectBeforeVenteByReference;
-import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
 
@@ -31,7 +30,7 @@ class RechercheReferenceUC3 implements ActionListener {
     Boolean referenceIsNotAnInt = false;
 
 
-    String titreLabelSecondaire;
+    String titreLabelSecondaire ;
 
     String titreHeader;
     int x;
@@ -40,7 +39,7 @@ class RechercheReferenceUC3 implements ActionListener {
     JButton boutonCategories = new JButton();
 
     //Constructeur :
-    public RechercheReferenceUC3(String titreFrame, String titreHeader, String titreLabelSecondaire, int x) {
+    public RechercheReferenceUC3(String titreFrame, String titreHeader, String titreLabelSecondaire, int x){
         //Paramétrages de base :
         menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -60,7 +59,7 @@ class RechercheReferenceUC3 implements ActionListener {
 
         //----------panel secondaire--------------
         //JPanel secondPanel = new JPanel();
-        RoundedPanel secondPanel = new RoundedPanel(60, 60);
+        RoundedPanel secondPanel = new RoundedPanel(60,60);
         secondPanel.setLayout(null);
         secondPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
@@ -78,7 +77,7 @@ class RechercheReferenceUC3 implements ActionListener {
         searchBar.setBounds(80, 150, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.addActionListener(this);
-        boutonConfirmer.setBounds(360, 230, 80, 30);
+        boutonConfirmer.setBounds(360,230, 80, 30);
         secondPanel.add(searchBar);
         secondPanel.add(boutonConfirmer);
 
@@ -135,6 +134,6 @@ class RechercheReferenceUC3 implements ActionListener {
         }
     }
 
+
+
 }
-
-
