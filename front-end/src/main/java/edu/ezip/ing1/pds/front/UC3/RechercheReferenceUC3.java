@@ -96,59 +96,50 @@ class RechercheReferenceUC3 implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == boutonConfirmer) {
+            String refEnString = searchBar.getText();
             try {
-                String refEnString = searchBar.getText();
-                try {
-                    Integer refEnInt = Integer.parseInt(refEnString);
-                } catch (Exception ex) {
-                    System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
-                    referenceIsNotAnInt = true;
-                }
+                Integer refEnInt = Integer.parseInt(refEnString);
+                referenceIsNotAnInt = false;
+            } catch (NumberFormatException ex) {
+                System.out.println("La référence entrée n'est pas un entier : " + ex.getMessage());
+                referenceIsNotAnInt = true;
+            }
 
-                if (referenceIsNotAnInt) {
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
-                    referenceIsNotAnInt = false;
-                } else {
+            if (referenceIsNotAnInt) {
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 405] Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "[ERREUR 405] - Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                searchBar.setText("");
+                referenceIsNotAnInt = false;
+            } else {
+                try {
                     Request request = new Request();
                     request.setRequestContent(refEnString);
 
-                    //launch query and take venteBefore/After
+                    // Launch query and take venteBefore/After
                     venteBefore = SelectBeforeVenteByReference.launchSelectVenteByReference(request);
                     venteAfter = SelectAfterVenteByReference.launchSelectVenteByReference(request);
 
-                    //take quantity of sales Before/After
+                    // Take quantity of sales Before/After
                     quantiteBefore = SelectBeforeVenteByReference.getTotalQuantite();
                     quantiteAfter = SelectAfterVenteByReference.getTotalQuantite();
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
 
-                    if (ClientRequest.isConnectionRefused() == true) {
-                        searchBar.setText("");
-                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
-                        referenceIsNotAnInt = false;
+                if (ClientRequest.isConnectionRefused()) {
+                    searchBar.setText("");
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (venteBefore != null && venteAfter != null) {
+                        StatProduct statProduct = new StatProduct(quantiteBefore, quantiteAfter);
+                        menuEmpreinteCarbone.dispose();
                     } else {
-                        if (referenceIsNotAnInt) {
-                            JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 405] Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "[ERREUR 405] - Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
-                            searchBar.setText("");
-                            referenceIsNotAnInt = false;
-                        } else {
-
-                            if (venteBefore != null && venteAfter != null) {
-                                StatProduct statProduct = new StatProduct(quantiteBefore, quantiteAfter);
-                                menuEmpreinteCarbone.dispose();
-                            } else {
-                                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 406] Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
-                                searchBar.setText("");
-                            }
-                        }
+                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 406] Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+                        searchBar.setText("");
                     }
                 }
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
             }
-
-
         }
-
     }
-
 }
+
+
