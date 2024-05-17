@@ -144,7 +144,7 @@ public class ProductMapping implements ActionListener{
 
         //------------title label-------------
         JLabel titleLabel = new JLabel();
-        titleLabel.setText("Voici l'place de votre produit :");
+        titleLabel.setText("Voici l'emplacement de votre produit :");
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Avenir", Font.BOLD, textSize+3));
         titleLabel.setBounds(50, 70, 400, 50);

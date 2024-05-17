@@ -4,18 +4,23 @@ import edu.ezip.ing1.pds.business.dto.*;
 import edu.ezip.ing1.pds.client.Categories.SelectAllProductByCategorie;
 import edu.ezip.ing1.pds.client.Categories.SelectCategorieByID;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
+import edu.ezip.ing1.pds.front.UC1.ProductInfoBis;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Objects;
 
-public class CategoriesFrame {
+public class CategoriesFrame implements ActionListener {
     JFrame categorieFrame = new JFrame();
     private int idSousCatA;
     private int idCat;
     Produits produits;
+    Produit produit;
     private int y = 0;
     SousCategorieB sous_categorie_B;
     Marque marqueProduit = new Marque();
@@ -90,7 +95,7 @@ public class CategoriesFrame {
             productPanel.setBounds(110, 15+y, 1200, 200);
             panelPanelProduct.add(productPanel);
             y+=220;
-            Produit produit = produits.getProduits().get(i);
+            produit = produits.getProduits().get(i);
 
             ImageIcon pictureProduct = new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/"+produit.getReference()+".png")));
             Image image = pictureProduct.getImage();
@@ -103,7 +108,7 @@ public class CategoriesFrame {
             productPanel.add(pictureProductLabel);
 
             JLabel nomProduit = new JLabel();
-            nomProduit.setText(produit.getNomProduit() + " ( référence : " + produit.getReference() + ")");
+            nomProduit.setText(produit.getNomProduit() + " (référence : " + produit.getReference() + ")");
             nomProduit.setFont(Template.FONT_ECRITURE2);
             nomProduit.setBounds(220, 15, 400, 40);
             productPanel.add(nomProduit);
@@ -131,8 +136,23 @@ public class CategoriesFrame {
             prix.setFont(Template.FONT_ECRITURE2);
             prix.setBounds(220, 105, 200, 40);
             productPanel.add(prix);
+
+            JButton productInfoButton = new JButton("Informations produit");
+            productInfoButton.setBounds(1100, 140, 170, 37);
+            productInfoButton.addActionListener(this);
+            productPanel.add(productInfoButton);
+
         }
 
         categorieFrame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JButton) {
+            JButton button = (JButton) e.getSource();
+            ProductInfoBis productInfo = new ProductInfoBis(produit, idCat, idSousCatA, sous_categorie_B.getIdSousCategorieB());
+            categorieFrame.dispose();
+        }
     }
 }
