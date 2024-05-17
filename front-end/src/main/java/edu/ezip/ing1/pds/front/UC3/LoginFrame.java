@@ -23,7 +23,7 @@ public class LoginFrame implements ActionListener {
 
         //-----setting de base--------
 
-        loginFrame = new JFrame("Veuillez se connecter");
+        loginFrame = new JFrame("Veuillez vous connecter");
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setResizable(false);
         loginFrame.setSize(Template.LONGUEUR,Template.LARGEUR);
