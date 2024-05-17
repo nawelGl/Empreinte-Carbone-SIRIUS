@@ -9,12 +9,9 @@ import java.awt.*;
 
 public class CategoriesFrame {
     JFrame categorieFrame = new JFrame();
-    //Récupérer les sous catégories B de là ou on a appuyé
-    //PB : comment avoir dans quelle frame on a appuyé en dernier ?
-    //passer diretement la collection en parametres du constructeur
     SousCategorieB sous_categorie_B;
 
-    public CategoriesFrame(SousCategorieB sous_categories_B){
+    public CategoriesFrame(SousCategorieB sous_categorie_B){
         this.sous_categorie_B = sous_categorie_B;
 
         categorieFrame.setTitle("Choisissez un produit");
@@ -36,7 +33,7 @@ public class CategoriesFrame {
         RoundedPanel titlePanel = new RoundedPanel(40, 40);
         titlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         JLabel titleLabel = new JLabel();
-        titleLabel.setText("Produits correspondants à [completer categories] :");
+        titleLabel.setText("Produits correspondants à " + sous_categorie_B.getNomSouscatB() + " :");
         titleLabel.setFont(Template.FONT_TITRES);
         titleLabel.setForeground(Color.WHITE);
         titlePanel.add(titleLabel);

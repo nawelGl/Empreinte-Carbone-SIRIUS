@@ -28,7 +28,7 @@ public class WomenTop extends CategoriesTemplate implements ActionListener{
         super();
 
         try{
-            sous_categories_B = SelectAllSousCategorieB.launchSelectAllSousCatB("0,2,1,2");
+            sous_categories_B = SelectAllSousCategorieB.launchSelectAllSousCatB("0,1,1,1");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
@@ -56,12 +56,12 @@ public class WomenTop extends CategoriesTemplate implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Besoin de passer en parametres que la categorie choisie par l'user pas toutes
-        CategoriesFrame categoriesFrame = new CategoriesFrame(sous_categorie_B);
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             try {
-                SelectSousCategorieBByName.launchSelectSousCatBByName(button.getText());
+                sous_categorie_B = SelectSousCategorieBByName.launchSelectSousCatBByName(button.getText());
+                CategoriesFrame categoriesFrame = new CategoriesFrame(sous_categorie_B);
+                categorieFrame.dispose();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (InterruptedException ex) {

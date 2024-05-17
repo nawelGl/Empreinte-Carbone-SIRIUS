@@ -96,6 +96,7 @@ public class XMartCityService {
 
         SELECT_SOUS_CATEGORIE_B_BY_NAME("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"nom\" = ?"),
 
+        SELECT_SOUS_CATEGORIE_A_BY_NAME("SELECT * FROM  \"ezip-ing1\".\"sousCategorieA\" WHERE \"nom\" = ?"),
 
         DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;");
 
@@ -1038,6 +1039,40 @@ public class XMartCityService {
                     } catch (SQLException | JsonProcessingException e) {
                         response = new Response(request.getRequestId(), "Error executing SELECT_SOUS_CATEGORIE_B_BY_NAME query");
                         logger.error("Error executing SELECT_SOUS_CATEGORIE_B_BY_NAME query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_SOUS_CATEGORIE_A_BY_NAME" :
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_A_BY_NAME.query);
+                        String name = request.getRequestBody().replaceAll("\"", "");
+                        selectStatement.setString(1, name);
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        SousCategoriesA categories= new SousCategoriesA();
+
+                        while (resultSet.next()) {
+                            SousCategorieA categorie= new SousCategorieA();
+                            categorie.build(resultSet);
+                            System.out.println("Sous cat A to string :");
+                            System.out.println(categories.toString());
+                            categories.add(categorie);
+                        }
+
+                        System.out.println("Sous cat A to string :");
+                        System.out.println(categories.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(categories);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_SOUS_CATEGORIE_A_BY_NAME query");
+                        logger.error("Error executing SELECT_SOUS_CATEGORIE_A_BY_NAME query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }

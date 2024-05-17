@@ -148,7 +148,7 @@ public class DetailsProduct {
 
         //------------Positionnement des element------
 
-        nameProduct.setBounds(200, 250, 100, 40);
+        nameProduct.setBounds(200, 250, 200, 40);
         nameProduct.setFont(Template.FONT_ECRITURE2);
         nameProduct.setForeground(Color.WHITE);
         panelProduct.add(nameProduct);
@@ -240,7 +240,6 @@ public class DetailsProduct {
             mapPanel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
-                    System.out.println("Dans override si path est pas null.");
                     super.paintComponent(g);
                     Graphics2D g2d = (Graphics2D) g;
                     // Épaisseur de la ligne (chemin)
