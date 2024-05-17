@@ -5,6 +5,7 @@ import edu.ezip.ing1.pds.business.dto.SousCategorieB;
 import edu.ezip.ing1.pds.business.dto.SousCategoriesB;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
+import edu.ezip.ing1.pds.client.Categories.SelectSousCategorieBByName;
 import edu.ezip.ing1.pds.front.Categories.CategoriesTemplate;
 import edu.ezip.ing1.pds.front.CategoriesFrame;
 
@@ -57,5 +58,15 @@ public class WomenTop extends CategoriesTemplate implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         //Besoin de passer en parametres que la categorie choisie par l'user pas toutes
         CategoriesFrame categoriesFrame = new CategoriesFrame(sous_categorie_B);
+        if (e.getSource() instanceof JButton) {
+            JButton button = (JButton) e.getSource();
+            try {
+                SelectSousCategorieBByName.launchSelectSousCatBByName(button.getText());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 }
