@@ -32,9 +32,10 @@ public class LoginFrame implements ActionListener {
 
     public LoginFrame(){
 
-        Request request = new Request();
+
         try {
-            users= SelectAllUser.launchSelectAllUsers(request);
+            Request request = new Request();
+            users= SelectAllUser.launchSelectAllUser(request);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

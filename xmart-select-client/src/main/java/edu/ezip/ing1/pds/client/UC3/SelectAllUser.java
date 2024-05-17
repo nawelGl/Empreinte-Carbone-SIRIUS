@@ -46,7 +46,7 @@ public class SelectAllUser extends ClientRequest<Object, Users> {
 
 // Fonction pour lancer les requêtes (à la place de main)
 
-    public static Users launchSelectAllUsers(Request request) throws  IOException, InterruptedException{
+    public static Users launchSelectAllUser(Request request) throws  IOException, InterruptedException{
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file: {}", networkConfig.toString());
 
