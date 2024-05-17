@@ -16,6 +16,8 @@ public class WomenCategories extends CategoriesTemplate implements ActionListene
     private int x = 0;
     private int y = 0;
 
+    private static int idCategorie;
+
     public WomenCategories(){
         super();
 
@@ -46,6 +48,10 @@ public class WomenCategories extends CategoriesTemplate implements ActionListene
         }
     }
 
+    public static int getIdCategorie() {
+        return idCategorie;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
@@ -62,24 +68,19 @@ public class WomenCategories extends CategoriesTemplate implements ActionListene
 //            }
 
             if(button.getText().equals("Vêtements de sport")){
+                idCategorie = 7;
                 MenSportswear menSportswear = new MenSportswear();
                 categorieFrame.dispose();
-            } else if(button.getText().equals("Sous vêtements")){
-                //WomenCategories womenCategories = new WomenCategories();
-                //categorieFrame.dispose();
-            } else if(button.getText().equals("Accessoire")){
-                //ChildrenCategories childrenCategories = new ChildrenCategories();
-                //categorieFrame.dispose();
             } else if(button.getText().equals("Hauts")){
+                idCategorie = 1;
                 WomenTop womenTop = new WomenTop();
                 categorieFrame.dispose();
             } else if(button.getText().equals("Bas")){
+                idCategorie = 2;
                 WomenPants womenPants = new WomenPants();
                 categorieFrame.dispose();
-            } else if(button.getText().equals("Pyjamas")){
-                //ChildrenCategories childrenCategories = new ChildrenCategories();
-                //categorieFrame.dispose();
             } else if(button.getText().equals("Robes")){
+                idCategorie = 3;
                 WomenDresses womenDresses = new WomenDresses();
                 categorieFrame.dispose();
             } else if(button.getText().equals("Vêtements de maternité")){
