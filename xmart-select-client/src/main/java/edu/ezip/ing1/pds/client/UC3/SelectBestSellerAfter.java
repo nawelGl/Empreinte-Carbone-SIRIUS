@@ -71,14 +71,14 @@ public class SelectBestSellerAfter extends ClientRequest<Object, BestSellers> {
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final BestSellers bestSellers = (BestSellers) joinedClientRequest.getResult();
-           // final AsciiTable asciiTable = new AsciiTable();
+            final AsciiTable asciiTable = new AsciiTable();
 
-//            for (final BestSeller bestSeller : bestSellers.getBestSellers()){
-//                asciiTable.addRule();
-//                asciiTable.addRow(bestSeller.getReference(), bestSeller.getScore(), bestSeller.getSum());
-//            }
-//            asciiTable.addRule();
-//            logger.debug("\n{}\n", asciiTable.render());
+            for (final BestSeller bestSeller : bestSellers.getBestSellers()){
+                asciiTable.addRule();
+                asciiTable.addRow(bestSeller.getReference(), bestSeller.getScore(), bestSeller.getSum());
+            }
+            asciiTable.addRule();
+            logger.debug("\n{}\n", asciiTable.render());
             return bestSellers;
         }
         return null;

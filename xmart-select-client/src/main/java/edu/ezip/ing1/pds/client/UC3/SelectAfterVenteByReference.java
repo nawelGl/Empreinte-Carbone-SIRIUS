@@ -87,13 +87,13 @@ public class SelectAfterVenteByReference extends ClientRequest<Object, Ventes> {
                 totalQuantite += getTotalQuantiteVentes(ventes);
                 final AsciiTable asciiTable = new AsciiTable();
                 Vente dernierVente = null;
-//                for (final Vente vente : ventes.getVentes()) {
-//                    asciiTable.addRule();
-//                    asciiTable.addRow(vente.getReference(), vente.getQuantite(), vente.getScore(), vente.getEmpreinte());
-//                    dernierVente =vente;
-//                }
-//                asciiTable.addRule();
-//                logger.debug("\n{}\n", asciiTable.render());
+                for (final Vente vente : ventes.getVentes()) {
+                    asciiTable.addRule();
+                    asciiTable.addRow(vente.getReference(), vente.getQuantite(), vente.getScore(), vente.getEmpreinte());
+                    dernierVente =vente;
+                }
+                asciiTable.addRule();
+                logger.debug("\n{}\n", asciiTable.render());
                 return dernierVente;
             }
         } catch(Exception e){

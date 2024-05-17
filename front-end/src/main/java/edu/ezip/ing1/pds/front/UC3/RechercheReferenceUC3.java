@@ -2,6 +2,7 @@ package edu.ezip.ing1.pds.front.UC3;
 
 
 import edu.ezip.ing1.pds.business.dto.Vente;
+import edu.ezip.ing1.pds.business.dto.Ventes;
 import edu.ezip.ing1.pds.client.UC3.SelectAfterVenteByReference;
 import edu.ezip.ing1.pds.client.UC3.SelectBeforeVenteByReference;
 import edu.ezip.ing1.pds.commons.Request;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Objects;
 
 class RechercheReferenceUC3 implements ActionListener {
@@ -108,47 +110,49 @@ class RechercheReferenceUC3 implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == boutonConfirmer){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == boutonConfirmer) {
+            String refEnString = searchBar.getText();
             try {
-                String refEnString = searchBar.getText();
-                try{
-                    Integer refEnInt = Integer.parseInt(refEnString);
-                } catch (Exception ex){
-                    System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
-                    referenceIsNotAnInt = true;
-                }
+                Integer refEnInt = Integer.parseInt(refEnString);
+                referenceIsNotAnInt = false;
+            } catch (NumberFormatException ex) {
+                System.out.println("La référence entrée n'est pas un entier : " + ex.getMessage());
+                referenceIsNotAnInt = true;
+            }
 
-                if(referenceIsNotAnInt){
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
-                    referenceIsNotAnInt = false;
-                } else {
-                    Request request = new Request();
-                    request.setRequestContent(refEnString);
+            if (referenceIsNotAnInt) {
+                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                searchBar.setText("");
+                referenceIsNotAnInt = false;
+            } else {
+                Request request = new Request();
+                request.setRequestContent(refEnString);
+                try {
                     venteBefore = SelectBeforeVenteByReference.launchSelectVenteByReference(request);
-                    venteAfter= SelectAfterVenteByReference.launchSelectVenteByReference(request);
+                    venteAfter = SelectAfterVenteByReference.launchSelectVenteByReference(request);
 
                     quantiteBefore = SelectBeforeVenteByReference.getTotalQuantite();
                     quantiteAfter = SelectAfterVenteByReference.getTotalQuantite();
 
-                    System.out.println(quantiteBefore);
-                    System.out.println(quantiteAfter);
+                    System.out.println("@@@@@@@@@@"+venteBefore.toString());
+                    System.out.println("@@@@@@@@@@"+venteAfter.toString());
 
-                    if(venteBefore != null && venteAfter != null){
-                        StatProduct statProduct = new StatProduct(quantiteBefore,quantiteAfter);
+                    if (venteBefore != null && venteAfter != null) {
+                        StatProduct statProduct = new StatProduct(quantiteBefore, quantiteAfter);
                         menuEmpreinteCarbone.dispose();
-                    } else{
+                    } else {
                         JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                         searchBar.setText("");
                     }
-
+                } catch (IOException | InterruptedException ex) {
+                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Une erreur s'est produite lors de la récupération des données. Veuillez réessayer plus tard.", "Erreur de récupération des données", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
             }
         }
     }
+
 
 
 

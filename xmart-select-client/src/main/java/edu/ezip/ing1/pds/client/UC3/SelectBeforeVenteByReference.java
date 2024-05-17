@@ -88,8 +88,6 @@ public class SelectBeforeVenteByReference extends ClientRequest<Object, Ventes> 
                 for (final Vente vente : ventes.getVentes()) {
                     asciiTable.addRule();
                     asciiTable.addRow(vente.getReference(), vente.getQuantite(), vente.getScore(), vente.getEmpreinte());
-//                    int Qtt = vente.getQuantite();
-//                    Qtt=Qtt+Qtt;
                     dernierVente =vente;
                 }
                 asciiTable.addRule();
