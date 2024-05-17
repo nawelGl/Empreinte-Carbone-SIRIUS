@@ -142,6 +142,7 @@ class RechercheReferenceUC3 implements ActionListener {
                         JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
                         searchBar.setText("");
                     }
+
                 }
             } catch (Exception ex) {
                 throw new RuntimeException(ex);

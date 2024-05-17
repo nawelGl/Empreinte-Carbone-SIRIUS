@@ -78,6 +78,16 @@ public class StatScore extends JFrame implements ActionListener {
         listE = generateSalesList(VentesE, dateList);
 
 
+//
+//        System.out.println("~~~~~~~~~confirm list ~~~~~~~~~~~");
+//        System.out.println(listA);
+//        System.out.println(listB);
+//        System.out.println(listC);
+//        System.out.println(listD);
+//        System.out.println(listE);
+
+
+
 
 
         // installation de frame
@@ -154,7 +164,7 @@ public class StatScore extends JFrame implements ActionListener {
 
 
 
-        //--------------add-----------------
+        //--------------ajout-----------------
         mainPanel.add(chartPanel);
 
         mainPanel.add(photoLabelA);
@@ -214,8 +224,6 @@ public class StatScore extends JFrame implements ActionListener {
             Workbook workbook = new HSSFWorkbook();
             Sheet sheet = workbook.createSheet("Statistique par produit");
 
-
-            //add the correct data in file
             Object[][] data = {
                     {"", "2023-05", "2023-06","2023-07","2023-08",
                             "2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04"},

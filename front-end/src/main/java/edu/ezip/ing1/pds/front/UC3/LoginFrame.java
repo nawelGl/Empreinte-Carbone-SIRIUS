@@ -32,6 +32,7 @@ public class LoginFrame implements ActionListener {
 
 
 
+    //Todo creer le table user?
     public LoginFrame(){
 
         Request request = new Request();
@@ -128,6 +129,10 @@ public class LoginFrame implements ActionListener {
         secondPanel.add(loginBtt);
 
         mainPanel.add(secondPanel);
+
+
+
+        //----ajout au frame
 
 
         loginFrame.setVisible(true);
