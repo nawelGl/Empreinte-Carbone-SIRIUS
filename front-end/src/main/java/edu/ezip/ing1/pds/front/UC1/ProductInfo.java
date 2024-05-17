@@ -88,20 +88,6 @@ public class ProductInfo implements ActionListener {
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
 
-        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
-        JButton backButton=new JButton(backIcon);
-        //new JButton(backIcon);
-        backButton.setBounds(1330,640,60,60);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            EcranAcceuil   ecranAcceuil= new EcranAcceuil();
-            productInfoFrame.dispose();
-
-            }
-        });
-        mainPanel.add(backButton);
-
         productInfoFrame.getContentPane().add(mainPanel);
 
 

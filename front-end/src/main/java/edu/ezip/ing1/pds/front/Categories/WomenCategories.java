@@ -53,13 +53,13 @@ public class WomenCategories extends CategoriesTemplate implements ActionListene
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
 
-//            try{
-//                sousCategorieA = SelectSousCategorieAByName.launchSelectSousCatAByName(button.getText());
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            } catch (InterruptedException ex) {
-//                throw new RuntimeException(ex);
-//            }
+            try{
+                sousCategorieA = SelectSousCategorieAByName.launchSelectSousCatAByName(button.getText());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
 
             if(button.getText().equals("Vêtements de sport")){
                 MenSportswear menSportswear = new MenSportswear();
