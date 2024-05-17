@@ -54,7 +54,7 @@ public class XMartCityService {
 
         SELECT_3_SUGGESTIONS("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? AND \"empreinte\" < ? AND \"couleur\" = ? AND \"reference\" != ? ORDER BY \"empreinte\" ASC LIMIT 3"),
 
-    SELECT_ALL_PRODUCTS_BY_CATEGORIES("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? "),
+        SELECT_ALL_PRODUCTS_BY_CATEGORIES("SELECT * FROM  \"ezip-ing1\".produit WHERE \"idCategorie\" = ? AND \"idSousCatA\" = ? AND \"idSousCatB\" = ? "),
 
         SELECT_ALL_SCORE("SELECT * FROM \"ezip-ing1\".score"),
 
@@ -95,7 +95,9 @@ public class XMartCityService {
         SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit "),
 
 
-        DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;");
+        DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;"),
+
+        SELECT_ALL_USER("SELECT identifiant, password FROM \"ezip-ing1\".user;");
 
 
 
@@ -1004,6 +1006,30 @@ public class XMartCityService {
                     } catch(Exception exception){
                         response = new Response(request.getRequestId(), "Error executing DELETE_PATH query");
                         logger.error("Error executing DELETE_PATH query: {}", exception.getMessage());
+                    }
+                    break;
+
+                case "SELECT_ALL_USER": // requête SELECT ALL USER
+                    try {
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_USER.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Users users = new Users();
+
+                        while (resultSet.next()) {
+                            User user = new User();
+                            user.build(resultSet);
+                            users.add(user);
+                        }
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(users);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    }catch (SQLException | JsonProcessingException e){
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_USER query");
+                        logger.error("Error executing SELECT_All_USER query: {}", e.getMessage());
+                    }catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
                     }
                     break;
 

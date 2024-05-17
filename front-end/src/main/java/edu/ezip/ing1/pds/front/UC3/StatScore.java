@@ -62,7 +62,6 @@ public class StatScore extends JFrame implements ActionListener {
             request.setRequestContent("E");
             VentesE= SelectVenteByScore.launchSelectVenteByScore(request);
 
-            System.out.println("@@@@@@@@@@@@@@@@@@@"+VentesA.getVenteScores().toString());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -253,6 +252,8 @@ public class StatScore extends JFrame implements ActionListener {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }else if (result == JFileChooser.CANCEL_OPTION) {
+            return ;
         }
 
     }

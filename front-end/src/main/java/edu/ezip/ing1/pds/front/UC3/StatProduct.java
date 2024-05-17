@@ -249,6 +249,8 @@ public class StatProduct implements ActionListener {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }else if (result == JFileChooser.CANCEL_OPTION) {
+            return ;
         }
 
     }
@@ -288,10 +290,4 @@ public class StatProduct implements ActionListener {
         }
     }
 
-    public int getSalesBefore(){
-        return salesBefore;
-    }
-    public int getSalesAfter(){
-        return salesAfter;
-    }
 }

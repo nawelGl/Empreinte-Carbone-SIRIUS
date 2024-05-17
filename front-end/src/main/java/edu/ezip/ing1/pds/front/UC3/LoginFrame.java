@@ -1,5 +1,9 @@
 package edu.ezip.ing1.pds.front.UC3;
 
+import edu.ezip.ing1.pds.business.dto.User;
+import edu.ezip.ing1.pds.business.dto.Users;
+import edu.ezip.ing1.pds.client.UC3.SelectAllUser;
+import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.AdminMenu;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
@@ -8,17 +12,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+
+
 
 public class LoginFrame implements ActionListener {
     JFrame loginFrame;
     JButton loginBtt;
     JTextField idTxt;
     JTextField pwTxt;
+    static Users users;
+    static User user;
 
-    final String id ="admin"; // à connecter avec la bd
-    final String pwd ="1234";
+
 
     public LoginFrame(){
+
+        Request request = new Request();
+        try {
+            users= SelectAllUser.launchSelectAllUsers(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         //-----setting de base--------
 
@@ -102,8 +120,9 @@ public class LoginFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if(e.getSource()==loginBtt) {
-            if (id.equals(idTxt.getText()) && pwd.equals(pwTxt.getText())){
+            if (authenticateUser()){
             loginFrame.dispose();
             AdminMenu adminMenu=new AdminMenu();
         }else {
@@ -111,6 +130,21 @@ public class LoginFrame implements ActionListener {
             }
         }
 
+    }
+
+    public boolean authenticateUser(){
+        boolean loginSuccess=false;
+        String enteredId = idTxt.getText();
+        String enteredPassword = pwTxt.getText();
+
+        for(User user : users.getUsers()){
+            if(user.getIdentifiant().equals(enteredId) && String.valueOf(user.getPassword()).equals(enteredPassword)){
+                loginSuccess = true;
+                break;
+            }
+        }
+
+        return loginSuccess;
     }
 
 
