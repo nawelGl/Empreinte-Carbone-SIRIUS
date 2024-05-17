@@ -1,3 +1,5 @@
+package edu.ezip.ing1.pds.front;
+
 import edu.ezip.ing1.pds.business.dto.Marque;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
 import edu.ezip.ing1.pds.front.MethodesFront;
