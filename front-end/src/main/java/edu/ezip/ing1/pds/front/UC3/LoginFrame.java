@@ -143,8 +143,9 @@ public class LoginFrame implements ActionListener {
 
         if(e.getSource()==loginBtt) {
             if (authenticateUser()){
-            loginFrame.dispose();
+
             AdminMenu adminMenu=new AdminMenu();
+                loginFrame.dispose();
         }else {
             JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe inconnu");
             }

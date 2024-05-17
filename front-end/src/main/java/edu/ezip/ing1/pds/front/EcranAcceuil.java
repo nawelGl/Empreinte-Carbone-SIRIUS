@@ -120,8 +120,9 @@ public class EcranAcceuil implements ActionListener {
 
         if(e.getSource()==boutonUC3) {
 
-            acceuilApp.dispose();
+
             LoginFrame loginFrame = new LoginFrame();
+            acceuilApp.dispose();
         }
     }
 }
