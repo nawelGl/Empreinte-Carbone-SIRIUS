@@ -273,7 +273,6 @@ public class PathManagement implements ActionListener{
             }
         } else if (e.getSource() == validate) {
             if (canValidate) {
-
                 aisleNumber = (int) comboBox.getSelectedItem();
                 String responseBody = "";
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -331,7 +330,6 @@ public class PathManagement implements ActionListener{
             validateDeletion.setBounds(160, 370, 175, 40);
             validateDeletion.addActionListener(this);
             actionButtonsPanel.add(validateDeletion);
-            //TODO : Requete de suppression d'un chemin :
         }else if (e.getSource() == backMenu){
             PathManagement pathManagement = new PathManagement();
             pathManagementFrame.dispose();

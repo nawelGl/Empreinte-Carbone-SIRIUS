@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ProductMapping implements ActionListener{
-
     protected static Logger loggerProductMapping;
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
@@ -51,7 +50,6 @@ public class ProductMapping implements ActionListener{
     public ProductMapping(){
 
         loggerProductMapping = LogManager.getLogger(ProductMapping.class);
-        loggerProductMapping.info("Dans ProductMapping (test pour le logger).");
 
         productMappingFrame = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
@@ -71,7 +69,7 @@ public class ProductMapping implements ActionListener{
         //======================================================================================
 
         if(!requestHasFailed){
-            //================================ Select floor by ID =================================
+            //================================ Select floor by ID ================================
             try {
                 floor = SelectEtageById.lauchSelectEtageById(valueOf(place.getIdEtage()));
             } catch (Exception e) {
@@ -80,6 +78,7 @@ public class ProductMapping implements ActionListener{
                 JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 productMappingFrame.dispose();
             }
+            //===================================================================================
         }
 
         if(!requestHasFailed){

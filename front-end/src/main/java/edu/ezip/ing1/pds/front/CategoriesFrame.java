@@ -1,13 +1,22 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.SousCategorieB;
+import edu.ezip.ing1.pds.business.dto.SousCategoriesB;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class CategoriesFrame {
     JFrame categorieFrame = new JFrame();
+    //Récupérer les sous catégories B de là ou on a appuyé
+    //PB : comment avoir dans quelle frame on a appuyé en dernier ?
+    //passer diretement la collection en parametres du constructeur
+    SousCategorieB sous_categorie_B;
 
-    public CategoriesFrame(){
+    public CategoriesFrame(SousCategorieB sous_categories_B){
+        this.sous_categorie_B = sous_categorie_B;
+
         categorieFrame.setTitle("Choisissez un produit");
         categorieFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
         categorieFrame.setResizable(false);
