@@ -30,7 +30,7 @@ public class SelectVenteByScore extends ClientRequest<Object, VenteScores> {
     private static final String requestOrder = "SELECT_VENTE_BY_SCORE";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
-    protected static int totalQuantite;
+
 
 
 
@@ -65,7 +65,7 @@ public class SelectVenteByScore extends ClientRequest<Object, VenteScores> {
                 birthdate++, request, null, requestBytes);
         clientRequests.push(clientRequest);
 
-        totalQuantite=0;
+
         try {
             while (!clientRequests.isEmpty()) {
                 final ClientRequest joinedClientRequest = clientRequests.pop();
