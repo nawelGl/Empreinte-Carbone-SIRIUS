@@ -165,7 +165,6 @@ public class LoginFrame implements ActionListener {
                 break;
             }
         }
-
         return loginSuccess;
     }
 

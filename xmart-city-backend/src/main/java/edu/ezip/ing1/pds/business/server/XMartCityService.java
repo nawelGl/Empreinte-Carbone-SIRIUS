@@ -97,11 +97,8 @@ public class XMartCityService {
 
         SELECT_SOUS_CATEGORIE_B_BY_NAME("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"nom\" = ?"),
 
-        SELECT_SOUS_CATEGORIE_A_BY_NAME("SELECT * FROM  \"ezip-ing1\".\"sousCategorieA\" WHERE \"nom\" = ?"),
 
-        DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;"),
-
-        SELECT_ALL_USER("SELECT identifiant, password FROM \"ezip-ing1\".user;");
+        DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;");
 
 
 
@@ -947,8 +944,6 @@ public class XMartCityService {
 
                 case "SELECT_ALL_USER": // requête SELECT ALL USER
                     try {
-
-                        System.out.println("@@@@@@@@@@@@@@@@@@verify@@@@@@@@@@@@@");
                         PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_USER.query);
                         ResultSet resultSet = selectStatement.executeQuery();
 
@@ -959,7 +954,7 @@ public class XMartCityService {
                             user.build(resultSet);
                             users.add(user);
                         }
-                        System.out.println(users.toString());
+
                         ObjectMapper objectMapper = new ObjectMapper();
                         String responseBody = objectMapper.writeValueAsString(users);
 
@@ -1039,33 +1034,6 @@ public class XMartCityService {
                         logger.error("Error executing DELETE_PATH query: {}", exception.getMessage());
                     }
                     break;
-
-                case "SELECT_ALL_USER": // requête SELECT ALL USER
-                    try {
-
-                        System.out.println("@@@@@@@@@@@@@@@@@@verify@@@@@@@@@@@@@");
-                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_USER.query);
-                        ResultSet resultSet = selectStatement.executeQuery();
-
-                        Users users = new Users();
-
-                        while (resultSet.next()) {
-                            User user = new User();
-                            user.build(resultSet);
-                            users.add(user);
-                        }
-                        System.out.println(users.toString());
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        String responseBody = objectMapper.writeValueAsString(users);
-
-                        response = new Response(request.getRequestId(), responseBody);
-                    }catch (SQLException | JsonProcessingException e){
-                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_USER query");
-                        logger.error("Error executing SELECT_All_USER query: {}", e.getMessage());
-                    }catch (NoSuchFieldException e) {
-                        throw new RuntimeException(e);
-                    }
-                        break;
 
                 case "SELECT_SOUS_CATEGORIE_B_BY_NAME" :
                     try{
