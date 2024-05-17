@@ -4,6 +4,7 @@ package edu.ezip.ing1.pds.front.UC3;
 import edu.ezip.ing1.pds.business.dto.Vente;
 import edu.ezip.ing1.pds.client.UC3.SelectAfterVenteByReference;
 import edu.ezip.ing1.pds.client.UC3.SelectBeforeVenteByReference;
+import edu.ezip.ing1.pds.client.commons.ClientRequest;
 import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.*;
 
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 class RechercheReferenceUC3 implements ActionListener {
 
@@ -30,7 +32,7 @@ class RechercheReferenceUC3 implements ActionListener {
     Boolean referenceIsNotAnInt = false;
 
 
-    String titreLabelSecondaire ;
+    String titreLabelSecondaire;
 
     String titreHeader;
     int x;
@@ -39,7 +41,7 @@ class RechercheReferenceUC3 implements ActionListener {
     JButton boutonCategories = new JButton();
 
     //Constructeur :
-    public RechercheReferenceUC3(String titreFrame, String titreHeader, String titreLabelSecondaire, int x){
+    public RechercheReferenceUC3(String titreFrame, String titreHeader, String titreLabelSecondaire, int x) {
         //Paramétrages de base :
         menuEmpreinteCarbone = new JFrame();
         menuEmpreinteCarbone.setTitle(titreFrame);
@@ -57,9 +59,23 @@ class RechercheReferenceUC3 implements ActionListener {
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         menuEmpreinteCarbone.getContentPane().add(BorderLayout.CENTER, mainPanel);
 
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccueilUC3 accueilUC3= new AccueilUC3();
+                menuEmpreinteCarbone.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
+
         //----------panel secondaire--------------
         //JPanel secondPanel = new JPanel();
-        RoundedPanel secondPanel = new RoundedPanel(60,60);
+        RoundedPanel secondPanel = new RoundedPanel(60, 60);
         secondPanel.setLayout(null);
         secondPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         //secondPanel.setSize(new Dimension(30, 100));
@@ -77,7 +93,7 @@ class RechercheReferenceUC3 implements ActionListener {
         searchBar.setBounds(80, 150, 650, 40);
         boutonConfirmer = new JButton("Valider");
         boutonConfirmer.addActionListener(this);
-        boutonConfirmer.setBounds(360,230, 80, 30);
+        boutonConfirmer.setBounds(360, 230, 80, 30);
         secondPanel.add(searchBar);
         secondPanel.add(boutonConfirmer);
 
@@ -93,47 +109,61 @@ class RechercheReferenceUC3 implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == boutonConfirmer){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == boutonConfirmer) {
             try {
                 String refEnString = searchBar.getText();
-                try{
+                try {
                     Integer refEnInt = Integer.parseInt(refEnString);
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     System.out.println("La référence entrée n'est pas un String : " + ex.getMessage());
                     referenceIsNotAnInt = true;
                 }
 
-                if(referenceIsNotAnInt){
+                if (referenceIsNotAnInt) {
                     JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
                     searchBar.setText("");
                     referenceIsNotAnInt = false;
                 } else {
                     Request request = new Request();
                     request.setRequestContent(refEnString);
-                    venteBefore = SelectBeforeVenteByReference.launchSelectVenteByReference(request);
-                    venteAfter= SelectAfterVenteByReference.launchSelectVenteByReference(request);
 
+                    //launch query and take venteBefore/After
+                    venteBefore = SelectBeforeVenteByReference.launchSelectVenteByReference(request);
+                    venteAfter = SelectAfterVenteByReference.launchSelectVenteByReference(request);
+
+                    //take quantity of sales Before/After
                     quantiteBefore = SelectBeforeVenteByReference.getTotalQuantite();
                     quantiteAfter = SelectAfterVenteByReference.getTotalQuantite();
 
-                    System.out.println(quantiteBefore);
-                    System.out.println(quantiteAfter);
+                    if (ClientRequest.isConnectionRefused() == true) {
+                        searchBar.setText("");
+                        JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 404] Attention, la connexion avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connexion refusée", JOptionPane.ERROR_MESSAGE);
+                        referenceIsNotAnInt = false;
+                    } else {
+                        if (referenceIsNotAnInt) {
+                            JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 405] Attention, la référence que vous avez entrée contient des caractères interdits. Veuillez réessayer en entrant des chiffres uniquement.", "[ERREUR 405] - Format de référence incorrect.", JOptionPane.ERROR_MESSAGE);
+                            searchBar.setText("");
+                            referenceIsNotAnInt = false;
+                        } else {
 
-                    if(venteBefore != null && venteAfter != null){
-                        StatProduct statProduct = new StatProduct(quantiteBefore,quantiteAfter);
-                        menuEmpreinteCarbone.dispose();
-                } else{
-                    JOptionPane.showMessageDialog(menuEmpreinteCarbone, "Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
-                    searchBar.setText("");
-                }
+                            if (venteBefore != null && venteAfter != null) {
+                                StatProduct statProduct = new StatProduct(quantiteBefore, quantiteAfter);
+                                menuEmpreinteCarbone.dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(menuEmpreinteCarbone, "[ERREUR 406] Attention, cette référence produit n'existe pas. Veuillez réessayer.", "Référence produit inconnue", JOptionPane.ERROR_MESSAGE);
+                                searchBar.setText("");
+                            }
+                        }
+                    }
                 }
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+
+
         }
+
     }
-
-
 
 }

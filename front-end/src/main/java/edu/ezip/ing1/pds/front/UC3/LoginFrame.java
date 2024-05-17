@@ -1,25 +1,47 @@
 package edu.ezip.ing1.pds.front.UC3;
 
+
+import edu.ezip.ing1.pds.business.dto.User;
+import edu.ezip.ing1.pds.business.dto.Users;
+import edu.ezip.ing1.pds.client.UC3.SelectAllUser;
+import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.AdminMenu;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
+
+import edu.ezip.ing1.pds.front.*;
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.io.IOException;
+import java.util.Objects;
+
 
 public class LoginFrame implements ActionListener {
     JFrame loginFrame;
     JButton loginBtt;
     JTextField idTxt;
     JTextField pwTxt;
+    static Users users;
+    static User user;
 
-    final String id ="admin"; // à connecter avec la bd
-    final String pwd ="1234";
 
-    //Todo creer le table user?
+
     public LoginFrame(){
+
+        Request request = new Request();
+        try {
+            users= SelectAllUser.launchSelectAllUsers(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         //-----setting de base--------
 
@@ -37,6 +59,21 @@ public class LoginFrame implements ActionListener {
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         loginFrame.getContentPane().add(BorderLayout.CENTER, mainPanel);
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EcranAcceuil ecranAcceuil= new EcranAcceuil();
+                loginFrame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
+
 
         //----------panel secondaire--------------
         //JPanel secondPanel = new JPanel();
@@ -93,10 +130,6 @@ public class LoginFrame implements ActionListener {
         mainPanel.add(secondPanel);
 
 
-
-        //----ajout au frame
-
-
         loginFrame.setVisible(true);
 
 
@@ -107,8 +140,9 @@ public class LoginFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if(e.getSource()==loginBtt) {
-            if (id.equals(idTxt.getText()) && pwd.equals(pwTxt.getText())){
+            if (authenticateUser()){
             loginFrame.dispose();
             AdminMenu adminMenu=new AdminMenu();
         }else {
@@ -116,6 +150,21 @@ public class LoginFrame implements ActionListener {
             }
         }
 
+    }
+
+    public boolean authenticateUser(){
+        boolean loginSuccess=false;
+        String enteredId = idTxt.getText();
+        String enteredPassword = pwTxt.getText();
+
+        for(User user : users.getUsers()){
+            if(user.getIdentifiant().equals(enteredId) && String.valueOf(user.getPassword()).equals(enteredPassword)){
+                loginSuccess = true;
+                break;
+            }
+        }
+
+        return loginSuccess;
     }
 
 

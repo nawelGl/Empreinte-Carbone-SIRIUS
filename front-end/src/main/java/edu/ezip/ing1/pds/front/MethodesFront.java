@@ -21,6 +21,8 @@ import static java.lang.String.valueOf;
 public class MethodesFront {
     private final static String LoggingLabel = "F r o n t - M e t h o d e s ";
     private static final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+
+
     // Header for frames
 
     public static void header(JFrame frame, String titre, int x) {
@@ -79,7 +81,6 @@ public class MethodesFront {
         int x = (panelWidth - labelWidth) / 2;
         int y = (panelHeight - labelHeight) / 2;
 
-        // Définir les coordonnées et la taille du label
         label.setBounds(x, y, labelWidth, labelHeight);
     }
 
@@ -100,7 +101,6 @@ public class MethodesFront {
         carbonFootPrint=distance*coeff*(poids/1000)/1000;
         BigDecimal bd = new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP);
         return bd.doubleValue();
-       // return carbonFootPrint;
 
     }
 
@@ -161,13 +161,13 @@ public class MethodesFront {
 
 
 
-        logger.warn("ATRIBUATEZ SCORE FAILED");
+        logger.warn("ATTRIBUTED SCORE FAILED");
         return "Erreur hors borne";
     }
 
 
     public static JLabel setlabelIconScore(String scoreLetter) {
-        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
+        JLabel label = new JLabel();
 
 
         switch (scoreLetter) {

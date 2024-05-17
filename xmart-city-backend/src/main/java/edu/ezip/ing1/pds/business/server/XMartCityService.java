@@ -65,22 +65,23 @@ public class XMartCityService {
 
         UPDATE_INFO_PRODUCT("UPDATE \"ezip-ing1\".produit  SET \"empreinte\" = ?, \"score\" = ?  WHERE \"reference\" = ?"),
         UPDATE_BORNES_SCORE("UPDATE \"ezip-ing1\".score  SET \"borneInf\" = ?, \"borneSup\" = ?  WHERE \"lettreScore\" = ?"),
+        SELECT_ALL_USER("SELECT identifiant, password FROM \"ezip-ing1\".user;"),
 
 
-        SELECT_BESTSELLER_BEFORE("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
+        SELECT_BESTSELLER_BEFORE("SELECT reference, score, taille, genre, empreinte, prix ,CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE vend.\"date\" < magasin.\"dateInstallation\"\n" +
-                "GROUP BY reference, score\n" +
+                "GROUP BY reference, score , taille, genre, empreinte, prix\n" +
                 "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
-        SELECT_BESTSELLER_AFTER("SELECT reference, score, CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
+        SELECT_BESTSELLER_AFTER("SELECT reference, score, taille, genre, empreinte, prix ,CAST(SUM(vend.quantite) AS INTEGER) AS sum\n" +
                 "FROM \"ezip-ing1\".vend\n" +
                 "INNER JOIN \"ezip-ing1\".produit ON vend.\"idProduit\" = produit.\"idProduit\"\n" +
                 "INNER JOIN \"ezip-ing1\".magasin ON vend.\"idMagasin\" = magasin.\"idMagasin\"\n" +
                 "WHERE vend.\"date\" > magasin.\"dateInstallation\"\n" +
-                "GROUP BY reference, score\n" +
+                "GROUP BY reference, score , taille, genre, empreinte, prix\n" +
                 "ORDER BY SUM(vend.quantite) DESC\n" +
                 "LIMIT 3;"),
 
@@ -1074,6 +1075,33 @@ public class XMartCityService {
                         response = new Response(request.getRequestId(), "Error executing SELECT_SOUS_CATEGORIE_A_BY_NAME query");
                         logger.error("Error executing SELECT_SOUS_CATEGORIE_A_BY_NAME query: {}", e.getMessage());
                     } catch (NoSuchFieldException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "SELECT_ALL_USER": // requête SELECT ALL USER
+                    try {
+
+                        System.out.println("@@@@@@@@@@@@@@@@@@verify@@@@@@@@@@@@@");
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_ALL_USER.query);
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        Users users = new Users();
+
+                        while (resultSet.next()) {
+                            User user = new User();
+                            user.build(resultSet);
+                            users.add(user);
+                        }
+                        System.out.println(users.toString());
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(users);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    }catch (SQLException | JsonProcessingException e){
+                        response = new Response(request.getRequestId(), "Error executing SELECT_ALL_USER query");
+                        logger.error("Error executing SELECT_All_USER query: {}", e.getMessage());
+                    }catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
                     break;

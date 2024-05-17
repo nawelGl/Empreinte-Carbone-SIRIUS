@@ -11,6 +11,7 @@ import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.front.*;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import static java.lang.String.valueOf;
@@ -127,6 +128,20 @@ public class ProductMapping implements ActionListener{
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProductInfo productInfo=new ProductInfo();
+                productMappingFrame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
 
         ImageIcon leftArrowImage= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheGauche.png")));
         leftArrow = new JButton(leftArrowImage);

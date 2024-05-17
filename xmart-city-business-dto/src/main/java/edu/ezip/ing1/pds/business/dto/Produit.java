@@ -93,6 +93,8 @@ public Produit(){}
     }
 
 
+
+
     // Getters and setters for each field
     public int getIdProduit() {
         return idProduit;

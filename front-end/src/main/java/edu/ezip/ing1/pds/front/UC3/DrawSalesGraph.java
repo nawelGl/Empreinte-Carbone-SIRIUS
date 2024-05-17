@@ -40,11 +40,11 @@ public class DrawSalesGraph extends JPanel {
         JFXPanel fxPanel = new JFXPanel();
         add(fxPanel);
 
-        // JavaFX 작업을 Swing 이벤트 디스패치 스레드 외부에서 실행
         Platform.runLater(() -> {
             initFX(fxPanel);
         });
     }
+
 
     private void initFX(JFXPanel fxPanel) {
         // axis x : months
@@ -85,5 +85,8 @@ public class DrawSalesGraph extends JPanel {
 
         // color decode
         series.getNode().setStyle("-fx-stroke: " + color.toString().replace("0x", "#") + ";");
+    }
+    public void exitApplication() {
+        Platform.exit();
     }
 }

@@ -84,7 +84,7 @@ public class Select3Suggestions extends ClientRequest<Object, Produits>{
                 return produits;
             }
         } catch(Exception e){
-            System.out.println("Erreur : id inexistant");
+            logger.error(e.getMessage());
             return null;
         }
 
