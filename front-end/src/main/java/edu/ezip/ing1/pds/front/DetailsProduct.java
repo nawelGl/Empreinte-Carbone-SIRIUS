@@ -8,11 +8,14 @@ import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -69,6 +72,19 @@ public class DetailsProduct {
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProductInfo productInfo=new ProductInfo();
+                frame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
         frame.add(mainPanel);
 
         //-------Panel Product UC1 --------

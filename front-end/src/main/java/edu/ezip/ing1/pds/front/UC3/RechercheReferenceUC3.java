@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 class RechercheReferenceUC3 implements ActionListener {
 
@@ -57,6 +58,20 @@ class RechercheReferenceUC3 implements ActionListener {
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         menuEmpreinteCarbone.getContentPane().add(BorderLayout.CENTER, mainPanel);
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccueilUC3 accueilUC3= new AccueilUC3();
+                menuEmpreinteCarbone.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
 
         //----------panel secondaire--------------
         //JPanel secondPanel = new JPanel();

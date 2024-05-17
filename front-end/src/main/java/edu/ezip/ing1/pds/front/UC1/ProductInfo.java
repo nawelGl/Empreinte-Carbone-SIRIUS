@@ -19,6 +19,7 @@ import javax.swing.*;
 
 import edu.ezip.ing1.pds.front.*;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
+import edu.ezip.ing1.pds.front.UC3.LoginFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +87,9 @@ public class ProductInfo implements ActionListener {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+
         productInfoFrame.getContentPane().add(mainPanel);
+
 
 
 

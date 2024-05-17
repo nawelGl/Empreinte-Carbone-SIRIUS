@@ -9,9 +9,11 @@ import edu.ezip.ing1.pds.client.UC1.SelectTransportModeByID;
 import edu.ezip.ing1.pds.client.UC1.SelectVilleById;
 import edu.ezip.ing1.pds.client.UpdateBornesScore;
 import edu.ezip.ing1.pds.client.UpdateInfoProduct;
+import edu.ezip.ing1.pds.front.ConfigurationFrame;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RoundedPanel;
 import edu.ezip.ing1.pds.front.Template;
+import edu.ezip.ing1.pds.front.UC3.AccueilUC3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,6 +77,8 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
         calculPanel.setBounds(35, 60,400,600);
 
 
+
+
         JLabel empreinteLabel= new JLabel("Re-calcul des empreintes");
         empreinteLabel.setFont(Template.FONT_TITRES);
         empreinteLabel.setForeground(Color.WHITE);
@@ -95,6 +99,20 @@ private final static String LoggingLabel = "F r o n t - U C 1 - R e c a l c u l 
         scorePanel.setLayout(null);
         scorePanel.setBounds(438,60,932,600);
         scorePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(870,540,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfigurationFrame configurationFrame= new ConfigurationFrame();
+                frame.dispose();
+
+            }
+        });
+        scorePanel.add(backButton);
 
 
         JLabel modifScoreLabel= new JLabel("Modifier les bornes des scores carbone");
