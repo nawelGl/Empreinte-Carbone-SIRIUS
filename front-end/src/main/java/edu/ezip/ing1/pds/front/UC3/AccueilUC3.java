@@ -48,14 +48,14 @@ public class AccueilUC3 extends JFrame implements ActionListener {
         //Initialisation des btt
         salesBtt = new JButton("Vos meilleurs ventes");
         productBtt = new JButton("Statistiques par produit");
-        categoryBtt = new JButton("Statistiques par categorie");
-       // bilanBtt = new JButton("Votre bilan total");
+        categoryBtt = new JButton("Statistiques par Empreinte Score");
+
 
         // Ajout de ActionListener
         salesBtt.addActionListener(this);
         productBtt.addActionListener(this);
         categoryBtt.addActionListener(this);
-        //bilanBtt.addActionListener(this);
+
 
 
 
