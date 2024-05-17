@@ -94,6 +94,9 @@ public class XMartCityService {
                 "ORDER BY TO_CHAR(DATE_TRUNC('month', vend.date), 'YYYY-MM');"),
         SELECT_ALL_REFERENCES("SELECT \"reference\" FROM \"ezip-ing1\".produit "),
 
+        SELECT_SOUS_CATEGORIE_B_BY_NAME("SELECT * FROM  \"ezip-ing1\".\"sousCategorieB\" WHERE \"nom\" = ?"),
+
+        SELECT_SOUS_CATEGORIE_A_BY_NAME("SELECT * FROM  \"ezip-ing1\".\"sousCategorieA\" WHERE \"nom\" = ?"),
 
         DELETE_PATH("DELETE FROM \"ezip-ing1\".point WHERE \"idRayon\" = ?;"),
 
@@ -1034,12 +1037,48 @@ public class XMartCityService {
                     }catch (NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
+                        break;
+
+                case "SELECT_SOUS_CATEGORIE_B_BY_NAME" :
+                    try{
+                        PreparedStatement selectStatement = connection.prepareStatement(Queries.SELECT_SOUS_CATEGORIE_B_BY_NAME.query);
+                        String name = request.getRequestBody().replaceAll("\"", "");
+                        selectStatement.setString(1, name);
+
+                        ResultSet resultSet = selectStatement.executeQuery();
+
+                        SousCategoriesB categories= new SousCategoriesB();
+
+                        while (resultSet.next()) {
+                            SousCategorieB categorie= new SousCategorieB();
+                            categorie.build(resultSet);
+                            System.out.println("Sous cat B to string :");
+                            System.out.println(categories.toString());
+                            categories.add(categorie);
+                        }
+
+                        System.out.println("Sous cat B to string :");
+                        System.out.println(categories.toString());
+
+                        // mapper produits en Json
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        String responseBody = objectMapper.writeValueAsString(categories);
+
+                        response = new Response(request.getRequestId(), responseBody);
+                    } catch (SQLException | JsonProcessingException e) {
+                        response = new Response(request.getRequestId(), "Error executing SELECT_SOUS_CATEGORIE_B_BY_NAME query");
+                        logger.error("Error executing SELECT_SOUS_CATEGORIE_B_BY_NAME query: {}", e.getMessage());
+                    } catch (NoSuchFieldException e) {
+
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 default:
                     // Handle unknown action
                     response = new Response(request.getRequestId(), "Unknown action");
-                    break;
+
+
 
                 }
             }

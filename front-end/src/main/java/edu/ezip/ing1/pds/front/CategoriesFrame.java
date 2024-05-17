@@ -1,13 +1,19 @@
 package edu.ezip.ing1.pds.front;
 
+import edu.ezip.ing1.pds.business.dto.SousCategorieB;
+import edu.ezip.ing1.pds.business.dto.SousCategoriesB;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class CategoriesFrame {
     JFrame categorieFrame = new JFrame();
+    SousCategorieB sous_categorie_B;
 
-    public CategoriesFrame(){
+    public CategoriesFrame(SousCategorieB sous_categorie_B){
+        this.sous_categorie_B = sous_categorie_B;
+
         categorieFrame.setTitle("Choisissez un produit");
         categorieFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
         categorieFrame.setResizable(false);
@@ -27,7 +33,7 @@ public class CategoriesFrame {
         RoundedPanel titlePanel = new RoundedPanel(40, 40);
         titlePanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
         JLabel titleLabel = new JLabel();
-        titleLabel.setText("Produits correspondants à [completer categories] :");
+        titleLabel.setText("Produits correspondants à " + sous_categorie_B.getNomSouscatB() + " :");
         titleLabel.setFont(Template.FONT_TITRES);
         titleLabel.setForeground(Color.WHITE);
         titlePanel.add(titleLabel);

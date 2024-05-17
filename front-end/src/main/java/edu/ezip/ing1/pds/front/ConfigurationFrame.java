@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class ConfigurationFrame implements ActionListener {
     JFrame configurationFrame;
@@ -30,6 +31,20 @@ public class ConfigurationFrame implements ActionListener {
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
         configurationFrame.getContentPane().add(mainPanel);
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminMenu adminMenu= new AdminMenu();
+                configurationFrame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
 
         boutonCalcul =new JButton("<html><center><br><img src='" +
                 getClass().getResource("/carbon2.png") +

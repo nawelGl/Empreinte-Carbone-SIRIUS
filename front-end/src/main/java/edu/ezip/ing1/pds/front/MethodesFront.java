@@ -1,17 +1,12 @@
 package edu.ezip.ing1.pds.front;
 
 import edu.ezip.ing1.pds.business.dto.*;
-import edu.ezip.ing1.pds.client.Categories.SelectAllCategorie;
-import edu.ezip.ing1.pds.client.Categories.SelectAllProductByCategorie;
-import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
-import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
+
 import edu.ezip.ing1.pds.client.UC1.SelectAllScore;
 import edu.ezip.ing1.pds.client.UC1.SelectMarqueById;
-import edu.ezip.ing1.pds.commons.Request;
 import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -21,17 +16,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
-
 import static java.lang.String.valueOf;
 
-//Classe qui contient des méthodes pour initialiser les principaux élémenst des frames.
-
-
 public class MethodesFront {
-
-
     private final static String LoggingLabel = "F r o n t - M e t h o d e s ";
     private static final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+
+
     // Header for frames
 
     public static void header(JFrame frame, String titre, int x) {
@@ -61,8 +52,6 @@ public class MethodesFront {
             }
         });
         headerPanel.add(homeButton);
-
-//
         JPanel nomAppPanel = new JPanel();
         nomAppPanel.setBounds(100,25,200,35);
         nomAppPanel.setBackground(Color.decode(Template.COULEUR_SECONDAIRE));
@@ -72,8 +61,6 @@ public class MethodesFront {
         nomAppLabel.setFont(Template.FONT_TITRES);
         nomAppLabel.setForeground(Color.WHITE);
         nomAppPanel.add(nomAppLabel);
-
-
 
         titreLabel.setFont(new Font(Template.POLICE, Font.BOLD, 24));
         titreLabel.setBorder(new EmptyBorder(25, 20, 0, 0));
@@ -94,7 +81,6 @@ public class MethodesFront {
         int x = (panelWidth - labelWidth) / 2;
         int y = (panelHeight - labelHeight) / 2;
 
-        // Définir les coordonnées et la taille du label
         label.setBounds(x, y, labelWidth, labelHeight);
     }
 
@@ -115,7 +101,6 @@ public class MethodesFront {
         carbonFootPrint=distance*coeff*(poids/1000)/1000;
         BigDecimal bd = new BigDecimal(carbonFootPrint).setScale(1, RoundingMode.HALF_UP);
         return bd.doubleValue();
-       // return carbonFootPrint;
 
     }
 
@@ -176,13 +161,13 @@ public class MethodesFront {
 
 
 
-        logger.warn("ATRIBUATEZ SCORE FAILED");
+        logger.warn("ATTRIBUTED SCORE FAILED");
         return "Erreur hors borne";
     }
 
 
     public static JLabel setlabelIconScore(String scoreLetter) {
-        JLabel label = new JLabel(); // Crée un JLabel pour contenir l'icône
+        JLabel label = new JLabel();
 
 
         switch (scoreLetter) {

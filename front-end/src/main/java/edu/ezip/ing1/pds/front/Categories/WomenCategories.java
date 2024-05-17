@@ -7,9 +7,12 @@ import javax.swing.JButton;
 import edu.ezip.ing1.pds.business.dto.SousCategorieA;
 import edu.ezip.ing1.pds.business.dto.SousCategoriesA;
 import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieA;
+import edu.ezip.ing1.pds.client.Categories.SelectAllSousCategorieB;
+import edu.ezip.ing1.pds.client.Categories.SelectSousCategorieAByName;
 
 public class WomenCategories extends CategoriesTemplate implements ActionListener {
     private SousCategoriesA sous_categories_A;
+    private SousCategorieA sousCategorieA;
     private int x = 0;
     private int y = 0;
 
@@ -49,6 +52,15 @@ public class WomenCategories extends CategoriesTemplate implements ActionListene
 
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
+
+            try{
+                sousCategorieA = SelectSousCategorieAByName.launchSelectSousCatAByName(button.getText());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+
             if(button.getText().equals("Vêtements de sport")){
                 MenSportswear menSportswear = new MenSportswear();
                 categorieFrame.dispose();

@@ -11,6 +11,7 @@ import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.front.*;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import static java.lang.String.valueOf;
@@ -22,7 +23,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ProductMapping implements ActionListener{
-
     protected static Logger loggerProductMapping;
     JFrame productMappingFrame;
     private String productName = RechercheReference.getProduct().getNomProduit();
@@ -51,7 +51,6 @@ public class ProductMapping implements ActionListener{
     public ProductMapping(){
 
         loggerProductMapping = LogManager.getLogger(ProductMapping.class);
-        loggerProductMapping.info("Dans ProductMapping (test pour le logger).");
 
         productMappingFrame = new JFrame();
         productMappingFrame.setSize(Template.LONGUEUR, Template.LARGEUR);
@@ -71,7 +70,7 @@ public class ProductMapping implements ActionListener{
         //======================================================================================
 
         if(!requestHasFailed){
-            //================================ Select floor by ID =================================
+            //================================ Select floor by ID ================================
             try {
                 floor = SelectEtageById.lauchSelectEtageById(valueOf(place.getIdEtage()));
             } catch (Exception e) {
@@ -80,6 +79,7 @@ public class ProductMapping implements ActionListener{
                 JOptionPane.showMessageDialog(productMappingFrame, "[ERREUR 404] Attention, la connection avec le serveur n'a pas pu être établie.", "[ERROR 404] - Connection refusée !", JOptionPane.ERROR_MESSAGE);
                 productMappingFrame.dispose();
             }
+            //===================================================================================
         }
 
         if(!requestHasFailed){
@@ -128,6 +128,20 @@ public class ProductMapping implements ActionListener{
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProductInfo productInfo=new ProductInfo();
+                productMappingFrame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
 
         ImageIcon leftArrowImage= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/flecheGauche.png")));
         leftArrow = new JButton(leftArrowImage);

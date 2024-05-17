@@ -13,6 +13,7 @@ import javax.swing.JButton;
 public class MainCategorie extends CategoriesTemplate implements ActionListener{
 
     Categories categories;
+    private static int idCategorie;
 
     public MainCategorie(){
         super();
@@ -39,18 +40,25 @@ public class MainCategorie extends CategoriesTemplate implements ActionListener{
         }
     }
 
+    public int getIdCategorie() {
+        return idCategorie;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             if(button.getText().equals("Hommes")){
+                idCategorie = 2;
                 MenCategories menCategories = new MenCategories();
                 categorieFrame.dispose();
             } else if(button.getText().equals("Femmes")){
+                idCategorie = 1;
                 WomenCategories womenCategories = new WomenCategories();
                 categorieFrame.dispose();
             } else if(button.getText().equals("Enfants")){
+                idCategorie = 3;
                 ChildrenCategories childrenCategories = new ChildrenCategories();
                 categorieFrame.dispose();
             }

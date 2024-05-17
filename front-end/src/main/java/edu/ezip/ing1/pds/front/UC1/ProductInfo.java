@@ -19,6 +19,7 @@ import javax.swing.*;
 
 import edu.ezip.ing1.pds.front.*;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
+import edu.ezip.ing1.pds.front.UC3.LoginFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +87,9 @@ public class ProductInfo implements ActionListener {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+
         productInfoFrame.getContentPane().add(mainPanel);
+
 
 
 
@@ -94,6 +97,7 @@ public class ProductInfo implements ActionListener {
 
         try {
 
+            //Get supplementary informations
                 marque= SelectMarqueById.launchSelectMarqueById(valueOf(RechercheReference.getProduct().getIdMarque()));
                 villeDepart = SelectVilleById.launchSelectVilleById(String.valueOf(idVilleDepart));
                 categorie= SelectCategorieByID.launchSelectCategorieById(String.valueOf(idCategorie));
@@ -293,7 +297,7 @@ public class ProductInfo implements ActionListener {
                      suggest1Button = new JButton(nouvelleIconS1);
 
                     suggest1Button.setBounds(80,65,150,150);
-                     suggest1Button.addActionListener(this);
+                    suggest1Button.addActionListener(this);
                     suggestionPanel.add(suggest1Button);
 
                     JLabel priceLabel1 = new JLabel("Prix:"+ suggestProduct1.getPrix() +"€ ");
@@ -314,9 +318,8 @@ public class ProductInfo implements ActionListener {
                      Image nouvelleImageS2 = imageS2.getScaledInstance(85, 89, Image.SCALE_SMOOTH);
 
                      ImageIcon nouvelleIconS2 = new ImageIcon(nouvelleImageS1);
-
                      suggest2Button = new JButton(nouvelleIconS2);
-                    suggest2Button.setBounds(420,65,150,150);
+                     suggest2Button.setBounds(420,65,150,150);
                      suggest2Button.addActionListener(this);
                     suggestionPanel.add(suggest2Button);
 

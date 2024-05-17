@@ -22,6 +22,7 @@ import edu.ezip.ing1.pds.business.dto.Path;
 import edu.ezip.ing1.pds.business.dto.PointChemin;
 import edu.ezip.ing1.pds.client.InsertPointsRequest;
 import edu.ezip.ing1.pds.client.UC2.DeletePath;
+import edu.ezip.ing1.pds.front.ConfigurationFrame;
 import edu.ezip.ing1.pds.front.MethodesFront;
 import edu.ezip.ing1.pds.front.RechercheReference;
 import edu.ezip.ing1.pds.front.Template;
@@ -80,6 +81,20 @@ public class PathManagement implements ActionListener{
         mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
+
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfigurationFrame configurationFrame= new ConfigurationFrame();
+                pathManagementFrame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
 
         mapPanel = new JPanel() {
             @Override
@@ -273,7 +288,6 @@ public class PathManagement implements ActionListener{
             }
         } else if (e.getSource() == validate) {
             if (canValidate) {
-
                 aisleNumber = (int) comboBox.getSelectedItem();
                 String responseBody = "";
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -331,7 +345,6 @@ public class PathManagement implements ActionListener{
             validateDeletion.setBounds(160, 370, 175, 40);
             validateDeletion.addActionListener(this);
             actionButtonsPanel.add(validateDeletion);
-            //TODO : Requete de suppression d'un chemin :
         }else if (e.getSource() == backMenu){
             PathManagement pathManagement = new PathManagement();
             pathManagementFrame.dispose();

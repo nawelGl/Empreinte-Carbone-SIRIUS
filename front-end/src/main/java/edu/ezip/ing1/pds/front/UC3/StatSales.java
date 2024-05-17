@@ -375,7 +375,7 @@ public class StatSales extends JFrame {
         ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
         JButton backButton=new JButton(backIcon);
         //new JButton(backIcon);
-        backButton.setBounds(1320,600,60,60);
+        backButton.setBounds(1330,633,60,60);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

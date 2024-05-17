@@ -8,11 +8,14 @@ import edu.ezip.ing1.pds.client.UC2.SelectEmplacementById;
 import edu.ezip.ing1.pds.client.UC2.SelectEtageById;
 import edu.ezip.ing1.pds.client.UC2.SelectPointsByIdRayon;
 import edu.ezip.ing1.pds.commons.Request;
+import edu.ezip.ing1.pds.front.UC1.ProductInfo;
 import edu.ezip.ing1.pds.front.UC2.ProductMapping;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -69,6 +72,19 @@ public class DetailsProduct {
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode(Template.COULEUR_PRINCIPALE));
         mainPanel.setLayout(null);
+        ImageIcon backIcon= new ImageIcon(Objects.requireNonNull(MethodesFront.class.getResource("/back.png")));
+        JButton backButton=new JButton(backIcon);
+        //new JButton(backIcon);
+        backButton.setBounds(1330,640,60,60);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProductInfo productInfo=new ProductInfo();
+                frame.dispose();
+
+            }
+        });
+        mainPanel.add(backButton);
         frame.add(mainPanel);
 
         //-------Panel Product UC1 --------
@@ -102,12 +118,6 @@ public class DetailsProduct {
 
         priceProduct = new JLabel("Prix : " + String.valueOf(produit.getPrix()) + " €");
 
-        //TODO:
-//        try{
-//        marque=SelectMarqueById.launchSelectMarquByRef(valueOf(produit.getReference());
-////    } catch(Exception e){
-////        System.out.println("Erreur sur la récupération des points : " + e.getMessage());
-////    }
 
         try {
             villeProduit = SelectVilleById.launchSelectVilleById(String.valueOf(produit.getIdVilleDepart()));
@@ -138,7 +148,7 @@ public class DetailsProduct {
 
         //------------Positionnement des element------
 
-        nameProduct.setBounds(200, 250, 100, 40);
+        nameProduct.setBounds(200, 250, 200, 40);
         nameProduct.setFont(Template.FONT_ECRITURE2);
         nameProduct.setForeground(Color.WHITE);
         panelProduct.add(nameProduct);
@@ -230,7 +240,6 @@ public class DetailsProduct {
             mapPanel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
-                    System.out.println("Dans override si path est pas null.");
                     super.paintComponent(g);
                     Graphics2D g2d = (Graphics2D) g;
                     // Épaisseur de la ligne (chemin)
