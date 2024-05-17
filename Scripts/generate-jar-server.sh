@@ -1,5 +1,4 @@
-#revenir au repertoir du proto
-cd ../"xmart-city-backend"
-#Exécute la commande Maven pour construire le jar
+cd ..
+cd /"xmart-city-backend"
 mvn clean install
 mvn clean package

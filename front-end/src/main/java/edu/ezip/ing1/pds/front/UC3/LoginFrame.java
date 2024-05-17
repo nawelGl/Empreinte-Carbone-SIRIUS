@@ -30,9 +30,6 @@ public class LoginFrame implements ActionListener {
     static Users users;
     static User user;
 
-
-
-    //Todo creer le table user?
     public LoginFrame(){
 
         Request request = new Request();
@@ -148,8 +145,8 @@ public class LoginFrame implements ActionListener {
 
         if(e.getSource()==loginBtt) {
             if (authenticateUser()){
-            loginFrame.dispose();
             AdminMenu adminMenu=new AdminMenu();
+            loginFrame.dispose();
         }else {
             JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe inconnu");
             }
