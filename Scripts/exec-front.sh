@@ -1,4 +1,4 @@
 cd ..
-mvn clean install
-cd front-end
+cd /front-end
+mvn compile
 mvn exec:java
