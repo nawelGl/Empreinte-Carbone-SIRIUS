@@ -323,6 +323,26 @@ public class ProductMapping implements ActionListener{
         }
     }
 
+    public void setFloorTitle(JLabel floorTitle) {
+        this.floorTitle = floorTitle;
+    }
+
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+    }
+
+    public int getActualFloor() {
+        return actualFloor;
+    }
+
+    public void setActualFloor(int actualFloor) {
+        this.actualFloor = actualFloor;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
       if(e.getSource() == leftArrow){

@@ -22,6 +22,7 @@ public class StatScoreTest {
 
     @Disabled
     @DisplayName("Test d'exportation des données vers un fichier Excel")
+    @Test
     public void testExportData() {
         // Given
         String outputDir = "/Users/sophia";
