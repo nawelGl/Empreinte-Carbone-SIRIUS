@@ -17,7 +17,7 @@ public class MethodesFrontTest {
         double coordLong1 = -3.7038;
         double coordLat2 = 48.8566;
         double coordLong2 = 2.3522;
-        double coeff = 1605;         
+        double coeff = 1605;
         double poids = 200;
 
         // When
